@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Wire Gauge Calculator | Wire Size, AWG, Ampacity & Distance</title>
+  <meta name="description" content="Use this Wire Gauge Calculator to choose wire size by amps, voltage, distance, material, installation method, ampacity, AWG, mm2, and voltage drop for AC, DC, and 3 phase circuits.">
+  <meta name="keywords" content="wire gauge calculator, wire size calculator, wire gauge, wire size, gauge wire, wire gauge chart, current capacity, amps distance, wire size calculation formula, wire gauge formula, wire gauge converter, mm2, sq mm, voltage drop, DC voltage, solar panels, speakers, 12V, 24V, 120V, 220V, 240V, AC, DC, automotive, car audio, sub panel, conduit, length, distance, watts, current, AWG, inches, insulation, inductance, Wire Barn, India, wire weight capacity, 14 gauge wire, 24 gauge wire, 12 gauge wire">
+  <meta name="author" content="Amps To Watts Calculator">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://ampstowatt.com/wire-gauge-calculator/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ampstowatt.com/wire-gauge-calculator/">
+  <meta property="og:title" content="Wire Gauge Calculator | Wire Size, AWG, Ampacity & Distance">
+  <meta property="og:description" content="Choose wire gauge from current, voltage, distance, AC/DC type, conduit, insulation, ampacity, and voltage drop. Includes AWG, mm2, speaker wire, battery wire, and 3 phase guidance." />
+  <meta property="og:site_name" content="Amps To Watts Calculator">
+  <meta property="og:locale" content="en_US">
+<link rel="stylesheet" href="/styles.css?v=20260513-premium-header-footer">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What gauge wire do I need?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Choose gauge wire from amps, voltage, distance, material, insulation temperature, conduit fill, and acceptable voltage drop. A wire gauge calculator converts those inputs into an AWG or sq mm wire size."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What size wire calculator should I use for distance?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use a wire size calculator for distance when the run is long or the system is low voltage. Distance raises resistance and voltage drop, so 12V DC and 24V DC systems often need larger wire than short 120V or 240V AC circuits."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much weight can 14 gauge wire hold?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "14 gauge wire has no universal safe hanging weight. Electrical wire is rated for current capacity, not lifting. Use the manufacturer's working load limit for mechanical support."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to Main Content</a>
+    <header class="site-header premium-header" role="banner">
+    <div class="premium-header-inner">
+      <a href="/" class="premium-brand" aria-label="Amps To Watts Calculator home">
+        <span class="premium-brand-mark" aria-hidden="true">AW</span>
+        <span class="premium-brand-copy">
+          <span class="premium-brand-name">Amps To Watts Calculator</span>
+          <span class="premium-brand-line">Electrical calculation suite</span>
+        </span>
+      </a>
+
+      <button class="premium-menu-button" type="button" aria-label="Open navigation" aria-controls="premium-site-nav" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav id="premium-site-nav" class="premium-nav" role="navigation" aria-label="Primary navigation">
+        <a href="/" class="premium-nav-link">Home</a>
+        <a href="/#calculator" class="premium-nav-link">Amps to Watts</a>
+        <a href="/#watts-to-amps" class="premium-nav-link">Watts to Amps</a>
+        <details class="premium-nav-menu">
+          <summary>Voltage</summary>
+          <div class="premium-nav-panel">
+            <a href="/12v-amps-to-watts-calculator/"><span>12V Amps to Watts</span><small>Battery and low-voltage DC loads</small></a>
+            <a href="/120v-amps-to-watts-calculator/"><span>120V Amps to Watts</span><small>North American branch circuits</small></a>
+            <a href="/220v-amps-to-watts-calculator/"><span>220V Amps to Watts</span><small>220 volt appliance loads</small></a>
+            <a href="/230v-calculator/"><span>230V Calculator</span><small>UK, EU, and international mains</small></a>
+            <a href="/240v-amps-to-watts-calculator/"><span>240V Amps to Watts</span><small>High-voltage residential circuits</small></a>
+            <a href="/other-voltages-calculator/"><span>Other Voltages</span><small>Custom voltage power conversion</small></a>
+          </div>
+        </details>
+        <details class="premium-nav-menu">
+          <summary>AC/DC &amp; Phase</summary>
+          <div class="premium-nav-panel">
+            <a href="/ac-amps-to-watts-calculator/"><span>AC Amps to Watts</span><small>RMS voltage and power factor</small></a>
+            <a href="/dc-amps-to-watts-calculator/"><span>DC Amps to Watts</span><small>Battery, LED, and solar DC</small></a>
+            <a href="/single-phase-amps-to-watts-calculator/"><span>Single Phase</span><small>PF x amps x volts</small></a>
+            <a href="/3-phase-amps-to-watts-calculator/"><span>3 Phase</span><small>1.732 x PF x amps x volts</small></a>
+            <a href="/kva-to-watts-calculator/"><span>kVA to Watts</span><small>Apparent power to real power</small></a>
+            <a href="/power-factor/"><span>Power Factor</span><small>Real, apparent, and reactive power</small></a>
+          </div>
+        </details>
+        <details class="premium-nav-menu">
+          <summary>Specialized</summary>
+          <div class="premium-nav-panel">
+            <a href="/amps-to-kw-calculator/"><span>Amps to kW</span><small>Kilowatt load planning</small></a>
+            <a href="/voltage-amps-watts-calculator/"><span>Voltage Amps Watts</span><small>Find V, A, W, kW, or VA</small></a>
+            <a href="/solar-watts-to-amps-calculator/"><span>Solar Watts to Amps</span><small>Panel and charge current</small></a>
+            <a href="/led-watts-to-amps-calculator/"><span>LED Watts to Amps</span><small>Driver and strip sizing</small></a>
+            <a href="/speaker-amp-power-calculator/"><span>Speaker Amp Power</span><small>Audio amplifier planning</small></a>
+            <a href="/amp-power-consumption-calculator/"><span>Amp Power Consumption</span><small>Runtime and energy use</small></a>
+          </div>
+        </details>
+        <details class="premium-nav-menu">
+          <summary>Resources</summary>
+          <div class="premium-nav-panel compact">
+            <a href="/#formulas"><span>Formulas</span></a>
+            <a href="/#tables"><span>Conversion Charts</span></a>
+            <a href="/site-map/"><span>Site Map</span></a>
+            <a href="/about-us/"><span>About</span></a>
+            <a href="/contact-us/"><span>Contact</span></a>
+            <a href="/disclaimer/"><span>Disclaimer</span></a>
+          </div>
+        </details>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="container">
+    <section class="brand-header" aria-label="Hero Section">
+      <div class="brand-badge" role="status"><span class="brand-badge-dot" aria-hidden="true"></span><span>WIRE GAUGE CALCULATOR</span></div>
+      <h1 class="hero-title">Wire Gauge Calculator</h1>
+      <div class="hero-content">
+        <p class="hero-subtitle">A wire gauge calculator selects wire size from current, voltage, distance, material, insulation, installation method, and allowed voltage drop. Use the calculator for ampacity, then use the guide below for AC, DC, 12V, 24V, 120V, 220V, 240V, car audio, solar panels, speakers, battery wire, and 3 phase planning.</p>
+        <p class="hero-subtitle highlight-intro">The main benefit is clear wire size selection before heat, voltage loss, or current capacity becomes a problem. The main parts are amps, volts, length, AWG, mm2, conduit, insulation rating, and voltage drop target.</p>
+      </div>
+    </section>
+
+    <section class="calculator-section" aria-label="Wire Gauge Calculator">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">WG</div>
+        <div class="section-heading">Wire Gauge Calculator</div>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+
+      <div class="two-col calculator-layout">
+        <aside class="visual-panel circuit-visual-panel" aria-label="Wire gauge visualization">
+          <div class="visual-panel-topline"><h4 class="visual-header">Conductor Selection</h4><span class="circuit-status" role="status" aria-live="polite">Ready</span></div>
+          <div class="circuit-diagram-card">
+            <svg viewBox="0 0 520 280" role="img" aria-labelledby="wg-diagram-title"><title id="wg-diagram-title">Wire gauge selection diagram</title>
+              <rect x="60" y="90" width="120" height="80" rx="14" fill="#f8fafc" stroke="#2563eb" stroke-width="4"/><text x="120" y="140" text-anchor="middle" class="diagram-label">CONDUCTOR</text>
+              <rect x="340" y="90" width="120" height="80" rx="14" fill="#fef3c7" stroke="#f59e0b" stroke-width="4"/><text x="400" y="140" text-anchor="middle" class="diagram-label">LOAD</text>
+              <path d="M180 130 H340" stroke="#16a34a" stroke-width="10" stroke-linecap="round"/>
+              <text x="260" y="110" text-anchor="middle" class="diagram-label">AMPACITY</text>
+              <text x="260" y="170" text-anchor="middle" class="diagram-value" id="wg-diagram-size">— AWG</text>
+            </svg>
+          </div>
+          <div class="visual-row compact"><div class="visual-icon current" aria-hidden="true">A</div><div class="visual-info"><div class="visual-label">Current</div><div class="visual-value" id="wg-visual-amps">— A</div></div></div>
+          <div class="visual-row compact"><div class="visual-icon voltage" aria-hidden="true">V</div><div class="visual-info"><div class="visual-label">Voltage</div><div class="visual-value" id="wg-visual-volts">— V</div></div></div>
+          <div class="visual-row compact"><div class="visual-icon power" aria-hidden="true">AWG</div><div class="visual-info"><div class="visual-label">Recommended Size</div><div class="visual-value" id="wg-visual-size">—</div></div></div>
+        </aside>
+
+        <article class="card card-glow calculator-card">
+          <form onsubmit="return false;" aria-label="Wire Gauge Calculator Form">
+            <div class="input-row">
+              <div class="input-group"><label for="wg-amps">Current (Amps)</label><input type="number" id="wg-amps" value="30" min="0.1" step="any"></div>
+              <div class="input-group"><label for="wg-volts">Voltage (Volts)</label><input type="number" id="wg-volts" value="230" min="1" step="any"></div>
+              <div class="input-group"><label for="wg-temp">Ambient Temp (°C)</label><input type="number" id="wg-temp" value="30" min="-20" step="any"></div>
+            </div>
+            <div class="input-row">
+              <div class="input-group"><label for="wg-install">Installation</label><select id="wg-install"><option value="open">Open Air</option><option value="conduit" selected>Conduit</option><option value="buried">Buried</option></select></div>
+            </div>
+            <div class="btn-row"><button class="btn btn-primary" onclick="calcWireGauge()">Calculate Wire Gauge</button></div>
+          </form>
+          <div id="wg-result" class="result-mini" aria-live="polite">
+            <div class="result-mini-unit">RECOMMENDED WIRE SIZE</div>
+            <div class="result-mini-val" id="wg-size">—</div>
+            <div class="result-mini-unit">Max Power | <span id="wg-maxw">—</span> W</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="content-section wire-gauge-article topical-query-section" aria-label="Wire Gauge Calculator Guide">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">AWG</div>
+        <div class="section-heading">Wire Gauge Calculator Formula Guide</div>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+
+      <article class="card content-card">
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">3P</div>
+          <div class="topic-copy">
+            <h2>3 Phase Wire Gauge Calculator</h2>
+            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>→</strong><span><b>Result</b><em>Usable output</em></span></div>
+            <p><strong>A 3 phase wire gauge calculator sizes wire from line current, line voltage, distance, insulation, conduit, and voltage drop.</strong> Use 3 phase current per conductor, not total system watts, when selecting AWG or sq mm. For 220V, 240V, 400V, and 480V AC 3 phase circuits, voltage drop and current capacity must both pass before the wire size is acceptable.</p>
+            <p>3 phase motors, sub panel feeders, transformers, and industrial loads create heat during long duty cycles. Choose copper or aluminum conductor data, confirm the installation temperature, and check local code before final wiring.</p>
+            <div class="topic-mini-diagram" aria-label="3 phase wire diagram">
+              <span>L1</span><i></i><span>LOAD</span><i></i><span>L2</span><b>3 Phase | AWG | V Drop</b>
+            </div>
+          </div>
+        </section>
+
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">50A</div>
+          <div class="topic-copy">
+            <h2>50 Amp Wire Gauge Calculator</h2>
+            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>→</strong><span><b>Result</b><em>Usable output</em></span></div>
+            <p><strong>A 50 amp wire gauge calculator normally starts at 6 AWG copper for many short residential circuits, then adjusts for distance, insulation, temperature, and conduit.</strong> A 50 amp circuit at 120V carries 6,000 watts at unity power factor. A 50 amp circuit at 240V carries 12,000 watts at unity power factor.</p>
+        <p>Long 50 amp runs need voltage drop checks. A wire gauge calculator for distance may recommend a larger conductor than a basic ampacity chart. A sub panel, EV charger, welder, or RV outlet needs breaker, terminal, and local code verification.</p>
+            <div class="topic-mini-card-grid" aria-label="50 amp wire reference">
+              <span><b>50A</b><small>current</small></span><span><b>240V</b><small>voltage</small></span><span><b>6 AWG+</b><small>typical check</small></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">BAT</div>
+          <div class="topic-copy">
+            <h2>Battery Wire Gauge Calculator</h2>
+            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>→</strong><span><b>Result</b><em>Usable output</em></span></div>
+            <p><strong>A battery wire gauge calculator sizes low-voltage DC cable from amps, cable length, system voltage, and voltage drop percentage.</strong> 12V and 24V battery systems lose more usable voltage over the same distance than 120V or 240V AC systems, so battery wire often needs larger AWG or sq mm cable.</p>
+            <p>Use battery wire sizing for inverters, solar panels, charge controllers, DC fuse blocks, automotive wiring, and car audio power cable. Match cable size to current, fuse rating, insulation temperature, and the positive-plus-negative circuit length.</p>
+            <div class="topic-mini-diagram" aria-label="Battery wire sizing diagram">
+              <span>12V</span><i></i><span>FUSE</span><i></i><span>LOAD</span><b>DC Voltage Drop</b>
+            </div>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">SEA</div>
+          <div class="topic-copy">
+            <h2>Blue Sea Wire Gauge Calculator</h2>
+            <p><strong>A Blue Sea wire gauge calculator style chart is used for marine and DC cable runs where amperage, distance, and voltage drop are the main inputs.</strong> Boat wiring, 12V DC panels, and 24V DC battery banks need conservative voltage drop limits for electronics, pumps, lighting, and navigation loads.</p>
+            <p>Some users compare Blue Sea data, Wire Barn charts, and a wire gauge converter before choosing AWG or mm2. Treat every chart as a planning aid, then confirm insulation, conductor material, terminals, and overcurrent protection.</p>
+            <div class="topic-mini-card-grid" aria-label="Marine wire gauge inputs">
+              <span><b>A</b><small>amps</small></span><span><b>FT/M</b><small>distance</small></span><span><b>%V</b><small>drop</small></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">CU</div>
+          <div class="topic-copy">
+            <h2>Copper Wire Gauge Weight Calculator</h2>
+            <p><strong>A copper wire gauge weight calculator estimates conductor mass from AWG, diameter, cross-sectional area, and length.</strong> Copper wire weight is useful for material planning, shipping, recycling, and conduit load estimates. In India and many other markets, wire size is often listed in sq mm or mm2 instead of AWG.</p>
+            <p>14 gauge wire is about 2.08 mm2 and roughly 12.4 lb per 1,000 ft of bare copper. 12 gauge wire is about 3.31 mm2 and weighs more per length. 24 gauge wire is much smaller and is used for low-current signal circuits. Wire weight capacity is not the same as safe hanging weight.</p>
+            <div class="topic-mini-diagram" aria-label="Copper wire weight diagram">
+              <span>AWG</span><i></i><span>mm2</span><i></i><span>kg/m</span><b>Copper Weight</b>
+            </div>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">?</div>
+          <div class="topic-copy">
+            <h2>How a Wire Gauge Calculator Works</h2>
+            <p><strong>A wire gauge calculator works by comparing required current capacity with conductor resistance and voltage drop over distance.</strong> The calculator reads amps, volts, length, conductor material, AC or DC type, and allowed drop, then returns a wire gauge chart result such as AWG or sq mm.</p>
+            <p>The wire size calculation formula uses resistance per length and current. The simple voltage drop form is voltage drop = current x resistance. Resistance changes with wire diameter, conductor material, temperature, and total circuit length.</p>
+            <div class="topic-mini-card-grid" aria-label="Wire gauge calculator inputs">
+              <span><b>A</b><small>current</small></span><span><b>V</b><small>voltage</small></span><span><b>L</b><small>length</small></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">SPK</div>
+          <div class="topic-copy">
+            <h2>Speaker Wire Gauge Calculator Home Theater</h2>
+            <p><strong>A speaker wire gauge calculator for home theater sizes cable from speaker impedance, amplifier watts, distance, and acceptable loss.</strong> Short runs to 8 ohm speakers often work with thinner cable. Long runs, 4 ohm speakers, and high watt systems need larger wire to reduce resistance losses.</p>
+        <p>Home theater speaker wire is commonly 16 AWG, 14 AWG, or 12 AWG. Use 12 gauge wire for long runs or low-impedance speakers when voltage loss becomes noticeable. Speaker wire selection depends on routing through walls, insulation rating, and local low-voltage rules.</p>
+            <div class="topic-mini-diagram" aria-label="Speaker wire home theater diagram">
+              <span>AMP</span><i></i><span>50 ft</span><i></i><span>8 ohm</span><b>Speaker Run</b>
+            </div>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">W</div>
+          <div class="topic-copy">
+            <h2>Speaker Wire Gauge Calculator Watts</h2>
+            <p><strong>A speaker wire gauge calculator watts check converts amplifier output into current through speaker impedance.</strong> Current rises when watts increase or impedance falls. A 400 watt amplifier on a 4 ohm speaker path needs more current capacity than a small surround channel on an 8 ohm speaker path.</p>
+            <p>Use watts, speaker ohms, and cable distance together. Do not size speaker wire from watts alone. Distance and impedance decide whether 16 AWG, 14 AWG, or 12 AWG is the better wire size.</p>
+            <div class="topic-mini-card-grid" aria-label="Speaker watt wire factors">
+              <span><b>W</b><small>watts</small></span><span><b>ohm</b><small>load</small></span><span><b>AWG</b><small>wire</small></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">TX</div>
+          <div class="topic-copy">
+            <h2>Transformer Wire Gauge Calculator</h2>
+        <p><strong>A transformer wire gauge calculator sizes primary and secondary conductors from transformer volts, amps, kVA, duty cycle, and temperature rating.</strong> The primary side and secondary side can require different wire sizes since current changes with voltage.</p>
+        <p>For transformer secondaries, calculate current first, then check wire gauge, conduit, insulation, terminals, and voltage drop. For coils and windings, wire diameter resistance calculation and inductance matter since heat and magnetic behavior change with turns, current, and copper area.</p>
+            <div class="topic-mini-diagram" aria-label="Transformer wire gauge diagram">
+              <span>240V</span><i></i><span>TX</span><i></i><span>24V</span><b>Primary / Secondary</b>
+            </div>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">OHM</div>
+          <div class="topic-copy">
+            <h2>Wire Diameter Resistance Calculation</h2>
+            <p><strong>Wire diameter resistance calculation finds voltage drop from conductor size, material, and total length.</strong> Larger diameter wire has lower resistance. Lower resistance reduces heat and voltage loss when current flows through the conductor.</p>
+            <p>The wire gauge formula links AWG to diameter in inches. A wire gauge converter changes AWG into mm2 or sq mm for international comparison. For AC circuits, long parallel conductors and high frequency loads can add inductance effects, but standard building circuits are usually sized from ampacity and voltage drop first.</p>
+            <div class="formula-display"><strong>Voltage Drop = Current x Resistance</strong></div>
+          </div>
+        </section>
+
+        <section class="topic-block topic-sub">
+          <div class="topic-icon" aria-hidden="true">Q1</div>
+          <div class="topic-copy">
+            <h3>What Gauge Wire Calculator</h3>
+            <p><strong>A what gauge wire calculator returns the AWG or sq mm size needed for a load.</strong> Enter amps, voltage, distance, AC or DC type, and allowed voltage drop. The output should be checked against a wire gauge chart for current capacity.</p>
+          </div>
+        </section>
+
+        <section class="topic-block topic-sub">
+          <div class="topic-icon" aria-hidden="true">Q2</div>
+          <div class="topic-copy">
+            <h3>What Size Wire Calculator</h3>
+        <p><strong>A what size wire calculator chooses conductor size by current capacity and distance.</strong> 12V DC, 24V DC, automotive, car audio, and solar panels often need larger cable since low voltage systems have less voltage drop margin.</p>
+          </div>
+        </section>
+
+        <section class="topic-block topic-sub">
+          <div class="topic-icon" aria-hidden="true">Q3</div>
+          <div class="topic-copy">
+            <h3>How Do I Know What Gauge Wire I Need</h3>
+            <p><strong>You know what gauge wire you need by checking amps, voltage, length, insulation, conduit, material, and voltage drop.</strong> Use ampacity first for heat safety, then use distance calculation for performance.</p>
+          </div>
+        </section>
+
+        <section class="topic-block topic-sub">
+          <div class="topic-icon" aria-hidden="true">Q4</div>
+          <div class="topic-copy">
+            <h3>What Gauge Wire Do I Need</h3>
+            <p><strong>The gauge wire you need is the smallest conductor that meets current capacity and voltage drop limits.</strong> 14 gauge wire is common for light branch circuits, 12 gauge wire is common for higher residential branch circuits, and final sizing depends on code and installation conditions.</p>
+          </div>
+        </section>
+
+        <section class="topic-block topic-sub">
+          <div class="topic-icon" aria-hidden="true">CAL</div>
+          <div class="topic-copy">
+            <h3>How to Calculate Gauge of Wire Needed</h3>
+            <p><strong>To calculate gauge of wire needed, divide watts by volts to get current, choose AC or DC, enter distance, set voltage drop, and compare the result with an ampacity chart.</strong> Use larger wire when heat, distance, conduit fill, or voltage drop requires it.</p>
+          </div>
+        </section>
+
+        <section class="topic-block topic-sub">
+          <div class="topic-icon" aria-hidden="true">14</div>
+          <div class="topic-copy">
+            <h3>How Much Weight Can 14 Gauge Wire Hold</h3>
+            <p><strong>14 gauge wire has no single safe weight limit for hanging or lifting.</strong> Electrical wire gauge is a current rating and diameter system, not a working load rating system. Use manufacturer mechanical data for support loads.</p>
+          </div>
+        </section>
+
+        <section class="topic-block topic-sub">
+          <div class="topic-icon" aria-hidden="true">NEED</div>
+          <div class="topic-copy">
+            <h3>What Gauge Wire Do I Need Calculator</h3>
+        <p><strong>A what gauge wire do I need calculator gives a starting wire size after amps, volts, distance, and wire material are known.</strong> Use copper or aluminum data correctly since aluminum needs a larger size for the same current capacity.</p>
+          </div>
+        </section>
+
+        <section class="topic-block topic-sub">
+          <div class="topic-icon" aria-hidden="true">DIST</div>
+          <div class="topic-copy">
+            <h3>Wire Gauge Calculator for Distance</h3>
+            <p><strong>A wire gauge calculator for distance prevents excessive voltage drop on long runs.</strong> Enter one-way length, then calculate total circuit length for DC loops and single-phase returns. Long 120V, 220V, 240V, and low-voltage runs often need the next larger AWG.</p>
+          </div>
+        </section>
+
+        <section class="topic-block topic-sub">
+          <div class="topic-icon" aria-hidden="true">DC</div>
+          <div class="topic-copy">
+            <h3>Wire Gauge Calculator for DC</h3>
+            <p><strong>A wire gauge calculator for DC uses current, DC voltage, round-trip cable length, and voltage drop target.</strong> Use this for 12V DC, 24V DC, solar panels, battery banks, automotive circuits, LED strips, and car audio amplifiers.</p>
+          </div>
+        </section>
+
+        <section class="topic-block topic-sub">
+          <div class="topic-icon" aria-hidden="true">SIZE</div>
+          <div class="topic-copy">
+            <h3>Wire Size Calculator for Distance</h3>
+            <p><strong>A wire size calculator for distance chooses the smallest wire that keeps voltage drop below the selected limit.</strong> Use 3% for sensitive loads and 5% when the equipment allows more drop. Verify breaker size, insulation temperature, and conduit fill before installation.</p>
+          </div>
+        </section>
+      </article>
+    </section>
+
+    <section class="faq-section" aria-label="Wire Gauge Calculator FAQ">
+      <div class="section-divider" id="faq">
+        <div class="icon-circle" aria-hidden="true">FAQ</div>
+        <div class="section-heading">Wire Gauge Calculator FAQ</div>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+      <article class="card faq-card static-faq-card">
+                <div class="topic-mini-card-grid faq-quick-grid">
+          <span><b>Direct Answers</b><code>Value first, details second</code></span>
+          <span><b>Formula Check</b><code>Use the correct electrical inputs</code></span>
+          <span><b>Planning Use</b><code>Size wire, breaker, battery, or load</code></span>
+          <span><b>Safety Note</b><code>Verify final work with code</code></span>
+        </div>
+<details open>
+          <summary>What Is a Wire Gauge Calculator 12V Used For?</summary>
+          <p><strong>A wire gauge calculator 12V is used for batteries, solar panels, automotive circuits, LED strips, and car audio loads.</strong> A wire gauge calculator 12V DC check needs careful distance planning since a small voltage drop can become a large percentage of system voltage.</p>
+        </details>
+        <details>
+          <summary>What Is a Wire Gauge Calculator DC Used For?</summary>
+          <p><strong>A wire gauge calculator DC is used for direct current wiring where cable length includes the positive and negative path.</strong> Enter amps, DC voltage, one-way distance, and voltage drop target to size AWG or mm2.</p>
+        </details>
+        <details>
+          <summary>What Is a Wire Gauge Calculator 240V Used For?</summary>
+          <p><strong>A wire gauge calculator 240V is used for dryers, EV chargers, welders, pumps, heaters, and split-phase circuits.</strong> Current capacity sets minimum wire size, and distance can increase wire size for voltage drop control.</p>
+        </details>
+        <details>
+          <summary>What Is a Wire Gauge Calculator AC Used For?</summary>
+          <p><strong>A wire gauge calculator AC is used for 120V, 220V, 230V, and 240V alternating current circuits.</strong> AC sizing must consider breaker rating, conductor temperature, conduit, insulation, phase type, and installation code.</p>
+        </details>
+        <details>
+          <summary>What Is a Wire Gauge Calculator 24V Used For?</summary>
+          <p><strong>A wire gauge calculator 24V is used for battery banks, control systems, small solar systems, RV circuits, and marine DC loads.</strong> 24V has more voltage drop margin than 12V, but long runs still need larger wire.</p>
+        </details>
+        <details>
+          <summary>What Is a Wire Gauge Calculator 120V Used For?</summary>
+          <p><strong>A wire gauge calculator 120V is used for lights, receptacles, small appliances, and branch circuits.</strong> 14 gauge wire and 12 gauge wire are common in residential wiring, but breaker size and local code decide the final conductor.</p>
+        </details>
+        <details>
+          <summary>What Is a Wire Gauge Calculator Car Audio Used For?</summary>
+          <p><strong>A wire gauge calculator car audio sizes amplifier power cable from current draw, battery voltage, fuse size, and cable distance.</strong> High-power amplifiers can need large copper cable since car audio systems operate near 12V to 14.4V.</p>
+        </details>
+        <details>
+          <summary>Can I Convert AWG to mm2?</summary>
+          <p><strong>Yes, an AWG to mm2 wire gauge converter changes American Wire Gauge into square millimeters.</strong> Use mm2 or sq mm when comparing wire sold in India, Europe, and other markets that do not label cable by AWG.</p>
+        </details>
+      </article>
+    </section>
+  </main>
+
+    <footer class="site-footer premium-footer" role="contentinfo">
+    <div class="premium-footer-inner semantic-footer-grid">
+      <section class="premium-footer-brand" aria-label="Site summary">
+        <a href="/" class="premium-footer-logo">
+          <span class="premium-brand-mark" aria-hidden="true">AW</span>
+          <span>Amps To Watts Calculator</span>
+        </a>
+        <p>Professional electrical calculators for current, voltage, real power, apparent power, battery energy, voltage drop, and wire planning.</p>
+        <div class="premium-footer-note">Independent educational resource. Verify safety-critical work with a licensed electrician or qualified engineer.</div>
+      </section>
+
+      <section aria-labelledby="footer-core-tools">
+        <div id="footer-core-tools" class="footer-section-heading">Core Calculators</div>
+        <nav class="premium-footer-links" aria-label="Core calculator links">
+          <a href="/#calculator">Amps to Watts Calculator</a>
+          <a href="/#watts-to-amps">Watts to Amps Calculator</a>
+          <a href="/voltage-amps-watts-calculator/">Voltage Amps Watts Calculator</a>
+          <a href="/calculators/">All Electrical Calculators</a>
+        </nav>
+      </section>
+
+      <section aria-labelledby="footer-voltage-tools">
+        <div id="footer-voltage-tools" class="footer-section-heading">Voltage Calculators</div>
+        <nav class="premium-footer-links" aria-label="Voltage calculator links">
+          <a href="/12v-amps-to-watts-calculator/">12V Amps to Watts</a>
+          <a href="/120v-amps-to-watts-calculator/">120V Amps to Watts</a>
+          <a href="/220v-amps-to-watts-calculator/">220V Amps to Watts</a>
+          <a href="/230v-calculator/">230V Calculator</a>
+          <a href="/240v-amps-to-watts-calculator/">240V Amps to Watts</a>
+          <a href="/other-voltages-calculator/">Other Voltages</a>
+        </nav>
+      </section>
+
+      <section aria-labelledby="footer-phase-tools">
+        <div id="footer-phase-tools" class="footer-section-heading">AC/DC &amp; Phase</div>
+        <nav class="premium-footer-links" aria-label="AC DC and phase calculator links">
+          <a href="/ac-amps-to-watts-calculator/">AC Amps to Watts</a>
+          <a href="/dc-amps-to-watts-calculator/">DC Amps to Watts</a>
+          <a href="/single-phase-amps-to-watts-calculator/">Single Phase Calculator</a>
+          <a href="/3-phase-amps-to-watts-calculator/">3 Phase Calculator</a>
+          <a href="/kva-to-watts-calculator/">kVA to Watts</a>
+          <a href="/power-factor/">Power Factor</a>
+        </nav>
+      </section>
+
+      <section aria-labelledby="footer-special-tools">
+        <div id="footer-special-tools" class="footer-section-heading">Specialized Tools</div>
+        <nav class="premium-footer-links" aria-label="Specialized calculator links">
+          <a href="/amps-to-kw-calculator/">Amps to kW Calculator</a>
+          <a href="/megawatts-to-amps-calculator/">Megawatts to Amps</a>
+          <a href="/solar-watts-to-amps-calculator/">Solar Watts to Amps</a>
+          <a href="/led-watts-to-amps-calculator/">LED Watts to Amps</a>
+          <a href="/speaker-amp-power-calculator/">Speaker Amp Power</a>
+          <a href="/amp-hours-to-watt-hours/">Amp Hours to Watt Hours</a>
+          <a href="/voltage-drop-calculator/">Voltage Drop Calculator</a>
+          <a href="/wire-gauge-calculator/">Wire Gauge Calculator</a>
+        </nav>
+      </section>
+
+      <section aria-labelledby="footer-learning-links">
+        <div id="footer-learning-links" class="footer-section-heading">Learning &amp; Legal</div>
+        <nav class="premium-footer-links" aria-label="Learning and legal links">
+          <a href="/#formulas">Amps to Watts Formula</a>
+          <a href="/#tables">Conversion Charts</a>
+          <a href="/#faq">FAQ</a>
+          <a href="/about-us/">About Us</a>
+          <a href="/contact-us/">Contact Us</a>
+          <a href="/site-map/">Site Map</a>
+          <a href="/privacy-policy/">Privacy Policy</a>
+          <a href="/terms-conditions/">Terms &amp; Conditions</a>
+        </nav>
+      </section>
+    </div>
+
+    <div class="premium-footer-bottom">
+      <p>(c) 2026 Amps To Watts Calculator. Built for clear electrical planning and professional reference.</p>
+    </div>
+  </footer>
+
+  <script src="/script.js" defer></script>
+</body>
+</html>

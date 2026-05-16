@@ -1,0 +1,419 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>DC Calculator: Direct Current Power, Voltage, Amps, Wire, Battery</title>
+  <meta name="description" content="DC Calculator guide for direct current power, voltage, amps, resistance, voltage drop, wire gauge, fuse size, battery load, DC motor, DC cable size, and D&D difficulty class calculators.">
+  <meta name="keywords" content="DC Calculator, DC power calculator, DC voltage calculator, DC current calculator, DC circuit calculator, DC amp calculator, DC wire gauge calculator, DC voltage drop calculator, DC fuse calculator, DC battery calculator, DC calculator 5e, DC calculator DND">
+  <meta name="author" content="Amps To Watts Calculator">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://ampstowatt.com/dc-calculator/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ampstowatt.com/dc-calculator/">
+  <meta property="og:title" content="DC Calculator: Direct Current Power Calculations">
+  <meta property="og:description" content="Calculate DC power, current, voltage, voltage drop, wire gauge, fuse size, battery load, motor values, cable size, and DC to AC conversion.">
+  <meta property="og:site_name" content="Amps To Watts Calculator">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DC Calculator">
+  <meta name="twitter:description" content="DC calculator for direct current watts, amps, volts, batteries, motors, cables, fuses, and voltage drop.">
+  <link rel="stylesheet" href="/styles.css?v=20260513-premium-header-footer">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "What is a DC Calculator?", "acceptedAnswer": { "@type": "Answer", "text": "A DC Calculator finds direct current power, current, voltage, or resistance by using DC formulas such as Pdc = Idc x Vdc and Ohm's law." } },
+      { "@type": "Question", "name": "What is the DC power formula?", "acceptedAnswer": { "@type": "Answer", "text": "The DC power formula is Pdc = Idc x Vdc, where Pdc is power in watts, Idc is current in amps, and Vdc is voltage in volts." } },
+      { "@type": "Question", "name": "Does DC power use power factor?", "acceptedAnswer": { "@type": "Answer", "text": "No. Pure DC power calculations use watts = amps x volts and do not use AC power factor." } },
+      { "@type": "Question", "name": "What does DC Calculator mean in D&D?", "acceptedAnswer": { "@type": "Answer", "text": "In D&D, DC means Difficulty Class. A DC calculator for DND or 5E helps set target numbers for ability checks, saving throws, and spell save DC." } }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to Main Content</a>
+  <header class="site-header premium-header" role="banner">
+    <div class="premium-header-inner">
+      <a href="/" class="premium-brand" aria-label="Amps To Watts Calculator home">
+        <span class="premium-brand-mark" aria-hidden="true">AW</span>
+        <span class="premium-brand-copy">
+          <span class="premium-brand-name">Amps To Watts Calculator</span>
+          <span class="premium-brand-line">Electrical calculation suite</span>
+        </span>
+      </a>
+      <button class="premium-menu-button" type="button" aria-label="Open navigation" aria-controls="premium-site-nav" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav id="premium-site-nav" class="premium-nav" role="navigation" aria-label="Primary navigation">
+        <a href="/" class="premium-nav-link">Home</a>
+        <a href="/#calculator" class="premium-nav-link">Amps to Watts</a>
+        <a href="/#watts-to-amps" class="premium-nav-link">Watts to Amps</a>
+        <details class="premium-nav-menu">
+          <summary>Voltage</summary>
+          <div class="premium-nav-panel">
+            <a href="/12v-amps-to-watts-calculator/"><span>12V Amps to Watts</span><small>Battery and low-voltage DC loads</small></a>
+            <a href="/120v-amps-to-watts-calculator/"><span>120V Amps to Watts</span><small>North American branch circuits</small></a>
+            <a href="/220v-amps-to-watts-calculator/"><span>220V Amps to Watts</span><small>220 volt appliance loads</small></a>
+            <a href="/230v-calculator/"><span>230V Calculator</span><small>UK, EU, and international mains</small></a>
+            <a href="/240v-amps-to-watts-calculator/"><span>240V Amps to Watts</span><small>High-voltage residential circuits</small></a>
+            <a href="/other-voltages-calculator/"><span>Other Voltages</span><small>Custom voltage power conversion</small></a>
+          </div>
+        </details>
+        <details class="premium-nav-menu">
+          <summary>AC/DC &amp; Phase</summary>
+          <div class="premium-nav-panel">
+            <a href="/ac-amps-to-watts-calculator/"><span>AC Amps to Watts</span><small>RMS voltage and power factor</small></a>
+            <a href="/dc-amps-to-watts-calculator/"><span>DC Amps to Watts</span><small>Battery, LED, and solar DC</small></a>
+            <a href="/single-phase-amps-to-watts-calculator/"><span>Single Phase</span><small>PF x amps x volts</small></a>
+            <a href="/3-phase-amps-to-watts-calculator/"><span>3 Phase</span><small>1.732 x PF x amps x volts</small></a>
+            <a href="/kva-to-watts-calculator/"><span>kVA to Watts</span><small>Apparent power to real power</small></a>
+            <a href="/power-factor/"><span>Power Factor</span><small>Real, apparent, and reactive power</small></a>
+          </div>
+        </details>
+        <details class="premium-nav-menu">
+          <summary>Specialized</summary>
+          <div class="premium-nav-panel">
+            <a href="/amps-to-kw-calculator/"><span>Amps to kW</span><small>Kilowatt load planning</small></a>
+            <a href="/voltage-amps-watts-calculator/"><span>Voltage Amps Watts</span><small>Find V, A, W, kW, or VA</small></a>
+            <a href="/solar-watts-to-amps-calculator/"><span>Solar Watts to Amps</span><small>Panel and charge current</small></a>
+            <a href="/led-watts-to-amps-calculator/"><span>LED Watts to Amps</span><small>Driver and strip sizing</small></a>
+            <a href="/speaker-amp-power-calculator/"><span>Speaker Amp Power</span><small>Audio amplifier planning</small></a>
+            <a href="/amp-power-consumption-calculator/"><span>Amp Power Consumption</span><small>Runtime and energy use</small></a>
+          </div>
+        </details>
+        <details class="premium-nav-menu">
+          <summary>Resources</summary>
+          <div class="premium-nav-panel compact">
+            <a href="/#formulas"><span>Formulas</span></a>
+            <a href="/#tables"><span>Conversion Charts</span></a>
+            <a href="/site-map/"><span>Site Map</span></a>
+            <a href="/about-us/"><span>About</span></a>
+            <a href="/contact-us/"><span>Contact</span></a>
+            <a href="/disclaimer/"><span>Disclaimer</span></a>
+          </div>
+        </details>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="container tool-page-container">
+    <section class="brand-header pro-hero tool-page-hero" aria-label="DC Calculator">
+      <div class="brand-badge" role="status"><span class="brand-badge-dot" aria-hidden="true"></span><span>DC Calculator</span></div>
+      <h1 class="hero-title">DC Calculator: The Ultimate Guide to Direct Current Calculations</h1>
+      <div class="hero-content">
+        <p class="hero-subtitle"><strong>A DC Calculator finds direct current power, current, voltage, resistance, voltage drop, wire size, fuse size, battery load, and motor values from known electrical inputs.</strong> Enter amps, volts, watts, or load values, then use the DC power formula or Ohm's law to find the missing variable.</p>
+        <p class="hero-subtitle highlight-intro">Core formula: <strong>Pdc = Idc x Vdc</strong>. Example Problem #1: direct current 51 A and direct voltage 6 V gives <strong>306 W</strong>.</p>
+      </div>
+    </section>
+
+    <section class="calculator-section voltage-pattern-calculator" aria-label="DC Calculator tool">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">CAL</div>
+        <div class="section-heading">Interactive Calculator Tool</div>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+      <div class="two-col calculator-layout">
+      <article class="card card-glow calculator-card mini-tool-calculator" data-mode="amps-to-watts" data-default-volts="12" data-phase="single">
+        <div class="tool-page-label">Interactive Calculator</div>
+        <div class="tool-page-input-grid">
+          <label>Amps (A)<input class="tool-amps" type="number" value="51" min="0" step="any"></label>
+          <label>Watts (W)<input class="tool-watts" type="number" value="306" min="0" step="any"></label>
+          <label>Volts (V)<input class="tool-volts" type="number" value="6" min="0.1" step="any"></label>
+          <label>Power Factor<input class="tool-pf" type="number" value="1" min="0.01" max="1" step="0.01"></label>
+          <label>kVA<input class="tool-kva" type="number" value="1" min="0" step="any"></label>
+          <label>MW<input class="tool-mw" type="number" value="1" min="0" step="any"></label>
+          <label>Hours<input class="tool-hours" type="number" value="5" min="0" step="any"></label>
+          <label>Rate per kWh<input class="tool-rate" type="number" value="0.15" min="0" step="any"></label>
+        </div>
+        <div class="btn-row">
+          <button type="button" class="btn btn-primary tool-calc-button">Calculate</button>
+          <button type="button" class="btn btn-outline btn-sm tool-reset-button">Reset</button>
+        </div>
+        <div class="tool-page-result" aria-live="polite">
+          <span class="result-mini-unit">RESULT</span>
+          <strong class="tool-result-main">Ready</strong>
+          <p class="tool-result-detail">Enter values and press calculate.</p>
+        </div>
+      </article>
+
+      <aside class="visual-panel circuit-visual-panel tool-page-visual" aria-label="DC Calculator diagram">
+        <div class="tool-page-label">Technical Diagram</div>
+        <svg viewBox="0 0 560 240" role="img" aria-label="DC calculator electrical flow diagram">
+          <defs>
+            <marker id="arrow-dc-calculator" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+              <path d="M0,0 L0,6 L9,3 z" fill="#1d4ed8"></path>
+            </marker>
+          </defs>
+          <rect x="28" y="72" width="118" height="72" rx="10" class="tool-svg-source"></rect>
+          <rect x="214" y="55" width="138" height="106" rx="12" class="tool-svg-core"></rect>
+          <rect x="418" y="72" width="114" height="72" rx="10" class="tool-svg-output"></rect>
+          <path d="M146 108 H214" class="tool-svg-wire" marker-end="url(#arrow-dc-calculator)"></path>
+          <path d="M352 108 H418" class="tool-svg-wire" marker-end="url(#arrow-dc-calculator)"></path>
+          <text x="87" y="100">INPUT</text>
+          <text x="87" y="124">Idc + Vdc</text>
+          <text x="283" y="94">Pdc</text>
+          <text x="283" y="120">= Idc x Vdc</text>
+          <text x="475" y="100">OUTPUT</text>
+          <text x="475" y="124">W, kW, MW</text>
+        </svg>
+        <div class="topic-mini-card-grid">
+          <span><b>Current Units</b><code>A, mA, kA</code></span>
+          <span><b>Voltage Units</b><code>V, kV, MV</code></span>
+          <span><b>Power Units</b><code>W, kW, MW</code></span>
+        </div>
+      </aside>
+          </div>
+    </section>
+
+    <section class="content-section topical-query-section dc-article topical-query-section" aria-label="DC Calculator article">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">DC</div>
+        <div class="section-heading">Introduction: What is a DC Calculator?</div>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+      <article class="card content-card">
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">DC</div>
+          <div class="topic-copy">
+            <h2>Introduction: What is a DC Calculator?</h2>
+            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>→</strong><span><b>Result</b><em>Usable output</em></span></div>
+<p class="content-p"><strong>A DC Calculator is an electrical calculator for direct current calculations.</strong> It calculates DC power, DC current draw, direct voltage, resistance, voltage drop, wire size, fuse size, battery runtime, and DC load values by using amps, volts, watts, and Ohm's law.</p>
+        <p class="content-p">Calculator Academy Team published a DC power calculator reference updated August 13, 2024, with All Physics Calculators, All Electrical Calculators, AC to DC Voltage Calculator, BLDC Motor Power Calculator, and DC Motor Torque Calculator listed as related tools. This page follows the same direct style: enter two known values and solve the missing variable.</p>
+        <div class="topic-mini-diagram" aria-label="DC calculator process">
+          <span><b>Inputs</b><em>Idc, Vdc, Pdc</em></span><i></i>
+          <span><b>Formula</b><em>Pdc = Idc x Vdc</em></span><i></i>
+          <span><b>Output</b><em>A, V, W, kW, MW</em></span>
+        </div>
+          </div>
+        </section>
+      </article>
+    </section>
+
+    <section class="content-section topical-query-section" aria-label="DC Calculator for Electrical Engineering">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">EE</div>
+        <div class="section-heading">DC Calculator for Electrical Engineering</div>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+      <article class="card content-card">
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">EE</div>
+          <div class="topic-copy">
+            <h2>DC Calculator for Electrical Engineering</h2>
+            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>→</strong><span><b>Result</b><em>Usable output</em></span></div>
+<p class="content-p"><strong>A DC Calculator for Electrical Engineering solves direct current equations used in batteries, solar cells, electronics, rectifier circuits, and power supply distribution systems.</strong> DC power flows in one direction. AC power, or alternating current, changes direction and is used in homes, businesses, and long-distance power transmission.</p>
+        <h3>DC Voltage Drop Calculator</h3>
+        <p class="content-p"><strong>A DC voltage drop calculator finds lost voltage across a wire run.</strong> Use voltage drop = 2 x current x resistance x length for two-wire DC circuits. Voltage drop matters in solar panels, LED strips, battery banks, and low-voltage controls.</p>
+        <h3>DC Wire Gauge Calculator</h3>
+        <p class="content-p"><strong>A DC wire gauge calculator chooses wire size from amps, length, voltage, and allowable voltage drop.</strong> 12V and 24V systems need careful wire sizing since low voltage creates higher current for the same watts.</p>
+        <h3>DC Amp Calculator</h3>
+        <p class="content-p"><strong>A DC amp calculator finds current with Idc = Pdc / Vdc.</strong> A 120 W DC load at 12 V draws 10 A. A 120 W load at 24 V draws 5 A. Units can be A, mA, or kA depending on system size.</p>
+        <h3>DC Power Calculation Online</h3>
+        <p class="content-p"><strong>DC power calculation online uses Pdc = Idc x Vdc.</strong> Example Problem #1 uses 51 A and 6 V. The result is 51 x 6 = 306 watts. Convert 306 W to 0.306 kW or 0.000306 MW.</p>
+        <h3>DC Circuit Calculator</h3>
+        <p class="content-p"><strong>A DC circuit calculator applies Ohm's law to series and parallel circuits.</strong> Use V = I x R, I = V / R, and P = V x I for resistors, diodes, transistors, power consumption, and electronic calculator circuit board design.</p>
+        <h3>DC Fuse Calculator</h3>
+        <p class="content-p"><strong>A DC fuse calculator sizes fuse protection from load current and circuit type.</strong> Many DC loads use a fuse above normal current and below wire ampacity. Startup surge events, constant current loads, and power supply inrush current affect fuse choice.</p>
+        <h3>DC Load Calculator</h3>
+        <p class="content-p"><strong>A DC load calculator totals watts, amps, and runtime for connected devices.</strong> Add each load, multiply by hours, and convert to watt-hours. This helps estimate battery size, power supply rating, and distribution systems capacity.</p>
+          </div>
+        </section>
+      </article>
+    </section>
+
+    <section class="content-section topical-query-section" aria-label="Specialized DC calculators">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">M</div>
+        <div class="section-heading">Specialized DC Calculators</div>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+      <article class="card content-card">
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">M</div>
+          <div class="topic-copy">
+            <h2>Specialized DC Calculators</h2>
+            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>→</strong><span><b>Result</b><em>Usable output</em></span></div>
+<p class="content-p"><strong>Specialized DC calculators solve specific direct current problems for motors, batteries, cables, and DC to AC conversion.</strong> These tools support electrical and electronic systems during power consumption checks, component selection, and power supply design.</p>
+        <h3>DC Motor Calculator</h3>
+        <p class="content-p"><strong>A DC motor calculator estimates motor power, current, torque, and efficiency.</strong> BLDC Motor Power Calculator and DC Motor Torque Calculator workflows use voltage, current, speed, torque, and losses. Startup surge events and temperature derating curves can change the current draw.</p>
+        <h3>DC Battery Calculator</h3>
+        <p class="content-p"><strong>A DC battery calculator estimates runtime from battery capacity and load power.</strong> Battery watt-hours = volts x amp-hours. Runtime = battery watt-hours / load watts. Use this for batteries, solar cells, electronics, off-grid loads, and backup power systems.</p>
+        <h3>DC Cable Size Calculator 12V</h3>
+        <p class="content-p"><strong>A DC cable size calculator 12V selects cable from amps, length, and voltage drop limit.</strong> 12V loads draw high current, so cable size, fuse rating, voltage drop, and connection resistance need careful checks before installation.</p>
+        <h3>DC to AC Converter Calculator kW</h3>
+        <p class="content-p"><strong>A DC to AC converter calculator kW estimates inverter input current from AC output power and efficiency.</strong> A 1 kW AC load on a 12 V battery with 90 percent inverter efficiency draws about 92.6 A from the DC side. A rectifier performs the reverse direction by converting AC to DC with diodes, transistors, or other components.</p>
+          </div>
+        </section>
+      </article>
+    </section>
+
+    <section class="content-section topical-query-section" aria-label="DC Calculator for gaming">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">D20</div>
+        <div class="section-heading">DC Calculator for Gaming (D&amp;D)</div>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+      <article class="card content-card">
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">D20</div>
+          <div class="topic-copy">
+            <h2>DC Calculator for Gaming (D&amp;D)</h2>
+            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>→</strong><span><b>Result</b><em>Usable output</em></span></div>
+<p class="content-p"><strong>DC Calculator in gaming usually means Difficulty Class calculator, not direct current calculator.</strong> This separate meaning appears in searches such as dc calculator 5e, dc calculator dnd, dc calculator pf2e, dc calculator pathfinder, dc calculator powers, and dc calculator bot.</p>
+        <h3>DC Calculator DND</h3>
+        <p class="content-p"><strong>A DC Calculator DND helps set the target number for a roll.</strong> Dungeon Masters use DC values for ability checks, saving throws, skill checks, traps, locks, and custom challenges. A higher DC means a harder task.</p>
+        <h3>DC Calculator 5E</h3>
+        <p class="content-p"><strong>A DC Calculator 5E usually maps task difficulty to target numbers.</strong> Common 5E values include DC 5 for very easy, DC 10 for easy, DC 15 for medium, DC 20 for hard, DC 25 for very hard, and DC 30 for nearly impossible.</p>
+        <h3>Spell Save DC Calculator 5E</h3>
+        <p class="content-p"><strong>Spell Save DC in 5E equals 8 + proficiency bonus + spellcasting ability modifier.</strong> A level 5 caster with proficiency bonus 3 and ability modifier 4 has spell save DC 15. This meaning is unrelated to DC power, direct voltage, or direct current.</p>
+          </div>
+        </section>
+      </article>
+    </section>
+
+    <section class="faq-section" aria-label="DC Calculator: The Ultimate Guide to Direct Current Calculations FAQ">
+      <div class="section-divider" id="faq">
+        <div class="icon-circle" aria-hidden="true">FAQ</div>
+        <h2>Frequently Asked Questions</h2>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+      <article class="card faq-card static-faq-card">
+        <div class="topic-mini-card-grid faq-quick-grid">
+          <span><b>Direct Answers</b><code>Value first, details second</code></span>
+          <span><b>Formula Check</b><code>Use volts, amps, watts, or PF</code></span>
+          <span><b>Planning Use</b><code>Size wire, breaker, battery, or load</code></span>
+          <span><b>Safety Note</b><code>Verify final work with code</code></span>
+        </div>
+        <details open>
+          <summary>What is a DC Calculator?</summary>
+          <p><strong>A DC Calculator finds direct current power, current, voltage, or resistance by using DC formulas such as Pdc = Idc x Vdc and Ohm&#39;s law.</strong></p>
+        </details>
+        <details>
+          <summary>What is the DC power formula?</summary>
+          <p><strong>The DC power formula is Pdc = Idc x Vdc, where Pdc is power in watts, Idc is current in amps, and Vdc is voltage in volts.</strong></p>
+        </details>
+        <details>
+          <summary>Does DC power use power factor?</summary>
+          <p><strong>No. Pure DC power calculations use watts = amps x volts and do not use AC power factor.</strong></p>
+        </details>
+        <details>
+          <summary>What does DC Calculator mean in D&amp;D?</summary>
+          <p><strong>In D&amp;D, DC means Difficulty Class. A DC calculator for DND or 5E helps set target numbers for ability checks, saving throws, and spell save DC.</strong></p>
+        </details>
+      </article>
+    </section>
+    <section class="content-section topical-query-section" aria-label="Conclusion">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">=</div>
+        <div class="section-heading">Conclusion: Choosing the Right DC Calculator</div>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+      <article class="card content-card">
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">=</div>
+          <div class="topic-copy">
+            <h2>Conclusion: Choosing the Right DC Calculator</h2>
+            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>→</strong><span><b>Result</b><em>Usable output</em></span></div>
+<p class="content-p"><strong>Choose the right DC Calculator by matching the task to the calculator type.</strong> Use a DC power calculator for watts, a DC current calculator for amps, a DC voltage calculator for volts, a DC resistance calculator for ohms, a DC wire size calculator for cable, and a DC battery calculator for runtime.</p>
+        <div class="responsive-table-wrap">
+          <table>
+            <thead><tr><th>Task</th><th>Calculator</th><th>Main Formula</th></tr></thead>
+            <tbody>
+              <tr><td>Find DC power</td><td>DC Power Calculator</td><td>Pdc = Idc x Vdc</td></tr>
+              <tr><td>Find current</td><td>DC Amp Calculator</td><td>Idc = Pdc / Vdc</td></tr>
+              <tr><td>Find voltage</td><td>DC Voltage Calculator</td><td>Vdc = Pdc / Idc</td></tr>
+              <tr><td>Find resistance</td><td>DC Resistance Calculator</td><td>R = V / I</td></tr>
+              <tr><td>Find game target</td><td>DC Calculator 5E</td><td>8 + proficiency + ability modifier</td></tr>
+            </tbody>
+          </table>
+        </div>
+          </div>
+        </section>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer premium-footer" role="contentinfo">
+    <div class="premium-footer-inner semantic-footer-grid">
+      <section class="premium-footer-brand" aria-label="Site summary">
+        <a href="/" class="premium-footer-logo">
+          <span class="premium-brand-mark" aria-hidden="true">AW</span>
+          <span>Amps To Watts Calculator</span>
+        </a>
+        <p>Professional electrical calculators for current, voltage, real power, apparent power, battery energy, voltage drop, and wire planning.</p>
+        <div class="premium-footer-note">Independent educational resource. Verify safety-critical work with a licensed electrician or qualified engineer.</div>
+      </section>
+
+      <section aria-labelledby="footer-core-tools">
+        <div id="footer-core-tools" class="footer-section-heading">Core Calculators</div>
+        <nav class="premium-footer-links" aria-label="Core calculator links">
+          <a href="/#calculator">Amps to Watts Calculator</a>
+          <a href="/#watts-to-amps">Watts to Amps Calculator</a>
+          <a href="/voltage-amps-watts-calculator/">Voltage Amps Watts Calculator</a>
+          <a href="/calculators/">All Electrical Calculators</a>
+        </nav>
+      </section>
+
+      <section aria-labelledby="footer-voltage-tools">
+        <div id="footer-voltage-tools" class="footer-section-heading">Voltage Calculators</div>
+        <nav class="premium-footer-links" aria-label="Voltage calculator links">
+          <a href="/12v-amps-to-watts-calculator/">12V Amps to Watts</a>
+          <a href="/120v-amps-to-watts-calculator/">120V Amps to Watts</a>
+          <a href="/220v-amps-to-watts-calculator/">220V Amps to Watts</a>
+          <a href="/230v-calculator/">230V Calculator</a>
+          <a href="/240v-amps-to-watts-calculator/">240V Amps to Watts</a>
+          <a href="/other-voltages-calculator/">Other Voltages</a>
+        </nav>
+      </section>
+
+      <section aria-labelledby="footer-phase-tools">
+        <div id="footer-phase-tools" class="footer-section-heading">AC/DC &amp; Phase</div>
+        <nav class="premium-footer-links" aria-label="AC DC and phase calculator links">
+          <a href="/ac-amps-to-watts-calculator/">AC Amps to Watts</a>
+          <a href="/dc-amps-to-watts-calculator/">DC Amps to Watts</a>
+          <a href="/single-phase-amps-to-watts-calculator/">Single Phase Calculator</a>
+          <a href="/3-phase-amps-to-watts-calculator/">3 Phase Calculator</a>
+          <a href="/kva-to-watts-calculator/">kVA to Watts</a>
+          <a href="/power-factor/">Power Factor</a>
+        </nav>
+      </section>
+
+      <section aria-labelledby="footer-special-tools">
+        <div id="footer-special-tools" class="footer-section-heading">Specialized Tools</div>
+        <nav class="premium-footer-links" aria-label="Specialized calculator links">
+          <a href="/amps-to-kw-calculator/">Amps to kW Calculator</a>
+          <a href="/megawatts-to-amps-calculator/">Megawatts to Amps</a>
+          <a href="/solar-watts-to-amps-calculator/">Solar Watts to Amps</a>
+          <a href="/led-watts-to-amps-calculator/">LED Watts to Amps</a>
+          <a href="/speaker-amp-power-calculator/">Speaker Amp Power</a>
+          <a href="/amp-hours-to-watt-hours/">Amp Hours to Watt Hours</a>
+          <a href="/voltage-drop-calculator/">Voltage Drop Calculator</a>
+          <a href="/wire-gauge-calculator/">Wire Gauge Calculator</a>
+        </nav>
+      </section>
+
+      <section aria-labelledby="footer-learning-links">
+        <div id="footer-learning-links" class="footer-section-heading">Learning &amp; Legal</div>
+        <nav class="premium-footer-links" aria-label="Learning and legal links">
+          <a href="/#formulas">Amps to Watts Formula</a>
+          <a href="/#tables">Conversion Charts</a>
+          <a href="/#faq">FAQ</a>
+          <a href="/about-us/">About Us</a>
+          <a href="/contact-us/">Contact Us</a>
+          <a href="/site-map/">Site Map</a>
+          <a href="/privacy-policy/">Privacy Policy</a>
+          <a href="/terms-conditions/">Terms &amp; Conditions</a>
+        </nav>
+      </section>
+    </div>
+
+    <div class="premium-footer-bottom">
+      <p>(c) 2026 Amps To Watts Calculator. Built for clear electrical planning and professional reference.</p>
+    </div>
+  </footer>
+  <script src="/script.js" defer></script>
+  <script src="/tool-page.js" defer></script>
+</body>
+</html>

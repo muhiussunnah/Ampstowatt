@@ -1,0 +1,450 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>LED Watts to Amps Calculator</title>
+  <meta name="description" content="LED Watts to Amps Calculator for 12V, 24V, 120V, and 240V LED lighting. Convert LED watts to amps with voltage, power factor, driver efficiency, strip lights, wiring, and voltage drop examples.">
+  <meta name="keywords" content="LED Watts to Amps Calculator, LED watts to amps, LED watt to amp conversion, LED wattage calculator 12v, LED current calculator, LED power consumption, LED strip amp draw, LED driver amperage, LED power supply sizing">
+  <meta name="author" content="Amps To Watts Calculator">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://ampstowatt.com/led-watts-to-amps-calculator/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ampstowatt.com/led-watts-to-amps-calculator/">
+  <meta property="og:title" content="LED Watts to Amps Calculator">
+  <meta property="og:description" content="Convert LED watts to amps for LED strips, LED drivers, 12V, 24V, 120V, 240V, power factor, driver efficiency, and wiring calculations.">
+  <meta property="og:site_name" content="Amps To Watts Calculator">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LED Watts to Amps Calculator">
+  <meta name="twitter:description" content="LED watt to amp calculator with formulas, voltage choices, power factor, and practical LED lighting examples.">
+  <link rel="stylesheet" href="/styles.css?v=20260513-premium-header-footer">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "How do you convert LED watts to amps?", "acceptedAnswer": { "@type": "Answer", "text": "Convert LED watts to amps with A = W / V for DC LED systems and A = W / (V x PF) for AC LED systems with power factor." } },
+      { "@type": "Question", "name": "How many amps does a 60 watt LED draw at 12 volts?", "acceptedAnswer": { "@type": "Answer", "text": "A 60 watt LED load at 12 volts draws 5 amps using A = 60 / 12." } },
+      { "@type": "Question", "name": "Why does LED voltage matter?", "acceptedAnswer": { "@type": "Answer", "text": "LED voltage changes current draw. The same LED wattage draws more amps at 12V than at 24V, 120V, or 240V." } },
+      { "@type": "Question", "name": "Does power factor affect LED amps?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. AC LED drivers use power factor. Low power factor increases input current for the same LED wattage." } }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to Main Content</a>
+  <header class="site-header premium-header" role="banner">
+    <div class="premium-header-inner">
+      <a href="/" class="premium-brand" aria-label="Amps To Watts Calculator home">
+        <span class="premium-brand-mark" aria-hidden="true">AW</span>
+        <span class="premium-brand-copy">
+          <span class="premium-brand-name">Amps To Watts Calculator</span>
+          <span class="premium-brand-line">Electrical calculation suite</span>
+        </span>
+      </a>
+      <button class="premium-menu-button" type="button" aria-label="Open navigation" aria-controls="premium-site-nav" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav id="premium-site-nav" class="premium-nav" role="navigation" aria-label="Primary navigation">
+        <a href="/" class="premium-nav-link">Home</a>
+        <a href="/#calculator" class="premium-nav-link">Amps to Watts</a>
+        <a href="/#watts-to-amps" class="premium-nav-link">Watts to Amps</a>
+        <details class="premium-nav-menu">
+          <summary>Voltage</summary>
+          <div class="premium-nav-panel">
+            <a href="/12v-amps-to-watts-calculator/"><span>12V Amps to Watts</span><small>Battery and low-voltage DC loads</small></a>
+            <a href="/120v-amps-to-watts-calculator/"><span>120V Amps to Watts</span><small>North American branch circuits</small></a>
+            <a href="/220v-amps-to-watts-calculator/"><span>220V Amps to Watts</span><small>220 volt appliance loads</small></a>
+            <a href="/230v-calculator/"><span>230V Calculator</span><small>UK, EU, and international mains</small></a>
+            <a href="/240v-amps-to-watts-calculator/"><span>240V Amps to Watts</span><small>High-voltage residential circuits</small></a>
+            <a href="/other-voltages-calculator/"><span>Other Voltages</span><small>Custom voltage power conversion</small></a>
+          </div>
+        </details>
+        <details class="premium-nav-menu">
+          <summary>AC/DC &amp; Phase</summary>
+          <div class="premium-nav-panel">
+            <a href="/ac-amps-to-watts-calculator/"><span>AC Amps to Watts</span><small>RMS voltage and power factor</small></a>
+            <a href="/dc-amps-to-watts-calculator/"><span>DC Amps to Watts</span><small>Battery, LED, and solar DC</small></a>
+            <a href="/single-phase-amps-to-watts-calculator/"><span>Single Phase</span><small>PF x amps x volts</small></a>
+            <a href="/3-phase-amps-to-watts-calculator/"><span>3 Phase</span><small>1.732 x PF x amps x volts</small></a>
+            <a href="/kva-to-watts-calculator/"><span>kVA to Watts</span><small>Apparent power to real power</small></a>
+            <a href="/power-factor/"><span>Power Factor</span><small>Real, apparent, and reactive power</small></a>
+          </div>
+        </details>
+        <details class="premium-nav-menu">
+          <summary>Specialized</summary>
+          <div class="premium-nav-panel">
+            <a href="/amps-to-kw-calculator/"><span>Amps to kW</span><small>Kilowatt load planning</small></a>
+            <a href="/voltage-amps-watts-calculator/"><span>Voltage Amps Watts</span><small>Find V, A, W, kW, or VA</small></a>
+            <a href="/solar-watts-to-amps-calculator/"><span>Solar Watts to Amps</span><small>Panel and charge current</small></a>
+            <a href="/led-watts-to-amps-calculator/"><span>LED Watts to Amps</span><small>Driver and strip sizing</small></a>
+            <a href="/speaker-amp-power-calculator/"><span>Speaker Amp Power</span><small>Audio amplifier planning</small></a>
+            <a href="/amp-power-consumption-calculator/"><span>Amp Power Consumption</span><small>Runtime and energy use</small></a>
+          </div>
+        </details>
+        <details class="premium-nav-menu">
+          <summary>Resources</summary>
+          <div class="premium-nav-panel compact">
+            <a href="/#formulas"><span>Formulas</span></a>
+            <a href="/#tables"><span>Conversion Charts</span></a>
+            <a href="/site-map/"><span>Site Map</span></a>
+            <a href="/about-us/"><span>About</span></a>
+            <a href="/contact-us/"><span>Contact</span></a>
+            <a href="/disclaimer/"><span>Disclaimer</span></a>
+          </div>
+        </details>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="container tool-page-container">
+    <section class="brand-header pro-hero tool-page-hero" aria-label="LED Watts to Amps Calculator">
+      <div class="brand-badge" role="status"><span class="brand-badge-dot" aria-hidden="true"></span><span>LED Watts to Amps Calculator</span></div>
+      <h1 class="hero-title">LED Watts to Amps Calculator</h1>
+      <div class="hero-content">
+        <p class="hero-subtitle"><strong>An LED Watts to Amps Calculator converts LED wattage into current draw by using Power (Watts), Voltage (Volts), and Power Factor for AC LED drivers.</strong> The calculator helps size LED Driver units, wire gauge, fuses, power supplies, and smart lighting circuits.</p>
+        <p class="hero-subtitle highlight-intro">Use <strong>Amps = Watts / Volts</strong> for DC LED Lighting and <strong>Amps = Watts / (Volts x Power Factor)</strong> for AC LED input current.</p>
+      </div>
+    </section>
+
+    <section class="calculator-section voltage-pattern-calculator" aria-label="LED Watts to Amps Calculator tool">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">CAL</div>
+        <div class="section-heading">Interactive Calculator Tool</div>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+      <div class="two-col calculator-layout">
+      <article class="card card-glow calculator-card mini-tool-calculator" data-mode="watts-to-amps" data-default-volts="12" data-phase="single">
+        <div class="tool-page-label">Interactive Calculator</div>
+        <div class="tool-page-input-grid">
+          <label>Amps (A)<input class="tool-amps" type="number" value="10" min="0" step="any"></label>
+          <label>Watts (W)<input class="tool-watts" type="number" value="60" min="0" step="any"></label>
+          <label>Volts (V)<input class="tool-volts" type="number" value="12" min="0.1" step="any"></label>
+          <label>Power Factor<input class="tool-pf" type="number" value="0.90" min="0.01" max="1" step="0.01"></label>
+          <label>kVA<input class="tool-kva" type="number" value="1" min="0" step="any"></label>
+          <label>MW<input class="tool-mw" type="number" value="1" min="0" step="any"></label>
+          <label>Hours<input class="tool-hours" type="number" value="5" min="0" step="any"></label>
+          <label>Rate per kWh<input class="tool-rate" type="number" value="0.15" min="0" step="any"></label>
+        </div>
+        <div class="btn-row">
+          <button type="button" class="btn btn-primary tool-calc-button">Calculate</button>
+          <button type="button" class="btn btn-outline btn-sm tool-reset-button">Reset</button>
+        </div>
+        <div class="tool-page-result" aria-live="polite">
+          <span class="result-mini-unit">RESULT</span>
+          <strong class="tool-result-main">Ready</strong>
+          <p class="tool-result-detail">Enter values and press calculate.</p>
+        </div>
+      </article>
+
+      <aside class="visual-panel circuit-visual-panel tool-page-visual" aria-label="LED Watts to Amps Calculator diagram">
+        <div class="tool-page-label">Technical Diagram</div>
+        <svg viewBox="0 0 560 240" role="img" aria-label="LED watts to amps electrical flow diagram">
+          <defs>
+            <marker id="arrow-led-watts-to-amps-calculator" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+              <path d="M0,0 L0,6 L9,3 z" fill="#1d4ed8"></path>
+            </marker>
+          </defs>
+          <rect x="28" y="72" width="118" height="72" rx="10" class="tool-svg-source"></rect>
+          <rect x="214" y="55" width="138" height="106" rx="12" class="tool-svg-core"></rect>
+          <rect x="418" y="72" width="114" height="72" rx="10" class="tool-svg-output"></rect>
+          <path d="M146 108 H214" class="tool-svg-wire" marker-end="url(#arrow-led-watts-to-amps-calculator)"></path>
+          <path d="M352 108 H418" class="tool-svg-wire" marker-end="url(#arrow-led-watts-to-amps-calculator)"></path>
+          <text x="87" y="100">LED LOAD</text>
+          <text x="87" y="124">Watts</text>
+          <text x="283" y="94">W / V</text>
+          <text x="283" y="120">PF if AC</text>
+          <text x="475" y="100">CURRENT</text>
+          <text x="475" y="124">Amps</text>
+        </svg>
+        <div class="topic-mini-card-grid">
+          <span><b>12V Example</b><code>60 W / 12 V = 5 A</code></span>
+          <span><b>24V Example</b><code>60 W / 24 V = 2.5 A</code></span>
+          <span><b>AC Driver</b><code>A = W / (V x PF)</code></span>
+        </div>
+      </aside>
+          </div>
+    </section>
+
+    <section class="content-section topical-query-section led-article topical-query-section" aria-label="LED Watts to Amps article">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">LED</div>
+        <div class="section-heading">Introduction: Understanding the LED Watts to Amps Calculator</div>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+      <article class="card content-card">
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">LED</div>
+          <div class="topic-copy">
+            <h2>Introduction: Understanding the LED Watts to Amps Calculator</h2>
+            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>→</strong><span><b>Result</b><em>Usable output</em></span></div>
+<p class="content-p"><strong>An LED Watts to Amps Calculator is a power-to-current converter for LED Lighting.</strong> The input field for watts, input field for voltage, output field for amps, calculate button, and display screen work together to calculate LED amp draw.</p>
+        <p class="content-p">The calculator supports LED watts to amps, LED power conversion, LED electrical load planning, LED power supply sizing, LED strip amp draw, LED driver amperage, Energy Efficiency checks, and LED Power Consumption estimates. It uses Ohm's Law and the electrical relationship between Power (Watts), Current (Amps), and Voltage (Volts).</p>
+        <div class="topic-mini-diagram" aria-label="LED watts to amps process">
+          <span><b>Watts</b><em>LED wattage rating</em></span><i></i>
+          <span><b>Voltage</b><em>12V, 24V, 120V, 240V</em></span><i></i>
+          <span><b>Amps</b><em>LED circuit current</em></span>
+        </div>
+          </div>
+        </section>
+      </article>
+    </section>
+
+    <section class="content-section topical-query-section" aria-label="Why convert LED watts to amps">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">A</div>
+        <div class="section-heading">Why Convert LED Watts to Amps?</div>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+      <article class="card content-card">
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">A</div>
+          <div class="topic-copy">
+            <h2>Why Convert LED Watts to Amps?</h2>
+            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>→</strong><span><b>Result</b><em>Usable output</em></span></div>
+<p class="content-p"><strong>Convert LED watts to amps to size the LED Driver, wire, fuse, breaker, and power supply correctly.</strong> Current draw controls heat, voltage drop, wire gauge sizing, and the safe load limit for an LED circuit.</p>
+        <p class="content-p">LED Retrofit work, under cabinet LED load planning, emergency LED load amps, landscape lighting amp calculation, marine LED amp draw, and off-grid solar LED amps all need current values. Philips Lighting, Cree LED, Osram, Samsung LED, Lumileds, Mean Well (power supplies), Eaton, Acuity Brands, Signify, and Nichia publish LED electrical specs that use watts, volts, amps, driver type, and Power Factor.</p>
+          </div>
+        </section>
+      </article>
+    </section>
+
+    <section class="content-section topical-query-section" aria-label="LED watt amp formula">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">W/V</div>
+        <div class="section-heading">The Basic Formula: Watts &divide; Volts = Amps</div>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+      <article class="card content-card">
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">W/V</div>
+          <div class="topic-copy">
+            <h2>The Basic Formula: Watts &divide; Volts = Amps</h2>
+            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>→</strong><span><b>Result</b><em>Usable output</em></span></div>
+<p class="content-p"><strong>The LED watt amp formula is Amps = Watts / Volts.</strong> A 60 W LED load at 12 V draws 5 A. A 60 W LED load at 24 V draws 2.5 A. A 60 W LED load at 120 V draws 0.5 A before AC driver power factor adjustment.</p>
+        <div class="responsive-table-wrap">
+          <table>
+            <thead><tr><th>LED Load</th><th>Voltage</th><th>Formula</th><th>Current</th></tr></thead>
+            <tbody>
+              <tr><td>30 W LED strip</td><td>12 V DC</td><td>30 / 12</td><td>2.5 A</td></tr>
+              <tr><td>60 W LED strip</td><td>12 V DC</td><td>60 / 12</td><td>5 A</td></tr>
+              <tr><td>96 W LED strip</td><td>24 V DC</td><td>96 / 24</td><td>4 A</td></tr>
+              <tr><td>150 W high bay</td><td>120 V AC, PF 0.90</td><td>150 / (120 x 0.90)</td><td>1.39 A</td></tr>
+            </tbody>
+          </table>
+        </div>
+          </div>
+        </section>
+      </article>
+    </section>
+
+    <section class="content-section topical-query-section" aria-label="How to use LED calculator">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">1</div>
+        <div class="section-heading">How to Use the LED Watts to Amps Calculator</div>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+      <article class="card content-card">
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">1</div>
+          <div class="topic-copy">
+            <h2>How to Use the LED Watts to Amps Calculator</h2>
+            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>→</strong><span><b>Result</b><em>Usable output</em></span></div>
+<p class="content-p"><strong>To use the LED Watts to Amps Calculator, enter LED wattage, choose voltage, and calculate amps.</strong> Use DC mode for LED strips and constant voltage power supplies. Use power factor for AC LED drivers.</p>
+        <h3>Step 1: Determine Your LED Wattage</h3>
+        <p class="content-p"><strong>Find LED wattage from the LED label, driver label, product sheet, or strip watts per meter.</strong> For multiple LEDs, add the wattage ratings. Ten 6 W fixtures equal 60 W. A 5 meter strip rated 14.4 W per meter equals 72 W.</p>
+        <h3>Step 2: Choose the Correct Voltage</h3>
+        <p class="content-p"><strong>Choose the actual LED supply voltage, such as 12 V, 24 V, 120 V, or 240 V.</strong> Constant Current vs Constant Voltage matters here. Constant voltage systems often use 12 V or 24 V. Constant current LED drivers list output current and voltage range.</p>
+        <h3>Step 3: Calculate Amps</h3>
+        <p class="content-p"><strong>Calculate amps by dividing LED watts by volts.</strong> For AC LED input current, divide watts by volts and power factor. A 100 W AC LED driver at 120 V with PF 0.90 draws 0.93 A using 100 / (120 x 0.90).</p>
+          </div>
+        </section>
+      </article>
+    </section>
+
+    <section class="content-section topical-query-section" aria-label="Practical LED applications">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">DC</div>
+        <div class="section-heading">Practical Applications of LED Watts to Amps Conversion</div>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+      <article class="card content-card">
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">DC</div>
+          <div class="topic-copy">
+            <h2>Practical Applications of LED Watts to Amps Conversion</h2>
+            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>→</strong><span><b>Result</b><em>Usable output</em></span></div>
+<p class="content-p"><strong>LED watts to amps conversion is used for LED strips, high bay fixtures, LED Retrofit projects, dimmable LEDs, smart lighting, and solar lighting.</strong> The result helps select drivers, fuses, wire gauge, controllers, and backup battery capacity.</p>
+        <h3>Low-Voltage LED Systems (12V and 24V)</h3>
+        <p class="content-p"><strong>Low-voltage LED systems draw higher amps than high-voltage systems at the same wattage.</strong> A 120 W LED strip draws 10 A at 12 V and 5 A at 24 V. The 24 V system reduces voltage drop and can use smaller conductors for the same LED Power Consumption.</p>
+        <h3>High-Voltage LED Systems (120V and 240V)</h3>
+        <p class="content-p"><strong>High-voltage LED systems use lower input current, but AC vs DC Circuits and Power Factor affect the result.</strong> A 240 W LED load at 120 V and PF 0.90 draws 2.22 A. The same load at 240 V and PF 0.90 draws 1.11 A.</p>
+          </div>
+        </section>
+      </article>
+    </section>
+
+    <section class="content-section topical-query-section" aria-label="Common LED watt to amp mistakes">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">!</div>
+        <div class="section-heading">Common Mistakes in LED Watt to Amp Conversion</div>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+      <article class="card content-card">
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">!</div>
+          <div class="topic-copy">
+            <h2>Common Mistakes in LED Watt to Amp Conversion</h2>
+            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>→</strong><span><b>Result</b><em>Usable output</em></span></div>
+<p class="content-p"><strong>The most common LED watt to amp mistakes are using the wrong voltage and ignoring power factor.</strong> These mistakes undersize LED Driver units, overload dimmers, increase voltage drop, and reduce LED flicker amp stability.</p>
+        <h3>Mistake 1: Assuming 120V for All Systems</h3>
+        <p class="content-p"><strong>Do not assume every LED system uses 120 V.</strong> LED strip light calculator work often uses 12 V or 24 V DC. Commercial LED high bay amps may use 120 V, 208 V, 240 V, or 277 V AC depending on the building supply.</p>
+        <h3>Mistake 2: Overlooking Power Factor</h3>
+        <p class="content-p"><strong>Power Factor changes AC LED input current.</strong> A 100 W LED driver at 120 V with PF 1.00 draws 0.83 A. The same driver at PF 0.70 draws 1.19 A. Commercial LED power factor matters for panel schedules and electrical load calculation.</p>
+          </div>
+        </section>
+      </article>
+    </section>
+
+    <section class="content-section topical-query-section" aria-label="Advanced LED calculation tips">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">M</div>
+        <div class="section-heading">Advanced Tips for Accurate Calculations</div>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+      <article class="card content-card">
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">M</div>
+          <div class="topic-copy">
+            <h2>Advanced Tips for Accurate Calculations</h2>
+            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>→</strong><span><b>Result</b><em>Usable output</em></span></div>
+<p class="content-p"><strong>Accurate LED current calculation uses measured voltage, real wattage, driver efficiency, power factor, and voltage drop.</strong> Thermal derating LED watts, high CRI watt calculation, dimmable LED current draw, and driver efficiency watt conversion can change the final amp value.</p>
+        <h3>Using a Multimeter for Real-World Data</h3>
+        <p class="content-p"><strong>Use a multimeter to measure real LED supply voltage and current.</strong> Measure DC LED strips on the DC range and AC LED driver input on the AC range. Compare measured current with the LED amps calculator result to catch voltage drop, faulty wiring, or driver overload.</p>
+        <h3>Calculating for Multiple LEDs</h3>
+        <p class="content-p"><strong>Calculate multiple LEDs by adding total watts first, then dividing by voltage.</strong> Four 24 W LED fixtures equal 96 W. At 24 V, the LED circuit amps equal 96 / 24 = 4 A. Add 20 percent spare capacity for power supply sizing when the manufacturer permits that margin.</p>
+        <div class="topic-mini-card-grid">
+          <span><b>Formula</b><code>A = W / V</code></span>
+          <span><b>AC Input</b><code>A = W / (V x PF)</code></span>
+          <span><b>Planning Checks</b><code>Wire Gauge Sizing, Voltage Drop, Energy Star Certification</code></span>
+        </div>
+          </div>
+        </section>
+      </article>
+    </section>
+    <section class="faq-section" aria-label="LED Watts to Amps Calculator FAQ">
+      <div class="section-divider" id="faq">
+        <div class="icon-circle" aria-hidden="true">FAQ</div>
+        <h2>Frequently Asked Questions</h2>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+      <article class="card faq-card static-faq-card">
+        <div class="topic-mini-card-grid faq-quick-grid">
+          <span><b>Direct Answers</b><code>Value first, details second</code></span>
+          <span><b>Formula Check</b><code>Use volts, amps, watts, or PF</code></span>
+          <span><b>Planning Use</b><code>Size wire, breaker, battery, or load</code></span>
+          <span><b>Safety Note</b><code>Verify final work with code</code></span>
+        </div>
+        <details open>
+          <summary>How do you convert LED watts to amps?</summary>
+          <p><strong>Convert LED watts to amps with A = W / V for DC LED systems and A = W / (V x PF) for AC LED systems with power factor.</strong></p>
+        </details>
+        <details>
+          <summary>How many amps does a 60 watt LED draw at 12 volts?</summary>
+          <p><strong>A 60 watt LED load at 12 volts draws 5 amps using A = 60 / 12.</strong></p>
+        </details>
+        <details>
+          <summary>Why does LED voltage matter?</summary>
+          <p><strong>LED voltage changes current draw. The same LED wattage draws more amps at 12V than at 24V, 120V, or 240V.</strong></p>
+        </details>
+        <details>
+          <summary>Does power factor affect LED amps?</summary>
+          <p><strong>Yes. AC LED drivers use power factor. Low power factor increases input current for the same LED wattage.</strong></p>
+        </details>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer premium-footer" role="contentinfo">
+    <div class="premium-footer-inner semantic-footer-grid">
+      <section class="premium-footer-brand" aria-label="Site summary">
+        <a href="/" class="premium-footer-logo">
+          <span class="premium-brand-mark" aria-hidden="true">AW</span>
+          <span>Amps To Watts Calculator</span>
+        </a>
+        <p>Professional electrical calculators for current, voltage, real power, apparent power, battery energy, voltage drop, and wire planning.</p>
+        <div class="premium-footer-note">Independent educational resource. Verify safety-critical work with a licensed electrician or qualified engineer.</div>
+      </section>
+
+      <section aria-labelledby="footer-core-tools">
+        <div id="footer-core-tools" class="footer-section-heading">Core Calculators</div>
+        <nav class="premium-footer-links" aria-label="Core calculator links">
+          <a href="/#calculator">Amps to Watts Calculator</a>
+          <a href="/#watts-to-amps">Watts to Amps Calculator</a>
+          <a href="/voltage-amps-watts-calculator/">Voltage Amps Watts Calculator</a>
+          <a href="/calculators/">All Electrical Calculators</a>
+        </nav>
+      </section>
+
+      <section aria-labelledby="footer-voltage-tools">
+        <div id="footer-voltage-tools" class="footer-section-heading">Voltage Calculators</div>
+        <nav class="premium-footer-links" aria-label="Voltage calculator links">
+          <a href="/12v-amps-to-watts-calculator/">12V Amps to Watts</a>
+          <a href="/120v-amps-to-watts-calculator/">120V Amps to Watts</a>
+          <a href="/220v-amps-to-watts-calculator/">220V Amps to Watts</a>
+          <a href="/230v-calculator/">230V Calculator</a>
+          <a href="/240v-amps-to-watts-calculator/">240V Amps to Watts</a>
+          <a href="/other-voltages-calculator/">Other Voltages</a>
+        </nav>
+      </section>
+
+      <section aria-labelledby="footer-phase-tools">
+        <div id="footer-phase-tools" class="footer-section-heading">AC/DC &amp; Phase</div>
+        <nav class="premium-footer-links" aria-label="AC DC and phase calculator links">
+          <a href="/ac-amps-to-watts-calculator/">AC Amps to Watts</a>
+          <a href="/dc-amps-to-watts-calculator/">DC Amps to Watts</a>
+          <a href="/single-phase-amps-to-watts-calculator/">Single Phase Calculator</a>
+          <a href="/3-phase-amps-to-watts-calculator/">3 Phase Calculator</a>
+          <a href="/kva-to-watts-calculator/">kVA to Watts</a>
+          <a href="/power-factor/">Power Factor</a>
+        </nav>
+      </section>
+
+      <section aria-labelledby="footer-special-tools">
+        <div id="footer-special-tools" class="footer-section-heading">Specialized Tools</div>
+        <nav class="premium-footer-links" aria-label="Specialized calculator links">
+          <a href="/amps-to-kw-calculator/">Amps to kW Calculator</a>
+          <a href="/megawatts-to-amps-calculator/">Megawatts to Amps</a>
+          <a href="/solar-watts-to-amps-calculator/">Solar Watts to Amps</a>
+          <a href="/led-watts-to-amps-calculator/">LED Watts to Amps</a>
+          <a href="/speaker-amp-power-calculator/">Speaker Amp Power</a>
+          <a href="/amp-hours-to-watt-hours/">Amp Hours to Watt Hours</a>
+          <a href="/voltage-drop-calculator/">Voltage Drop Calculator</a>
+          <a href="/wire-gauge-calculator/">Wire Gauge Calculator</a>
+        </nav>
+      </section>
+
+      <section aria-labelledby="footer-learning-links">
+        <div id="footer-learning-links" class="footer-section-heading">Learning &amp; Legal</div>
+        <nav class="premium-footer-links" aria-label="Learning and legal links">
+          <a href="/#formulas">Amps to Watts Formula</a>
+          <a href="/#tables">Conversion Charts</a>
+          <a href="/#faq">FAQ</a>
+          <a href="/about-us/">About Us</a>
+          <a href="/contact-us/">Contact Us</a>
+          <a href="/site-map/">Site Map</a>
+          <a href="/privacy-policy/">Privacy Policy</a>
+          <a href="/terms-conditions/">Terms &amp; Conditions</a>
+        </nav>
+      </section>
+    </div>
+
+    <div class="premium-footer-bottom">
+      <p>(c) 2026 Amps To Watts Calculator. Built for clear electrical planning and professional reference.</p>
+    </div>
+  </footer>
+  <script src="/script.js" defer></script>
+  <script src="/tool-page.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+RewriteEngine On
+
+RewriteCond %{HTTPS} !=on [OR]
+RewriteCond %{HTTP_HOST} ^www\.ampstowatt\.com$ [NC]
+RewriteRule ^ https://ampstowatt.com%{REQUEST_URI} [R=301,L]
+
+RewriteRule ^index\.html$ https://ampstowatt.com/ [R=301,L]
+RewriteRule ^voltage-drop\.html$ https://ampstowatt.com/voltage-drop-calculator/ [R=301,L]
+RewriteRule ^wire-gauge\.html$ https://ampstowatt.com/wire-gauge-calculator/ [R=301,L]
+RewriteRule ^watts-to-amps-calculator\.html$ https://ampstowatt.com/#watts-to-amps [R=301,L]
+RewriteRule ^pages/([^/]+)\.html$ https://ampstowatt.com/$1/ [R=301,L]
+RewriteRule ^([^/]+)\.html$ https://ampstowatt.com/$1/ [R=301,L]

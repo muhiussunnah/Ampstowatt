@@ -1262,6 +1262,230 @@
 
 })();
 
+// Premium language selector and on-demand translation bridge
+(function() {
+  const languages = [
+    ['en', 'English'],
+    ['hi', 'Hindi'],
+    ['es', 'Spanish'],
+    ['ru', 'Russian'],
+    ['fr', 'French'],
+    ['de', 'German'],
+    ['it', 'Italian'],
+    ['pt', 'Portuguese'],
+    ['bn', 'Bengali'],
+    ['ja', 'Japanese'],
+    ['ko', 'Korean'],
+    ['ms', 'Malay'],
+    ['pl', 'Polish'],
+    ['id', 'Indonesian'],
+    ['ar', 'Arabic'],
+    ['bg', 'Bulgarian'],
+    ['tr', 'Turkish'],
+    ['sv', 'Swedish'],
+    ['ur', 'Urdu']
+  ];
+
+  function getSavedLanguage() {
+    return localStorage.getItem('siteLanguage') || 'en';
+  }
+
+  function getLanguageName(code) {
+    const match = languages.find((item) => item[0] === code);
+    return match ? match[1] : 'English';
+  }
+
+  function setTranslateCookie(code) {
+    const value = code === 'en' ? '' : `/en/${code}`;
+    const expires = code === 'en' ? 'Thu, 01 Jan 1970 00:00:00 GMT' : 'Fri, 31 Dec 9999 23:59:59 GMT';
+    document.cookie = `googtrans=${value}; expires=${expires}; path=/`;
+    if (window.location.hostname.includes('.')) {
+      document.cookie = `googtrans=${value}; expires=${expires}; path=/; domain=.${window.location.hostname}`;
+    }
+  }
+
+  function applyDirection(code) {
+    document.documentElement.dir = ['ar', 'ur'].includes(code) ? 'rtl' : 'ltr';
+  }
+
+  function loadTranslateScript() {
+    if (window.google && window.google.translate) return;
+    if (document.getElementById('google-translate-script')) return;
+    const script = document.createElement('script');
+    script.id = 'google-translate-script';
+    script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    script.async = true;
+    document.head.appendChild(script);
+  }
+
+  function applyGoogleLanguage(code) {
+    const select = document.querySelector('.goog-te-combo');
+    if (!select) return false;
+    select.value = code;
+    select.dispatchEvent(new Event('change'));
+    return true;
+  }
+
+  window.googleTranslateElementInit = function() {
+    if (!document.getElementById('google_translate_element')) {
+      const mount = document.createElement('div');
+      mount.id = 'google_translate_element';
+      mount.className = 'premium-google-translate-mount';
+      document.body.appendChild(mount);
+    }
+    new window.google.translate.TranslateElement({
+      pageLanguage: 'en',
+      autoDisplay: false
+    }, 'google_translate_element');
+    const code = getSavedLanguage();
+    if (code !== 'en') {
+      let tries = 0;
+      const timer = window.setInterval(() => {
+        tries += 1;
+        if (applyGoogleLanguage(code) || tries > 20) window.clearInterval(timer);
+      }, 250);
+    }
+  };
+
+  function setLanguage(code, shouldReload) {
+    localStorage.setItem('siteLanguage', code);
+    setTranslateCookie(code);
+    applyDirection(code);
+    document.querySelectorAll('.premium-language-option').forEach((button) => {
+      button.classList.toggle('is-active', button.dataset.lang === code);
+      button.setAttribute('aria-pressed', String(button.dataset.lang === code));
+    });
+    const label = document.querySelector('.premium-language-current');
+    if (label) label.textContent = getLanguageName(code);
+    if (code === 'en') {
+      if (shouldReload) window.location.reload();
+      return;
+    }
+    loadTranslateScript();
+    if (!applyGoogleLanguage(code) && shouldReload) {
+      window.setTimeout(() => window.location.reload(), 250);
+    }
+  }
+
+  function initPremiumLanguageSelector() {
+    const headerInner = document.querySelector('.premium-header-inner');
+    const menuButton = document.querySelector('.premium-menu-button');
+    if (!headerInner || document.querySelector('.premium-language-shell')) return;
+
+    const savedLanguage = getSavedLanguage();
+    const shell = document.createElement('div');
+    shell.className = 'premium-language-shell';
+    shell.innerHTML = `
+      <button class="premium-language-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-label="Choose website language">
+        <span class="premium-language-icon" aria-hidden="true">Aa</span>
+        <span class="premium-language-current">${getLanguageName(savedLanguage)}</span>
+      </button>
+      <div class="premium-language-menu" role="menu" aria-label="Website language options">
+        <div class="premium-language-title">Choose Language</div>
+        <div class="premium-language-grid">
+          ${languages.map(([code, name]) => `<button class="premium-language-option${code === savedLanguage ? ' is-active' : ''}" type="button" data-lang="${code}" role="menuitemradio" aria-pressed="${code === savedLanguage}">${name}</button>`).join('')}
+        </div>
+      </div>
+    `;
+
+    if (menuButton) {
+      headerInner.insertBefore(shell, menuButton);
+    } else {
+      headerInner.appendChild(shell);
+    }
+
+    const toggle = shell.querySelector('.premium-language-toggle');
+    const panel = shell.querySelector('.premium-language-menu');
+
+    toggle.addEventListener('click', () => {
+      const isOpen = shell.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    shell.querySelectorAll('.premium-language-option').forEach((button) => {
+      button.addEventListener('click', () => {
+        setLanguage(button.dataset.lang, true);
+        shell.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!shell.contains(event.target)) {
+        shell.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        shell.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    panel.addEventListener('click', (event) => event.stopPropagation());
+    applyDirection(savedLanguage);
+    if (savedLanguage !== 'en') loadTranslateScript();
+  }
+
+  function initPremiumFooterLanguages() {
+    const footerInner = document.querySelector('.premium-footer-inner');
+    if (!footerInner || document.querySelector('.premium-footer-language')) return;
+
+    const savedLanguage = getSavedLanguage();
+    const section = document.createElement('section');
+    section.className = 'premium-footer-language';
+    section.setAttribute('aria-label', 'Website language options');
+    section.innerHTML = `
+      <div class="footer-section-heading">Languages</div>
+      <p>Choose a language for the website.</p>
+      <div class="premium-footer-language-grid">
+        ${languages.map(([code, name]) => `<button class="premium-language-option${code === savedLanguage ? ' is-active' : ''}" type="button" data-lang="${code}" aria-pressed="${code === savedLanguage}">${name}</button>`).join('')}
+      </div>
+    `;
+    footerInner.appendChild(section);
+
+    section.querySelectorAll('.premium-language-option').forEach((button) => {
+      button.addEventListener('click', () => setLanguage(button.dataset.lang, true));
+    });
+  }
+
+  function initPremiumBackToTop() {
+    if (document.querySelector('.premium-back-to-top')) return;
+
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'premium-back-to-top';
+    button.setAttribute('aria-label', 'Back to top');
+    button.innerHTML = '<span aria-hidden="true">^</span><strong>Top</strong>';
+    document.body.appendChild(button);
+
+    const updateButton = () => {
+      button.classList.toggle('is-visible', window.scrollY > 420);
+    };
+
+    button.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    window.addEventListener('scroll', updateButton, { passive: true });
+    updateButton();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      initPremiumLanguageSelector();
+      initPremiumFooterLanguages();
+      initPremiumBackToTop();
+    });
+  } else {
+    initPremiumLanguageSelector();
+    initPremiumFooterLanguages();
+    initPremiumBackToTop();
+  }
+})();
+
 // Premium universal navigation controller
 (function() {
   function initPremiumNavigation() {
