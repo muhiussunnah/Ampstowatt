@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>240V Calculator - Power, Amps, Load, Breaker, and kWh Planning</title>
+  <meta name="description" content="240V Calculator for 240 volt power, amps, watts, kW, power factor, current draw, appliance loads, breaker sizing, voltage drop, wire gauge, and energy use examples.">
+  <meta name="keywords" content="240V Calculator, 240v power calculator, 240v current calculator, 240v wattage calculator, 240v amp calculator, 240v voltage drop calculator, 240v wire size calculator">
+  <meta name="author" content="Amps To Watts Calculator">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.amperetowattcalculator.com/240v-calculator">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.amperetowattcalculator.com/240v-calculator">
+  <meta property="og:title" content="240V Calculator - Power, Amps, Load, Breaker, and kWh Planning">
+  <meta property="og:description" content="Use the 240V Calculator for watts, amps, kW, power factor, current draw, appliance loads, breaker sizing, voltage drop, wire gauge, and energy use examples.">
+  <meta property="og:site_name" content="Amps To Watts Calculator">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="240V Calculator">
+  <meta name="twitter:description" content="Calculate 240V power, amps, watts, kW, current draw, breaker load, voltage drop, wire gauge, and energy use examples.">
+  <link rel="stylesheet" href="styles.css?v=20260513-premium-header-footer">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "What is a 240V Calculator?", "acceptedAnswer": { "@type": "Answer", "text": "A 240V Calculator is an electrical calculator that finds watts, amps, kW, current draw, apparent power, and energy use for 240 volt circuits." } },
+      { "@type": "Question", "name": "What formula does a 240V Calculator use?", "acceptedAnswer": { "@type": "Answer", "text": "For single phase 240V loads, watts = 240 x amps x power factor. For current, amps = watts / (240 x power factor)." } },
+      { "@type": "Question", "name": "How many amps is 7.2 kW at 240V?", "acceptedAnswer": { "@type": "Answer", "text": "7.2 kW at 240V equals 30.00 A at power factor 1.0 and 37.50 A at power factor 0.8." } },
+      { "@type": "Question", "name": "How many amps is 9.6 kW at 240V?", "acceptedAnswer": { "@type": "Answer", "text": "9.6 kW at 240V equals 40.00 A at power factor 1.0 and 50.00 A at power factor 0.8." } },
+      { "@type": "Question", "name": "Is a 240V Calculator safe for final electrical design?", "acceptedAnswer": { "@type": "Answer", "text": "Use the calculator for planning. Verify final breaker size, wire gauge, voltage drop, terminal rating, and code requirements with a licensed electrician or qualified engineer." } }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to Main Content</a>
+  <header class="site-header premium-header" role="banner">
+    <div class="premium-header-inner">
+      <a href="index.html" class="premium-brand" aria-label="Amps To Watts Calculator home">
+        <span class="premium-brand-mark" aria-hidden="true">AW</span>
+        <span class="premium-brand-copy">
+          <span class="premium-brand-name">Amps To Watts Calculator</span>
+          <span class="premium-brand-line">Electrical calculation suite</span>
+        </span>
+      </a>
+      <button class="premium-menu-button" type="button" aria-label="Open navigation" aria-controls="premium-site-nav" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav id="premium-site-nav" class="premium-nav" role="navigation" aria-label="Primary navigation">
+        <a href="index.html" class="premium-nav-link">Home</a>
+        <a href="index.html#calculator" class="premium-nav-link">Amps to Watts</a>
+        <a href="watts-to-amps-calculator.html" class="premium-nav-link">Watts to Amps</a>
+        <details class="premium-nav-menu">
+          <summary>Voltage</summary>
+          <div class="premium-nav-panel">
+            <a href="12v-amps-to-watts-calculator.html"><span>12V Amps to Watts</span><small>Battery and low-voltage DC loads</small></a>
+            <a href="120v-amps-to-watts-calculator.html"><span>120V Amps to Watts</span><small>North American branch circuits</small></a>
+            <a href="220v-amps-to-watts-calculator.html"><span>220V Amps to Watts</span><small>220 volt appliance loads</small></a>
+            <a href="230v-calculator.html"><span>230V Calculator</span><small>UK, EU, and international mains</small></a>
+            <a href="240v-amps-to-watts-calculator.html"><span>240V Amps to Watts</span><small>High-voltage residential circuits</small></a>
+            <a href="other-voltages-calculator.html"><span>Other Voltages</span><small>Custom voltage power conversion</small></a>
+          </div>
+        </details>
+        <details class="premium-nav-menu">
+          <summary>AC/DC &amp; Phase</summary>
+          <div class="premium-nav-panel">
+            <a href="ac-amps-to-watts-calculator.html"><span>AC Amps to Watts</span><small>RMS voltage and power factor</small></a>
+            <a href="dc-amps-to-watts-calculator.html"><span>DC Amps to Watts</span><small>Battery, LED, and solar DC</small></a>
+            <a href="single-phase-amps-to-watts-calculator.html"><span>Single Phase</span><small>PF x amps x volts</small></a>
+            <a href="3-phase-amps-to-watts-calculator.html"><span>3 Phase</span><small>1.732 x PF x amps x volts</small></a>
+            <a href="kva-to-watts-calculator.html"><span>kVA to Watts</span><small>Apparent power to real power</small></a>
+            <a href="power-factor.html"><span>Power Factor</span><small>Real, apparent, and reactive power</small></a>
+          </div>
+        </details>
+        <details class="premium-nav-menu">
+          <summary>Specialized</summary>
+          <div class="premium-nav-panel">
+            <a href="amps-to-kw-calculator.html"><span>Amps to kW</span><small>Kilowatt load planning</small></a>
+            <a href="voltage-amps-watts-calculator.html"><span>Voltage Amps Watts</span><small>Find V, A, W, kW, or VA</small></a>
+            <a href="solar-watts-to-amps-calculator.html"><span>Solar Watts to Amps</span><small>Panel and charge current</small></a>
+            <a href="led-watts-to-amps-calculator.html"><span>LED Watts to Amps</span><small>Driver and strip sizing</small></a>
+            <a href="speaker-amp-power-calculator.html"><span>Speaker Amp Power</span><small>Audio amplifier planning</small></a>
+            <a href="amp-power-consumption-calculator.html"><span>Amp Power Consumption</span><small>Runtime and energy use</small></a>
+          </div>
+        </details>
+        <details class="premium-nav-menu">
+          <summary>Resources</summary>
+          <div class="premium-nav-panel compact">
+            <a href="index.html#formulas"><span>Formulas</span></a>
+            <a href="index.html#tables"><span>Conversion Charts</span></a>
+            <a href="pages/site-map.html"><span>Site Map</span></a>
+            <a href="pages/about-us.html"><span>About</span></a>
+            <a href="pages/contact-us.html"><span>Contact</span></a>
+            <a href="pages/disclaimer.html"><span>Disclaimer</span></a>
+          </div>
+        </details>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="container tool-page-container">
+    <section class="brand-header pro-hero tool-page-hero" aria-label="240V Calculator">
+      <div class="brand-badge" role="status"><span class="brand-badge-dot" aria-hidden="true"></span><span>240 volt power, amps, kW, load, and breaker planning</span></div>
+      <h1 class="hero-title">240V Calculator</h1>
+      <div class="hero-content">
+        <p class="hero-subtitle"><strong>A 240V Calculator finds Power, Amps, kW, current draw, apparent power, and energy use for 240 volt circuits.</strong> Enter voltage, watts, current, and PF to run a 240 volt calculation, compare Household Loads, size a circuit breaker, check a Wire Gauge Chart, estimate voltage drop, and calculate kWh usage.</p>
+        <p class="hero-subtitle highlight-intro">The main 240V electrical formula is <strong>Power = 240 x Amps x PF</strong>. A 7.2 kW Standard EV Charger at PF 1 draws 30.00 A, and the same load at PF 0.8 draws 37.50 A.</p>
+      </div>
+    </section>
+
+    <section class="calculator-section voltage-pattern-calculator" aria-label="Live 240V Calculator">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">V</div>
+        <div class="section-heading">Live 240V Power Calculator</div>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+      <div class="two-col calculator-layout">
+        <article class="card card-glow calculator-card mini-tool-calculator" data-mode="amps-to-watts" data-default-volts="240" data-phase="single">
+          <div class="tool-page-label">240V power calculator</div>
+          <div class="tool-page-input-grid">
+            <label>Amps (A)<input class="tool-amps" type="number" value="30" min="0" step="any"></label>
+            <label>Watts (W)<input class="tool-watts" type="number" value="7200" min="0" step="any"></label>
+            <label>Volts (V)<input class="tool-volts" type="number" value="240" min="0.1" step="any"></label>
+            <label>Power Factor<input class="tool-pf" type="number" value="1" min="0.01" max="1" step="0.01"></label>
+            <label>kVA<input class="tool-kva" type="number" value="7.2" min="0" step="any"></label>
+            <label>MW<input class="tool-mw" type="number" value="0.0072" min="0" step="any"></label>
+            <label>Hours<input class="tool-hours" type="number" value="2" min="0" step="any"></label>
+            <label>Rate per kWh<input class="tool-rate" type="number" value="0.15" min="0" step="any"></label>
+          </div>
+          <div class="btn-row">
+            <button type="button" class="btn btn-primary tool-calc-button">Calculate</button>
+            <button type="button" class="btn btn-outline btn-sm tool-reset-button">Reset</button>
+          </div>
+          <div class="tool-page-result" aria-live="polite">
+            <span class="result-mini-unit">RESULT</span>
+            <strong class="tool-result-main">Ready</strong>
+            <p class="tool-result-detail">Enter values and press calculate.</p>
+          </div>
+        </article>
+
+        <aside class="visual-panel circuit-visual-panel tool-page-visual" aria-label="240V calculator diagram">
+          <div class="tool-page-label">Voltage current power flow</div>
+          <svg viewBox="0 0 560 260" role="img" aria-label="240V calculator electrical load flow diagram">
+            <defs>
+              <marker id="arrow-240v-calculator" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L0,6 L9,3 z" fill="#1d4ed8"></path>
+              </marker>
+            </defs>
+            <rect x="28" y="82" width="124" height="78" rx="10" class="tool-svg-source"></rect>
+            <rect x="218" y="66" width="136" height="110" rx="12" class="tool-svg-core"></rect>
+            <rect x="420" y="82" width="112" height="78" rx="10" class="tool-svg-output"></rect>
+            <path d="M152 121 H218" class="tool-svg-wire" marker-end="url(#arrow-240v-calculator)"></path>
+            <path d="M354 121 H420" class="tool-svg-wire" marker-end="url(#arrow-240v-calculator)"></path>
+            <text x="90" y="112">INPUT</text>
+            <text x="90" y="137">240 V + A</text>
+            <text x="286" y="100">P = V x I x PF</text>
+            <text x="286" y="126">kW = W / 1000</text>
+            <text x="286" y="151">A = P / V</text>
+            <text x="476" y="112">OUTPUT</text>
+            <text x="476" y="137">7.2 kW</text>
+            <circle cx="92" cy="204" r="18" class="tool-svg-node"></circle>
+            <circle cx="282" cy="204" r="18" class="tool-svg-node"></circle>
+            <circle cx="474" cy="204" r="18" class="tool-svg-node"></circle>
+            <text x="92" y="209">V</text>
+            <text x="282" y="209">PF</text>
+            <text x="474" y="209">kW</text>
+          </svg>
+          <div class="topic-mini-card-grid">
+            <span><b>Small EV Charger</b><code>3.6 kW = 15.00 A</code></span>
+            <span><b>Standard EV Charger</b><code>7.2 kW = 30.00 A</code></span>
+            <span><b>Electric Shower</b><code>9.6 kW = 40.00 A</code></span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="content-section topical-query-section" aria-label="240V calculator guide">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">1</div>
+        <div class="section-heading">240V Calculator Guide</div>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+      <article class="card content-card">
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">240</div>
+          <div class="topic-copy">
+            <h2>240V Calculator</h2>
+            <p><strong>A 240V Calculator is a voltage calculator tool for 240 volt power, current, wattage, kW, and energy use.</strong> The calculator acts as a 240V power calculator, 240V wattage calculator, 240V current calculator, electrical load calculator, power consumption calculator, 240V load capacity checker, and energy cost calculator.</p>
+            <p>The main parts are the display screen, keypad, battery compartment, voltage sensor probe, circuit board, casing, voltage input field, current input field, PF field, calculation button, formula display, and result panel.</p>
+          </div>
+        </section>
+
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">?</div>
+          <div class="topic-copy">
+            <h3>What Is a 240V Calculator</h3>
+            <p><strong>A 240V Calculator finds electrical values for 240 volt systems.</strong> The calculator solves Power from Amps, Amps from Power, kWh from runtime, and apparent current from PF. Common related tools include a Klein Tools 240V Calculator, Fluke 240V Calculator, Southwire 240V Calculator, Voltage Drop Calculator, Electrical Load Calculator, and Ohm's Law calculator.</p>
+          </div>
+        </section>
+
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">=</div>
+          <div class="topic-copy">
+            <h3>How Does a 240 Volt Calculator Work</h3>
+            <p><strong>A 240 volt calculator multiplies voltage by current and adjusts AC loads with PF.</strong> Enter Power, Amps, voltage, PF, or runtime. The calculator returns watts, kW, amps, kWh, and load demand values for electrical panel sizing, circuit breaker size, wire gauge calculator checks, conduit fill calculator planning, and voltage drop calculator work.</p>
+            <div class="topic-mini-diagram" aria-label="240V calculator process">
+              <span><b>Inputs</b><em>240V, Amps, PF</em></span><i></i>
+              <span><b>Formula</b><em>P = V x I x PF</em></span><i></i>
+              <span><b>Output</b><em>W, kW, A, kWh</em></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">Use</div>
+          <div class="topic-copy">
+            <h3>Common Uses of 240V Calculations</h3>
+            <p><strong>Common uses of 240V calculations include breaker sizing, wire sizing, load balancing, energy cost planning, and appliance wattage checks.</strong> Use the calculator for off-peak charging schedule planning, welder duty cycle analysis, EV battery preconditioning load, commercial kitchen startup surge, solar inverter nighttime drain, server rack PDU capacity planning, and portable generator runtime estimation.</p>
+          </div>
+        </section>
+
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">RC</div>
+          <div class="topic-copy">
+            <h3>Residential and Commercial 240V Systems</h3>
+            <p><strong>Residential and commercial 240V systems supply high-power loads such as EV chargers, ranges, dryers, heat pumps, water heaters, compressors, pumps, and shop tools.</strong> Household Loads need circuit breaker, terminal rating, conductor sizing, and Wire Gauge Chart checks. Commercial loads may need demand factor, ambient temperature, conduit fill, and overcurrent protection review.</p>
+          </div>
+        </section>
+
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">SP</div>
+          <div class="topic-copy">
+            <h3>Single Phase and Split Phase 240V Basics</h3>
+            <p><strong>Single phase and split phase 240V basics use line-to-line voltage across two conductors.</strong> A split phase 240V circuit is common in North American homes. A single phase calculator can use the same real power formula, P = V x I x PF. Three-phase unbalanced load correction needs separate phase current checks.</p>
+          </div>
+        </section>
+      </article>
+    </section>
+
+    <section class="content-section topical-query-section" aria-label="240V power calculator guide">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">2</div>
+        <div class="section-heading">240V Power Calculator Guide</div>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+      <article class="card content-card">
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">kW</div>
+          <div class="topic-copy">
+            <h2>240V Power Calculator</h2>
+            <p><strong>A 240V power calculator converts 240 volt current into watts and kilowatts.</strong> The calculator supports 240V appliance wattage, 240V circuit sizing, 240 volt amperage, 240V to watts conversion, 240V electrical formula checks, and 240V power consumption estimates.</p>
+          </div>
+        </section>
+
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">fx</div>
+          <div class="topic-copy">
+            <h3>240V Power Calculation Formula</h3>
+            <p><strong>The 240V power calculation formula is P = 240 x I x PF for AC loads.</strong> Use PF 1 for resistive heaters, electric ranges, and many heating elements. Use the equipment power factor for motors, compressors, transformers, and variable frequency drive harmonic filtering.</p>
+            <div class="topic-equation-strip section-flow-visual">
+              <span>Power</span><i>=</i><span>240 V</span><i>x</i><span>Amps</span><i>x</i><span>PF</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">VAI</div>
+          <div class="topic-copy">
+            <h3>Voltage Current Watt Relationship</h3>
+            <p><strong>The voltage current watt relationship states that watts equal volts times amps.</strong> Ohm's Law links voltage, current, resistance, and power. For 240V systems, 15 A equals 3,600 W at PF 1, and 40 A equals 9,600 W at PF 1.</p>
+          </div>
+        </section>
+
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">AC</div>
+          <div class="topic-copy">
+            <h3>AC Power Calculation Examples</h3>
+            <p><strong>AC power calculation examples at 240V need PF for real power.</strong> A 30 A load at PF 1 equals 7.2 kW. A 30 A load at PF 0.8 equals 5.76 kW real power and 7.2 kVA apparent power.</p>
+          </div>
+        </section>
+
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">P</div>
+          <div class="topic-copy">
+            <h3>Electrical Load Calculations at 240V P=V x I</h3>
+            <p><strong>Electrical load calculations at 240V use P=V x I for PF 1 loads.</strong> Add each running load, convert watts to kW, then compare total load against the panel, circuit breaker, wire size, voltage drop, derating factor, and National Electrical Code (NEC) requirements.</p>
+          </div>
+        </section>
+      </article>
+    </section>
+
+    <section class="content-section topical-query-section" aria-label="240V power calculation guide">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">3</div>
+        <div class="section-heading">240V Power Calculation Examples</div>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+      <article class="card content-card">
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">P</div>
+          <div class="topic-copy">
+            <h2>240V Power Calculation</h2>
+            <p><strong>240V power calculation finds watts, kW, amps, apparent power, and kWh from voltage, current, PF, and runtime.</strong> Use the calculation for 240V breaker size, 240V electrical safety, 240V cable calculator work, 240V wire calculator work, 240V wire size calculator work, and 240V cable size calculator estimates.</p>
+          </div>
+        </section>
+
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">1P</div>
+          <div class="topic-copy">
+            <h3>Single Phase 240V Power Formula</h3>
+            <p><strong>The single phase 240V power formula is watts = 240 x amps x PF.</strong> For PF 1 loads, 16A equals 3.84 kW, 30A equals 7.2 kW, 32A equals 7.68 kW, and 40A equals 9.6 kW.</p>
+          </div>
+        </section>
+
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">VA</div>
+          <div class="topic-copy">
+            <h3>Real Power and Apparent Power Calculations</h3>
+            <p><strong>Real power is measured in watts or kW, and apparent power is measured in VA or kVA.</strong> A 240V, 30 A circuit has 7.2 kVA of apparent power. At PF 0.8, real power equals 5.76 kW.</p>
+          </div>
+        </section>
+
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">PF</div>
+          <div class="topic-copy">
+            <h3>Power Factor Calculations</h3>
+            <p><strong>Power factor calculations convert apparent power into real power.</strong> Use kW = kVA x PF. A 9.6 kVA load at PF 0.8 delivers 7.68 kW of real power. Poor PF raises current for the same useful output.</p>
+          </div>
+        </section>
+
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">kWh</div>
+          <div class="topic-copy">
+            <h3>Electrical Energy Consumption Examples</h3>
+            <p><strong>Electrical energy consumption equals kW multiplied by hours.</strong> A 3.6 kW load running for 2 hours uses 7.2 kWh. A 7.2 kW load running for 4 hours uses 28.8 kWh. A 9.6 kW load running for 30 minutes uses 4.8 kWh.</p>
+          </div>
+        </section>
+
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">Hm</div>
+          <div class="topic-copy">
+            <h3>Household Appliance Wattage Examples</h3>
+            <p><strong>Household appliance wattage examples at 240V include EV chargers, electric showers, ranges, dryers, water heaters, heat pumps, and welders.</strong> A Small EV Charger at 16A is about 3.6 kW, a Standard EV Charger at 32A is about 7.2 kW to 7.68 kW depending on current limit, and an Electric Shower at 40A is about 9.6 kW.</p>
+          </div>
+        </section>
+
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">A</div>
+          <div class="topic-copy">
+            <h3>Convert Watts Into Amps at 240V</h3>
+            <p><strong>To convert watts into amps at 240V, divide watts by 240 and PF.</strong> The formula is amps = watts / (240 x PF). For PF 1 loads, 1 kW equals 4.17 A, 2 kW equals 8.33 A, and 10 kW equals 41.67 A.</p>
+          </div>
+        </section>
+
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">Draw</div>
+          <div class="topic-copy">
+            <h3>Current Draw Examples</h3>
+            <p><strong>Current draw examples show the difference between PF 1.0 and PF 0.8.</strong> A 5 kW load draws 20.83 A at PF 1.0 and 26.04 A at PF 0.8. A 15 kW load draws 62.50 A at PF 1.0 and 78.13 A at PF 0.8.</p>
+          </div>
+        </section>
+
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">CB</div>
+          <div class="topic-copy">
+            <h3>Circuit Breaker Load Calculations</h3>
+            <p><strong>Circuit breaker load calculations compare expected current with breaker rating, continuous load rules, wire size, and terminal rating.</strong> Include breaker sizing, continuous load, non continuous load, conductor sizing, distance factor, voltage loss, ambient temperature, conduit fill, arc fault breaker derating factor, and overcurrent protection.</p>
+          </div>
+        </section>
+
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">I</div>
+          <div class="topic-copy">
+            <h3>Appliance Current Demand Examples I = P / V</h3>
+            <p><strong>Appliance current demand examples use I = P / V for PF 1 loads.</strong> A 3.6 kW Small EV Charger draws 15.00 A. A 7.2 kW Standard EV Charger draws 30.00 A. A 9.6 kW Electric Shower draws 40.00 A. A 20 kW load draws 83.33 A at PF 1 and 104.17 A at PF 0.8.</p>
+          </div>
+        </section>
+
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">Tbl</div>
+          <div class="topic-copy">
+            <div class="section-heading">240V Conversion Chart</div>
+            <p><strong>240V Conversion Chart values for typical household loads show Power, Amps, PF, and Common Usage.</strong> The chart uses amps = kW x 1000 / (240 x PF).</p>
+            <div class="responsive-table-wrap">
+              <table class="reference-table">
+                <thead><tr><th>Power</th><th>Amps PF 1.0</th><th>Amps PF 0.8</th><th>Common Usage</th></tr></thead>
+                <tbody>
+                  <tr><td>3.6 kW</td><td>15.00 A</td><td>18.75 A</td><td>Small EV Charger (16A)</td></tr>
+                  <tr><td>7.2 kW</td><td>30.00 A</td><td>37.50 A</td><td>Standard EV Charger (32A)</td></tr>
+                  <tr><td>9.6 kW</td><td>40.00 A</td><td>50.00 A</td><td>Electric Shower (40A)</td></tr>
+                  <tr><td>1 kW</td><td>4.17 A</td><td>5.21 A</td><td>Small heater or tool</td></tr>
+                  <tr><td>2 kW</td><td>8.33 A</td><td>10.42 A</td><td>Portable heater</td></tr>
+                  <tr><td>3 kW</td><td>12.50 A</td><td>15.63 A</td><td>Water heater element</td></tr>
+                  <tr><td>5 kW</td><td>20.83 A</td><td>26.04 A</td><td>Workshop equipment</td></tr>
+                  <tr><td>9 kW</td><td>37.50 A</td><td>46.88 A</td><td>High-power appliance</td></tr>
+                  <tr><td>10 kW</td><td>41.67 A</td><td>52.08 A</td><td>Large heater</td></tr>
+                  <tr><td>15 kW</td><td>62.50 A</td><td>78.13 A</td><td>Commercial load</td></tr>
+                  <tr><td>20 kW</td><td>83.33 A</td><td>104.17 A</td><td>Heavy equipment</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </article>
+    </section>
+
+    <section class="content-section topical-query-section" aria-label="240V calculator FAQ">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">?</div>
+        <div class="section-heading">240V Calculator FAQ</div>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+      <article class="card faq-card static-faq-card">
+        <details open>
+          <summary>How Many Amps Is 3.6 kW at 240V?</summary>
+          <p><strong>3.6 kW at 240V equals 15.00 A at PF 1.0 and 18.75 A at PF 0.8.</strong></p>
+        </details>
+        <details>
+          <summary>How Many Amps Is 7.2 kW at 240V?</summary>
+          <p><strong>7.2 kW at 240V equals 30.00 A at PF 1.0 and 37.50 A at PF 0.8.</strong></p>
+        </details>
+        <details>
+          <summary>How Many Amps Is 9.6 kW at 240V?</summary>
+          <p><strong>9.6 kW at 240V equals 40.00 A at PF 1.0 and 50.00 A at PF 0.8.</strong></p>
+        </details>
+        <details>
+          <summary>Can the 240V Calculator Choose Wire Size?</summary>
+          <p>The 240V Calculator estimates current. Final wire size needs a Wire Gauge Chart, Voltage Drop Calculator, installation method, conductor material, terminal rating, breaker rating, and local code review.</p>
+        </details>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer premium-footer" role="contentinfo">
+    <div class="premium-footer-inner semantic-footer-grid">
+      <section class="premium-footer-brand" aria-label="Site summary">
+        <a href="index.html" class="premium-footer-logo">
+          <span class="premium-brand-mark" aria-hidden="true">AW</span>
+          <span>Amps To Watts Calculator</span>
+        </a>
+        <p>Professional electrical calculators for current, voltage, real power, apparent power, battery energy, voltage drop, and wire planning.</p>
+        <div class="premium-footer-note">Independent educational resource. Verify safety-critical work with a licensed electrician or qualified engineer.</div>
+      </section>
+
+      <section aria-labelledby="footer-core-tools">
+        <div id="footer-core-tools" class="footer-section-heading">Core Calculators</div>
+        <nav class="premium-footer-links" aria-label="Core calculator links">
+          <a href="index.html#calculator">Amps to Watts Calculator</a>
+          <a href="watts-to-amps-calculator.html">Watts to Amps Calculator</a>
+          <a href="voltage-amps-watts-calculator.html">Voltage Amps Watts Calculator</a>
+          <a href="calculators.html">All Electrical Calculators</a>
+        </nav>
+      </section>
+
+      <section aria-labelledby="footer-voltage-tools">
+        <div id="footer-voltage-tools" class="footer-section-heading">Voltage Calculators</div>
+        <nav class="premium-footer-links" aria-label="Voltage calculator links">
+          <a href="12v-amps-to-watts-calculator.html">12V Amps to Watts</a>
+          <a href="120v-amps-to-watts-calculator.html">120V Amps to Watts</a>
+          <a href="220v-amps-to-watts-calculator.html">220V Amps to Watts</a>
+          <a href="230v-calculator.html">230V Calculator</a>
+          <a href="240v-amps-to-watts-calculator.html">240V Amps to Watts</a>
+          <a href="other-voltages-calculator.html">Other Voltages</a>
+        </nav>
+      </section>
+
+      <section aria-labelledby="footer-phase-tools">
+        <div id="footer-phase-tools" class="footer-section-heading">AC/DC &amp; Phase</div>
+        <nav class="premium-footer-links" aria-label="AC DC and phase calculator links">
+          <a href="ac-amps-to-watts-calculator.html">AC Amps to Watts</a>
+          <a href="dc-amps-to-watts-calculator.html">DC Amps to Watts</a>
+          <a href="single-phase-amps-to-watts-calculator.html">Single Phase Calculator</a>
+          <a href="3-phase-amps-to-watts-calculator.html">3 Phase Calculator</a>
+          <a href="kva-to-watts-calculator.html">kVA to Watts</a>
+          <a href="power-factor.html">Power Factor</a>
+        </nav>
+      </section>
+
+      <section aria-labelledby="footer-special-tools">
+        <div id="footer-special-tools" class="footer-section-heading">Specialized Tools</div>
+        <nav class="premium-footer-links" aria-label="Specialized calculator links">
+          <a href="amps-to-kw-calculator.html">Amps to kW Calculator</a>
+          <a href="megawatts-to-amps-calculator.html">Megawatts to Amps</a>
+          <a href="solar-watts-to-amps-calculator.html">Solar Watts to Amps</a>
+          <a href="led-watts-to-amps-calculator.html">LED Watts to Amps</a>
+          <a href="speaker-amp-power-calculator.html">Speaker Amp Power</a>
+          <a href="amp-hours-to-watt-hours.html">Amp Hours to Watt Hours</a>
+          <a href="voltage-drop.html">Voltage Drop</a>
+          <a href="wire-gauge.html">Wire Gauge</a>
+        </nav>
+      </section>
+
+      <section aria-labelledby="footer-learning-links">
+        <div id="footer-learning-links" class="footer-section-heading">Learning &amp; Legal</div>
+        <nav class="premium-footer-links" aria-label="Learning and legal links">
+          <a href="index.html#formulas">Amps to Watts Formula</a>
+          <a href="index.html#tables">Conversion Charts</a>
+          <a href="index.html#faq">FAQ</a>
+          <a href="pages/about-us.html">About Us</a>
+          <a href="pages/contact-us.html">Contact Us</a>
+          <a href="pages/site-map.html">Site Map</a>
+          <a href="pages/privacy-policy.html">Privacy Policy</a>
+          <a href="pages/terms-conditions.html">Terms &amp; Conditions</a>
+        </nav>
+      </section>
+    </div>
+
+    <div class="premium-footer-bottom">
+      <p>(c) 2026 Amps To Watts Calculator. Built for clear electrical planning and professional reference.</p>
+    </div>
+  </footer>
+  <script src="script.js" defer></script>
+  <script src="tool-page.js" defer></script>
+</body>
+</html>
