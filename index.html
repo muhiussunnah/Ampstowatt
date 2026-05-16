@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -12,6 +12,9 @@
   <meta name="author" content="Amps To Watts Calculator">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
   <link rel="canonical" href="https://ampstowatt.com/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#07111f">
 
   <!-- ===== OPEN GRAPH ===== -->
   <meta property="og:type" content="website">
@@ -80,6 +83,101 @@
       }
     ]
   }
+  </script>
+
+  <script type="application/ld+json" data-auto-seo-schema>
+{
+    "@context":  "https://schema.org",
+    "@graph":  [
+                   {
+                       "name":  "Amps To Watts Calculator",
+                       "@id":  "https://ampstowatt.com/#organization",
+                       "logo":  "https://ampstowatt.com/favicon.svg",
+                       "email":  "ampstowatt@gmail.com",
+                       "@type":  "Organization",
+                       "url":  "https://ampstowatt.com/"
+                   },
+                   {
+                       "isPartOf":  {
+                                        "@id":  "https://ampstowatt.com/#website"
+                                    },
+                       "name":  "Amps To Watts Calculator",
+                       "@id":  "https://ampstowatt.com/#webpage",
+                       "headline":  "Amps To Watts Calculator",
+                       "publisher":  {
+                                         "@id":  "https://ampstowatt.com/#organization"
+                                     },
+                       "@type":  "WebPage",
+                       "url":  "https://ampstowatt.com/"
+                   },
+                   {
+                       "@type":  "BreadcrumbList",
+                       "itemListElement":  [
+                                               {
+                                                   "position":  1,
+                                                   "name":  "Home",
+                                                   "item":  "https://ampstowatt.com/",
+                                                   "@type":  "ListItem"
+                                               },
+                                               {
+                                                   "position":  2,
+                                                   "name":  "Amps To Watts Calculator",
+                                                   "item":  "https://ampstowatt.com/",
+                                                   "@type":  "ListItem"
+                                               }
+                                           ]
+                   },
+                   [
+                       {
+                           "url":  "https://ampstowatt.com/",
+                           "name":  "Home",
+                           "@type":  "SiteNavigationElement"
+                       },
+                       {
+                           "url":  "https://ampstowatt.com/calculators/",
+                           "name":  "All Calculators",
+                           "@type":  "SiteNavigationElement"
+                       },
+                       {
+                           "url":  "https://ampstowatt.com/#calculator",
+                           "name":  "Amps to Watts Calculator",
+                           "@type":  "SiteNavigationElement"
+                       },
+                       {
+                           "url":  "https://ampstowatt.com/#watts-to-amps",
+                           "name":  "Watts to Amps Calculator",
+                           "@type":  "SiteNavigationElement"
+                       },
+                       {
+                           "url":  "https://ampstowatt.com/voltage-drop-calculator/",
+                           "name":  "Voltage Drop Calculator",
+                           "@type":  "SiteNavigationElement"
+                       },
+                       {
+                           "url":  "https://ampstowatt.com/wire-gauge-calculator/",
+                           "name":  "Wire Gauge Calculator",
+                           "@type":  "SiteNavigationElement"
+                       },
+                       {
+                           "url":  "https://ampstowatt.com/contact-us/",
+                           "name":  "Contact",
+                           "@type":  "SiteNavigationElement"
+                       }
+                   ],
+                   {
+                       "name":  "Amps To Watts Calculator",
+                       "applicationCategory":  "EngineeringApplication",
+                       "offers":  {
+                                      "price":  "0",
+                                      "priceCurrency":  "USD",
+                                      "@type":  "Offer"
+                                  },
+                       "operatingSystem":  "Web",
+                       "@type":  "SoftwareApplication",
+                       "url":  "https://ampstowatt.com/"
+                   }
+               ]
+}
   </script>
 </head>
 <body>
@@ -205,8 +303,7 @@
           </div>
 
           <div class="circuit-diagram-card" id="circuit-diagram-card">
-            <svg class="power-house-diagram" viewBox="0 0 760 380" role="img" aria-labelledby="circuit-diagram-title circuit-diagram-desc">
-              <title id="circuit-diagram-title">Power house grid circuit diagram</title>
+            <svg class="power-house-diagram" viewBox="0 0 760 380" role="img" aria-label="Power house grid circuit diagram">
               <desc id="circuit-diagram-desc">A live diagram showing utility grid power flowing through a transformer, breaker panel, house wiring, and electrical load based on the calculator values.</desc>
 
               <defs>
@@ -450,8 +547,7 @@
           </div>
 
           <div class="circuit-diagram-card premium-diagram" id="premium-circuit-diagram-card">
-            <svg class="power-house-diagram premium-diagram-svg" viewBox="0 0 760 380" role="img" aria-labelledby="premium-diagram-title premium-diagram-desc">
-              <title id="premium-diagram-title">Watts to amps power house grid circuit diagram</title>
+            <svg class="power-house-diagram premium-diagram-svg" viewBox="0 0 760 380" role="img" aria-label="Watts to amps power house grid circuit diagram">
               <desc id="premium-diagram-desc">A live diagram showing known wattage converted into current through voltage, power factor, and efficiency inputs.</desc>
 
               <defs>
@@ -915,8 +1011,7 @@
       <article class="card content-card">
         <div class="topic-article-visual" aria-label="Amps to watts content overview">
           <div class="topic-diagram-card">
-            <svg class="topic-circuit-svg" viewBox="0 0 520 210" role="img" aria-labelledby="topic-circuit-title topic-circuit-desc">
-              <title id="topic-circuit-title">Amps to watts technical overview</title>
+            <svg class="topic-circuit-svg" viewBox="0 0 520 210" role="img" aria-label="Amps to watts technical overview">
               <desc id="topic-circuit-desc">Current, voltage, and power factor flow into the watts output calculation.</desc>
               <defs>
                 <marker id="topic-arrow" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">

@@ -1473,16 +1473,58 @@
     updateButton();
   }
 
+  function initPremiumSocialShare() {
+    const footerInner = document.querySelector('.premium-footer-inner');
+    if (!footerInner || document.querySelector('.premium-social-share')) return;
+
+    const pageUrl = window.location.href.split('#')[0];
+    const encodedUrl = encodeURIComponent(pageUrl);
+    const encodedTitle = encodeURIComponent(document.title || 'Ampstowatt calculator');
+    const section = document.createElement('section');
+    section.className = 'premium-social-share';
+    section.setAttribute('aria-label', 'Share this page');
+    section.innerHTML = `
+      <div class="footer-section-heading">Share</div>
+      <p>Share this calculator page.</p>
+      <div class="premium-social-share-grid">
+        <a class="premium-social-share-button" href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook"><span>FB</span>Facebook</a>
+        <a class="premium-social-share-button" href="https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}" target="_blank" rel="noopener noreferrer" aria-label="Share on Twitter"><span>X</span>Twitter</a>
+        <button class="premium-social-share-button premium-share-copy" type="button" data-share-copy aria-label="Copy link for Instagram"><span>IG</span>Instagram</button>
+      </div>
+    `;
+    footerInner.appendChild(section);
+
+    const copyButton = section.querySelector('[data-share-copy]');
+    if (!copyButton) return;
+    copyButton.addEventListener('click', async () => {
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(pageUrl);
+        }
+        copyButton.classList.add('is-copied');
+        copyButton.lastChild.textContent = 'Copied';
+        window.setTimeout(() => {
+          copyButton.classList.remove('is-copied');
+          copyButton.lastChild.textContent = 'Instagram';
+        }, 1800);
+      } catch (error) {
+        copyButton.lastChild.textContent = 'Copy link';
+      }
+    });
+  }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       initPremiumLanguageSelector();
       initPremiumFooterLanguages();
       initPremiumBackToTop();
+      initPremiumSocialShare();
     });
   } else {
     initPremiumLanguageSelector();
     initPremiumFooterLanguages();
     initPremiumBackToTop();
+    initPremiumSocialShare();
   }
 })();
 

@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://ampstowatt.com/sitemap.xml
+Sitemap: https://ampstowatt.com/sitemap-index.xml

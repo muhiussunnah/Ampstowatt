@@ -232,6 +232,43 @@
     if (shell) shell.classList.add('show');
   }
 
+  function copyResult(calc, button) {
+    const main = calc.querySelector('.tool-result-main');
+    const detail = calc.querySelector('.tool-result-detail');
+    const text = [
+      main ? main.textContent.trim() : '',
+      detail ? detail.textContent.replace(/\s+/g, ' ').trim() : ''
+    ].filter(Boolean).join('\n');
+
+    if (!text) return;
+
+    const done = () => {
+      const original = button.textContent;
+      button.textContent = 'Copied';
+      window.setTimeout(() => {
+        button.textContent = original || 'Copy result';
+      }, 1600);
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(() => {
+        button.textContent = 'Select result';
+      });
+    } else {
+      button.textContent = 'Select result';
+    }
+  }
+
+  function addActionButtons(calc) {
+    const result = calc.querySelector('.tool-page-result');
+    if (!result || calc.querySelector('.tool-copy-button')) return;
+    const actions = document.createElement('div');
+    actions.className = 'tool-page-actions';
+    actions.innerHTML = '<button type="button" class="tool-copy-button">Copy result</button>';
+    result.appendChild(actions);
+    actions.querySelector('.tool-copy-button').addEventListener('click', (event) => copyResult(calc, event.currentTarget));
+  }
+
   function reset(calc) {
     calc.querySelectorAll('input').forEach((input) => {
       input.value = input.dataset.initialValue || input.defaultValue || '';
@@ -242,6 +279,7 @@
   function init() {
     document.querySelectorAll('.mini-tool-calculator').forEach((calc) => {
       configure(calc);
+      addActionButtons(calc);
       calc.querySelectorAll('input').forEach((input) => {
         input.addEventListener('input', () => calculate(calc));
         input.addEventListener('change', () => calculate(calc));
