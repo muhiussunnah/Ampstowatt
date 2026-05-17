@@ -5524,6 +5524,20 @@ textarea {
   min-height: 320px;
 }
 
+.brand-header.pro-hero.no-hero-visual {
+  grid-template-areas:
+    "badge"
+    "title"
+    "content"
+    "actions";
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.brand-header.pro-hero.no-hero-visual .hero-title,
+.brand-header.pro-hero.no-hero-visual .hero-content {
+  max-width: 980px;
+}
+
 .tool-page-hero {
   display: block;
   padding: clamp(22px, 3vw, 36px);
@@ -6918,19 +6932,19 @@ body {
 /* Compact premium footer: keeps every link available while reducing page height. */
 .premium-footer,
 .site-footer.premium-footer {
-  margin-top: 38px;
+  margin-top: 42px;
 }
 
 .premium-footer-inner.semantic-footer-grid,
 .premium-footer-inner {
-  gap: 12px;
-  grid-template-columns: minmax(180px, 1fr) repeat(5, minmax(128px, 0.85fr));
-  padding: 18px clamp(14px, 2.2vw, 24px) 12px;
+  gap: 18px;
+  grid-template-columns: minmax(250px, 1.15fr) repeat(5, minmax(150px, 0.9fr));
+  padding: 26px clamp(18px, 3vw, 34px) 18px;
 }
 
 .premium-footer-brand {
-  border-radius: 10px;
-  padding: 11px;
+  border-radius: 14px;
+  padding: 16px;
 }
 
 .premium-footer-logo {
@@ -6938,22 +6952,22 @@ body {
 }
 
 .premium-footer-brand p {
-  font-size: 11px;
-  line-height: 1.35;
-  margin-bottom: 7px;
+  font-size: 13px;
+  line-height: 1.48;
+  margin-bottom: 10px;
 }
 
 .premium-footer-note {
-  border-radius: 9px;
-  font-size: 10px;
-  line-height: 1.28;
-  padding: 7px;
+  border-radius: 10px;
+  font-size: 12px;
+  line-height: 1.38;
+  padding: 9px 10px;
 }
 
 .footer-section-heading {
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.06em;
-  margin-bottom: 7px;
+  margin-bottom: 10px;
 }
 
 .footer-section-heading::after {
@@ -6963,17 +6977,17 @@ body {
 
 .premium-footer-links {
   display: grid;
-  gap: 2px 7px;
+  gap: 5px 10px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .premium-footer-links a {
-  border-radius: 7px;
-  font-size: 11px;
-  gap: 5px;
-  line-height: 1.2;
-  min-height: 22px;
-  padding: 2px 4px;
+  border-radius: 9px;
+  font-size: 13px;
+  gap: 6px;
+  line-height: 1.28;
+  min-height: 32px;
+  padding: 6px 7px;
 }
 
 .premium-footer-links a::before {
@@ -6983,9 +6997,9 @@ body {
 }
 
 .premium-footer-language {
-  border-radius: 10px;
+  border-radius: 12px;
   grid-column: span 3;
-  padding: 10px;
+  padding: 13px;
 }
 
 .premium-social-share {
@@ -6998,16 +7012,16 @@ body {
 }
 
 .premium-footer-language-grid {
-  gap: 5px;
-  max-height: 72px;
+  gap: 7px;
+  max-height: 96px;
   overflow: auto;
   padding-right: 4px;
 }
 
 .premium-footer-language .premium-language-option {
-  font-size: 11px;
-  min-height: 25px;
-  padding: 4px 7px;
+  font-size: 12px;
+  min-height: 30px;
+  padding: 6px 9px;
 }
 
 .premium-social-share-grid {
@@ -7016,11 +7030,11 @@ body {
 }
 
 .premium-social-share-button {
-  border-radius: 8px;
-  font-size: 11px;
+  border-radius: 10px;
+  font-size: 13px;
   gap: 8px;
-  min-height: 30px;
-  padding: 4px 7px;
+  min-height: 36px;
+  padding: 7px 9px;
 }
 
 .premium-social-share-button span {
@@ -7031,11 +7045,11 @@ body {
 }
 
 .premium-footer-bottom {
-  padding: 8px clamp(14px, 2.2vw, 24px) 10px;
+  padding: 11px clamp(18px, 3vw, 34px) 15px;
 }
 
 .premium-footer-bottom p {
-  font-size: 11px;
+  font-size: 12px;
 }
 
 @media (max-width: 1120px) {
@@ -7055,4 +7069,27 @@ body {
     grid-template-columns: 1fr;
     padding: 20px 14px 14px;
   }
+}
+
+/* Speed: defer heavy below-the-fold painting while preserving layout stability. */
+@supports (content-visibility: auto) {
+  main > section:not(.brand-header):not(:nth-of-type(2)),
+  .content-card,
+  .seo-technical-visual,
+  .seo-chart-visual,
+  .seo-triple-visual,
+  .tool-page-section,
+  .topic-section {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 720px;
+  }
+
+  .site-footer {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 420px;
+  }
+}
+
+svg {
+  shape-rendering: geometricPrecision;
 }
