@@ -5360,6 +5360,127 @@ textarea {
   width: 100%;
 }
 
+.premium-visual-section,
+.sub-calculator-section {
+  margin: clamp(20px, 3.2vw, 36px) 0;
+}
+
+.premium-visual-grid {
+  display: grid;
+  gap: clamp(14px, 2.2vw, 22px);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.premium-visual-card {
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(241, 245, 249, 0.96));
+  border: 1px solid rgba(148, 163, 184, 0.34);
+  border-radius: 14px;
+  box-shadow: 0 16px 38px rgba(15, 23, 42, 0.1);
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  min-width: 0;
+  padding: clamp(14px, 2vw, 18px);
+}
+
+.premium-visual-card figcaption {
+  color: var(--text);
+  font-family: var(--display-font);
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.premium-visual-card p {
+  color: var(--text3);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.premium-visual-card svg {
+  background:
+    linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+    #f8fafc;
+  background-size: 24px 24px;
+  border: 1px solid rgba(148, 163, 184, 0.26);
+  border-radius: 12px;
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
+.premium-visual-card text {
+  fill: #0f172a;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.premium-visual-card .pv-muted {
+  fill: #64748b;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.premium-visual-card .pv-box {
+  fill: #ffffff;
+  stroke: #cbd5e1;
+  stroke-width: 2;
+}
+
+.premium-visual-card .pv-core {
+  fill: #0f172a;
+  stroke: #1d4ed8;
+  stroke-width: 2.5;
+}
+
+.premium-visual-card .pv-wire {
+  fill: none;
+  stroke: #2563eb;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 4;
+}
+
+.premium-visual-card .pv-accent {
+  fill: #dbeafe;
+  stroke: #2563eb;
+  stroke-width: 2;
+}
+
+.premium-visual-card .pv-success {
+  fill: #dcfce7;
+  stroke: #16a34a;
+  stroke-width: 2;
+}
+
+.premium-visual-card .pv-warning {
+  fill: #fef3c7;
+  stroke: #d97706;
+  stroke-width: 2;
+}
+
+.sub-calculator-grid {
+  display: grid;
+  gap: clamp(14px, 2vw, 20px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.sub-calculator-card {
+  border-radius: 14px;
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.09);
+}
+
+.sub-calculator-card .tool-page-input-grid {
+  grid-template-columns: repeat(2, minmax(120px, 1fr));
+}
+
+.sub-calculator-card .tool-result-main {
+  font-size: clamp(24px, 3.2vw, 34px);
+}
+
 .tool-page-visual text {
   fill: var(--text);
   font-family: var(--mono);
@@ -6703,6 +6824,11 @@ body {
   }
 
   .seo-chart-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .premium-visual-grid,
+  .sub-calculator-grid {
     grid-template-columns: 1fr;
   }
 
