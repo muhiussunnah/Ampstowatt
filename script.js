@@ -188,15 +188,25 @@
     es: { name: 'Español', dir: 'ltr' },
     fr: { name: 'Français', dir: 'ltr' },
     de: { name: 'Deutsch', dir: 'ltr' },
+    it: { name: 'Italiano', dir: 'ltr' },
     pt: { name: 'Português', dir: 'ltr' },
+    bn: { name: 'বাংলা', dir: 'ltr' },
     hi: { name: 'हिन्दी', dir: 'ltr' },
     ja: { name: '日本語', dir: 'ltr' },
     ko: { name: '한국어', dir: 'ltr' },
+    ms: { name: 'Malay', dir: 'ltr' },
     ru: { name: 'Русский', dir: 'ltr' },
     zh: { name: '中文', dir: 'ltr' },
+    id: { name: 'Indonesia', dir: 'ltr' },
     ar: { name: 'العربية', dir: 'rtl' },
+    bg: { name: 'Български', dir: 'ltr' },
+    tr: { name: 'Türkçe', dir: 'ltr' },
+    sv: { name: 'Svenska', dir: 'ltr' },
+    ur: { name: 'اردو', dir: 'rtl' },
     pl: { name: 'Polski', dir: 'ltr' }
   };
+
+  const EXTERNAL_TRANSLATION_CACHE = {};
 
   Object.assign(TRANSLATIONS.pt, TRANSLATIONS.es, {
     'Skip to Main Content': 'Ir para o conteúdo principal',
@@ -393,6 +403,7 @@
     initReferenceTable();
     initFAQ();
     initLanguageButtons();
+    initHeadingVisuals();
     initLiveCalculatorControls();
     if (document.getElementById('main-type')) {
       togglePFGroup();
@@ -453,7 +464,22 @@
   // ===== LANGUAGE BUTTONS INITIALIZATION =====
 
   function getActiveLanguage() {
-    return localStorage.getItem('preferredLanguage') || 'en';
+    return localStorage.getItem('preferredLanguage') || localStorage.getItem('siteLanguage') || 'en';
+  }
+
+  function loadTranslationJson(lang) {
+    if (lang === 'en' || EXTERNAL_TRANSLATION_CACHE[lang]) {
+      return Promise.resolve(EXTERNAL_TRANSLATION_CACHE[lang] || {});
+    }
+    return fetch('/translations/' + lang + '.json', { cache: 'force-cache' })
+      .then(response => response.ok ? response.json() : {})
+      .then(data => {
+        const phrases = data.phrases || data || {};
+        TRANSLATIONS[lang] = Object.assign({}, TRANSLATIONS[lang] || {}, phrases);
+        EXTERNAL_TRANSLATION_CACHE[lang] = phrases;
+        return phrases;
+      })
+      .catch(() => ({}));
   }
 
   function translatePhrase(text, lang = getActiveLanguage()) {
@@ -504,6 +530,7 @@
     });
 
     localStorage.setItem('preferredLanguage', selectedLang);
+    localStorage.setItem('siteLanguage', selectedLang);
     if (document.getElementById('main-type')) {
       calcMain();
     }
@@ -536,7 +563,7 @@
       });
     });
 
-    applyLanguage(getActiveLanguage());
+    switchLanguage(getActiveLanguage());
   }
 
   // ===== DEVICE GRID INITIALIZATION =====
@@ -551,6 +578,75 @@
         <div class="device-watt">${d.watts}W</div>
       </div>`
     ).join('');
+  }
+
+  function getHeadingVisualType(text) {
+    const value = text.toLowerCase();
+    if (value.includes('three') || value.includes('3 phase')) return ['3P', 'three phase path'];
+    if (value.includes('battery') || value.includes('12v') || value.includes('dc')) return ['DC', 'battery circuit'];
+    if (value.includes('ac') || value.includes('power factor')) return ['PF', 'AC power factor'];
+    if (value.includes('amp') || value.includes('current')) return ['A', 'current draw'];
+    if (value.includes('watt') || value.includes('power') || value.includes('kw')) return ['W', 'power output'];
+    if (value.includes('volt')) return ['V', 'voltage input'];
+    if (value.includes('wire') || value.includes('breaker') || value.includes('load')) return ['LD', 'load planning'];
+    return ['FX', 'formula flow'];
+  }
+
+  function initHeadingVisuals() {
+    if (!document.querySelector('.mini-tool-calculator, .calculator-section, .seo-chart-visual')) return;
+    const formulaNode = document.querySelector('.seo-visual-formula');
+    const mainCalc = document.querySelector('.mini-tool-calculator');
+    const formula = formulaNode ? formulaNode.textContent.trim() : 'W = A x V x PF';
+    const volts = mainCalc && mainCalc.dataset.defaultVolts ? mainCalc.dataset.defaultVolts + ' V' : 'V';
+    const selector = [
+      'main .content-card h2',
+      'main .content-card h3',
+      'main .topic-copy h2',
+      'main .topic-copy h3'
+    ].join(',');
+
+    document.querySelectorAll(selector).forEach((heading) => {
+      if (
+        heading.closest('.static-faq-card, .calculator-section, .premium-visual-section, .sub-calculator-section, .seo-chart-visual') ||
+        (heading.nextElementSibling && heading.nextElementSibling.classList.contains('heading-technical-visual'))
+      ) {
+        return;
+      }
+
+      const visualType = getHeadingVisualType(heading.textContent || '');
+      const tag = visualType[0];
+      const label = visualType[1];
+      const visual = document.createElement('button');
+      visual.type = 'button';
+      visual.className = 'heading-technical-visual';
+      visual.setAttribute('aria-expanded', 'false');
+      visual.innerHTML = `
+        <span class="heading-visual-svg" aria-hidden="true">
+          <svg viewBox="0 0 360 118" focusable="false">
+            <rect x="16" y="28" width="76" height="52" rx="12"></rect>
+            <path d="M92 54 H144"></path>
+            <circle cx="162" cy="54" r="18"></circle>
+            <path d="M180 54 H242"></path>
+            <rect x="242" y="28" width="100" height="52" rx="12"></rect>
+            <text x="54" y="59" text-anchor="middle">${tag}</text>
+            <text x="162" y="59" text-anchor="middle">=</text>
+            <text x="292" y="52" text-anchor="middle">RESULT</text>
+            <text x="292" y="68" text-anchor="middle">${volts}</text>
+          </svg>
+        </span>
+        <span class="heading-visual-copy">
+          <strong>${label}</strong>
+          <em>${formula}</em>
+          <small>Tap to view the calculation path for this heading.</small>
+        </span>
+        <span class="heading-visual-more" aria-hidden="true">+</span>
+      `;
+      visual.addEventListener('click', () => {
+        const expanded = visual.classList.toggle('is-expanded');
+        visual.setAttribute('aria-expanded', String(expanded));
+      });
+      heading.insertAdjacentElement('afterend', visual);
+    });
   }
 
   // ===== REFERENCE TABLE INITIALIZATION =====
@@ -1067,7 +1163,8 @@
   // ===== LANGUAGE SWITCHER =====
 
   function switchLanguage(lang) {
-    applyLanguage(lang || 'en');
+    const code = lang || 'en';
+    loadTranslationJson(code).then(() => applyLanguage(code));
   }
 
   window.switchLanguage = switchLanguage;
@@ -1295,76 +1392,21 @@
     return match ? match[1] : 'English';
   }
 
-  function setTranslateCookie(code) {
-    const value = code === 'en' ? '' : `/en/${code}`;
-    const expires = code === 'en' ? 'Thu, 01 Jan 1970 00:00:00 GMT' : 'Fri, 31 Dec 9999 23:59:59 GMT';
-    document.cookie = `googtrans=${value}; expires=${expires}; path=/`;
-    if (window.location.hostname.includes('.')) {
-      document.cookie = `googtrans=${value}; expires=${expires}; path=/; domain=.${window.location.hostname}`;
-    }
-  }
-
   function applyDirection(code) {
     document.documentElement.dir = ['ar', 'ur'].includes(code) ? 'rtl' : 'ltr';
   }
 
-  function loadTranslateScript() {
-    if (window.google && window.google.translate) return;
-    if (document.getElementById('google-translate-script')) return;
-    const script = document.createElement('script');
-    script.id = 'google-translate-script';
-    script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-    script.async = true;
-    document.head.appendChild(script);
-  }
-
-  function applyGoogleLanguage(code) {
-    const select = document.querySelector('.goog-te-combo');
-    if (!select) return false;
-    select.value = code;
-    select.dispatchEvent(new Event('change'));
-    return true;
-  }
-
-  window.googleTranslateElementInit = function() {
-    if (!document.getElementById('google_translate_element')) {
-      const mount = document.createElement('div');
-      mount.id = 'google_translate_element';
-      mount.className = 'premium-google-translate-mount';
-      document.body.appendChild(mount);
-    }
-    new window.google.translate.TranslateElement({
-      pageLanguage: 'en',
-      autoDisplay: false
-    }, 'google_translate_element');
-    const code = getSavedLanguage();
-    if (code !== 'en') {
-      let tries = 0;
-      const timer = window.setInterval(() => {
-        tries += 1;
-        if (applyGoogleLanguage(code) || tries > 20) window.clearInterval(timer);
-      }, 250);
-    }
-  };
-
   function setLanguage(code, shouldReload) {
     localStorage.setItem('siteLanguage', code);
-    setTranslateCookie(code);
+    localStorage.setItem('preferredLanguage', code);
     applyDirection(code);
+    if (window.switchLanguage) window.switchLanguage(code);
     document.querySelectorAll('.premium-language-option').forEach((button) => {
       button.classList.toggle('is-active', button.dataset.lang === code);
       button.setAttribute('aria-pressed', String(button.dataset.lang === code));
     });
     const label = document.querySelector('.premium-language-current');
     if (label) label.textContent = getLanguageName(code);
-    if (code === 'en') {
-      if (shouldReload) window.location.reload();
-      return;
-    }
-    loadTranslateScript();
-    if (!applyGoogleLanguage(code) && shouldReload) {
-      window.setTimeout(() => window.location.reload(), 250);
-    }
   }
 
   function initPremiumLanguageSelector() {
@@ -1426,7 +1468,7 @@
 
     panel.addEventListener('click', (event) => event.stopPropagation());
     applyDirection(savedLanguage);
-    if (savedLanguage !== 'en') loadTranslateScript();
+    if (window.switchLanguage) window.switchLanguage(savedLanguage);
   }
 
   function initPremiumFooterLanguages() {
