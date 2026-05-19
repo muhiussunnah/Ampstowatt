@@ -1,4 +1,4 @@
-# Wordpress Default
+﻿# Wordpress Default
 User-agent: *
 Disallow: /wp-admin/
 Allow: /wp-admin/admin-ajax.php
@@ -22,7 +22,6 @@ Disallow: *&p=*
 Disallow: *&preview=*
 
 # Sitemap Link 1
-Sitemap: https://ampstowatt.com/
 Sitemap: https://ampstowatt.com/sitemap.xml
 Sitemap: https://ampstowatt.com/sitemap-index.xml
 

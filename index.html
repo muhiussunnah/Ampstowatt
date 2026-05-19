@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -34,7 +34,7 @@
   <meta name="twitter:image" content="https://ampstowatt.com/og-image.jpg">
 
   <!-- ===== STYLES ===== -->
-  <link rel="stylesheet" href="/styles.css?v=20260513-premium-header-footer">
+  <link rel="stylesheet" href="/styles.min.css?v=20260519-app-tool-v8">
 
   <!-- ===== STRUCTURED DATA ===== -->
   <script type="application/ld+json">
@@ -258,7 +258,7 @@
   <main id="main-content" class="container">
 
     <!-- ===== BRAND HERO SECTION ===== -->
-    <section class="brand-header pro-hero no-hero-visual" aria-label="Hero Section">
+    <section class="brand-header pro-hero no-hero-visual home-hero-compact" aria-label="Hero Section">
       <div class="brand-badge" role="status">
         <span class="brand-badge-dot" aria-hidden="true"></span>
         <span>Amps To Watts Calculator</span>
@@ -266,168 +266,58 @@
       <h1 class="hero-title">Amps To Watts Calculator</h1>
       <div class="hero-content">
         <p class="hero-subtitle">An amps to watts calculator converts electric current in amperes (A) to electric power in watts (W) by applying voltage (V) and — for alternating current systems — a power factor (PF). Enter the current, voltage, and circuit type, and the calculator returns real power in watts within one step.</p>
-        <p class="hero-subtitle highlight-intro">There are <strong>3 direct benefits</strong> of using an amps to watts calculator: it eliminates manual arithmetic errors, speeds up circuit planning, and prevents dangerous overload conditions before they occur. The <strong>5 most common applications</strong> are residential circuit load planning, off-grid solar system sizing, industrial motor power verification, energy cost estimation, and wire gauge safety validation.</p>
-      </div>
-      <div class="hero-actions" aria-label="Primary calculator links">
-        <a href="#calculator" class="btn btn-primary">Open Amps to Watts</a>
-        <a href="#watts-to-amps" class="btn btn-outline">Open Watts to Amps</a>
       </div>
     </section>
 
     <!-- ===== MAIN CALCULATOR SECTION ===== -->
-    <section class="calculator-section" aria-label="Main Calculator">
+    <section class="calculator-section primary-tool-section" aria-label="Main Calculator">
       <div class="section-divider" id="calculator">
         <div class="icon-circle" aria-hidden="true">W</div>
         <div class="section-heading">Amps to Watts Calculator</div>
         <div class="line" aria-hidden="true"></div>
       </div>
-
-      <div class="two-col calculator-layout">
-        <!-- Visual Panel -->
-        <aside class="visual-panel circuit-visual-panel" aria-label="Dynamic power house grid circuit diagram">
-          <div class="visual-panel-topline">
-            <div class="visual-header">🏠 Live Power House Grid Circuit</div>
-            <span class="circuit-status" id="circuit-status" role="status" aria-live="polite">Ready</span>
-          </div>
-
-          <div class="circuit-diagram-card" id="circuit-diagram-card">
-            <svg class="power-house-diagram" viewBox="0 0 760 380" role="img" aria-label="Power house grid circuit diagram">
-              <desc id="circuit-diagram-desc">A live diagram showing utility grid power flowing through a transformer, breaker panel, house wiring, and electrical load based on the calculator values.</desc>
-
-              <defs>
-                <linearGradient id="wire-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stop-color="#2563eb"/>
-                  <stop offset="55%" stop-color="#06b6d4"/>
-                  <stop offset="100%" stop-color="#16a34a"/>
-                </linearGradient>
-                <filter id="circuit-glow" x="-40%" y="-40%" width="180%" height="180%">
-                  <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
-                  <feMerge>
-                    <feMergeNode in="coloredBlur"/>
-                    <feMergeNode in="SourceGraphic"/>
-                  </feMerge>
-                </filter>
-                <marker id="flow-arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
-                  <path d="M0,0 L0,6 L9,3 z" fill="#16a34a"/>
-                </marker>
-              </defs>
-
-              <!-- Utility grid tower -->
-              <g class="diagram-node grid-node">
-                <path d="M72 292 L128 72 L184 292" fill="none" stroke="#1e3a8a" stroke-width="9" stroke-linecap="round"/>
-                <path d="M96 182 H160 M84 230 H172 M110 132 H146 M101 292 H155" fill="none" stroke="#3b82f6" stroke-width="6" stroke-linecap="round"/>
-                <circle cx="128" cy="72" r="14" fill="#dbeafe" stroke="#2563eb" stroke-width="5"/>
-                <text x="128" y="330" text-anchor="middle" class="diagram-label">UTILITY GRID</text>
-                <text x="128" y="350" text-anchor="middle" class="diagram-value" id="diagram-grid-voltage">230.0 V</text>
-              </g>
-
-              <!-- Transformer -->
-              <g class="diagram-node transformer-node">
-                <rect x="272" y="116" width="100" height="112" rx="16" fill="#eff6ff" stroke="#2563eb" stroke-width="5"/>
-                <circle cx="306" cy="172" r="26" fill="none" stroke="#2563eb" stroke-width="6"/>
-                <circle cx="338" cy="172" r="26" fill="none" stroke="#06b6d4" stroke-width="6"/>
-                <text x="322" y="258" text-anchor="middle" class="diagram-label">TRANSFORMER</text>
-                <text x="322" y="278" text-anchor="middle" class="diagram-value" id="diagram-phase">AC Three-Phase</text>
-              </g>
-
-              <!-- Breaker panel -->
-              <g class="diagram-node breaker-node">
-                <rect x="470" y="102" width="88" height="140" rx="12" fill="#f8fafc" stroke="#334155" stroke-width="5"/>
-                <rect x="490" y="122" width="48" height="18" rx="4" fill="#16a34a" id="diagram-breaker-switch"/>
-                <line x1="492" y1="160" x2="536" y2="160" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
-                <line x1="492" y1="186" x2="536" y2="186" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
-                <line x1="492" y1="212" x2="536" y2="212" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
-                <text x="514" y="272" text-anchor="middle" class="diagram-label">BREAKER</text>
-                <text x="514" y="292" text-anchor="middle" class="diagram-value" id="diagram-current">10.00 A</text>
-              </g>
-
-              <!-- House and load -->
-              <g class="diagram-node house-node">
-                <path d="M610 168 L680 104 L750 168" fill="none" stroke="#1e293b" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-                <rect x="626" y="168" width="108" height="100" rx="10" fill="#fff7ed" stroke="#f97316" stroke-width="5"/>
-                <rect x="666" y="210" width="30" height="58" rx="5" fill="#fed7aa" stroke="#ea580c" stroke-width="4"/>
-                <rect x="640" y="184" width="18" height="18" rx="3" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
-                <rect x="708" y="184" width="18" height="18" rx="3" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
-                <circle cx="680" cy="148" r="14" fill="#fef3c7" stroke="#d97706" stroke-width="4" class="load-light"/>
-                <text x="680" y="306" text-anchor="middle" class="diagram-label">POWER HOUSE</text>
-                <text x="680" y="326" text-anchor="middle" class="diagram-value" id="diagram-load">3.39 kW</text>
-              </g>
-
-              <!-- Power conductors -->
-              <path class="circuit-wire wire-base" d="M182 154 C230 122 238 122 272 152"/>
-              <path class="circuit-wire wire-base" d="M372 172 H470"/>
-              <path class="circuit-wire wire-base" d="M558 172 C584 172 590 172 610 172"/>
-              <path class="circuit-wire wire-flow" id="diagram-flow-1" d="M182 154 C230 122 238 122 272 152"/>
-              <path class="circuit-wire wire-flow" id="diagram-flow-2" d="M372 172 H470"/>
-              <path class="circuit-wire wire-flow" id="diagram-flow-3" d="M558 172 C584 172 590 172 610 172" marker-end="url(#flow-arrow)"/>
-
-              <!-- Ground/return line -->
-              <path class="return-wire" d="M626 252 C500 338 286 338 128 292"/>
-
-              <!-- Live data badge -->
-              <g class="diagram-output-badge">
-                <rect x="286" y="24" width="188" height="58" rx="14"/>
-                <text x="380" y="48" text-anchor="middle" class="badge-label">REAL POWER OUTPUT</text>
-                <text x="380" y="72" text-anchor="middle" class="badge-value" id="diagram-power">3.39 kW</text>
-              </g>
-            </svg>
-          </div>
-
-          <div class="visual-row compact">
-            <div class="visual-icon voltage" aria-hidden="true">V</div>
-            <div class="visual-info">
-              <div class="visual-label">Voltage</div>
-              <div class="visual-value" id="visual-voltage">230 V</div>
-              <div class="visual-bar-wrap" role="progressbar" aria-valuenow="46" aria-valuemin="0" aria-valuemax="100" aria-label="Voltage level 46 percent">
-                <div class="visual-bar-fill voltage" id="visual-bar-voltage" style="width:46%;"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="visual-row compact">
-            <div class="visual-icon current" aria-hidden="true">A</div>
-            <div class="visual-info">
-              <div class="visual-label">Current (Amperes)</div>
-              <div class="visual-value" id="visual-current">10.00 A</div>
-              <div class="visual-bar-wrap" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" aria-label="Current level 20 percent">
-                <div class="visual-bar-fill current" id="visual-bar-current" style="width:20%;"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="visual-row compact">
-            <div class="visual-icon power" aria-hidden="true">W</div>
-            <div class="visual-info">
-              <div class="visual-label">Power (Watts)</div>
-              <div class="visual-value" id="visual-power">— W</div>
-              <div class="visual-bar-wrap" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Power level 0 percent">
-                <div class="visual-bar-fill power" id="visual-bar-power" style="width:0%;"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="visual-metrics-grid circuit-metrics-grid">
-            <div class="visual-metric">
-              <div class="metric-label">kW</div>
-              <div class="metric-value" id="visual-kw">—</div>
-            </div>
-            <div class="visual-metric">
-              <div class="metric-label">PF / Mode</div>
-              <div class="metric-value amber" id="diagram-pf">PF 0.85</div>
-            </div>
-            <div class="visual-metric">
-              <div class="metric-label">BTU/hr</div>
-              <div class="metric-value green" id="visual-btu">—</div>
-            </div>
-            <div class="visual-metric">
-              <div class="metric-label">HP</div>
-              <div class="metric-value amber" id="visual-hp">—</div>
-            </div>
-          </div>
-        </aside>
-
+<div class="two-col calculator-layout">
         <!-- Calculator Form -->
         <article class="card card-glow calculator-card">
+                    <div class="main-tool-card-head">
+            <span>Main calculator</span>
+            <strong>Amps To Watts Calculator</strong>
+            <p>Fast presets, power factor support, and live real power output in watts, kW, BTU/hr, and horsepower.</p>
+          </div>
+          <div class="main-quick-presets" aria-label="Quick calculator presets">
+            <button type="button" class="main-quick-preset" data-type="dc" data-amps="10" data-volts="12" data-pf="1">12V 10A DC</button>
+            <button type="button" class="main-quick-preset" data-type="ac1" data-amps="15" data-volts="120" data-pf="1">120V 15A</button>
+            <button type="button" class="main-quick-preset" data-type="ac1" data-amps="30" data-volts="240" data-pf="0.95">240V 30A</button>
+            <button type="button" class="main-quick-preset" data-type="ac3" data-amps="10" data-volts="230" data-pf="0.85">230V 3P</button>
+          </div>
+          <div class="main-intent-panel" aria-label="Popular amps watts conversion shortcuts">
+            <div class="intent-copy">
+              <span>Popular searches</span>
+              <strong>Fast answers for common amps, volts, watts, MW, and Ah searches</strong>
+            </div>
+            <div class="intent-chip-grid">
+              <button type="button" class="main-quick-preset" data-type="ac1" data-amps="1" data-volts="120" data-pf="1">1 amp watts</button>
+              <button type="button" class="main-quick-preset" data-type="ac1" data-amps="1" data-volts="120" data-pf="1">1 amps to watt</button>
+              <button type="button" class="main-quick-preset" data-type="ac1" data-amps="1.5" data-volts="120" data-pf="1">1.5 amps to watt</button>
+              <button type="button" class="main-quick-preset" data-type="ac1" data-amps="2" data-volts="120" data-pf="1">2 amps to watts</button>
+              <button type="button" class="main-quick-preset" data-type="ac1" data-amps="10" data-volts="120" data-pf="1">10 amp to watts</button>
+              <button type="button" class="main-quick-preset" data-type="ac1" data-amps="13" data-volts="120" data-pf="1">13 amps to watts</button>
+              <button type="button" class="main-quick-preset" data-type="ac1" data-amps="15" data-volts="120" data-pf="1">15 amp watts</button>
+              <button type="button" class="main-quick-preset" data-type="ac1" data-amps="14.5" data-volts="120" data-pf="1">14.5 amps to watts</button>
+              <button type="button" class="main-quick-preset" data-type="ac1" data-amps="16" data-volts="120" data-pf="1">16 amp how many watts</button>
+              <button type="button" class="main-quick-preset" data-type="ac1" data-amps="20" data-volts="120" data-pf="1">20 amp to watts</button>
+              <button type="button" class="main-quick-preset" data-type="ac1" data-amps="32" data-volts="240" data-pf="1">32A 240V watts</button>
+              <button type="button" class="main-quick-preset" data-type="ac1" data-amps="50" data-volts="240" data-pf="1">50 amps to watts</button>
+              <a href="/megawatts-to-amps-calculator/">MW to amps calculator</a>
+              <a href="/amp-hours-to-watt-hours/">Ah to Wh calculator</a>
+            </div>
+          </div>
+          <div class="main-formula-strip" aria-label="Common electrical formulas">
+            <span>Watts = Amps x Volts</span>
+            <span>Amps = Watts / Volts</span>
+            <span>Wh = Ah x Volts</span>
+            <span>3-phase W = 1.732 x A x V x PF</span>
+          </div>
           <form onsubmit="return false;" aria-label="Amps to Watts Calculator Form">
             <div class="input-row">
               <div class="input-group">
@@ -514,6 +404,20 @@
               <button class="btn btn-outline btn-xs" id="export-main-result" onclick="exportMainResult()">Export</button>
             </div>
           </div>
+        </article>
+      </div>
+    </section>
+
+    
+    <section class="home-calculator-explainer" aria-labelledby="amps-watts-explainer-title">
+      <div class="explainer-grid">
+        <article class="explainer-card">
+          <h2 id="amps-watts-explainer-title">What an amps to watts calculator does</h2>
+          <p>An amps to watts calculator converts electric current in amperes (A) to electric power in watts (W) by applying voltage (V) and, for alternating current systems, a power factor (PF). Enter the current, voltage, and circuit type, and the calculator returns real power in watts within one step.</p>
+        </article>
+        <article class="explainer-card accent">
+          <h3>Why this calculator helps</h3>
+          <p>There are 3 direct benefits of using an amps to watts calculator: it eliminates manual arithmetic errors, speeds up circuit planning, and prevents dangerous overload conditions before they occur. The 5 most common applications are residential circuit load planning, off-grid solar system sizing, industrial motor power verification, energy cost estimation, and wire gauge safety validation.</p>
         </article>
       </div>
     </section>

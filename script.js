@@ -1,4 +1,4 @@
-/**
+﻿/**
  * AMPERE TO WATT CALCULATOR - Main Script
  * Complete electrical power conversion suite
  * Version: 2.0
@@ -405,6 +405,7 @@
     initLanguageButtons();
     initHeadingVisuals();
     initLiveCalculatorControls();
+    initMainQuickPresets();
     if (document.getElementById('main-type')) {
       togglePFGroup();
       updateVisuals(10, 230, 0);
@@ -421,6 +422,27 @@
     if (document.getElementById('wg-amps')) calcWireGauge();
   }
 
+
+  function initMainQuickPresets() {
+    const presets = document.querySelectorAll('.main-quick-preset');
+    if (!presets.length) return;
+
+    presets.forEach(button => {
+      button.addEventListener('click', () => {
+        const type = button.dataset.type || 'ac1';
+        const amps = button.dataset.amps || '10';
+        const volts = button.dataset.volts || '120';
+        const pf = button.dataset.pf || '1';
+
+        document.getElementById('main-type').value = type;
+        document.getElementById('main-amps').value = amps;
+        document.getElementById('main-volts').value = volts;
+        document.getElementById('main-pf').value = pf;
+        togglePFGroup();
+        calcMain();
+      });
+    });
+  }
   function initLiveCalculatorControls() {
     const liveIds = [
       'main-type', 'main-amps', 'main-volts', 'main-freq', 'main-pf',
@@ -821,34 +843,38 @@
       breaker.setAttribute('fill', statusClass === 'danger' ? '#ef4444' : statusClass === 'warning' ? '#f59e0b' : '#16a34a');
     }
   }
-
   function updateVisuals(amps, volts, watts, type = 'ac3', pf = 0.85) {
-    document.getElementById('visual-voltage').textContent = volts.toFixed(1) + ' V';
-    document.getElementById('visual-current').textContent = amps.toFixed(2) + ' A';
-    document.getElementById('visual-power').textContent = watts > 0 ? watts.toFixed(2) + ' W' : '— W';
+    const setText = (id, value) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = value;
+    };
+    const setBar = (id, pct, label) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.style.width = pct + '%';
+      if (el.parentElement) {
+        el.parentElement.setAttribute('aria-valuenow', Math.round(pct));
+        el.parentElement.setAttribute('aria-label', label + ' level ' + Math.round(pct) + ' percent');
+      }
+    };
+
+    setText('visual-voltage', volts.toFixed(1) + ' V');
+    setText('visual-current', amps.toFixed(2) + ' A');
+    setText('visual-power', watts > 0 ? watts.toFixed(2) + ' W' : '— W');
 
     const vPct = Math.min((volts / 500) * 100, 100);
     const aPct = Math.min((amps / 50) * 100, 100);
     const wPct = Math.min((watts / 30000) * 100, 100);
 
-    document.getElementById('visual-bar-voltage').style.width = vPct + '%';
-    document.getElementById('visual-bar-voltage').parentElement.setAttribute('aria-valuenow', Math.round(vPct));
-    document.getElementById('visual-bar-voltage').parentElement.setAttribute('aria-label', 'Voltage level ' + Math.round(vPct) + ' percent');
+    setBar('visual-bar-voltage', vPct, 'Voltage');
+    setBar('visual-bar-current', aPct, 'Current');
+    setBar('visual-bar-power', wPct, 'Power');
 
-    document.getElementById('visual-bar-current').style.width = aPct + '%';
-    document.getElementById('visual-bar-current').parentElement.setAttribute('aria-valuenow', Math.round(aPct));
-    document.getElementById('visual-bar-current').parentElement.setAttribute('aria-label', 'Current level ' + Math.round(aPct) + ' percent');
-
-    document.getElementById('visual-bar-power').style.width = wPct + '%';
-    document.getElementById('visual-bar-power').parentElement.setAttribute('aria-valuenow', Math.round(wPct));
-    document.getElementById('visual-bar-power').parentElement.setAttribute('aria-label', 'Power level ' + Math.round(wPct) + ' percent');
-
-    document.getElementById('visual-kw').textContent = watts > 0 ? (watts / 1000).toFixed(3) + ' kW' : '—';
-    document.getElementById('visual-hp').textContent = watts > 0 ? (watts / 746).toFixed(3) + ' HP' : '—';
-    document.getElementById('visual-btu').textContent = watts > 0 ? (watts * 3.412).toFixed(1) + ' BTU' : '—';
+    setText('visual-kw', watts > 0 ? (watts / 1000).toFixed(3) + ' kW' : '—');
+    setText('visual-hp', watts > 0 ? (watts / 746).toFixed(3) + ' HP' : '—');
+    setText('visual-btu', watts > 0 ? (watts * 3.412).toFixed(1) + ' BTU' : '—');
     updateCircuitDiagram(amps, volts, watts, type, pf);
   }
-
   // ===== MAIN CALCULATOR =====
 
 
