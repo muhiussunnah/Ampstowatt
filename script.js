@@ -1,4 +1,4 @@
-﻿/**
+/**
  * AMPERE TO WATT CALCULATOR - Main Script
  * Complete electrical power conversion suite
  * Version: 2.0
@@ -1248,50 +1248,8 @@
   }
 
   function initPremiumSocialShare() {
-    const footerInner = document.querySelector('.premium-footer-inner');
-    if (!footerInner || document.querySelector('.premium-social-share') || document.querySelector('.footer-trust-section')) return;
-
-    const pageUrl = window.location.href.split('#')[0];
-    const encodedUrl = encodeURIComponent(pageUrl);
-    const encodedTitle = encodeURIComponent(document.title || 'Ampstowatt calculator');
-    const section = document.createElement('section');
-    section.className = 'premium-social-share';
-    section.setAttribute('aria-label', 'Contact, trust, and social links');
-    section.innerHTML = `
-      <div class="footer-section-heading">Contact & Trust</div>
-      <p>Share this calculator page or contact the site owner.</p>
-      <div class="footer-contact-lines">
-        <a href="mailto:ampstowatt@gmail.com">ampstowatt@gmail.com</a>
-        <a href="tel:+10000000000">+1 000 000 0000</a>
-      </div>
-      <div class="premium-social-share-grid">
-        <a class="premium-social-share-button" href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook"><span>FB</span>Facebook</a>
-        <a class="premium-social-share-button" href="https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}" target="_blank" rel="noopener noreferrer" aria-label="Share on Twitter"><span>X</span>Twitter</a>
-        <a class="premium-social-share-button" href="https://www.instagram.com/ampstowatt" target="_blank" rel="noopener noreferrer" aria-label="Open Instagram"><span>IG</span>Instagram</a>
-        <a class="premium-social-share-button" href="https://www.pinterest.com/ampstowatt" target="_blank" rel="noopener noreferrer" aria-label="Open Pinterest"><span>PT</span>Pinterest</a>
-        <button class="premium-social-share-button premium-share-copy" type="button" data-share-copy aria-label="Copy this page link"><span>URL</span>Copy Link</button>
-      </div>
-      <a class="dmca-badge" href="https://www.dmca.com/Protection/Status.aspx?ID=ampstowatt" target="_blank" rel="noopener noreferrer">DMCA Protected</a>
-    `;
-    footerInner.appendChild(section);
-
-    const copyButton = section.querySelector('[data-share-copy]');
-    if (!copyButton) return;
-    copyButton.addEventListener('click', async () => {
-      try {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          await navigator.clipboard.writeText(pageUrl);
-        }
-        copyButton.classList.add('is-copied');
-        copyButton.lastChild.textContent = 'Copied';
-        window.setTimeout(() => {
-          copyButton.classList.remove('is-copied');
-          copyButton.lastChild.textContent = 'Copy Link';
-        }, 1800);
-      } catch (error) {
-        copyButton.lastChild.textContent = 'Copy link';
-      }
-    });
+    // Contact & Trust and DMCA sections removed
+    return;
   }
 
   function runWhenIdle(callback) {
