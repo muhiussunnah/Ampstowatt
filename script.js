@@ -10,178 +10,7 @@
   // ===== DATABASE & CONSTANTS =====
   
 
-  const TRANSLATIONS = {
-    es: {
-      'Skip to Main Content': 'Saltar al contenido principal',
-      'AMPERE TO WATT': 'AMPERIOS A VATIOS',
-      'Calculator': 'Calculadora',
-      'All Tools': 'Todas las herramientas',
-      'Units': 'Unidades',
-      'Formulas': 'Fórmulas',
-      'Examples': 'Ejemplos',
-      'Tables': 'Tablas',
-      'Power Factor': 'Factor de potencia',
-      'Considerations': 'Consideraciones',
-      'FAQ': 'Preguntas frecuentes',
-      'Amps to Watts Calculator': 'Calculadora de amperios a vatios',
-      'Live Power House Grid Circuit': 'Circuito de red de la casa en vivo',
-      'Voltage': 'Voltaje',
-      'Current (Amperes)': 'Corriente (amperios)',
-      'Power (Watts)': 'Potencia (vatios)',
-      'Circuit Type': 'Tipo de circuito',
-      'Current (Amps)': 'Corriente (A)',
-      'Voltage (Volts)': 'Voltaje (V)',
-      'Frequency (Hz)': 'Frecuencia (Hz)',
-      'REAL POWER': 'POTENCIA REAL',
-      'Copy Result': 'Copiar resultado',
-      'Export': 'Exportar',
-      'Related Electrical Calculators': 'Calculadoras eléctricas relacionadas',
-      'Quick Menu': 'Menú rápido',
-      'Home': 'Inicio',
-      'Amp to Watt Hours': 'Amperios a vatios-hora',
-      'Volt-Amps Calculator': 'Calculadora de voltamperios',
-      'Watt to Amps': 'Vatios a amperios',
-      'Voltage Drop': 'Caída de voltaje',
-      'Wire Gauge': 'Calibre de cable',
-      'About Amps & Watts': 'Acerca de amperios y vatios',
-      'Tools & Calculators': 'Herramientas y calculadoras',
-      'DC Power Calculator': 'Calculadora de potencia CC',
-      'AC Single-Phase Calculator': 'Calculadora CA monofásica',
-      'AC Three-Phase Calculator': 'Calculadora CA trifásica',
-      'Power Factor Correction': 'Corrección del factor de potencia',
-      'Trust & Legal': 'Confianza y legal',
-      'Terms & Conditions': 'Términos y condiciones',
-      'Privacy Policy': 'Política de privacidad',
-      'Cookie Policy': 'Política de cookies',
-      'Disclaimer': 'Aviso legal',
-      'About Us': 'Sobre nosotros',
-      'Contact Us': 'Contacto',
-      'Site Map': 'Mapa del sitio',
-      'Cookie Preferences': 'Preferencias de cookies',
-      'Available Languages:': 'Idiomas disponibles:',
-      'INDEPENDENT RESOURCE': 'RECURSO INDEPENDIENTE',
-      'UTILITY GRID': 'RED ELÉCTRICA',
-      'TRANSFORMER': 'TRANSFORMADOR',
-      'BREAKER': 'INTERRUPTOR',
-      'POWER HOUSE': 'CASA',
-      'REAL POWER OUTPUT': 'SALIDA DE POTENCIA REAL',
-      'Ready': 'Listo',
-      'Normal load': 'Carga normal',
-      'High load': 'Carga alta',
-      'Overload risk': 'Riesgo de sobrecarga',
-      'Waiting for input': 'Esperando datos'
-    },
-    fr: {
-      'Skip to Main Content': 'Aller au contenu principal',
-      'AMPERE TO WATT': 'AMPÈRES EN WATTS',
-      'Calculator': 'Calculateur',
-      'All Tools': 'Tous les outils',
-      'Units': 'Unités',
-      'Formulas': 'Formules',
-      'Examples': 'Exemples',
-      'Tables': 'Tableaux',
-      'Power Factor': 'Facteur de puissance',
-      'Considerations': 'Considérations',
-      'FAQ': 'FAQ',
-      'Amps to Watts Calculator': 'Calculateur ampères en watts',
-      'Live Power House Grid Circuit': 'Circuit domestique du réseau en direct',
-      'Voltage': 'Tension',
-      'Current (Amperes)': 'Courant (ampères)',
-      'Power (Watts)': 'Puissance (watts)',
-      'Circuit Type': 'Type de circuit',
-      'Current (Amps)': 'Courant (A)',
-      'Voltage (Volts)': 'Tension (V)',
-      'Frequency (Hz)': 'Fréquence (Hz)',
-      'REAL POWER': 'PUISSANCE RÉELLE',
-      'Copy Result': 'Copier le résultat',
-      'Export': 'Exporter',
-      'Related Electrical Calculators': 'Calculateurs électriques associés',
-      'Quick Menu': 'Menu rapide',
-      'Home': 'Accueil',
-      'Amp to Watt Hours': 'Ampères en wattheures',
-      'Volt-Amps Calculator': 'Calculateur voltampères',
-      'Watt to Amps': 'Watts en ampères',
-      'Voltage Drop': 'Chute de tension',
-      'Wire Gauge': 'Calibre de fil',
-      'About Amps & Watts': 'À propos des ampères et watts',
-      'Tools & Calculators': 'Outils et calculateurs',
-      'DC Power Calculator': 'Calculateur de puissance CC',
-      'AC Single-Phase Calculator': 'Calculateur CA monophasé',
-      'AC Three-Phase Calculator': 'Calculateur CA triphasé',
-      'Power Factor Correction': 'Correction du facteur de puissance',
-      'Trust & Legal': 'Confiance et juridique',
-      'Terms & Conditions': 'Conditions générales',
-      'Privacy Policy': 'Politique de confidentialité',
-      'Cookie Policy': 'Politique relative aux cookies',
-      'Disclaimer': 'Avertissement',
-      'About Us': 'À propos',
-      'Contact Us': 'Contact',
-      'Site Map': 'Plan du site',
-      'Cookie Preferences': 'Préférences des cookies',
-      'Available Languages:': 'Langues disponibles :',
-      'INDEPENDENT RESOURCE': 'RESSOURCE INDÉPENDANTE',
-      'UTILITY GRID': 'RÉSEAU',
-      'TRANSFORMER': 'TRANSFORMATEUR',
-      'BREAKER': 'DISJONCTEUR',
-      'POWER HOUSE': 'MAISON',
-      'REAL POWER OUTPUT': 'SORTIE DE PUISSANCE RÉELLE',
-      'Ready': 'Prêt',
-      'Normal load': 'Charge normale',
-      'High load': 'Charge élevée',
-      'Overload risk': 'Risque de surcharge',
-      'Waiting for input': 'En attente de saisie'
-    },
-    de: {
-      'Skip to Main Content': 'Zum Hauptinhalt springen',
-      'AMPERE TO WATT': 'AMPERE IN WATT',
-      'Calculator': 'Rechner',
-      'All Tools': 'Alle Tools',
-      'Units': 'Einheiten',
-      'Formulas': 'Formeln',
-      'Examples': 'Beispiele',
-      'Tables': 'Tabellen',
-      'Power Factor': 'Leistungsfaktor',
-      'Considerations': 'Hinweise',
-      'FAQ': 'FAQ',
-      'Amps to Watts Calculator': 'Ampere-in-Watt-Rechner',
-      'Live Power House Grid Circuit': 'Live-Stromkreis Hausnetz',
-      'Voltage': 'Spannung',
-      'Current (Amperes)': 'Strom (Ampere)',
-      'Power (Watts)': 'Leistung (Watt)',
-      'Circuit Type': 'Stromkreisart',
-      'Current (Amps)': 'Strom (A)',
-      'Voltage (Volts)': 'Spannung (V)',
-      'Frequency (Hz)': 'Frequenz (Hz)',
-      'REAL POWER': 'WIRKLEISTUNG',
-      'Copy Result': 'Ergebnis kopieren',
-      'Export': 'Exportieren',
-      'Related Electrical Calculators': 'Verwandte Elektrorechner',
-      'Quick Menu': 'Schnellmenü',
-      'Home': 'Startseite',
-      'Tools & Calculators': 'Tools und Rechner',
-      'Trust & Legal': 'Vertrauen und Recht',
-      'Terms & Conditions': 'AGB',
-      'Privacy Policy': 'Datenschutzrichtlinie',
-      'Cookie Policy': 'Cookie-Richtlinie',
-      'Disclaimer': 'Haftungsausschluss',
-      'About Us': 'Über uns',
-      'Contact Us': 'Kontakt',
-      'Site Map': 'Sitemap',
-      'Cookie Preferences': 'Cookie-Einstellungen',
-      'Available Languages:': 'Verfügbare Sprachen:',
-      'UTILITY GRID': 'STROMNETZ',
-      'TRANSFORMER': 'TRANSFORMATOR',
-      'BREAKER': 'SCHALTER',
-      'POWER HOUSE': 'HAUS',
-      'REAL POWER OUTPUT': 'WIRKLEISTUNG',
-      'Ready': 'Bereit',
-      'Normal load': 'Normale Last',
-      'High load': 'Hohe Last',
-      'Overload risk': 'Überlastungsrisiko',
-      'Waiting for input': 'Warte auf Eingabe'
-    },
-    pt: {}, hi: {}, ja: {}, ko: {}, ru: {}, zh: {}, ar: {}, pl: {}
-  };
+  const TRANSLATIONS = {};
 
   const LANGUAGE_META = {
     en: { name: 'English', dir: 'ltr' },
@@ -190,146 +19,22 @@
     de: { name: 'Deutsch', dir: 'ltr' },
     it: { name: 'Italiano', dir: 'ltr' },
     pt: { name: 'Português', dir: 'ltr' },
-    bn: { name: 'বাংলা', dir: 'ltr' },
     hi: { name: 'हिन्दी', dir: 'ltr' },
+    bn: { name: 'বাংলা', dir: 'ltr' },
     ja: { name: '日本語', dir: 'ltr' },
     ko: { name: '한국어', dir: 'ltr' },
     ms: { name: 'Malay', dir: 'ltr' },
-    ru: { name: 'Русский', dir: 'ltr' },
-    zh: { name: '中文', dir: 'ltr' },
+    pl: { name: 'Polski', dir: 'ltr' },
     id: { name: 'Indonesia', dir: 'ltr' },
     ar: { name: 'العربية', dir: 'rtl' },
     bg: { name: 'Български', dir: 'ltr' },
     tr: { name: 'Türkçe', dir: 'ltr' },
     sv: { name: 'Svenska', dir: 'ltr' },
     ur: { name: 'اردو', dir: 'rtl' },
-    pl: { name: 'Polski', dir: 'ltr' }
+    ru: { name: 'Русский', dir: 'ltr' }
   };
 
   const EXTERNAL_TRANSLATION_CACHE = {};
-
-  Object.assign(TRANSLATIONS.pt, TRANSLATIONS.es, {
-    'Skip to Main Content': 'Ir para o conteúdo principal',
-    'AMPERE TO WATT': 'AMPERES PARA WATTS',
-    'Calculator': 'Calculadora',
-    'All Tools': 'Todas as ferramentas',
-    'Available Languages:': 'Idiomas disponíveis:',
-    'Ready': 'Pronto',
-    'Normal load': 'Carga normal',
-    'High load': 'Carga alta',
-    'Overload risk': 'Risco de sobrecarga',
-    'Waiting for input': 'Aguardando entrada'
-  });
-  Object.assign(TRANSLATIONS.hi, TRANSLATIONS.es, {
-    'Skip to Main Content': 'मुख्य सामग्री पर जाएँ',
-    'AMPERE TO WATT': 'एम्पियर से वाट',
-    'Calculator': 'कैलकुलेटर',
-    'All Tools': 'सभी टूल',
-    'Available Languages:': 'उपलब्ध भाषाएँ:',
-    'Ready': 'तैयार',
-    'Normal load': 'सामान्य लोड',
-    'High load': 'अधिक लोड',
-    'Overload risk': 'ओवरलोड जोखिम',
-    'Waiting for input': 'इनपुट की प्रतीक्षा'
-  });
-  Object.assign(TRANSLATIONS.ja, TRANSLATIONS.es, {
-    'Skip to Main Content': 'メインコンテンツへ移動',
-    'AMPERE TO WATT': 'アンペアからワット',
-    'Calculator': '計算機',
-    'All Tools': 'すべてのツール',
-    'Available Languages:': '利用可能な言語:',
-    'Ready': '準備完了',
-    'Normal load': '通常負荷',
-    'High load': '高負荷',
-    'Overload risk': '過負荷リスク',
-    'Waiting for input': '入力待ち'
-  });
-  Object.assign(TRANSLATIONS.ko, TRANSLATIONS.es, {
-    'Skip to Main Content': '본문으로 이동',
-    'AMPERE TO WATT': '암페어를 와트로',
-    'Calculator': '계산기',
-    'All Tools': '모든 도구',
-    'Available Languages:': '사용 가능한 언어:',
-    'Ready': '준비됨',
-    'Normal load': '정상 부하',
-    'High load': '높은 부하',
-    'Overload risk': '과부하 위험',
-    'Waiting for input': '입력 대기 중'
-  });
-  Object.assign(TRANSLATIONS.ru, TRANSLATIONS.es, {
-    'Skip to Main Content': 'Перейти к основному содержанию',
-    'AMPERE TO WATT': 'АМПЕРЫ В ВАТТЫ',
-    'Calculator': 'Калькулятор',
-    'All Tools': 'Все инструменты',
-    'Available Languages:': 'Доступные языки:',
-    'Ready': 'Готово',
-    'Normal load': 'Нормальная нагрузка',
-    'High load': 'Высокая нагрузка',
-    'Overload risk': 'Риск перегрузки',
-    'Waiting for input': 'Ожидание ввода'
-  });
-  Object.assign(TRANSLATIONS.zh, TRANSLATIONS.es, {
-    'Skip to Main Content': '跳到主要内容',
-    'AMPERE TO WATT': '安培转瓦特',
-    'Calculator': '计算器',
-    'All Tools': '所有工具',
-    'Available Languages:': '可用语言:',
-    'Ready': '就绪',
-    'Normal load': '正常负载',
-    'High load': '高负载',
-    'Overload risk': '过载风险',
-    'Waiting for input': '等待输入'
-  });
-  Object.assign(TRANSLATIONS.ar, TRANSLATIONS.es, {
-    'Skip to Main Content': 'انتقل إلى المحتوى الرئيسي',
-    'AMPERE TO WATT': 'أمبير إلى واط',
-    'Calculator': 'الحاسبة',
-    'All Tools': 'كل الأدوات',
-    'Available Languages:': 'اللغات المتاحة:',
-    'Ready': 'جاهز',
-    'Normal load': 'حمل طبيعي',
-    'High load': 'حمل مرتفع',
-    'Overload risk': 'خطر زيادة الحمل',
-    'Waiting for input': 'بانتظار الإدخال'
-  });
-  Object.assign(TRANSLATIONS.pl, TRANSLATIONS.es, {
-    'Skip to Main Content': 'Przejdź do głównej treści',
-    'AMPERE TO WATT': 'AMPERY NA WATY',
-    'Calculator': 'Kalkulator',
-    'All Tools': 'Wszystkie narzędzia',
-    'Available Languages:': 'Dostępne języki:',
-    'Ready': 'Gotowe',
-    'Normal load': 'Normalne obciążenie',
-    'High load': 'Wysokie obciążenie',
-    'Overload risk': 'Ryzyko przeciążenia',
-    'Waiting for input': 'Oczekiwanie na dane'
-  });
-
-
-  Object.assign(TRANSLATIONS.pt, {
-    'Units': 'Unidades', 'Formulas': 'Fórmulas', 'Examples': 'Exemplos', 'Tables': 'Tabelas', 'Power Factor': 'Fator de potência', 'Considerations': 'Considerações', 'FAQ': 'Perguntas frequentes', 'Amps to Watts Calculator': 'Calculadora de amperes para watts', 'Live Power House Grid Circuit': 'Circuito residencial da rede ao vivo', 'Voltage': 'Tensão', 'Current (Amperes)': 'Corrente (amperes)', 'Power (Watts)': 'Potência (watts)', 'Circuit Type': 'Tipo de circuito', 'Current (Amps)': 'Corrente (A)', 'Voltage (Volts)': 'Tensão (V)', 'Frequency (Hz)': 'Frequência (Hz)', 'REAL POWER': 'POTÊNCIA REAL', 'Copy Result': 'Copiar resultado', 'Export': 'Exportar', 'Related Electrical Calculators': 'Calculadoras elétricas relacionadas', 'Quick Menu': 'Menu rápido', 'Home': 'Início', 'Amp to Watt Hours': 'Ampères para watt-hora', 'Volt-Amps Calculator': 'Calculadora de volt-ampères', 'Watt to Amps': 'Watts para ampères', 'Voltage Drop': 'Queda de tensão', 'Wire Gauge': 'Bitola do fio', 'About Amps & Watts': 'Sobre ampères e watts', 'Tools & Calculators': 'Ferramentas e calculadoras', 'DC Power Calculator': 'Calculadora de potência CC', 'AC Single-Phase Calculator': 'Calculadora CA monofásica', 'AC Three-Phase Calculator': 'Calculadora CA trifásica', 'Power Factor Correction': 'Correção do fator de potência', 'Trust & Legal': 'Confiança e legal', 'Terms & Conditions': 'Termos e condições', 'Privacy Policy': 'Política de privacidade', 'Cookie Policy': 'Política de cookies', 'Disclaimer': 'Aviso legal', 'About Us': 'Sobre nós', 'Contact Us': 'Contato', 'Site Map': 'Mapa do site', 'Cookie Preferences': 'Preferências de cookies', 'INDEPENDENT RESOURCE': 'RECURSO INDEPENDENTE', 'UTILITY GRID': 'REDE ELÉTRICA', 'TRANSFORMER': 'TRANSFORMADOR', 'BREAKER': 'DISJUNTOR', 'POWER HOUSE': 'CASA', 'REAL POWER OUTPUT': 'SAÍDA DE POTÊNCIA REAL'
-  });
-  Object.assign(TRANSLATIONS.hi, {
-    'Units': 'इकाइयाँ', 'Formulas': 'सूत्र', 'Examples': 'उदाहरण', 'Tables': 'तालिकाएँ', 'Power Factor': 'पावर फैक्टर', 'Considerations': 'विचार', 'FAQ': 'सामान्य प्रश्न', 'Amps to Watts Calculator': 'एम्पियर से वाट कैलकुलेटर', 'Live Power House Grid Circuit': 'लाइव पावर हाउस ग्रिड सर्किट', 'Voltage': 'वोल्टेज', 'Current (Amperes)': 'करंट (एम्पियर)', 'Power (Watts)': 'पावर (वाट)', 'Circuit Type': 'सर्किट प्रकार', 'Current (Amps)': 'करंट (A)', 'Voltage (Volts)': 'वोल्टेज (V)', 'Frequency (Hz)': 'फ्रीक्वेंसी (Hz)', 'REAL POWER': 'वास्तविक पावर', 'Copy Result': 'परिणाम कॉपी करें', 'Export': 'निर्यात', 'Related Electrical Calculators': 'संबंधित विद्युत कैलकुलेटर', 'Quick Menu': 'त्वरित मेनू', 'Home': 'होम', 'Tools & Calculators': 'टूल और कैलकुलेटर', 'Trust & Legal': 'विश्वास और कानूनी', 'Terms & Conditions': 'नियम और शर्तें', 'Privacy Policy': 'गोपनीयता नीति', 'Cookie Policy': 'कुकी नीति', 'Disclaimer': 'अस्वीकरण', 'About Us': 'हमारे बारे में', 'Contact Us': 'संपर्क करें', 'Site Map': 'साइट मैप', 'Cookie Preferences': 'कुकी प्राथमिकताएँ', 'UTILITY GRID': 'यूटिलिटी ग्रिड', 'TRANSFORMER': 'ट्रांसफॉर्मर', 'BREAKER': 'ब्रेकर', 'POWER HOUSE': 'पावर हाउस', 'REAL POWER OUTPUT': 'वास्तविक पावर आउटपुट'
-  });
-  Object.assign(TRANSLATIONS.ja, {
-    'Units': '単位', 'Formulas': '計算式', 'Examples': '例', 'Tables': '表', 'Power Factor': '力率', 'Considerations': '注意事項', 'FAQ': 'よくある質問', 'Amps to Watts Calculator': 'アンペアからワット計算機', 'Live Power House Grid Circuit': 'ライブ住宅電力グリッド回路', 'Voltage': '電圧', 'Current (Amperes)': '電流（アンペア）', 'Power (Watts)': '電力（ワット）', 'Circuit Type': '回路タイプ', 'Current (Amps)': '電流（A）', 'Voltage (Volts)': '電圧（V）', 'Frequency (Hz)': '周波数（Hz）', 'REAL POWER': '有効電力', 'Copy Result': '結果をコピー', 'Export': 'エクスポート', 'Related Electrical Calculators': '関連電気計算機', 'Quick Menu': 'クイックメニュー', 'Home': 'ホーム', 'Tools & Calculators': 'ツールと計算機', 'Trust & Legal': '信頼と法務', 'Terms & Conditions': '利用規約', 'Privacy Policy': 'プライバシーポリシー', 'Cookie Policy': 'Cookieポリシー', 'Disclaimer': '免責事項', 'About Us': '私たちについて', 'Contact Us': 'お問い合わせ', 'Site Map': 'サイトマップ', 'Cookie Preferences': 'Cookie設定', 'UTILITY GRID': '電力網', 'TRANSFORMER': '変圧器', 'BREAKER': 'ブレーカー', 'POWER HOUSE': '住宅', 'REAL POWER OUTPUT': '有効電力出力'
-  });
-  Object.assign(TRANSLATIONS.ko, {
-    'Units': '단위', 'Formulas': '공식', 'Examples': '예시', 'Tables': '표', 'Power Factor': '역률', 'Considerations': '고려 사항', 'FAQ': '자주 묻는 질문', 'Amps to Watts Calculator': '암페어-와트 계산기', 'Live Power House Grid Circuit': '실시간 주택 전력망 회로', 'Voltage': '전압', 'Current (Amperes)': '전류(암페어)', 'Power (Watts)': '전력(와트)', 'Circuit Type': '회로 유형', 'Current (Amps)': '전류(A)', 'Voltage (Volts)': '전압(V)', 'Frequency (Hz)': '주파수(Hz)', 'REAL POWER': '유효 전력', 'Copy Result': '결과 복사', 'Export': '내보내기', 'Related Electrical Calculators': '관련 전기 계산기', 'Quick Menu': '빠른 메뉴', 'Home': '홈', 'Tools & Calculators': '도구 및 계산기', 'Trust & Legal': '신뢰 및 법률', 'Terms & Conditions': '이용약관', 'Privacy Policy': '개인정보 처리방침', 'Cookie Policy': '쿠키 정책', 'Disclaimer': '면책 조항', 'About Us': '회사 소개', 'Contact Us': '문의하기', 'Site Map': '사이트맵', 'Cookie Preferences': '쿠키 설정', 'UTILITY GRID': '전력망', 'TRANSFORMER': '변압기', 'BREAKER': '차단기', 'POWER HOUSE': '주택', 'REAL POWER OUTPUT': '유효 전력 출력'
-  });
-  Object.assign(TRANSLATIONS.ru, {
-    'Units': 'Единицы', 'Formulas': 'Формулы', 'Examples': 'Примеры', 'Tables': 'Таблицы', 'Power Factor': 'Коэффициент мощности', 'Considerations': 'Рекомендации', 'FAQ': 'Вопросы', 'Amps to Watts Calculator': 'Калькулятор ампер в ватты', 'Live Power House Grid Circuit': 'Схема домашней электросети', 'Voltage': 'Напряжение', 'Current (Amperes)': 'Ток (амперы)', 'Power (Watts)': 'Мощность (ватты)', 'Circuit Type': 'Тип цепи', 'Current (Amps)': 'Ток (A)', 'Voltage (Volts)': 'Напряжение (V)', 'Frequency (Hz)': 'Частота (Hz)', 'REAL POWER': 'АКТИВНАЯ МОЩНОСТЬ', 'Copy Result': 'Копировать результат', 'Export': 'Экспорт', 'Related Electrical Calculators': 'Связанные электрические калькуляторы', 'Quick Menu': 'Быстрое меню', 'Home': 'Главная', 'Tools & Calculators': 'Инструменты и калькуляторы', 'Trust & Legal': 'Доверие и право', 'Terms & Conditions': 'Условия', 'Privacy Policy': 'Политика конфиденциальности', 'Cookie Policy': 'Политика cookie', 'Disclaimer': 'Отказ от ответственности', 'About Us': 'О нас', 'Contact Us': 'Связаться', 'Site Map': 'Карта сайта', 'Cookie Preferences': 'Настройки cookie', 'UTILITY GRID': 'ЭЛЕКТРОСЕТЬ', 'TRANSFORMER': 'ТРАНСФОРМАТОР', 'BREAKER': 'АВТОМАТ', 'POWER HOUSE': 'ДОМ', 'REAL POWER OUTPUT': 'АКТИВНАЯ МОЩНОСТЬ'
-  });
-  Object.assign(TRANSLATIONS.zh, {
-    'Units': '单位', 'Formulas': '公式', 'Examples': '示例', 'Tables': '表格', 'Power Factor': '功率因数', 'Considerations': '注意事项', 'FAQ': '常见问题', 'Amps to Watts Calculator': '安培转瓦特计算器', 'Live Power House Grid Circuit': '实时住宅电网电路', 'Voltage': '电压', 'Current (Amperes)': '电流（安培）', 'Power (Watts)': '功率（瓦特）', 'Circuit Type': '电路类型', 'Current (Amps)': '电流（A）', 'Voltage (Volts)': '电压（V）', 'Frequency (Hz)': '频率（Hz）', 'REAL POWER': '有功功率', 'Copy Result': '复制结果', 'Export': '导出', 'Related Electrical Calculators': '相关电气计算器', 'Quick Menu': '快速菜单', 'Home': '首页', 'Tools & Calculators': '工具和计算器', 'Trust & Legal': '信任与法律', 'Terms & Conditions': '条款和条件', 'Privacy Policy': '隐私政策', 'Cookie Policy': 'Cookie 政策', 'Disclaimer': '免责声明', 'About Us': '关于我们', 'Contact Us': '联系我们', 'Site Map': '网站地图', 'Cookie Preferences': 'Cookie 偏好设置', 'UTILITY GRID': '公用电网', 'TRANSFORMER': '变压器', 'BREAKER': '断路器', 'POWER HOUSE': '住宅', 'REAL POWER OUTPUT': '有功功率输出'
-  });
-  Object.assign(TRANSLATIONS.ar, {
-    'Units': 'الوحدات', 'Formulas': 'الصيغ', 'Examples': 'أمثلة', 'Tables': 'الجداول', 'Power Factor': 'معامل القدرة', 'Considerations': 'اعتبارات', 'FAQ': 'الأسئلة الشائعة', 'Amps to Watts Calculator': 'حاسبة الأمبير إلى الواط', 'Live Power House Grid Circuit': 'دائرة شبكة المنزل المباشرة', 'Voltage': 'الجهد', 'Current (Amperes)': 'التيار (أمبير)', 'Power (Watts)': 'القدرة (واط)', 'Circuit Type': 'نوع الدائرة', 'Current (Amps)': 'التيار (A)', 'Voltage (Volts)': 'الجهد (V)', 'Frequency (Hz)': 'التردد (Hz)', 'REAL POWER': 'القدرة الحقيقية', 'Copy Result': 'نسخ النتيجة', 'Export': 'تصدير', 'Related Electrical Calculators': 'حاسبات كهربائية ذات صلة', 'Quick Menu': 'القائمة السريعة', 'Home': 'الرئيسية', 'Tools & Calculators': 'الأدوات والحاسبات', 'Trust & Legal': 'الثقة والقانون', 'Terms & Conditions': 'الشروط والأحكام', 'Privacy Policy': 'سياسة الخصوصية', 'Cookie Policy': 'سياسة ملفات تعريف الارتباط', 'Disclaimer': 'إخلاء المسؤولية', 'About Us': 'من نحن', 'Contact Us': 'اتصل بنا', 'Site Map': 'خريطة الموقع', 'Cookie Preferences': 'تفضيلات ملفات تعريف الارتباط', 'UTILITY GRID': 'شبكة الكهرباء', 'TRANSFORMER': 'محول', 'BREAKER': 'قاطع', 'POWER HOUSE': 'المنزل', 'REAL POWER OUTPUT': 'خرج القدرة الحقيقية'
-  });
-  Object.assign(TRANSLATIONS.pl, {
-    'Units': 'Jednostki', 'Formulas': 'Wzory', 'Examples': 'Przykłady', 'Tables': 'Tabele', 'Power Factor': 'Współczynnik mocy', 'Considerations': 'Uwagi', 'FAQ': 'FAQ', 'Amps to Watts Calculator': 'Kalkulator amperów na waty', 'Live Power House Grid Circuit': 'Obwód domowej sieci zasilania', 'Voltage': 'Napięcie', 'Current (Amperes)': 'Prąd (ampery)', 'Power (Watts)': 'Moc (waty)', 'Circuit Type': 'Typ obwodu', 'Current (Amps)': 'Prąd (A)', 'Voltage (Volts)': 'Napięcie (V)', 'Frequency (Hz)': 'Częstotliwość (Hz)', 'REAL POWER': 'MOC CZYNNA', 'Copy Result': 'Kopiuj wynik', 'Export': 'Eksport', 'Related Electrical Calculators': 'Powiązane kalkulatory elektryczne', 'Quick Menu': 'Szybkie menu', 'Home': 'Strona główna', 'Tools & Calculators': 'Narzędzia i kalkulatory', 'Trust & Legal': 'Zaufanie i prawo', 'Terms & Conditions': 'Regulamin', 'Privacy Policy': 'Polityka prywatności', 'Cookie Policy': 'Polityka cookie', 'Disclaimer': 'Zastrzeżenie', 'About Us': 'O nas', 'Contact Us': 'Kontakt', 'Site Map': 'Mapa strony', 'Cookie Preferences': 'Preferencje cookie', 'UTILITY GRID': 'SIEĆ', 'TRANSFORMER': 'TRANSFORMATOR', 'BREAKER': 'WYŁĄCZNIK', 'POWER HOUSE': 'DOM', 'REAL POWER OUTPUT': 'WYJŚCIE MOCY CZYNNEJ'
-  });
 
   const DEVICES = [
     { name: "LED Bulb", watts: 9 },
@@ -585,7 +290,13 @@
       });
     });
 
-    switchLanguage(getActiveLanguage());
+    const savedLanguage = localStorage.getItem('preferredLanguage') || localStorage.getItem('siteLanguage') || 'en';
+    if (savedLanguage !== 'en') {
+      switchLanguage(savedLanguage);
+    } else {
+      document.documentElement.lang = 'en';
+      document.documentElement.dir = 'ltr';
+    }
   }
 
   // ===== DEVICE GRID INITIALIZATION =====
@@ -1410,7 +1121,8 @@
   ];
 
   function getSavedLanguage() {
-    return localStorage.getItem('siteLanguage') || 'en';
+    const code = localStorage.getItem('siteLanguage') || localStorage.getItem('preferredLanguage') || 'en';
+    return languages.some((item) => item[0] === code) ? code : 'en';
   }
 
   function getLanguageName(code) {
@@ -1494,7 +1206,7 @@
 
     panel.addEventListener('click', (event) => event.stopPropagation());
     applyDirection(savedLanguage);
-    if (window.switchLanguage) window.switchLanguage(savedLanguage);
+    if (savedLanguage !== 'en' && window.switchLanguage) window.switchLanguage(savedLanguage);
   }
 
   function initPremiumFooterLanguages() {
@@ -1581,18 +1293,27 @@
     });
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      initPremiumLanguageSelector();
+  function runWhenIdle(callback) {
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(callback, { timeout: 1600 });
+      return;
+    }
+    window.setTimeout(callback, 350);
+  }
+
+  function initPremiumEnhancements() {
+    initPremiumLanguageSelector();
+    runWhenIdle(() => {
       initPremiumFooterLanguages();
       initPremiumBackToTop();
       initPremiumSocialShare();
     });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPremiumEnhancements);
   } else {
-    initPremiumLanguageSelector();
-    initPremiumFooterLanguages();
-    initPremiumBackToTop();
-    initPremiumSocialShare();
+    initPremiumEnhancements();
   }
 })();
 

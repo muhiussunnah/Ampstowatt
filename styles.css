@@ -10076,3 +10076,42 @@ svg {
     grid-template-columns: 1fr !important;
   }
 }
+
+/* ===== PAGE SPEED ACCESSIBILITY CONTRAST FIXES ===== */
+.example-box strong {
+  background: rgba(255, 255, 255, 0.88);
+  border-radius: 6px;
+  color: #7c2d12 !important;
+  display: inline;
+  padding: 1px 4px;
+}
+
+.technical-visual-card,
+.tables-card .technical-visual-card,
+.content-visual-grid .technical-visual-card,
+.scale-card,
+.formula-chip-card,
+.safety-check-card {
+  color: #0f172a;
+}
+
+.technical-visual-card strong,
+.technical-visual-card span,
+.technical-visual-card p,
+.technical-visual-card small,
+.tables-card .technical-visual-card strong,
+.tables-card .technical-visual-card span,
+.tables-card .technical-visual-card p {
+  color: #0f172a !important;
+}
+
+.technical-visual-card svg text,
+.technical-visual-card text {
+  fill: #0f172a !important;
+}
+
+.safety-check-card > span,
+.process-step-card > span {
+  background: #1f2937 !important;
+  color: #ffffff !important;
+}
