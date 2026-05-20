@@ -191,7 +191,7 @@
   // ===== LANGUAGE BUTTONS INITIALIZATION =====
 
   function getActiveLanguage() {
-    return localStorage.getItem('preferredLanguage') || localStorage.getItem('siteLanguage') || 'en';
+    return document.documentElement.lang || 'en';
   }
 
   function loadTranslationJson(lang) {
@@ -256,8 +256,6 @@
       btn.setAttribute('aria-pressed', String(isActive));
     });
 
-    localStorage.setItem('preferredLanguage', selectedLang);
-    localStorage.setItem('siteLanguage', selectedLang);
     if (document.getElementById('main-type')) {
       calcMain();
     }
@@ -290,13 +288,10 @@
       });
     });
 
-    const savedLanguage = localStorage.getItem('preferredLanguage') || localStorage.getItem('siteLanguage') || 'en';
-    if (savedLanguage !== 'en') {
-      switchLanguage(savedLanguage);
-    } else {
-      document.documentElement.lang = 'en';
-      document.documentElement.dir = 'ltr';
-    }
+    localStorage.removeItem('preferredLanguage');
+    localStorage.removeItem('siteLanguage');
+    document.documentElement.lang = 'en';
+    document.documentElement.dir = 'ltr';
   }
 
   // ===== DEVICE GRID INITIALIZATION =====
@@ -1121,8 +1116,9 @@
   ];
 
   function getSavedLanguage() {
-    const code = localStorage.getItem('siteLanguage') || localStorage.getItem('preferredLanguage') || 'en';
-    return languages.some((item) => item[0] === code) ? code : 'en';
+    localStorage.removeItem('siteLanguage');
+    localStorage.removeItem('preferredLanguage');
+    return 'en';
   }
 
   function getLanguageName(code) {
@@ -1135,8 +1131,6 @@
   }
 
   function setLanguage(code, shouldReload) {
-    localStorage.setItem('siteLanguage', code);
-    localStorage.setItem('preferredLanguage', code);
     applyDirection(code);
     if (window.switchLanguage) window.switchLanguage(code);
     document.querySelectorAll('.premium-language-option').forEach((button) => {
@@ -1255,22 +1249,29 @@
 
   function initPremiumSocialShare() {
     const footerInner = document.querySelector('.premium-footer-inner');
-    if (!footerInner || document.querySelector('.premium-social-share')) return;
+    if (!footerInner || document.querySelector('.premium-social-share') || document.querySelector('.footer-trust-section')) return;
 
     const pageUrl = window.location.href.split('#')[0];
     const encodedUrl = encodeURIComponent(pageUrl);
     const encodedTitle = encodeURIComponent(document.title || 'Ampstowatt calculator');
     const section = document.createElement('section');
     section.className = 'premium-social-share';
-    section.setAttribute('aria-label', 'Share this page');
+    section.setAttribute('aria-label', 'Contact, trust, and social links');
     section.innerHTML = `
-      <div class="footer-section-heading">Share</div>
-      <p>Share this calculator page.</p>
+      <div class="footer-section-heading">Contact & Trust</div>
+      <p>Share this calculator page or contact the site owner.</p>
+      <div class="footer-contact-lines">
+        <a href="mailto:ampstowatt@gmail.com">ampstowatt@gmail.com</a>
+        <a href="tel:+10000000000">+1 000 000 0000</a>
+      </div>
       <div class="premium-social-share-grid">
         <a class="premium-social-share-button" href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook"><span>FB</span>Facebook</a>
         <a class="premium-social-share-button" href="https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}" target="_blank" rel="noopener noreferrer" aria-label="Share on Twitter"><span>X</span>Twitter</a>
-        <button class="premium-social-share-button premium-share-copy" type="button" data-share-copy aria-label="Copy link for Instagram"><span>IG</span>Instagram</button>
+        <a class="premium-social-share-button" href="https://www.instagram.com/ampstowatt" target="_blank" rel="noopener noreferrer" aria-label="Open Instagram"><span>IG</span>Instagram</a>
+        <a class="premium-social-share-button" href="https://www.pinterest.com/ampstowatt" target="_blank" rel="noopener noreferrer" aria-label="Open Pinterest"><span>PT</span>Pinterest</a>
+        <button class="premium-social-share-button premium-share-copy" type="button" data-share-copy aria-label="Copy this page link"><span>URL</span>Copy Link</button>
       </div>
+      <a class="dmca-badge" href="https://www.dmca.com/Protection/Status.aspx?ID=ampstowatt" target="_blank" rel="noopener noreferrer">DMCA Protected</a>
     `;
     footerInner.appendChild(section);
 
@@ -1285,7 +1286,7 @@
         copyButton.lastChild.textContent = 'Copied';
         window.setTimeout(() => {
           copyButton.classList.remove('is-copied');
-          copyButton.lastChild.textContent = 'Instagram';
+          copyButton.lastChild.textContent = 'Copy Link';
         }, 1800);
       } catch (error) {
         copyButton.lastChild.textContent = 'Copy link';
@@ -1303,10 +1304,10 @@
 
   function initPremiumEnhancements() {
     initPremiumLanguageSelector();
+    initPremiumSocialShare();
     runWhenIdle(() => {
       initPremiumFooterLanguages();
       initPremiumBackToTop();
-      initPremiumSocialShare();
     });
   }
 

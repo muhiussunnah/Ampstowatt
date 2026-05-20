@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -11,6 +11,7 @@
   <meta name="author" content="Amps To Watts Calculator">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
   <link rel="canonical" href="https://ampstowatt.com/wire-gauge-calculator/">
+  <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#07111f">
@@ -267,12 +268,12 @@
               <rect x="340" y="90" width="120" height="80" rx="14" fill="#fef3c7" stroke="#f59e0b" stroke-width="4"/><text x="400" y="140" text-anchor="middle" class="diagram-label">LOAD</text>
               <path d="M180 130 H340" stroke="#16a34a" stroke-width="10" stroke-linecap="round"/>
               <text x="260" y="110" text-anchor="middle" class="diagram-label">AMPACITY</text>
-              <text x="260" y="170" text-anchor="middle" class="diagram-value" id="wg-diagram-size">â€” AWG</text>
+              <text x="260" y="170" text-anchor="middle" class="diagram-value" id="wg-diagram-size">— AWG</text>
             </svg>
           </div>
-          <div class="visual-row compact"><div class="visual-icon current" aria-hidden="true">A</div><div class="visual-info"><div class="visual-label">Current</div><div class="visual-value" id="wg-visual-amps">â€” A</div></div></div>
-          <div class="visual-row compact"><div class="visual-icon voltage" aria-hidden="true">V</div><div class="visual-info"><div class="visual-label">Voltage</div><div class="visual-value" id="wg-visual-volts">â€” V</div></div></div>
-          <div class="visual-row compact"><div class="visual-icon power" aria-hidden="true">AWG</div><div class="visual-info"><div class="visual-label">Recommended Size</div><div class="visual-value" id="wg-visual-size">â€”</div></div></div>
+          <div class="visual-row compact"><div class="visual-icon current" aria-hidden="true">A</div><div class="visual-info"><div class="visual-label">Current</div><div class="visual-value" id="wg-visual-amps">— A</div></div></div>
+          <div class="visual-row compact"><div class="visual-icon voltage" aria-hidden="true">V</div><div class="visual-info"><div class="visual-label">Voltage</div><div class="visual-value" id="wg-visual-volts">— V</div></div></div>
+          <div class="visual-row compact"><div class="visual-icon power" aria-hidden="true">AWG</div><div class="visual-info"><div class="visual-label">Recommended Size</div><div class="visual-value" id="wg-visual-size">—</div></div></div>
         </aside>
 
         <article class="card card-glow calculator-card">
@@ -280,7 +281,7 @@
             <div class="input-row">
               <div class="input-group"><label for="wg-amps">Current (Amps)</label><input type="number" id="wg-amps" value="30" min="0.1" step="any"></div>
               <div class="input-group"><label for="wg-volts">Voltage (Volts)</label><input type="number" id="wg-volts" value="230" min="1" step="any"></div>
-              <div class="input-group"><label for="wg-temp">Ambient Temp (Â°C)</label><input type="number" id="wg-temp" value="30" min="-20" step="any"></div>
+              <div class="input-group"><label for="wg-temp">Ambient Temp (°C)</label><input type="number" id="wg-temp" value="30" min="-20" step="any"></div>
             </div>
             <div class="input-row">
               <div class="input-group"><label for="wg-install">Installation</label><select id="wg-install"><option value="open">Open Air</option><option value="conduit" selected>Conduit</option><option value="buried">Buried</option></select></div>
@@ -289,8 +290,8 @@
           </form>
           <div id="wg-result" class="result-mini" aria-live="polite">
             <div class="result-mini-unit">RECOMMENDED WIRE SIZE</div>
-            <div class="result-mini-val" id="wg-size">â€”</div>
-            <div class="result-mini-unit">Max Power | <span id="wg-maxw">â€”</span> W</div>
+            <div class="result-mini-val" id="wg-size">—</div>
+            <div class="result-mini-unit">Max Power | <span id="wg-maxw">—</span> W</div>
           </div>
         </article>
       </div>
@@ -308,7 +309,7 @@
           <div class="topic-icon" aria-hidden="true">3P</div>
           <div class="topic-copy">
             <h2>3 Phase Wire Gauge Calculator</h2>
-            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>â†’</strong><span><b>Result</b><em>Usable output</em></span></div>
+            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>→</strong><span><b>Result</b><em>Usable output</em></span></div>
             <p><strong>A 3 phase wire gauge calculator sizes wire from line current, line voltage, distance, insulation, conduit, and voltage drop.</strong> Use 3 phase current per conductor, not total system watts, when selecting AWG or sq mm. For 220V, 240V, 400V, and 480V AC 3 phase circuits, voltage drop and current capacity must both pass before the wire size is acceptable.</p>
             <p>3 phase motors, sub panel feeders, transformers, and industrial loads create heat during long duty cycles. Choose copper or aluminum conductor data, confirm the installation temperature, and check local code before final wiring.</p>
             <div class="topic-mini-diagram" aria-label="3 phase wire diagram">
@@ -321,7 +322,7 @@
           <div class="topic-icon" aria-hidden="true">50A</div>
           <div class="topic-copy">
             <h2>50 Amp Wire Gauge Calculator</h2>
-            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>â†’</strong><span><b>Result</b><em>Usable output</em></span></div>
+            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>→</strong><span><b>Result</b><em>Usable output</em></span></div>
             <p><strong>A 50 amp wire gauge calculator normally starts at 6 AWG copper for many short residential circuits, then adjusts for distance, insulation, temperature, and conduit.</strong> A 50 amp circuit at 120V carries 6,000 watts at unity power factor. A 50 amp circuit at 240V carries 12,000 watts at unity power factor.</p>
         <p>Long 50 amp runs need voltage drop checks. A wire gauge calculator for distance may recommend a larger conductor than a basic ampacity chart. A sub panel, EV charger, welder, or RV outlet needs breaker, terminal, and local code verification.</p>
             <div class="topic-mini-card-grid" aria-label="50 amp wire reference">
@@ -334,7 +335,7 @@
           <div class="topic-icon" aria-hidden="true">BAT</div>
           <div class="topic-copy">
             <h2>Battery Wire Gauge Calculator</h2>
-            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>â†’</strong><span><b>Result</b><em>Usable output</em></span></div>
+            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>→</strong><span><b>Result</b><em>Usable output</em></span></div>
             <p><strong>A battery wire gauge calculator sizes low-voltage DC cable from amps, cable length, system voltage, and voltage drop percentage.</strong> 12V and 24V battery systems lose more usable voltage over the same distance than 120V or 240V AC systems, so battery wire often needs larger AWG or sq mm cable.</p>
             <p>Use battery wire sizing for inverters, solar panels, charge controllers, DC fuse blocks, automotive wiring, and car audio power cable. Match cable size to current, fuse rating, insulation temperature, and the positive-plus-negative circuit length.</p>
             <div class="topic-mini-diagram" aria-label="Battery wire sizing diagram">
@@ -733,10 +734,29 @@
       </section>
     </div>
 
+    <section class="footer-trust-section" aria-labelledby="footer-contact-trust">
+      <div id="footer-contact-trust" class="footer-section-heading">Contact &amp; Trust</div>
+      <div class="footer-contact-lines">
+        <a href="mailto:ampstowatt@gmail.com">ampstowatt@gmail.com</a>
+        <a href="tel:+10000000000">+1 000 000 0000</a>
+      </div>
+      <nav class="footer-social-static" aria-label="Social media links">
+        <a href="https://www.facebook.com/ampstowatt" target="_blank" rel="noopener noreferrer">Facebook</a>
+        <a href="https://twitter.com/ampstowatt" target="_blank" rel="noopener noreferrer">X</a>
+        <a href="https://www.instagram.com/ampstowatt" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://www.pinterest.com/ampstowatt" target="_blank" rel="noopener noreferrer">Pinterest</a>
+      </nav>
+      <a class="dmca-badge" href="https://www.dmca.com/Protection/Status.aspx?ID=ampstowatt" target="_blank" rel="noopener noreferrer">DMCA Protected</a>
+    </section>
     <div class="premium-footer-bottom">
       <p>(c) 2026 Amps To Watts Calculator. Built for clear electrical planning and professional reference.</p>
     </div>
   </footer>
+
+
+  <button class="premium-back-to-top" type="button" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <span aria-hidden="true">^</span><strong>Top</strong>
+  </button>
 
   <script src="/script.min.js?v=20260520-perf-v13" defer></script>
 </body>
