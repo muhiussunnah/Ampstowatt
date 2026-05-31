@@ -435,18 +435,234 @@
                   <span class="detail-label">Horsepower:</span>
                   <span class="detail-value" id="main-hp-detail">— HP</span>
                 </div>
-              </div>
-
-              <div class="result-mini-unit ptool-console-actions">
-                <button class="btn btn-outline btn-xs ptool-action-btn" id="copy-main-result" onclick="copyMainResult()">Copy Result</button>
-                <button class="btn btn-outline btn-xs ptool-action-btn" id="export-main-result" onclick="exportMainResult()">Export</button>
+                <div class="result-mini-unit ptool-console-actions">
+                  <button class="btn btn-outline btn-xs ptool-action-btn" id="copy-main-result" onclick="copyMainResult()">Copy Result</button>
+                  <button class="btn btn-outline btn-xs ptool-action-btn" id="export-main-result" onclick="exportMainResult()">Export</button>
+                </div>
               </div>
             </div>
           </div>
         </article>
+
+        <!-- Main Calculator Interactive Visual Panel -->
+        <aside class="visual-panel circuit-visual-panel" aria-label="Interactive diagram showing how amps are converted to watts">
+          <div class="visual-panel-topline">
+            <div class="visual-header">Circuit Flow & Formula Engine</div>
+            <span class="circuit-status premium" id="hiw-circuit-badge" role="status" aria-live="polite">AC 3-PHASE</span>
+          </div>
+
+          <div class="hiw-diagram-card" id="hiw-diagram-card" style="padding: 10px 0 0 0; box-shadow: none; border: none; background: transparent;">
+            <svg class="hiw-svg" viewBox="0 0 960 420" role="img" aria-label="Interactive flow diagram showing how amps are converted to watts" style="min-width: 100%; height: auto;">
+              <desc>An animated diagram showing the calculation flow from input values through the formula engine to output power values</desc>
+
+              <defs>
+                <linearGradient id="hiw-wire-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#2563eb"/>
+                  <stop offset="50%" stop-color="#0ea5e9"/>
+                  <stop offset="100%" stop-color="#22c55e"/>
+                </linearGradient>
+                <linearGradient id="hiw-input-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#eff6ff"/>
+                  <stop offset="100%" stop-color="#dbeafe"/>
+                </linearGradient>
+                <linearGradient id="hiw-engine-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#0f172a"/>
+                  <stop offset="100%" stop-color="#1e293b"/>
+                </linearGradient>
+                <linearGradient id="hiw-output-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#ecfdf5"/>
+                  <stop offset="100%" stop-color="#d1fae5"/>
+                </linearGradient>
+                <filter id="hiw-glow">
+                  <feGaussianBlur stdDeviation="3" result="blur"/>
+                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+                <filter id="hiw-node-shadow">
+                  <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.15"/>
+                </filter>
+                <marker id="hiw-arrow" markerWidth="12" markerHeight="12" refX="10" refY="4" orient="auto" markerUnits="strokeWidth">
+                  <path d="M0,0 L0,8 L12,4 z" fill="#22c55e"/>
+                </marker>
+              </defs>
+
+              <!-- Background grid pattern -->
+              <pattern id="hiw-grid" width="30" height="30" patternUnits="userSpaceOnUse">
+                <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#e2e8f0" stroke-width="0.5" opacity="0.5"/>
+              </pattern>
+              <rect width="960" height="420" fill="url(#hiw-grid)" rx="16"/>
+
+              <!-- ==================== STEP 1: INPUT NODES ==================== -->
+              <!-- Current (Amps) Input Node -->
+              <g class="hiw-node hiw-node-input" id="hiw-node-amps" filter="url(#hiw-node-shadow)" tabindex="0" role="button" aria-label="Current input: Amps">
+                <rect x="40" y="40" width="180" height="130" rx="16" fill="url(#hiw-input-grad)" stroke="#93c5fd" stroke-width="2"/>
+                <rect x="40" y="40" width="180" height="36" rx="16" fill="#2563eb"/>
+                <rect x="40" y="58" width="180" height="18" fill="#2563eb"/>
+                <text x="130" y="64" text-anchor="middle" fill="#fff" class="hiw-node-header">CURRENT INPUT</text>
+                <text x="130" y="104" text-anchor="middle" class="hiw-node-symbol">A</text>
+                <text x="130" y="130" text-anchor="middle" class="hiw-node-value" id="hiw-amps-val">10 Amps</text>
+                <text x="130" y="156" text-anchor="middle" class="hiw-node-sub">Amperes (A)</text>
+              </g>
+
+              <!-- Voltage Input Node -->
+              <g class="hiw-node hiw-node-input" id="hiw-node-volts" filter="url(#hiw-node-shadow)" tabindex="0" role="button" aria-label="Voltage input: Volts">
+                <rect x="40" y="200" width="180" height="130" rx="16" fill="url(#hiw-input-grad)" stroke="#93c5fd" stroke-width="2"/>
+                <rect x="40" y="200" width="180" height="36" rx="16" fill="#0369a1"/>
+                <rect x="40" y="218" width="180" height="18" fill="#0369a1"/>
+                <text x="130" y="224" text-anchor="middle" fill="#fff" class="hiw-node-header">VOLTAGE INPUT</text>
+                <text x="130" y="264" text-anchor="middle" class="hiw-node-symbol">V</text>
+                <text x="130" y="290" text-anchor="middle" class="hiw-node-value" id="hiw-volts-val">230 Volts</text>
+                <text x="130" y="316" text-anchor="middle" class="hiw-node-sub">Volts (V)</text>
+              </g>
+
+              <!-- Power Factor Node -->
+              <g class="hiw-node hiw-node-input" id="hiw-node-pf" filter="url(#hiw-node-shadow)" tabindex="0" role="button" aria-label="Power factor input">
+                <rect x="40" y="360" width="180" height="50" rx="12" fill="#fef3c7" stroke="#fbbf24" stroke-width="2"/>
+                <text x="130" y="392" text-anchor="middle" class="hiw-node-pf-text" id="hiw-pf-val">Power Factor: 0.85</text>
+              </g>
+
+              <!-- ==================== CONNECTION WIRES: Input → Engine ==================== -->
+              <!-- Amps wire -->
+              <path class="hiw-wire-base" d="M220 105 C280 105 300 150 340 150"/>
+              <path class="hiw-wire-flow hiw-flow-1" d="M220 105 C280 105 300 150 340 150"/>
+
+              <!-- Volts wire -->
+              <path class="hiw-wire-base" d="M220 265 C280 265 300 220 340 220"/>
+              <path class="hiw-wire-flow hiw-flow-2" d="M220 265 C280 265 300 220 340 220"/>
+
+              <!-- PF wire -->
+              <path class="hiw-wire-base" d="M220 385 C280 385 310 290 340 290"/>
+              <path class="hiw-wire-flow hiw-flow-3" d="M220 385 C280 385 310 290 340 290"/>
+
+              <!-- ==================== STEP 2: FORMULA ENGINE ==================== -->
+              <g class="hiw-node hiw-node-engine" id="hiw-node-engine" filter="url(#hiw-node-shadow)" tabindex="0" role="button" aria-label="Formula calculation engine">
+                <rect x="340" y="80" width="260" height="260" rx="20" fill="url(#hiw-engine-grad)" stroke="#475569" stroke-width="2"/>
+
+                <!-- Engine header -->
+                <rect x="340" y="80" width="260" height="44" rx="20" fill="#1e40af"/>
+                <rect x="340" y="102" width="260" height="22" fill="#1e40af"/>
+                <text x="470" y="108" text-anchor="middle" fill="#93c5fd" class="hiw-engine-label">FORMULA ENGINE</text>
+
+                <!-- Circuit type indicator -->
+                <rect x="365" y="138" width="210" height="36" rx="8" fill="rgba(37,99,235,0.2)" stroke="rgba(147,197,253,0.3)" stroke-width="1"/>
+                <text x="470" y="162" text-anchor="middle" fill="#93c5fd" class="hiw-engine-circuit" id="hiw-engine-circuit">AC Three-Phase</text>
+
+                <!-- Formula display -->
+                <rect x="365" y="188" width="210" height="52" rx="10" fill="rgba(14,165,233,0.15)" stroke="rgba(56,189,248,0.3)" stroke-width="1"/>
+                <text x="470" y="211" text-anchor="middle" fill="#38bdf8" class="hiw-engine-formula-label">FORMULA</text>
+                <text x="470" y="232" text-anchor="middle" fill="#7dd3fc" class="hiw-engine-formula" id="hiw-engine-formula">W = √3 × PF × A × V</text>
+
+                <!-- Animated calculation steps -->
+                <text x="470" y="268" text-anchor="middle" fill="#64748b" class="hiw-engine-step" id="hiw-engine-step">1.732 × 0.85 × 10 × 230</text>
+
+                <!-- Processing indicator -->
+                <g class="hiw-processing" id="hiw-processing">
+                  <rect x="390" y="284" width="160" height="6" rx="3" fill="rgba(255,255,255,0.1)"/>
+                  <rect x="390" y="284" width="160" height="6" rx="3" fill="#22c55e" class="hiw-progress-bar"/>
+                </g>
+
+                <!-- Engine status -->
+                <circle cx="385" y="320" r="5" fill="#22c55e" class="hiw-engine-pulse"/>
+                <text x="398" y="324" fill="#94a3b8" class="hiw-engine-status">Processing Complete</text>
+
+                <!-- Gear icons -->
+                <g class="hiw-gear hiw-gear-1" transform="translate(575, 300)">
+                  <circle r="14" fill="none" stroke="#334155" stroke-width="2"/>
+                  <circle r="6" fill="none" stroke="#334155" stroke-width="2"/>
+                </g>
+                <g class="hiw-gear hiw-gear-2" transform="translate(555, 318)">
+                  <circle r="9" fill="none" stroke="#334155" stroke-width="1.5"/>
+                  <circle r="4" fill="none" stroke="#334155" stroke-width="1.5"/>
+                </g>
+              </g>
+
+              <!-- ==================== CONNECTION WIRES: Engine → Output ==================== -->
+              <path class="hiw-wire-base hiw-wire-out-base" d="M600 210 C640 210 660 160 700 160"/>
+              <path class="hiw-wire-flow hiw-flow-out-1" d="M600 210 C640 210 660 160 700 160" marker-end="url(#hiw-arrow)"/>
+
+              <path class="hiw-wire-base hiw-wire-out-base" d="M600 210 C640 210 660 260 700 260"/>
+              <path class="hiw-wire-flow hiw-flow-out-2" d="M600 210 C640 210 660 260 700 260" marker-end="url(#hiw-arrow)"/>
+
+              <!-- ==================== STEP 3: OUTPUT NODES ==================== -->
+              <!-- Primary Watts Output -->
+              <g class="hiw-node hiw-node-output" id="hiw-node-watts" filter="url(#hiw-node-shadow)" tabindex="0" role="button" aria-label="Power output: Watts">
+                <rect x="700" y="80" width="220" height="160" rx="18" fill="url(#hiw-output-grad)" stroke="#86efac" stroke-width="2.5"/>
+                <rect x="700" y="80" width="220" height="40" rx="18" fill="#15803d"/>
+                <rect x="700" y="100" width="220" height="20" fill="#15803d"/>
+                <text x="810" y="106" text-anchor="middle" fill="#bbf7d0" class="hiw-node-header">⚡ POWER OUTPUT</text>
+                <text x="810" y="158" text-anchor="middle" class="hiw-output-primary" id="hiw-watts-val">3,389</text>
+                <text x="810" y="184" text-anchor="middle" class="hiw-output-unit" id="hiw-watts-unit">Watts (W)</text>
+                <text x="810" y="212" text-anchor="middle" class="hiw-output-kw" id="hiw-kw-val">3.39 kW</text>
+                <text x="810" y="230" text-anchor="middle" class="hiw-output-extra" id="hiw-hp-val">4.54 HP | 11,563 BTU/hr</text>
+              </g>
+
+              <!-- Secondary: Apparent Power -->
+              <g class="hiw-node hiw-node-output-secondary" id="hiw-node-va" filter="url(#hiw-node-shadow)" tabindex="0" role="button" aria-label="Apparent power output: VA">
+                <rect x="700" y="260" width="220" height="100" rx="14" fill="#f0f9ff" stroke="#7dd3fc" stroke-width="2"/>
+                <rect x="700" y="260" width="220" height="32" rx="14" fill="#0284c7"/>
+                <rect x="700" y="276" width="220" height="16" fill="#0284c7"/>
+                <text x="810" y="282" text-anchor="middle" fill="#bae6fd" class="hiw-node-header-sm">APPARENT POWER</text>
+                <text x="810" y="320" text-anchor="middle" class="hiw-output-va" id="hiw-va-val">3,987 VA</text>
+                <text x="810" y="346" text-anchor="middle" class="hiw-output-var" id="hiw-var-val">Reactive: 2,101 VAR</text>
+              </g>
+
+              <!-- ==================== ANIMATED ELECTRON PARTICLES ==================== -->
+              <g class="hiw-particles" aria-hidden="true">
+                <circle r="4" fill="#3b82f6" class="hiw-particle" id="hiw-p1">
+                  <animateMotion dur="2.2s" repeatCount="indefinite" path="M220 105 C280 105 300 150 340 150"/>
+                </circle>
+                <circle r="3" fill="#0ea5e9" class="hiw-particle" id="hiw-p2">
+                  <animateMotion dur="2.5s" repeatCount="indefinite" path="M220 265 C280 265 300 220 340 220" begin="0.4s"/>
+                </circle>
+                <circle r="3" fill="#f59e0b" class="hiw-particle" id="hiw-p3">
+                  <animateMotion dur="2.8s" repeatCount="indefinite" path="M220 385 C280 385 310 290 340 290" begin="0.8s"/>
+                </circle>
+                <circle r="5" fill="#22c55e" class="hiw-particle hiw-particle-out" id="hiw-p4">
+                  <animateMotion dur="1.8s" repeatCount="indefinite" path="M600 210 C640 210 660 160 700 160"/>
+                </circle>
+                <circle r="4" fill="#0ea5e9" class="hiw-particle hiw-particle-out" id="hiw-p5">
+                  <animateMotion dur="2s" repeatCount="indefinite" path="M600 210 C640 210 660 260 700 260" begin="0.6s"/>
+                </circle>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Process Step Cards (below diagram) -->
+          <div class="hiw-steps-grid" style="grid-template-columns: 1fr; margin-top: 10px; gap: 10px;">
+            <div class="hiw-step-card hiw-step-input" id="hiw-step-1">
+              <div class="hiw-step-number">1</div>
+              <div class="hiw-step-content">
+                <strong>Enter Input Values</strong>
+                <p>Provide current in <b>Amps</b>, voltage in <b>Volts</b>, and choose your circuit type (DC, AC Single-Phase, or AC Three-Phase).</p>
+                <div class="hiw-step-live">
+                  <span class="hiw-chip blue" id="hiw-chip-amps">10 A</span>
+                  <span class="hiw-chip cyan" id="hiw-chip-volts">230 V</span>
+                  <span class="hiw-chip amber" id="hiw-chip-pf">PF 0.85</span>
+                </div>
+              </div>
+            </div>
+            <div class="hiw-step-card hiw-step-engine" id="hiw-step-2">
+              <div class="hiw-step-number">2</div>
+              <div class="hiw-step-content">
+                <strong>Formula Processing</strong>
+                <p>The calculator selects the right formula based on circuit type and applies power factor for AC loads.</p>
+                <div class="hiw-step-formula" id="hiw-step-formula">W = √3 × PF × A × V</div>
+              </div>
+            </div>
+            <div class="hiw-step-card hiw-step-output" id="hiw-step-3">
+              <div class="hiw-step-number">3</div>
+              <div class="hiw-step-content">
+                <strong>Power Output</strong>
+                <p>Get real power in <b>Watts</b>, plus apparent power (VA), reactive power (VAR), kW, BTU/hr, and HP.</p>
+                <div class="hiw-step-live">
+                  <span class="hiw-chip green" id="hiw-chip-watts">3,389 W</span>
+                  <span class="hiw-chip blue" id="hiw-chip-kw">3.39 kW</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
       </div>
     </section>
-
 
     <section class="home-calculator-explainer" aria-labelledby="amps-watts-explainer-title">
       <div class="explainer-grid">
@@ -1802,7 +2018,7 @@
   </button>
 
   <!-- ===== SCRIPTS ===== -->
-  <script src="/script.min.js?v=20260520-perf-v13" defer></script>
+  <script src="/script.min.js?v=20260531-i18n-v14" defer></script>
 
 </body>
 </html>

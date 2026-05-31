@@ -11,6 +11,11 @@
   
 
   const TRANSLATIONS = {};
+  const MACHINE_TRANSLATION_ENDPOINT = 'https://translate.googleapis.com/translate_a/single';
+  const MACHINE_TRANSLATION_SEPARATOR = '__AMPSTOWATT_I18N_SEP__';
+  const MACHINE_TRANSLATION_BATCH_LIMIT = 1200;
+  const MACHINE_TRANSLATION_CACHE = {};
+  const MACHINE_TRANSLATION_INFLIGHT = {};
 
   const LANGUAGE_META = {
     en: { name: 'English', dir: 'ltr' },
@@ -194,6 +199,10 @@
     return document.documentElement.lang || 'en';
   }
 
+  function normalizePhraseKey(text) {
+    return String(text || '').replace(/\s+/g, ' ').trim();
+  }
+
   function loadTranslationJson(lang) {
     if (lang === 'en' || EXTERNAL_TRANSLATION_CACHE[lang]) {
       return Promise.resolve(EXTERNAL_TRANSLATION_CACHE[lang] || {});
@@ -202,7 +211,12 @@
       .then(response => response.ok ? response.json() : {})
       .then(data => {
         const phrases = data.phrases || data || {};
-        TRANSLATIONS[lang] = Object.assign({}, TRANSLATIONS[lang] || {}, phrases);
+        const normalizedPhrases = {};
+        Object.keys(phrases).forEach((key) => {
+          const normalized = normalizePhraseKey(key);
+          if (normalized) normalizedPhrases[normalized] = phrases[key];
+        });
+        TRANSLATIONS[lang] = Object.assign({}, TRANSLATIONS[lang] || {}, phrases, normalizedPhrases);
         EXTERNAL_TRANSLATION_CACHE[lang] = phrases;
         return phrases;
       })
@@ -211,7 +225,115 @@
 
   function translatePhrase(text, lang = getActiveLanguage()) {
     if (lang === 'en') return text;
-    return (TRANSLATIONS[lang] && TRANSLATIONS[lang][text]) || text;
+    const raw = String(text || '');
+    const normalized = normalizePhraseKey(raw);
+    const map = TRANSLATIONS[lang] || {};
+    return map[raw] || map[normalized] || raw;
+  }
+
+  function createTranslationChunks(phrases, charLimit = MACHINE_TRANSLATION_BATCH_LIMIT) {
+    const chunks = [];
+    let current = [];
+    let size = 0;
+
+    phrases.forEach((phrase) => {
+      const candidate = String(phrase || '');
+      if (!candidate) return;
+      const nextSize = size + candidate.length + (current.length ? MACHINE_TRANSLATION_SEPARATOR.length : 0);
+      if (current.length && nextSize > charLimit) {
+        chunks.push(current);
+        current = [candidate];
+        size = candidate.length;
+      } else {
+        current.push(candidate);
+        size = nextSize;
+      }
+    });
+
+    if (current.length) chunks.push(current);
+    return chunks;
+  }
+
+  function requestMachineTranslation(lang, chunk) {
+    const params = new URLSearchParams({
+      client: 'gtx',
+      sl: 'en',
+      tl: lang,
+      dt: 't',
+      q: chunk.join(MACHINE_TRANSLATION_SEPARATOR)
+    });
+
+    return fetch(MACHINE_TRANSLATION_ENDPOINT + '?' + params.toString(), { cache: 'no-store' })
+      .then((response) => response.ok ? response.json() : null)
+      .then((data) => {
+        if (!Array.isArray(data) || !Array.isArray(data[0])) return [];
+        const translatedJoined = data[0].map((part) => (Array.isArray(part) ? (part[0] || '') : '')).join('');
+        const translatedParts = translatedJoined.split(MACHINE_TRANSLATION_SEPARATOR);
+
+        if (translatedParts.length === chunk.length) {
+          return translatedParts.map((item) => item.trim());
+        }
+
+        return chunk.map((item) => item);
+      })
+      .catch(() => chunk.map((item) => item));
+  }
+
+  function loadMachineTranslations(lang, phrases) {
+    if (lang === 'en') return Promise.resolve();
+    const targetMap = TRANSLATIONS[lang] || (TRANSLATIONS[lang] = {});
+    const uniqueMissing = Array.from(new Set(
+      phrases
+        .map((item) => normalizePhraseKey(item))
+        .filter((item) => item && !targetMap[item])
+    ));
+
+    if (!uniqueMissing.length) return Promise.resolve();
+    const inflightKey = lang + '::' + uniqueMissing.join('|');
+    if (MACHINE_TRANSLATION_INFLIGHT[inflightKey]) {
+      return MACHINE_TRANSLATION_INFLIGHT[inflightKey];
+    }
+
+    const cacheBucket = MACHINE_TRANSLATION_CACHE[lang] || (MACHINE_TRANSLATION_CACHE[lang] = {});
+    const pending = uniqueMissing.filter((item) => !cacheBucket[item]);
+    if (!pending.length) {
+      uniqueMissing.forEach((source) => {
+        targetMap[source] = cacheBucket[source];
+      });
+      return Promise.resolve();
+    }
+
+    const chunks = createTranslationChunks(pending);
+    const request = Promise.all(chunks.map((chunk) => requestMachineTranslation(lang, chunk)))
+      .then((translatedChunkList) => {
+        translatedChunkList.forEach((translatedChunk, chunkIndex) => {
+          const sourceChunk = chunks[chunkIndex];
+          sourceChunk.forEach((source, idx) => {
+            const translated = translatedChunk[idx] || source;
+            cacheBucket[source] = translated;
+            targetMap[source] = translated;
+          });
+        });
+      })
+      .finally(() => {
+        delete MACHINE_TRANSLATION_INFLIGHT[inflightKey];
+      });
+
+    MACHINE_TRANSLATION_INFLIGHT[inflightKey] = request;
+    return request;
+  }
+
+  function applyLanguageToNodes(nodes, selectedLang) {
+    nodes.forEach((node) => {
+      if (!node.__i18nOriginal) node.__i18nOriginal = node.nodeValue;
+      const original = node.__i18nOriginal;
+      const trimmed = original.trim();
+      if (!trimmed) return;
+
+      const leading = original.match(/^\s*/)[0];
+      const trailing = original.match(/\s*$/)[0];
+      node.nodeValue = leading + translatePhrase(trimmed, selectedLang) + trailing;
+    });
   }
 
   function getTranslatableTextNodes() {
@@ -239,16 +361,18 @@
     document.documentElement.dir = meta.dir;
     document.body.classList.toggle('is-rtl', meta.dir === 'rtl');
 
-    getTranslatableTextNodes().forEach(node => {
-      if (!node.__i18nOriginal) node.__i18nOriginal = node.nodeValue;
-      const original = node.__i18nOriginal;
-      const trimmed = original.trim();
-      if (!trimmed) return;
+    const textNodes = getTranslatableTextNodes();
+    applyLanguageToNodes(textNodes, selectedLang);
 
-      const leading = original.match(/^\s*/)[0];
-      const trailing = original.match(/\s*$/)[0];
-      node.nodeValue = leading + translatePhrase(trimmed, selectedLang) + trailing;
-    });
+    if (selectedLang !== 'en') {
+      const originals = textNodes
+        .map((node) => normalizePhraseKey(node.__i18nOriginal || node.nodeValue))
+        .filter(Boolean);
+      loadMachineTranslations(selectedLang, originals).then(() => {
+        if (getActiveLanguage() !== selectedLang) return;
+        applyLanguageToNodes(getTranslatableTextNodes(), selectedLang);
+      });
+    }
 
     document.querySelectorAll('.lang-btn').forEach(btn => {
       const isActive = btn.getAttribute('data-lang') === selectedLang;
@@ -581,6 +705,71 @@
     setText('visual-btu', watts > 0 ? (watts * 3.412).toFixed(1) + ' BTU' : '—');
     updateCircuitDiagram(amps, volts, watts, type, pf);
   }
+
+  // Interactive How-It-Works Diagram Update
+  function updateHIWDiagram(amps, volts, watts, type, pf, va, var_power, btu, hp) {
+    const formatNumber = (num, decimals = 2) => num ? num.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: decimals }) : '0';
+
+    // 1. Update Input Nodes
+    setText('hiw-amps-val', `${formatNumber(amps)} Amps`);
+    setText('hiw-volts-val', `${formatNumber(volts)} Volts`);
+    setText('hiw-pf-val', type === 'dc' ? 'Power Factor: N/A (DC)' : `Power Factor: ${pf.toFixed(2)}`);
+
+    // Update Input Chips
+    setText('hiw-chip-amps', `${formatNumber(amps)} A`);
+    setText('hiw-chip-volts', `${formatNumber(volts)} V`);
+    setText('hiw-chip-pf', type === 'dc' ? 'DC' : `PF ${pf.toFixed(2)}`);
+
+    // 2. Update Engine Node
+    const engineCircuitEl = document.getElementById('hiw-engine-circuit');
+    const badgeEl = document.getElementById('hiw-circuit-badge');
+    const formulaEl = document.getElementById('hiw-engine-formula');
+    const stepFormulaEl = document.getElementById('hiw-step-formula');
+    const engineStepEl = document.getElementById('hiw-engine-step');
+
+    let circuitLabel = '';
+    let formulaText = '';
+    let stepText = '';
+
+    if (type === 'dc') {
+      circuitLabel = 'DC Circuit';
+      formulaText = 'W = A × V';
+      stepText = `${formatNumber(amps)} × ${formatNumber(volts)}`;
+    } else if (type === 'ac1') {
+      circuitLabel = 'AC Single-Phase';
+      formulaText = 'W = PF × A × V';
+      stepText = `${pf.toFixed(2)} × ${formatNumber(amps)} × ${formatNumber(volts)}`;
+    } else {
+      circuitLabel = 'AC Three-Phase';
+      formulaText = 'W = 1.732 × PF × A × V';
+      stepText = `1.732 × ${pf.toFixed(2)} × ${formatNumber(amps)} × ${formatNumber(volts)}`;
+    }
+
+    if (engineCircuitEl) engineCircuitEl.textContent = circuitLabel;
+    if (badgeEl) badgeEl.textContent = circuitLabel.toUpperCase();
+    if (formulaEl) formulaEl.textContent = formulaText;
+    if (stepFormulaEl) stepFormulaEl.textContent = formulaText;
+    if (engineStepEl) engineStepEl.textContent = stepText;
+
+    // 3. Update Output Nodes
+    let kw = watts / 1000;
+    
+    setText('hiw-watts-val', formatNumber(watts));
+    setText('hiw-kw-val', `${formatNumber(kw)} kW`);
+    setText('hiw-hp-val', `${formatNumber(hp)} HP | ${formatNumber(btu, 0)} BTU/hr`);
+    
+    setText('hiw-va-val', `${formatNumber(va)} VA`);
+    if (type === 'dc') {
+      setText('hiw-var-val', 'Reactive: 0 VAR (DC)');
+    } else {
+      setText('hiw-var-val', `Reactive: ${formatNumber(var_power)} VAR`);
+    }
+
+    // Update Output Chips
+    setText('hiw-chip-watts', `${formatNumber(watts)} W`);
+    setText('hiw-chip-kw', `${formatNumber(kw)} kW`);
+  }
+  
   // ===== MAIN CALCULATOR =====
 
 
@@ -662,6 +851,7 @@
     updateVisuals(amps, volts, watts, type, pf);
     updateMainRules(type, amps, volts, pf, watts);
     updateGauge(watts);
+    updateHIWDiagram(amps, volts, watts, type, pf, va, var_power, btuPerHour, horsepower);
   }
 
   // Visual gauge for power

@@ -10531,3 +10531,518 @@ svg {
     grid-template-columns: 1fr !important;
   }
 }
+
+/* ================================================================
+   INTERACTIVE HOW-IT-WORKS DIAGRAM
+   ================================================================ */
+
+.how-it-works-section {
+  margin: 28px 0;
+}
+
+.hiw-container {
+  max-width: 100%;
+}
+
+/* Diagram wrapper */
+.hiw-diagram-wrap {
+  background: linear-gradient(135deg, #f8fafc, #f0f4ff);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.hiw-diagram-topbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  border-bottom: 1px solid rgba(148,163,184,0.2);
+}
+
+.hiw-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 6px rgba(34,197,94,0.6);
+  animation: hiw-dot-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes hiw-dot-pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 6px rgba(34,197,94,0.6); }
+  50% { opacity: 0.6; box-shadow: 0 0 12px rgba(34,197,94,0.9); }
+}
+
+.hiw-status-label {
+  color: #94a3b8;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.hiw-badge {
+  margin-left: auto;
+  background: rgba(37,99,235,0.25);
+  color: #93c5fd;
+  border: 1px solid rgba(147,197,253,0.3);
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  padding: 5px 10px;
+}
+
+/* Diagram card */
+.hiw-diagram-card {
+  padding: 16px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.hiw-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-width: 700px;
+  max-height: 460px;
+}
+
+/* Node styles */
+.hiw-node {
+  cursor: pointer;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.hiw-node:hover,
+.hiw-node:focus-visible {
+  transform: scale(1.03);
+  outline: none;
+}
+
+.hiw-node:hover rect:first-child,
+.hiw-node:focus-visible rect:first-child {
+  stroke-width: 3.5;
+}
+
+.hiw-node-input:hover rect:first-child {
+  stroke: #3b82f6;
+}
+
+.hiw-node-engine:hover rect:first-child {
+  stroke: #6366f1;
+}
+
+.hiw-node-output:hover rect:first-child {
+  stroke: #22c55e;
+}
+
+.hiw-node-output-secondary:hover rect:first-child {
+  stroke: #0ea5e9;
+}
+
+/* Node text styles */
+.hiw-node-header {
+  font-family: var(--font);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+}
+
+.hiw-node-header-sm {
+  font-family: var(--font);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+}
+
+.hiw-node-symbol {
+  font-family: var(--mono);
+  font-size: 28px;
+  font-weight: 900;
+  fill: #1e40af;
+}
+
+.hiw-node-value {
+  font-family: var(--mono);
+  font-size: 16px;
+  font-weight: 800;
+  fill: #0f172a;
+}
+
+.hiw-node-sub {
+  font-family: var(--font);
+  font-size: 11px;
+  font-weight: 600;
+  fill: #64748b;
+}
+
+.hiw-node-pf-text {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 800;
+  fill: #92400e;
+}
+
+/* Engine node text */
+.hiw-engine-label {
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}
+
+.hiw-engine-circuit {
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.hiw-engine-formula-label {
+  font-family: var(--font);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.hiw-engine-formula {
+  font-family: var(--mono);
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.hiw-engine-step {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.hiw-engine-status {
+  font-family: var(--font);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+/* Output node text */
+.hiw-output-primary {
+  font-family: var(--mono);
+  font-size: 34px;
+  font-weight: 900;
+  fill: #15803d;
+}
+
+.hiw-output-unit {
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 700;
+  fill: #166534;
+}
+
+.hiw-output-kw {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 700;
+  fill: #047857;
+}
+
+.hiw-output-extra {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  fill: #6b7280;
+}
+
+.hiw-output-va {
+  font-family: var(--mono);
+  font-size: 22px;
+  font-weight: 800;
+  fill: #0369a1;
+}
+
+.hiw-output-var {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  fill: #64748b;
+}
+
+/* Step labels */
+.hiw-step-label {
+  font-family: var(--font);
+  font-size: 12px;
+  font-weight: 900;
+  fill: #94a3b8;
+  letter-spacing: 0.1em;
+}
+
+/* Wire styles */
+.hiw-wire-base {
+  fill: none;
+  stroke: #cbd5e1;
+  stroke-width: 10;
+  stroke-linecap: round;
+}
+
+.hiw-wire-flow {
+  fill: none;
+  stroke: url(#hiw-wire-grad);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 14 14;
+  animation: hiw-wire-anim 1.8s linear infinite;
+  filter: url(#hiw-glow);
+}
+
+.hiw-flow-2 { animation-delay: -0.3s; }
+.hiw-flow-3 { animation-delay: -0.6s; }
+.hiw-flow-out-1 { animation-delay: -0.2s; }
+.hiw-flow-out-2 { animation-delay: -0.5s; }
+
+@keyframes hiw-wire-anim {
+  to { stroke-dashoffset: -56; }
+}
+
+/* Particle styles */
+.hiw-particle {
+  opacity: 0.9;
+  filter: url(#hiw-glow);
+}
+
+.hiw-particle-out {
+  opacity: 1;
+}
+
+/* Gear animation */
+.hiw-gear-1 {
+  animation: hiw-gear-spin 4s linear infinite;
+  transform-origin: 575px 300px;
+}
+
+.hiw-gear-2 {
+  animation: hiw-gear-spin 3s linear infinite reverse;
+  transform-origin: 555px 318px;
+}
+
+@keyframes hiw-gear-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Because SVG transform-origin doesn't compose with translate well, apply via CSS */
+.hiw-gear-1 {
+  animation: hiw-gear-spin-1 4s linear infinite;
+}
+.hiw-gear-2 {
+  animation: hiw-gear-spin-2 3s linear infinite reverse;
+}
+
+@keyframes hiw-gear-spin-1 {
+  from { transform: translate(575px, 300px) rotate(0deg); }
+  to   { transform: translate(575px, 300px) rotate(360deg); }
+}
+
+@keyframes hiw-gear-spin-2 {
+  from { transform: translate(555px, 318px) rotate(0deg); }
+  to   { transform: translate(555px, 318px) rotate(360deg); }
+}
+
+/* Progress bar animation */
+.hiw-progress-bar {
+  animation: hiw-progress 2.5s ease-in-out infinite;
+  transform-origin: left center;
+}
+
+@keyframes hiw-progress {
+  0%   { transform: scaleX(0); }
+  40%  { transform: scaleX(1); }
+  100% { transform: scaleX(1); }
+}
+
+/* Engine pulse */
+.hiw-engine-pulse {
+  animation: hiw-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes hiw-pulse {
+  0%, 100% { opacity: 1; r: 5; }
+  50% { opacity: 0.5; r: 7; }
+}
+
+/* ===== STEP CARDS ===== */
+.hiw-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.hiw-step-card {
+  display: flex;
+  gap: 14px;
+  padding: 20px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.hiw-step-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  border-radius: 4px 0 0 4px;
+}
+
+.hiw-step-input::before { background: linear-gradient(180deg, #2563eb, #0369a1); }
+.hiw-step-engine::before { background: linear-gradient(180deg, #6366f1, #1e40af); }
+.hiw-step-output::before { background: linear-gradient(180deg, #22c55e, #15803d); }
+
+.hiw-step-card:hover {
+  border-color: var(--primary-light);
+  box-shadow: var(--shadow);
+  transform: translateY(-3px);
+}
+
+.hiw-step-number {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 900;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.hiw-step-input .hiw-step-number { background: linear-gradient(135deg, #2563eb, #0ea5e9); }
+.hiw-step-engine .hiw-step-number { background: linear-gradient(135deg, #6366f1, #1e40af); }
+.hiw-step-output .hiw-step-number { background: linear-gradient(135deg, #22c55e, #15803d); }
+
+.hiw-step-content {
+  flex: 1;
+}
+
+.hiw-step-content strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.hiw-step-content p {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.5;
+  margin: 0 0 10px;
+}
+
+.hiw-step-live {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.hiw-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.hiw-chip.blue {
+  background: #eff6ff;
+  color: #1e40af;
+  border: 1px solid #bfdbfe;
+}
+
+.hiw-chip.cyan {
+  background: #ecfeff;
+  color: #0369a1;
+  border: 1px solid #a5f3fc;
+}
+
+.hiw-chip.amber {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+.hiw-chip.green {
+  background: #ecfdf5;
+  color: #166534;
+  border: 1px solid #a7f3d0;
+}
+
+.hiw-step-formula {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 800;
+  color: #6366f1;
+  background: #eef2ff;
+  border: 1px solid #c7d2fe;
+  border-radius: 8px;
+  padding: 8px 12px;
+  text-align: center;
+}
+
+/* Highlight node on hover animation */
+.hiw-node-input:hover .hiw-node-symbol,
+.hiw-node-input:focus-visible .hiw-node-symbol {
+  fill: #3b82f6;
+  font-size: 32px;
+}
+
+.hiw-node-output:hover .hiw-output-primary,
+.hiw-node-output:focus-visible .hiw-output-primary {
+  fill: #22c55e;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .hiw-steps-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hiw-svg {
+    min-width: 600px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hiw-diagram-card {
+    padding: 8px;
+  }
+
+  .hiw-svg {
+    min-width: 500px;
+  }
+
+  .hiw-step-card {
+    padding: 14px;
+  }
+
+  .hiw-step-content strong {
+    font-size: 13px;
+  }
+
+  .hiw-step-content p {
+    font-size: 12px;
+  }
+}
