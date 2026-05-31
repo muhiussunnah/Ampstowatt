@@ -10617,3 +10617,207 @@ svg {
     font-size: 0.88rem !important;
   }
 }
+
+/* ===== GLOBAL PREMIUM TOOL THEME V15 (ALL TOOLS) ===== */
+.tool-page-container .tool-page-grid,
+.calculator-section:not(.primary-tool-section) .calculator-layout {
+  gap: clamp(18px, 2.6vw, 26px) !important;
+}
+
+.tool-page-container .mini-tool-calculator,
+.tool-page-container .tool-page-visual,
+.calculator-section:not(.primary-tool-section) .calculator-layout > .calculator-card,
+.calculator-section:not(.primary-tool-section) .calculator-layout > article.calculator-card,
+.calculator-section:not(.primary-tool-section) .visual-panel,
+.mini-tool-calculator,
+.sub-calculator-card,
+.tool-page-visual {
+  background:
+    radial-gradient(circle at 86% 8%, rgba(34, 211, 238, 0.14), transparent 34%),
+    linear-gradient(135deg, rgba(4, 13, 36, 0.98), rgba(7, 22, 49, 0.98) 56%, rgba(8, 18, 41, 0.98)) !important;
+  border: 1px solid rgba(56, 189, 248, 0.3) !important;
+  border-radius: 18px !important;
+  box-shadow: 0 22px 56px rgba(2, 6, 23, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+  color: #e6eefc !important;
+}
+
+.tool-page-container .tool-page-label,
+.calculator-section:not(.primary-tool-section) .tool-page-label,
+.calculator-section:not(.primary-tool-section) .visual-header {
+  color: #58e2ff !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.12em !important;
+}
+
+.tool-page-container .tool-page-input-grid,
+.calculator-section:not(.primary-tool-section) .input-row,
+.mini-tool-calculator .tool-page-input-grid {
+  background: rgba(3, 12, 32, 0.72) !important;
+  border: 1px solid rgba(148, 163, 184, 0.24) !important;
+  border-radius: 14px !important;
+  padding: 14px !important;
+}
+
+.tool-page-container .tool-page-input-grid label,
+.calculator-section:not(.primary-tool-section) label,
+.mini-tool-calculator label {
+  color: #d6e5fb !important;
+}
+
+.tool-page-container .tool-page-input-grid input,
+.tool-page-container .tool-page-input-grid select,
+.calculator-section:not(.primary-tool-section) input,
+.calculator-section:not(.primary-tool-section) select,
+.mini-tool-calculator input,
+.mini-tool-calculator select,
+.sub-calculator-card input,
+.sub-calculator-card select {
+  background: #020b23 !important;
+  border: 1px solid rgba(59, 130, 246, 0.34) !important;
+  border-radius: 12px !important;
+  color: #f1f7ff !important;
+  font-weight: 700 !important;
+  min-height: 50px !important;
+}
+
+.tool-page-container .tool-page-input-grid input::placeholder,
+.tool-page-container .tool-page-input-grid select::placeholder,
+.calculator-section:not(.primary-tool-section) input::placeholder {
+  color: #8ba5cb !important;
+}
+
+.tool-page-container .tool-page-input-grid input:focus,
+.tool-page-container .tool-page-input-grid select:focus,
+.calculator-section:not(.primary-tool-section) input:focus,
+.calculator-section:not(.primary-tool-section) select:focus,
+.mini-tool-calculator input:focus,
+.mini-tool-calculator select:focus {
+  border-color: #22d3ee !important;
+  box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.18) !important;
+}
+
+.tool-page-container .tool-calc-button,
+.tool-page-container .btn-primary,
+.calculator-section:not(.primary-tool-section) .btn-primary,
+.calculator-section:not(.primary-tool-section) .calc-btn,
+.mini-tool-calculator button.tool-calc-button,
+.sub-calculator-card button.tool-calc-button {
+  background: linear-gradient(135deg, #22d3ee, #06b6d4 52%, #2563eb) !important;
+  border: 1px solid rgba(103, 232, 249, 0.64) !important;
+  color: #031022 !important;
+  font-weight: 800 !important;
+  box-shadow: 0 12px 30px rgba(34, 211, 238, 0.28) !important;
+}
+
+.tool-page-container .tool-calc-button:hover,
+.tool-page-container .tool-calc-button:focus-visible,
+.calculator-section:not(.primary-tool-section) .btn-primary:hover,
+.calculator-section:not(.primary-tool-section) .btn-primary:focus-visible {
+  background: linear-gradient(135deg, #67e8f9, #22d3ee 46%, #38bdf8) !important;
+  color: #020817 !important;
+}
+
+.tool-page-container .tool-reset-button,
+.tool-page-container .btn-outline,
+.calculator-section:not(.primary-tool-section) .btn-outline,
+.calculator-section:not(.primary-tool-section) .copy-btn,
+.calculator-section:not(.primary-tool-section) .export-btn {
+  background: rgba(148, 163, 184, 0.14) !important;
+  border: 1px solid rgba(148, 163, 184, 0.42) !important;
+  color: #dbeafe !important;
+}
+
+.tool-page-container .tool-reset-button:hover,
+.tool-page-container .tool-reset-button:focus-visible,
+.calculator-section:not(.primary-tool-section) .btn-outline:hover,
+.calculator-section:not(.primary-tool-section) .btn-outline:focus-visible {
+  background: rgba(34, 211, 238, 0.18) !important;
+  border-color: rgba(103, 232, 249, 0.72) !important;
+  color: #ecfeff !important;
+}
+
+.tool-page-container .tool-page-result,
+.calculator-section:not(.primary-tool-section) .result-mini,
+.calculator-section:not(.primary-tool-section) .premium-result,
+.mini-tool-calculator .tool-page-result,
+.sub-calculator-card .tool-page-result {
+  background:
+    radial-gradient(circle at 88% 12%, rgba(34, 211, 238, 0.16), transparent 36%),
+    linear-gradient(135deg, #020a20 0%, #071a3a 100%) !important;
+  border: 1px solid rgba(56, 189, 248, 0.34) !important;
+  border-radius: 16px !important;
+  color: #e6eefc !important;
+}
+
+.tool-page-container .result-mini-unit,
+.calculator-section:not(.primary-tool-section) .result-mini-unit {
+  color: #c5ddff !important;
+}
+
+.tool-page-container .tool-result-main,
+.calculator-section:not(.primary-tool-section) .result-mini-val,
+.calculator-section:not(.primary-tool-section) .tool-result-main {
+  color: #5ce1ff !important;
+  -webkit-text-fill-color: #5ce1ff !important;
+  text-shadow: 0 0 30px rgba(34, 211, 238, 0.28) !important;
+}
+
+.tool-page-container .tool-result-detail,
+.calculator-section:not(.primary-tool-section) .tool-result-detail {
+  color: #b9cbea !important;
+}
+
+.tool-page-container .topic-mini-card-grid span,
+.tool-page-container .topic-mini-card-grid code,
+.tool-page-container .topic-mini-card-grid b,
+.tool-page-container .tool-page-visual .topic-mini-card-grid span,
+.tool-page-container .tool-page-visual .topic-mini-card-grid code,
+.tool-page-container .tool-page-visual .topic-mini-card-grid b,
+.calculator-section:not(.primary-tool-section) .topic-mini-card-grid span,
+.calculator-section:not(.primary-tool-section) .topic-mini-card-grid code,
+.calculator-section:not(.primary-tool-section) .topic-mini-card-grid b {
+  background: rgba(4, 14, 35, 0.8) !important;
+  border-color: rgba(56, 189, 248, 0.26) !important;
+  color: #d9e8ff !important;
+}
+
+.tool-page-container .topic-mini-card-grid b,
+.calculator-section:not(.primary-tool-section) .topic-mini-card-grid b {
+  color: #67e8f9 !important;
+}
+
+.tool-page-container .tool-page-visual svg,
+.calculator-section:not(.primary-tool-section) .tool-page-visual svg,
+.calculator-section:not(.primary-tool-section) .circuit-diagram-card {
+  background:
+    linear-gradient(rgba(56, 189, 248, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.055) 1px, transparent 1px),
+    #06112a !important;
+  background-size: 24px 24px, 24px 24px, auto !important;
+  border-color: rgba(125, 211, 252, 0.26) !important;
+}
+
+.tool-page-container .tool-page-visual svg text,
+.calculator-section:not(.primary-tool-section) .tool-page-visual svg text,
+.calculator-section:not(.primary-tool-section) .diagram-label,
+.calculator-section:not(.primary-tool-section) .diagram-value {
+  fill: #dceaff !important;
+  color: #dceaff !important;
+}
+
+.tool-page-container .tool-page-visual svg marker path,
+.calculator-section:not(.primary-tool-section) .tool-page-visual svg marker path {
+  fill: #22d3ee !important;
+}
+
+.tool-page-container .tool-page-actions .tool-copy-button {
+  background: rgba(6, 182, 212, 0.14) !important;
+  border: 1px solid rgba(103, 232, 249, 0.42) !important;
+  color: #d9f7ff !important;
+}
+
+.tool-page-container .tool-page-actions .tool-copy-button:hover,
+.tool-page-container .tool-page-actions .tool-copy-button:focus-visible {
+  background: linear-gradient(135deg, #22d3ee, #0ea5e9) !important;
+  color: #031022 !important;
+}
