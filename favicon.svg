@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">Amps To Watts favicon</title>
+  <desc id="desc">Gold and navy AW electrical calculator mark.</desc>
+  <rect width="64" height="64" rx="14" fill="#07111f"/>
+  <path d="M14 43 25 15h7l11 28h-7l-2-6H23l-2 6h-7Zm11-12h7l-3.5-10L25 31Z" fill="#f7d98a"/>
+  <path d="M40 15h7l3 17 4-17h6l-7 28h-7l-3-15-4 15h-6l7-28Z" fill="#38bdf8"/>
+  <path d="M12 50h40" stroke="#f7d98a" stroke-width="3" stroke-linecap="round"/>
+</svg>
