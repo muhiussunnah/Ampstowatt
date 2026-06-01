@@ -1,9 +1,110 @@
 /* =======================================================================
-   PREMIUM LUXURY CALCULATOR THEME 
-   Native CSS Grid Architecture (No JavaScript Injections Required)
+   OPUS LEVEL FULL-WEBSITE LUXURY THEME
+   Inspired by Top GitHub & Reddit UI/UX Patterns (Glassmorphism, Depth)
    ======================================================================= */
 
-/* 1. Reset and Hide Clutter to match the clean image layout */
+/* -----------------------------------------------------------------------
+   1. GLOBAL VARIABLES & BASE (The Luxury Foundation)
+   ----------------------------------------------------------------------- */
+:root {
+  /* The "Off-Black" Palette */
+  --lux-bg: #0b0f19;
+  --lux-surface: #111827;
+  --lux-surface-raised: #1f2937;
+  
+  /* Text Colors (Never pure white/black) */
+  --lux-text-main: #f3f4f6;
+  --lux-text-muted: #94a3b8;
+  
+  /* Accents */
+  --lux-accent-cyan: #00e5ff;
+  --lux-accent-cyan-glow: rgba(0, 229, 255, 0.4);
+  --lux-accent-gold: #fbbf24;
+  
+  /* Structural */
+  --lux-border: rgba(255, 255, 255, 0.08);
+  --lux-radius: 12px;
+  --lux-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  background-color: var(--lux-bg) !important;
+  color: var(--lux-text-main) !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  line-height: 1.6 !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.5px !important;
+}
+
+/* -----------------------------------------------------------------------
+   2. GLOBAL HEADER & NAVIGATION (Glassmorphism)
+   ----------------------------------------------------------------------- */
+.site-header, .premium-header {
+  background: rgba(11, 15, 25, 0.7) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-bottom: 1px solid var(--lux-border) !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 100 !important;
+  transition: var(--lux-transition) !important;
+}
+
+.premium-brand-name {
+  color: #ffffff !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.5px !important;
+}
+.premium-brand-mark {
+  background: linear-gradient(135deg, var(--lux-accent-cyan), #0077ff) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+.premium-nav-link, .premium-nav-menu summary {
+  color: var(--lux-text-main) !important;
+  font-weight: 500 !important;
+  transition: var(--lux-transition) !important;
+}
+.premium-nav-link:hover, .premium-nav-menu summary:hover {
+  color: var(--lux-accent-cyan) !important;
+  text-shadow: 0 0 10px var(--lux-accent-cyan-glow) !important;
+}
+
+/* -----------------------------------------------------------------------
+   3. HERO SECTION (Depth & Elegance)
+   ----------------------------------------------------------------------- */
+.brand-header {
+  background: radial-gradient(circle at top, #111827 0%, var(--lux-bg) 100%) !important;
+  border-bottom: 1px solid var(--lux-border) !important;
+  padding: 60px 20px !important;
+  text-align: center !important;
+}
+.hero-title {
+  font-size: 3rem !important;
+  font-weight: 900 !important;
+  background: linear-gradient(to right, #ffffff, #a1a1aa) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  margin-bottom: 20px !important;
+}
+.hero-subtitle {
+  color: var(--lux-text-muted) !important;
+  max-width: 800px !important;
+  margin: 0 auto !important;
+  font-size: 1.1rem !important;
+}
+
+/* -----------------------------------------------------------------------
+   4. THE CALCULATOR (Opus Level Glassmorphism & CSS Grid)
+   ----------------------------------------------------------------------- */
+/* Hide Clutter */
 .circuit-visual-panel,
 .ptool-head, 
 .ptool-presets-wrapper, 
@@ -15,10 +116,8 @@
   display: none !important;
 }
 
-/* 2. Establish the 2-Column Grid Framework */
-.calculator-layout {
-  display: block !important; /* Override the old two-col wrapper */
-}
+/* Grid Layout */
+.calculator-layout { display: block !important; }
 .ptool-card {
   background: transparent !important;
   border: none !important;
@@ -28,14 +127,16 @@
 
 .ptool-body {
   display: grid !important;
-  grid-template-columns: 320px 1fr !important;
+  grid-template-columns: 340px 1fr !important;
   gap: 40px !important;
   align-items: stretch !important;
   background: transparent !important;
   padding: 0 !important;
+  max-width: 1200px !important;
+  margin: 0 auto 60px !important;
 }
 
-/* 3. The Left Column (Inputs) */
+/* Left Column (Inputs) */
 .ptool-form {
   grid-column: 1 !important;
   grid-row: 1 !important;
@@ -47,189 +148,207 @@
 .ptool-input-row {
   display: flex !important;
   flex-direction: column !important;
-  gap: 20px !important;
+  gap: 24px !important;
   background: transparent !important;
   border: none !important;
   padding: 0 !important;
-  margin: 0 !important;
 }
 
 .ptool-group {
   display: flex !important;
   flex-direction: column !important;
-  gap: 8px !important;
-  position: relative !important;
+  gap: 10px !important;
 }
 
+/* Elevated Typography for Labels */
 .ptool-group label {
-  color: #8892b0 !important;
-  font-size: 13px !important;
+  color: var(--lux-text-muted) !important;
+  font-size: 12px !important;
   text-transform: uppercase !important;
-  letter-spacing: 1px !important;
+  letter-spacing: 1.5px !important;
   font-weight: 700 !important;
 }
 
-/* Premium Input Fields */
+/* Neumorphic/Glass Input Fields */
 .ptool-input {
-  background: #0b1426 !important;
-  border: 1px solid #1e2d4a !important;
+  background: rgba(17, 24, 39, 0.7) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid var(--lux-border) !important;
   color: #ffffff !important;
-  padding: 16px 20px !important;
-  border-radius: 8px !important;
-  font-size: 18px !important;
-  font-family: inherit !important;
+  padding: 18px 20px !important;
+  border-radius: var(--lux-radius) !important;
+  font-size: 16px !important;
+  font-family: 'Inter', monospace !important;
   width: 100% !important;
-  box-sizing: border-box !important;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
-  appearance: none !important; /* Clean select arrows */
-  -webkit-appearance: none !important;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2) !important;
+  transition: var(--lux-transition) !important;
 }
-
-/* Select Box custom arrow (using a simple text or SVG background if needed, but native is fine if appearance:none is removed, actually better keep appearance normal to show arrow) */
-select.ptool-input {
-  appearance: auto !important;
-  -webkit-appearance: auto !important;
-  cursor: pointer !important;
-}
-
 .ptool-input:focus {
-  border-color: #00e5ff !important;
-  box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.15) !important;
+  background: rgba(17, 24, 39, 0.95) !important;
+  border-color: var(--lux-accent-cyan) !important;
+  box-shadow: 0 0 0 2px rgba(0, 229, 255, 0.1), inset 0 2px 4px rgba(0,0,0,0.2) !important;
   outline: none !important;
 }
 
-/* Premium Buttons */
+/* Weighty Premium Buttons */
 .ptool-btn-row {
   display: flex !important;
-  gap: 12px !important;
+  gap: 16px !important;
   margin-top: 10px !important;
 }
-
 .ptool-btn-calc {
-  background: #00e5ff !important;
+  background: var(--lux-accent-cyan) !important;
   color: #000000 !important;
   flex: 1 !important;
   padding: 18px !important;
-  font-size: 16px !important;
+  font-size: 15px !important;
   font-weight: 800 !important;
   text-transform: uppercase !important;
   letter-spacing: 1px !important;
-  border-radius: 8px !important;
+  border-radius: var(--lux-radius) !important;
   border: none !important;
   cursor: pointer !important;
-  transition: transform 0.1s, background 0.2s !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 8px !important;
+  box-shadow: 0 4px 14px var(--lux-accent-cyan-glow) !important;
+  transition: var(--lux-transition) !important;
 }
-
 .ptool-btn-calc:hover {
-  background: #00b3cc !important;
   transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(0, 229, 255, 0.6) !important;
+  background: #33ebff !important;
 }
-
 .ptool-btn-reset {
   background: transparent !important;
-  color: #8892b0 !important;
-  border: 1px solid #1e2d4a !important;
+  color: var(--lux-text-muted) !important;
+  border: 1px solid var(--lux-border) !important;
   padding: 18px !important;
-  border-radius: 8px !important;
+  border-radius: var(--lux-radius) !important;
   font-weight: 600 !important;
   cursor: pointer !important;
-  transition: color 0.2s, border-color 0.2s !important;
+  transition: var(--lux-transition) !important;
 }
-
 .ptool-btn-reset:hover {
   color: #ffffff !important;
   border-color: #ffffff !important;
+  background: rgba(255,255,255,0.05) !important;
 }
 
-/* Rules and Errors at the bottom of the left column */
+/* Rules / Errors */
 .ptool-rules {
   grid-column: 1 !important;
   grid-row: 2 !important;
   background: transparent !important;
   border: none !important;
   padding: 0 !important;
-  margin-top: 20px !important;
 }
-
 .ptool-rule {
-  background: #0b1426 !important;
-  border: 1px solid #1e2d4a !important;
+  background: rgba(17, 24, 39, 0.4) !important;
+  border: 1px solid var(--lux-border) !important;
   border-radius: 8px !important;
   padding: 16px !important;
-  color: #8892b0 !important;
+  color: var(--lux-text-muted) !important;
+  font-size: 13px !important;
 }
+.ptool-error { grid-column: 1 !important; grid-row: 3 !important; }
 
-.ptool-error {
-  grid-column: 1 !important;
-  grid-row: 3 !important;
-}
-
-
-/* 4. The Right Column (LIVE RESULT) */
+/* Right Column (LIVE RESULT Glassmorphism Console) */
 .ptool-console {
   grid-column: 2 !important;
   grid-row: 1 / span 3 !important; 
-  background: linear-gradient(145deg, #0f1c35 0%, #081020 100%) !important;
-  border: 1px solid #1e2d4a !important;
-  border-radius: 16px !important;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(8, 16, 32, 0.95) 100%) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  border-radius: 24px !important;
   padding: 60px 40px !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4) !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
   height: 100% !important;
   margin: 0 !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* Subtle glow behind the result console */
+.ptool-console::before {
+  content: '' !important;
+  position: absolute !important;
+  top: -50% !important;
+  left: -50% !important;
+  width: 200% !important;
+  height: 200% !important;
+  background: radial-gradient(circle at center, rgba(0, 229, 255, 0.05) 0%, transparent 60%) !important;
+  pointer-events: none !important;
 }
 
 .ptool-console-main {
   text-align: center !important;
   width: 100% !important;
+  z-index: 2 !important;
 }
-
 .ptool-console-unit {
-  color: #00e5ff !important;
-  font-size: 16px !important;
+  color: var(--lux-accent-cyan) !important;
+  font-size: 15px !important;
   font-weight: 800 !important;
-  letter-spacing: 3px !important;
+  letter-spacing: 4px !important;
   text-transform: uppercase !important;
   margin-bottom: 24px !important;
   opacity: 0.9 !important;
 }
-
 .ptool-console-val {
-  font-size: 80px !important;
+  font-size: 88px !important;
   font-weight: 900 !important;
   color: #ffffff !important;
   line-height: 1 !important;
   margin-bottom: 24px !important;
-  text-shadow: 0 0 40px rgba(0, 229, 255, 0.25) !important;
+  text-shadow: 0 0 40px rgba(0, 229, 255, 0.3) !important;
   word-wrap: break-word !important;
   font-variant-numeric: tabular-nums !important;
 }
-
 .ptool-console-sub {
-  color: #8892b0 !important;
+  color: var(--lux-text-muted) !important;
   font-size: 18px !important;
   font-weight: 500 !important;
 }
 
+/* -----------------------------------------------------------------------
+   5. GLOBAL FOOTER (Minimalist Dark)
+   ----------------------------------------------------------------------- */
+.premium-footer {
+  background: #06090e !important;
+  border-top: 1px solid var(--lux-border) !important;
+  padding: 60px 20px !important;
+  color: var(--lux-text-muted) !important;
+}
+.footer-section-heading {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  margin-bottom: 20px !important;
+}
+.premium-footer a {
+  color: var(--lux-text-muted) !important;
+  transition: var(--lux-transition) !important;
+}
+.premium-footer a:hover {
+  color: #ffffff !important;
+}
 
-/* 5. Mobile Responsiveness */
+/* -----------------------------------------------------------------------
+   6. MOBILE RESPONSIVENESS
+   ----------------------------------------------------------------------- */
 @media (max-width: 900px) {
   .ptool-body {
     grid-template-columns: 1fr !important;
-    gap: 30px !important;
+    gap: 24px !important;
   }
   
   .ptool-console {
     grid-column: 1 !important;
-    grid-row: 1 !important; /* Move result to the top on mobile */
+    grid-row: 1 !important;
     padding: 40px 20px !important;
+    border-radius: 16px !important;
   }
   
   .ptool-console-val {
