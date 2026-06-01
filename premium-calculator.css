@@ -1,0 +1,248 @@
+/* =======================================================================
+   PREMIUM LUXURY CALCULATOR THEME 
+   Native CSS Grid Architecture (No JavaScript Injections Required)
+   ======================================================================= */
+
+/* 1. Reset and Hide Clutter to match the clean image layout */
+.circuit-visual-panel,
+.ptool-head, 
+.ptool-presets-wrapper, 
+.ptool-intent, 
+.ptool-formulas, 
+.ptool-topbar,
+.ptool-section-label,
+.ptool-console-details {
+  display: none !important;
+}
+
+/* 2. Establish the 2-Column Grid Framework */
+.calculator-layout {
+  display: block !important; /* Override the old two-col wrapper */
+}
+.ptool-card {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.ptool-body {
+  display: grid !important;
+  grid-template-columns: 320px 1fr !important;
+  gap: 40px !important;
+  align-items: stretch !important;
+  background: transparent !important;
+  padding: 0 !important;
+}
+
+/* 3. The Left Column (Inputs) */
+.ptool-form {
+  grid-column: 1 !important;
+  grid-row: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 24px !important;
+}
+
+.ptool-input-row {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 20px !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.ptool-group {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  position: relative !important;
+}
+
+.ptool-group label {
+  color: #8892b0 !important;
+  font-size: 13px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  font-weight: 700 !important;
+}
+
+/* Premium Input Fields */
+.ptool-input {
+  background: #0b1426 !important;
+  border: 1px solid #1e2d4a !important;
+  color: #ffffff !important;
+  padding: 16px 20px !important;
+  border-radius: 8px !important;
+  font-size: 18px !important;
+  font-family: inherit !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+  appearance: none !important; /* Clean select arrows */
+  -webkit-appearance: none !important;
+}
+
+/* Select Box custom arrow (using a simple text or SVG background if needed, but native is fine if appearance:none is removed, actually better keep appearance normal to show arrow) */
+select.ptool-input {
+  appearance: auto !important;
+  -webkit-appearance: auto !important;
+  cursor: pointer !important;
+}
+
+.ptool-input:focus {
+  border-color: #00e5ff !important;
+  box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.15) !important;
+  outline: none !important;
+}
+
+/* Premium Buttons */
+.ptool-btn-row {
+  display: flex !important;
+  gap: 12px !important;
+  margin-top: 10px !important;
+}
+
+.ptool-btn-calc {
+  background: #00e5ff !important;
+  color: #000000 !important;
+  flex: 1 !important;
+  padding: 18px !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  border-radius: 8px !important;
+  border: none !important;
+  cursor: pointer !important;
+  transition: transform 0.1s, background 0.2s !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+}
+
+.ptool-btn-calc:hover {
+  background: #00b3cc !important;
+  transform: translateY(-2px) !important;
+}
+
+.ptool-btn-reset {
+  background: transparent !important;
+  color: #8892b0 !important;
+  border: 1px solid #1e2d4a !important;
+  padding: 18px !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: color 0.2s, border-color 0.2s !important;
+}
+
+.ptool-btn-reset:hover {
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+/* Rules and Errors at the bottom of the left column */
+.ptool-rules {
+  grid-column: 1 !important;
+  grid-row: 2 !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin-top: 20px !important;
+}
+
+.ptool-rule {
+  background: #0b1426 !important;
+  border: 1px solid #1e2d4a !important;
+  border-radius: 8px !important;
+  padding: 16px !important;
+  color: #8892b0 !important;
+}
+
+.ptool-error {
+  grid-column: 1 !important;
+  grid-row: 3 !important;
+}
+
+
+/* 4. The Right Column (LIVE RESULT) */
+.ptool-console {
+  grid-column: 2 !important;
+  grid-row: 1 / span 3 !important; 
+  background: linear-gradient(145deg, #0f1c35 0%, #081020 100%) !important;
+  border: 1px solid #1e2d4a !important;
+  border-radius: 16px !important;
+  padding: 60px 40px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4) !important;
+  height: 100% !important;
+  margin: 0 !important;
+}
+
+.ptool-console-main {
+  text-align: center !important;
+  width: 100% !important;
+}
+
+.ptool-console-unit {
+  color: #00e5ff !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+  letter-spacing: 3px !important;
+  text-transform: uppercase !important;
+  margin-bottom: 24px !important;
+  opacity: 0.9 !important;
+}
+
+.ptool-console-val {
+  font-size: 80px !important;
+  font-weight: 900 !important;
+  color: #ffffff !important;
+  line-height: 1 !important;
+  margin-bottom: 24px !important;
+  text-shadow: 0 0 40px rgba(0, 229, 255, 0.25) !important;
+  word-wrap: break-word !important;
+  font-variant-numeric: tabular-nums !important;
+}
+
+.ptool-console-sub {
+  color: #8892b0 !important;
+  font-size: 18px !important;
+  font-weight: 500 !important;
+}
+
+
+/* 5. Mobile Responsiveness */
+@media (max-width: 900px) {
+  .ptool-body {
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+  }
+  
+  .ptool-console {
+    grid-column: 1 !important;
+    grid-row: 1 !important; /* Move result to the top on mobile */
+    padding: 40px 20px !important;
+  }
+  
+  .ptool-console-val {
+    font-size: 56px !important;
+  }
+
+  .ptool-form {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+  }
+
+  .ptool-rules {
+    grid-column: 1 !important;
+    grid-row: 3 !important;
+  }
+}
