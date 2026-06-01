@@ -1547,6 +1547,201 @@ document.addEventListener('DOMContentLoaded', () => {
       input.style.minHeight = '30px';
       
       input.parentNode.insertBefore(wrapper, input);
+    if (menuButton) {
+      headerInner.insertBefore(shell, menuButton);
+    } else {
+      headerInner.appendChild(shell);
+    }
+
+    const toggle = shell.querySelector('.premium-language-toggle');
+    const panel = shell.querySelector('.premium-language-menu');
+
+    toggle.addEventListener('click', () => {
+      const isOpen = shell.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    shell.querySelectorAll('.premium-language-option').forEach((button) => {
+      button.addEventListener('click', () => {
+        setLanguage(button.dataset.lang, true);
+        shell.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!shell.contains(event.target)) {
+        shell.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        shell.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    panel.addEventListener('click', (event) => event.stopPropagation());
+    applyDirection(savedLanguage);
+    if (savedLanguage !== 'en' && window.switchLanguage) window.switchLanguage(savedLanguage);
+  }
+
+  function initPremiumFooterLanguages() {
+    const footerInner = document.querySelector('.premium-footer-inner');
+    if (!footerInner || document.querySelector('.premium-footer-language')) return;
+
+    const savedLanguage = getSavedLanguage();
+    const section = document.createElement('section');
+    section.className = 'premium-footer-language';
+    section.setAttribute('aria-label', 'Website language options');
+    section.innerHTML = `
+      <div class="footer-section-heading">Languages</div>
+      <p>Choose a language for the website.</p>
+      <div class="premium-footer-language-grid">
+        ${languages.map(([code, name]) => `<button class="premium-language-option${code === savedLanguage ? ' is-active' : ''}" type="button" data-lang="${code}" aria-pressed="${code === savedLanguage}">${name}</button>`).join('')}
+      </div>
+    `;
+    footerInner.appendChild(section);
+
+    section.querySelectorAll('.premium-language-option').forEach((button) => {
+      button.addEventListener('click', () => setLanguage(button.dataset.lang, true));
+    });
+  }
+
+  function initPremiumBackToTop() {
+    if (document.querySelector('.premium-back-to-top')) return;
+
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'premium-back-to-top';
+    button.setAttribute('aria-label', 'Back to top');
+    button.innerHTML = '<span aria-hidden="true">^</span><strong>Top</strong>';
+    document.body.appendChild(button);
+
+    const updateButton = () => {
+      button.classList.toggle('is-visible', window.scrollY > 420);
+    };
+
+    button.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    window.addEventListener('scroll', updateButton, { passive: true });
+    updateButton();
+  }
+
+  function initPremiumSocialShare() {
+    // Contact & Trust and DMCA sections removed
+    return;
+  }
+
+  function runWhenIdle(callback) {
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(callback, { timeout: 1600 });
+      return;
+    }
+    window.setTimeout(callback, 350);
+  }
+
+  function initPremiumEnhancements() {
+    initPremiumLanguageSelector();
+    initPremiumSocialShare();
+    runWhenIdle(() => {
+      initPremiumFooterLanguages();
+      initPremiumBackToTop();
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPremiumEnhancements);
+  } else {
+    initPremiumEnhancements();
+  }
+})();
+
+// Premium universal navigation controller
+(function() {
+  function initPremiumNavigation() {
+    const button = document.querySelector('.premium-menu-button');
+    const nav = document.querySelector('.premium-nav');
+    if (!button || !nav) return;
+
+    button.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('is-open');
+      button.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!nav.contains(event.target) && !button.contains(event.target)) {
+        nav.classList.remove('is-open');
+        button.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    document.querySelectorAll('.premium-nav a').forEach((link) => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('is-open');
+        button.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPremiumNavigation);
+  } else {
+    initPremiumNavigation();
+  }
+})();
+
+// ===== UI ENHANCEMENTS FOR PREMIUM DESIGN =====
+document.addEventListener('DOMContentLoaded', () => {
+  const resultBoxes = document.querySelectorAll('.tool-page-result, .ptool-console, .result-mini');
+  if (resultBoxes.length > 0) {
+    const decimalsHtml = `
+      <div class="ui-decimals-container" style="display:flex; align-items:center; gap:8px; margin-bottom:15px; justify-content:flex-end;">
+        <span class="ui-decimals-label" style="color:var(--text2); font-size:14px;">Decimals:</span>
+        <div class="ui-stepper-group" style="display:flex; align-items:center; border:1px solid var(--border); border-radius:6px; overflow:hidden;">
+          <button class="ui-stepper-btn minus" type="button" onclick="if(window.decimals>0){window.decimals--; if(window.calcMain)calcMain();}">âˆ’</button>
+          <span id="ui-decimal-val" class="ui-stepper-val" style="width:32px; text-align:center; color:#ffffff; font-weight:bold; background:var(--input-bg); height:32px; line-height:32px; display:inline-block; font-size:14px; border-left:1px solid var(--border); border-right:1px solid var(--border);">2</span>
+          <button class="ui-stepper-btn plus" type="button" onclick="if(window.decimals<6){window.decimals++; if(window.calcMain)calcMain();}">+</button>
+        </div>
+      </div>
+    `;
+    resultBoxes[0].insertAdjacentHTML('beforebegin', decimalsHtml);
+    window.decimals = 2;
+    const origFormatPowerValue = window.formatPowerValue;
+    if(origFormatPowerValue) {
+       window.formatPowerValue = function(watts) {
+          const el = document.getElementById('ui-decimal-val');
+          if(el) el.textContent = window.decimals;
+          if (!watts || watts <= 0) return '—';
+          if (watts >= 1e6) return (watts / 1e6).toFixed(window.decimals) + ' MW';
+          if (watts >= 1e3) return (watts / 1e3).toFixed(window.decimals) + ' kW';
+          return watts.toFixed(window.decimals) + ' W';
+       };
+    }
+  }
+
+  const pfInputs = document.querySelectorAll('input[id$="pf"], input[class$="pf"]');
+  pfInputs.forEach(input => {
+    if (input.type === 'number') {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'ui-enhanced-wrapper';
+      const slider = document.createElement('input');
+      slider.type = 'range';
+      slider.min = '0.01';
+      slider.max = '1.00';
+      slider.step = '0.01';
+      slider.value = input.value;
+      slider.className = 'ui-slider-track';
+      
+      input.style.width = '60px';
+      input.style.padding = '5px';
+      input.style.minHeight = '30px';
+      
+      input.parentNode.insertBefore(wrapper, input);
       wrapper.appendChild(slider);
       wrapper.appendChild(input);
       
@@ -1563,12 +1758,279 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ===== LUXURY THEME ENGINE: 100% IMAGE REPLICATION =====
 document.addEventListener('DOMContentLoaded', () => {
+  // Inject CSS directly to bypass cache issues
+  const styleId = 'lux-theme-engine-css';
+  if (!document.getElementById(styleId)) {
+    const styleEl = document.createElement('style');
+    styleEl.id = styleId;
+    styleEl.innerHTML = `
+      .ptool-input-row, .ptool-presets, .ptool-intent, .ptool-rules, .ptool-console, .ptool-topbar {
+        display: none !important;
+      }
+      .lux-calculator-wrapper {
+        display: grid !important;
+        grid-template-columns: 320px 1fr !important;
+        gap: 32px !important;
+        max-width: 1100px !important;
+        margin: 0 auto 40px !important;
+        font-family: inherit !important;
+        align-items: start !important;
+      }
+      @media (max-width: 900px) {
+        .lux-calculator-wrapper {
+          grid-template-columns: 1fr !important;
+        }
+      }
+      .lux-left-col {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 20px !important;
+      }
+      .lux-top-row {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+      }
+      .lux-mode-badge {
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        color: #00e5ff !important;
+        font-weight: 800 !important;
+        font-size: 13px !important;
+        letter-spacing: 1px !important;
+      }
+      .lux-dot {
+        width: 8px !important;
+        height: 8px !important;
+        background: #00e5ff !important;
+        border-radius: 50% !important;
+        box-shadow: 0 0 10px #00e5ff !important;
+      }
+      .lux-decimals {
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+        color: #94a3b8 !important;
+        font-size: 13px !important;
+      }
+      .lux-stepper {
+        display: flex !important;
+        align-items: center !important;
+        background: #0b1426 !important;
+        border-radius: 6px !important;
+        overflow: hidden !important;
+        border: 1px solid #1e2d4a !important;
+      }
+      .lux-stepper button {
+        background: transparent !important;
+        border: none !important;
+        color: #00e5ff !important;
+        width: 32px !important;
+        height: 32px !important;
+        cursor: pointer !important;
+        font-size: 16px !important;
+        font-weight: bold !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+      .lux-stepper button.plus {
+        background: #00e5ff !important;
+        color: #000 !important;
+      }
+      .lux-stepper span {
+        width: 28px !important;
+        text-align: center !important;
+        color: #fff !important;
+        font-weight: bold !important;
+        background: #02050a !important;
+        height: 32px !important;
+        line-height: 32px !important;
+        display: inline-block !important;
+        font-size: 14px !important;
+      }
+      .lux-inputs-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 16px !important;
+        background: transparent !important;
+      }
+      .lux-input-group {
+        display: flex !important;
+        flex-direction: column !important;
+      }
+      .lux-input-group label {
+        display: block !important;
+        margin-bottom: 8px !important;
+        color: #94a3b8 !important;
+        font-size: 13px !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+      }
+      .lux-input-wrapper {
+        position: relative !important;
+        display: flex !important;
+        align-items: center !important;
+        background: #0b1426 !important;
+        border: 1px solid #1e2d4a !important;
+        border-radius: 8px !important;
+        overflow: hidden !important;
+        transition: border-color 0.2s !important;
+      }
+      .lux-input-wrapper:focus-within {
+        border-color: #00e5ff !important;
+      }
+      .lux-input-wrapper input, .lux-input-wrapper select {
+        width: 100% !important;
+        background: transparent !important;
+        border: none !important;
+        color: #ffffff !important;
+        padding: 16px !important;
+        font-size: 16px !important;
+        font-weight: bold !important;
+        outline: none !important;
+        height: auto !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+        appearance: none !important;
+      }
+      .lux-input-wrapper input[type="number"]::-webkit-inner-spin-button, 
+      .lux-input-wrapper input[type="number"]::-webkit-outer-spin-button { 
+        -webkit-appearance: none; 
+        margin: 0; 
+      }
+      .lux-unit {
+        position: absolute !important;
+        right: 16px !important;
+        color: #64748b !important;
+        font-weight: 800 !important;
+        pointer-events: none !important;
+        font-size: 14px !important;
+      }
+      .lux-btn-row {
+        display: flex !important;
+        gap: 12px !important;
+        margin-top: 8px !important;
+      }
+      .lux-btn-outline {
+        flex: 1 !important;
+        background: transparent !important;
+        border: 1px solid #1e2d4a !important;
+        color: #fff !important;
+        padding: 16px !important;
+        border-radius: 8px !important;
+        font-weight: bold !important;
+        cursor: pointer !important;
+        transition: all 0.2s !important;
+      }
+      .lux-btn-outline:hover {
+        background: #1e2d4a !important;
+      }
+      .lux-btn-primary {
+        flex: 2 !important;
+        background: #00e5ff !important;
+        border: none !important;
+        color: #000 !important;
+        padding: 16px !important;
+        border-radius: 8px !important;
+        font-weight: 900 !important;
+        font-size: 16px !important;
+        cursor: pointer !important;
+        box-shadow: 0 4px 15px rgba(0,229,255,0.2) !important;
+        transition: transform 0.2s !important;
+      }
+      .lux-btn-primary:hover {
+        transform: translateY(-2px) !important;
+      }
+      .lux-right-col {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 24px !important;
+      }
+      .lux-live-result-box {
+        background: #0b1426 !important;
+        border-radius: 12px !important;
+        border: 1px solid #1e2d4a !important;
+        border-top: 4px solid #00e5ff !important;
+        padding: 40px 32px !important;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.4) !important;
+      }
+      .lux-live-header {
+        color: #00e5ff !important;
+        font-weight: 900 !important;
+        font-size: 13px !important;
+        letter-spacing: 2px !important;
+        margin-bottom: 24px !important;
+      }
+      .lux-live-value {
+        color: #ffffff !important;
+        font-size: clamp(48px, 6vw, 64px) !important;
+        font-weight: 900 !important;
+        line-height: 1.1 !important;
+        margin-bottom: 12px !important;
+        word-break: break-word !important;
+      }
+      .lux-live-sub {
+        color: #00e5ff !important;
+        font-size: 16px !important;
+        font-weight: bold !important;
+        margin-bottom: 24px !important;
+      }
+      .lux-live-desc {
+        color: #64748b !important;
+        font-size: 14px !important;
+        line-height: 1.6 !important;
+        margin: 0 !important;
+      }
+      .lux-quick-tips {
+        background: transparent !important;
+        border: 1px solid #1e2d4a !important;
+        border-radius: 12px !important;
+        padding: 24px !important;
+      }
+      .lux-tips-header {
+        color: #ffffff !important;
+        font-weight: 800 !important;
+        font-size: 14px !important;
+        margin-bottom: 16px !important;
+      }
+      .lux-rules-container {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 12px !important;
+      }
+      .lux-rule-card {
+        background: #02050a !important;
+        border: 1px solid #1e2d4a !important;
+        padding: 16px !important;
+        border-radius: 8px !important;
+      }
+      .lux-rule-card .rule-label {
+        display: block !important;
+        color: #00e5ff !important;
+        font-size: 11px !important;
+        font-weight: bold !important;
+        margin-bottom: 6px !important;
+        text-transform: uppercase !important;
+      }
+      .lux-rule-card strong {
+        color: #fff !important;
+        font-size: 14px !important;
+      }
+    `;
+    document.head.appendChild(styleEl);
+  }
+
   const calcForms = document.querySelectorAll('.ptool-card, .mini-tool-calculator');
   if (calcForms.length === 0) return;
 
   calcForms.forEach(formEl => {
     if (formEl.dataset.luxEngineApplied) return;
     formEl.dataset.luxEngineApplied = 'true';
+
+    // Hide original wrapper
+    formEl.style.display = 'none';
 
     // Build Luxury Wrapper
     const luxWrapper = document.createElement('div');
@@ -1592,7 +2054,6 @@ document.addEventListener('DOMContentLoaded', () => {
     topRow.innerHTML = `
       <div class="lux-mode-badge"><span class="lux-dot"></span> MODE: ${titleText}</div>
       <div class="lux-decimals">
-        <span>Decimals:</span>
         <div class="lux-stepper">
           <button type="button" class="minus" onclick="if(window.decimals>0){window.decimals--; if(window.calcMain)calcMain(); if(window.toolCalc)toolCalc();}">−</button>
           <span id="lux-dec-val">2</span>
@@ -1631,6 +2092,9 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }
       }
+
+      // Clean label text
+      labelText = labelText.replace(/\(.*\)/, '').trim();
 
       const labelEl = document.createElement('label');
       labelEl.textContent = labelText || 'Input';
@@ -1777,8 +2241,7 @@ document.addEventListener('DOMContentLoaded', () => {
     luxWrapper.appendChild(leftCol);
     luxWrapper.appendChild(rightCol);
 
-    // Hide original and append
-    formEl.style.display = 'none';
+    // Append new wrapper
     formEl.parentNode.insertBefore(luxWrapper, formEl);
 
     // Setup Mutation Observer
