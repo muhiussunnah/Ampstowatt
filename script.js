@@ -1499,3 +1499,102 @@
     initPremiumNavigation();
   }
 })();
+
+// ===== UI ENHANCEMENTS FOR PREMIUM DESIGN =====
+document.addEventListener('DOMContentLoaded', () => {
+  const resultBoxes = document.querySelectorAll('.tool-page-result, .ptool-console, .result-mini');
+  if (resultBoxes.length > 0) {
+    const decimalsHtml = `
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px; justify-content:flex-end;">
+        <span style="color:var(--text3); font-size:12px; font-weight:bold;">Decimals:</span>
+        <button class="ui-stepper-btn" type="button" onclick="if(window.decimals>0){window.decimals--; if(window.calcMain)calcMain();}">-</button>
+        <span id="ui-decimal-val" style="color:#fff; font-weight:bold; width:20px; text-align:center;">2</span>
+        <button class="ui-stepper-btn" type="button" onclick="if(window.decimals<6){window.decimals++; if(window.calcMain)calcMain();}">+</button>
+      </div>
+    `;
+    resultBoxes[0].insertAdjacentHTML('afterbegin', decimalsHtml);
+    window.decimals = 2;
+    const origFormatPowerValue = window.formatPowerValue;
+    if(origFormatPowerValue) {
+       window.formatPowerValue = function(watts) {
+          const el = document.getElementById('ui-decimal-val');
+          if(el) el.textContent = window.decimals;
+          if (!watts || watts <= 0) return '—';
+          if (watts >= 1e6) return (watts / 1e6).toFixed(window.decimals) + ' MW';
+          if (watts >= 1e3) return (watts / 1e3).toFixed(window.decimals) + ' kW';
+          return watts.toFixed(window.decimals) + ' W';
+       };
+    }
+  }
+
+  const pfInputs = document.querySelectorAll('input[id$="pf"], input[class$="pf"]');
+  pfInputs.forEach(input => {
+    if (input.type === 'number') {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'ui-enhanced-wrapper';
+      const slider = document.createElement('input');
+      slider.type = 'range';
+      slider.min = '0.01';
+      slider.max = '1.00';
+      slider.step = '0.01';
+      slider.value = input.value;
+      slider.className = 'ui-slider-track';
+      
+      input.style.width = '60px';
+      input.style.padding = '5px';
+      input.style.minHeight = '30px';
+      
+      input.parentNode.insertBefore(wrapper, input);
+      wrapper.appendChild(slider);
+      wrapper.appendChild(input);
+      
+      slider.addEventListener('input', (e) => {
+        input.value = e.target.value;
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+      });
+      input.addEventListener('input', (e) => {
+        slider.value = e.target.value;
+      });
+    }
+  });
+
+  // ===== DYNAMIC TOOLBOX LAYOUT INJECTION =====
+  const cards = document.querySelectorAll('.calculator-card, .mini-tool-calculator');
+  cards.forEach(card => {
+    // Only upgrade if it doesn't already have a topbar
+    if (!card.querySelector('.ptool-topbar') && !card.classList.contains('ptool-card')) {
+      // Create topbar
+      const topbar = document.createElement('div');
+      topbar.className = 'ptool-topbar';
+      topbar.innerHTML = `
+        <div class="ptool-topbar-left" style="display:flex; align-items:center; font-size:11px; font-weight:bold; color:var(--text3);">
+          <span class="ptool-status-dot"></span>
+          <span>LIVE SYSTEM</span>
+        </div>
+        <div class="ptool-topbar-center" style="font-size:12px; letter-spacing:1px; color:var(--text);">
+          <strong>PROFESSIONAL TOOLBOX</strong>
+        </div>
+        <div class="ptool-topbar-right">
+          <span class="ptool-badge">PRO v9</span>
+        </div>
+      `;
+      
+      // Upgrade card classes
+      card.classList.add('ptool-card', 'ptool-v9');
+      card.style.padding = '0'; // Remove default padding since topbar is edge-to-edge
+      
+      // Wrap existing contents in ptool-body for padding
+      const body = document.createElement('div');
+      body.className = 'ptool-body';
+      body.style.padding = '24px';
+      
+      // Move all children into body
+      while (card.firstChild) {
+        body.appendChild(card.firstChild);
+      }
+      
+      card.appendChild(topbar);
+      card.appendChild(body);
+    }
+  });
+});

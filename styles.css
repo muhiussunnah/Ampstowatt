@@ -11336,3 +11336,359 @@ svg {
   background: linear-gradient(135deg, #22d3ee, #0ea5e9) !important;
   color: #031022 !important;
 }
+
+/* ===== PREMIUM DARK LUXURY OVERRIDE ===== */
+:root, [data-theme="light"], body {
+  --bg: #0b1121 !important;
+  --surface: #0f172a !important;
+  --surface2: #1e293b !important;
+  --border: #1e293b !important;
+  --border-light: #334155 !important;
+  --border-strong: #475569 !important;
+  --primary: #00e5ff !important;
+  --primary-light: #67e8f9 !important;
+  --primary-dark: #0891b2 !important;
+  --primary-glow: rgba(0, 229, 255, 0.2) !important;
+  --accent-cyan: #00e5ff !important;
+  --text: #ffffff !important;
+  --text2: #94a3b8 !important;
+  --text3: #64748b !important;
+  --text4: #475569 !important;
+  --radius: 16px !important;
+  --radius-sm: 8px !important;
+}
+
+body {
+  background: var(--bg) !important;
+  color: var(--text) !important;
+}
+
+.card, .ptool-card, .visual-panel, .calculator-card, .content-card, .tool-page-input-grid, .ptool-input-row, .ptool-console, .result-mini {
+  background: var(--surface) !important;
+  border: 1px solid var(--border-light) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4) !important;
+}
+
+input, select, .ptool-input, .tool-amps, .tool-watts, .tool-volts, .tool-pf, .tool-kva, .tool-mw, .tool-hours, .tool-rate {
+  background: var(--surface) !important;
+  border: 1px solid var(--border-light) !important;
+  color: var(--text) !important;
+  border-radius: var(--radius-sm) !important;
+}
+
+input:focus, select:focus, .ptool-input:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 2px var(--primary-glow) !important;
+}
+
+.btn-primary, .ptool-btn-calc, .tool-calc-button {
+  background: var(--primary) !important;
+  color: #0b1121 !important;
+  border: none !important;
+  border-radius: var(--radius-sm) !important;
+  font-weight: 800 !important;
+  text-shadow: none !important;
+  box-shadow: 0 4px 15px var(--primary-glow) !important;
+}
+
+.btn-primary:hover, .ptool-btn-calc:hover, .tool-calc-button:hover {
+  background: var(--primary-light) !important;
+  box-shadow: 0 6px 20px rgba(0, 229, 255, 0.4) !important;
+}
+
+.btn-outline, .ptool-btn-reset, .tool-reset-button {
+  background: var(--surface2) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border-strong) !important;
+}
+
+.result-mini-val, .tool-result-main, .ptool-console-val {
+  color: var(--primary) !important;
+  text-shadow: 0 0 10px var(--primary-glow) !important;
+}
+
+.ptool-v9 {
+  background: var(--surface) !important;
+  border: 1px solid var(--border-light) !important;
+}
+
+.ptool-head span {
+  background: rgba(0, 229, 255, 0.1) !important;
+  color: var(--primary) !important;
+}
+
+.ptool-head strong {
+  color: var(--text) !important;
+}
+
+/* UI Injection Styles for Sliders & Decimals */
+.ui-enhanced-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+.ui-slider-track {
+  flex-grow: 1;
+  -webkit-appearance: none;
+  height: 6px !important;
+  background: var(--surface2) !important;
+  border-radius: 4px;
+  outline: none;
+  min-height: 6px !important;
+  padding: 0 !important;
+  border: none !important;
+}
+.ui-slider-track::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--primary);
+  cursor: pointer;
+  box-shadow: 0 0 10px var(--primary-glow);
+}
+.ui-stepper-btn {
+  background: var(--surface2);
+  color: var(--primary);
+  border: 1px solid var(--border-light);
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  font-weight: bold;
+.tool-page-container .result-mini-unit,
+.calculator-section:not(.primary-tool-section) .result-mini-unit {
+  color: #c5ddff !important;
+}
+
+.tool-page-container .tool-result-main,
+.calculator-section:not(.primary-tool-section) .result-mini-val,
+.calculator-section:not(.primary-tool-section) .tool-result-main {
+  color: #5ce1ff !important;
+  -webkit-text-fill-color: #5ce1ff !important;
+  text-shadow: 0 0 30px rgba(34, 211, 238, 0.28) !important;
+}
+
+.tool-page-container .tool-result-detail,
+.calculator-section:not(.primary-tool-section) .tool-result-detail {
+  color: #b9cbea !important;
+}
+
+.tool-page-container .topic-mini-card-grid span,
+.tool-page-container .topic-mini-card-grid code,
+.tool-page-container .topic-mini-card-grid b,
+.tool-page-container .tool-page-visual .topic-mini-card-grid span,
+.tool-page-container .tool-page-visual .topic-mini-card-grid code,
+.tool-page-container .tool-page-visual .topic-mini-card-grid b,
+.calculator-section:not(.primary-tool-section) .topic-mini-card-grid span,
+.calculator-section:not(.primary-tool-section) .topic-mini-card-grid code,
+.calculator-section:not(.primary-tool-section) .topic-mini-card-grid b {
+  background: rgba(4, 14, 35, 0.8) !important;
+  border-color: rgba(56, 189, 248, 0.26) !important;
+  color: #d9e8ff !important;
+}
+
+.tool-page-container .topic-mini-card-grid b,
+.calculator-section:not(.primary-tool-section) .topic-mini-card-grid b {
+  color: #67e8f9 !important;
+}
+
+.tool-page-container .tool-page-visual svg,
+.calculator-section:not(.primary-tool-section) .tool-page-visual svg,
+.calculator-section:not(.primary-tool-section) .circuit-diagram-card {
+  background:
+    linear-gradient(rgba(56, 189, 248, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.055) 1px, transparent 1px),
+    #06112a !important;
+  background-size: 24px 24px, 24px 24px, auto !important;
+  border-color: rgba(125, 211, 252, 0.26) !important;
+}
+
+.tool-page-container .tool-page-visual svg text,
+.calculator-section:not(.primary-tool-section) .tool-page-visual svg text,
+.calculator-section:not(.primary-tool-section) .diagram-label,
+.calculator-section:not(.primary-tool-section) .diagram-value {
+  fill: #dceaff !important;
+  color: #dceaff !important;
+}
+
+.tool-page-container .tool-page-visual svg marker path,
+.calculator-section:not(.primary-tool-section) .tool-page-visual svg marker path {
+  fill: #22d3ee !important;
+}
+
+.tool-page-container .tool-page-actions .tool-copy-button {
+  background: rgba(6, 182, 212, 0.14) !important;
+  border: 1px solid rgba(103, 232, 249, 0.42) !important;
+  color: #d9f7ff !important;
+}
+
+.tool-page-container .tool-page-actions .tool-copy-button:hover,
+.tool-page-container .tool-page-actions .tool-copy-button:focus-visible {
+  background: linear-gradient(135deg, #22d3ee, #0ea5e9) !important;
+  color: #031022 !important;
+}
+
+/* ===== PREMIUM DARK LUXURY OVERRIDE ===== */
+:root, [data-theme="light"], body {
+  --bg: #0b1121 !important;
+  --surface: #0f172a !important;
+  --surface2: #1e293b !important;
+  --border: #1e293b !important;
+  --border-light: #334155 !important;
+  --border-strong: #475569 !important;
+  --primary: #00e5ff !important;
+  --primary-light: #67e8f9 !important;
+  --primary-dark: #0891b2 !important;
+  --primary-glow: rgba(0, 229, 255, 0.2) !important;
+  --accent-cyan: #00e5ff !important;
+  --text: #ffffff !important;
+  --text2: #94a3b8 !important;
+  --text3: #64748b !important;
+  --text4: #475569 !important;
+  --radius: 16px !important;
+  --radius-sm: 8px !important;
+}
+
+body {
+  background: var(--bg) !important;
+  color: var(--text) !important;
+}
+
+.card, .ptool-card, .visual-panel, .calculator-card, .content-card, .tool-page-input-grid, .ptool-input-row, .ptool-console, .result-mini {
+  background: var(--surface) !important;
+  border: 1px solid var(--border-light) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4) !important;
+}
+
+input, select, .ptool-input, .tool-amps, .tool-watts, .tool-volts, .tool-pf, .tool-kva, .tool-mw, .tool-hours, .tool-rate {
+  background: var(--surface) !important;
+  border: 1px solid var(--border-light) !important;
+  color: var(--text) !important;
+  border-radius: var(--radius-sm) !important;
+}
+
+input:focus, select:focus, .ptool-input:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 2px var(--primary-glow) !important;
+}
+
+.btn-primary, .ptool-btn-calc, .tool-calc-button {
+  background: var(--primary) !important;
+  color: #0b1121 !important;
+  border: none !important;
+  border-radius: var(--radius-sm) !important;
+  font-weight: 800 !important;
+  text-shadow: none !important;
+  box-shadow: 0 4px 15px var(--primary-glow) !important;
+}
+
+.btn-primary:hover, .ptool-btn-calc:hover, .tool-calc-button:hover {
+  background: var(--primary-light) !important;
+  box-shadow: 0 6px 20px rgba(0, 229, 255, 0.4) !important;
+}
+
+.btn-outline, .ptool-btn-reset, .tool-reset-button {
+  background: var(--surface2) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border-strong) !important;
+}
+
+.result-mini-val, .tool-result-main, .ptool-console-val {
+  color: var(--primary) !important;
+  text-shadow: 0 0 10px var(--primary-glow) !important;
+}
+
+.ptool-v9 {
+  background: var(--surface) !important;
+  border: 1px solid var(--border-light) !important;
+}
+
+.ptool-head span {
+  background: rgba(0, 229, 255, 0.1) !important;
+  color: var(--primary) !important;
+}
+
+.ptool-head strong {
+  color: var(--text) !important;
+}
+
+/* UI Injection Styles for Sliders & Decimals */
+.ui-enhanced-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+.ui-slider-track {
+  flex-grow: 1;
+  -webkit-appearance: none;
+  height: 6px !important;
+  background: var(--surface2) !important;
+  border-radius: 4px;
+  outline: none;
+  min-height: 6px !important;
+  padding: 0 !important;
+  border: none !important;
+}
+.ui-slider-track::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--primary);
+  cursor: pointer;
+  box-shadow: 0 0 10px var(--primary-glow);
+}
+.ui-stepper-btn {
+  background: var(--surface2);
+  color: var(--primary);
+  border: 1px solid var(--border-light);
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ui-stepper-btn:hover {
+  background: var(--primary);
+  color: #000;
+}
+
+/* Premium Topbar Overrides */
+.ptool-topbar {
+  background: var(--surface2) !important;
+  border-bottom: 1px solid var(--border-light) !important;
+  color: var(--text) !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  border-top-left-radius: var(--radius);
+  border-top-right-radius: var(--radius);
+}
+.ptool-status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #10b981 !important;
+  border-radius: 50%;
+  margin-right: 6px;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+}
+.ptool-badge {
+  background: rgba(0, 229, 255, 0.15) !important;
+  color: var(--primary) !important;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: bold;
+  border: 1px solid var(--primary);
+}
