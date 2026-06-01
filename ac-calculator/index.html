@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -22,7 +22,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="AC BTU and Wattage Calculator">
   <meta name="twitter:description" content="Calculate AC BTU sizing, cooling capacity, wattage, single phase AC power, and three phase AC power.">
-  <link rel="stylesheet" href="/styles.min.css?v=20260531-lux-v15">
+  <link rel="stylesheet" href="/styles.min.css?v=20260601-lux-v19">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -131,6 +131,8 @@
                ]
 }
   </script>
+  <link rel="stylesheet" href="/luxury-tools.css?v=20260601-lux-v19">
+  <link rel="stylesheet" href="/site-dark-luxury.css?v=20260601-dark-v1">
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to Main Content</a>
@@ -149,7 +151,7 @@
       <nav id="premium-site-nav" class="premium-nav" role="navigation" aria-label="Primary navigation">
         <a href="/" class="premium-nav-link">Home</a>
         <a href="/#calculator" class="premium-nav-link">Amps to Watts</a>
-        <a href="/#watts-to-amps" class="premium-nav-link">Watts to Amps</a>
+        
         <details class="premium-nav-menu">
           <summary>Voltage</summary>
           <div class="premium-nav-panel">
@@ -215,28 +217,232 @@
         <div class="line" aria-hidden="true"></div>
       </div>
       <div class="two-col calculator-layout">
-        <article class="card card-glow calculator-card mini-tool-calculator" data-mode="amps-to-watts" data-default-volts="120" data-phase="single">
-          <div class="tool-page-label">AC wattage calculator</div>
-          <div class="tool-page-input-grid">
-            <label>Amps (A)<input class="tool-amps" type="number" value="10" min="0" step="any"></label>
-            <label>Watts (W)<input class="tool-watts" type="number" value="1200" min="0" step="any"></label>
-            <label>Volts (V)<input class="tool-volts" type="number" value="120" min="0.1" step="any"></label>
-            <label>Power Factor<input class="tool-pf" type="number" value="1" min="0.01" max="1" step="0.01"></label>
-            <label>kVA<input class="tool-kva" type="number" value="1.2" min="0" step="any"></label>
-            <label>MW<input class="tool-mw" type="number" value="0.0012" min="0" step="any"></label>
-            <label>Hours<input class="tool-hours" type="number" value="8" min="0" step="any"></label>
-            <label>Rate per kWh<input class="tool-rate" type="number" value="0.15" min="0" step="any"></label>
-          </div>
-          <div class="btn-row">
-            <button type="button" class="btn btn-primary tool-calc-button">Calculate</button>
-            <button type="button" class="btn btn-outline btn-sm tool-reset-button">Reset</button>
-          </div>
-          <div class="tool-page-result" aria-live="polite">
-            <span class="result-mini-unit">RESULT</span>
-            <strong class="tool-result-main">Ready</strong>
-            <p class="tool-result-detail">Enter values and press calculate.</p>
-          </div>
-        </article>
+        <article class="lx-tool" id="lux-tool-13_0">
+  <div class="lx-main">
+    <div class="lx-header-row">
+      <div class="lx-mode-label">MODE: <span class="lx-cyan" id="lx-mode-text-13_0">WATTS TO AMPS</span></div>
+      <div class="lx-decimals">
+        <label>Decimals:</label>
+        <div class="lx-dec-ctrl">
+          <button type="button" class="lx-dec-btn" onclick="document.getElementById('lx-dec-13_0').value = Math.max(0, parseInt(document.getElementById('lx-dec-13_0').value)-1); updateLuxCalc13_0()">-</button>
+          <input type="number" id="lx-dec-13_0" class="lx-dec-input" value="4" readonly>
+          <button type="button" class="lx-dec-btn lx-cyan-bg" onclick="document.getElementById('lx-dec-13_0').value = Math.min(8, parseInt(document.getElementById('lx-dec-13_0').value)+1); updateLuxCalc13_0()">+</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="lx-grid">
+      <!-- Current Type -->
+      <div class="lx-field lx-span-2">
+        <label>System type</label>
+        <div class="lx-select-wrapper">
+          <select id="lx-type-13_0" onchange="updateLuxCalc13_0()">
+            <option value="dc" >Direct Current (DC)</option>
+            <option value="ac1" selected>Single-Phase</option>
+            <option value="ac3" >Three-Phase</option>
+          </select>
+        </div>
+      </div>
+      
+      <!-- Power -->
+      <div class="lx-field">
+        <label id="lbl-power-13_0">Current</label>
+        <div class="lx-input-group">
+          <input type="number" id="lx-power-13_0" value="10" placeholder="Enter current" oninput="updateLuxCalc13_0()">
+          <select class="lx-unit-select" id="lx-power-unit-13_0" onchange="updateLuxCalc13_0()">
+            <option value="a">A</option><option value="ma">mA</option>
+          </select>
+        </div>
+      </div>
+      
+      <!-- Voltage -->
+      <div class="lx-field">
+        <label>Voltage</label>
+        <div class="lx-input-group">
+          <input type="number" id="lx-volts-13_0" value="120" placeholder="Enter voltage" oninput="updateLuxCalc13_0()">
+          <span class="lx-unit-label">V</span>
+        </div>
+      </div>
+
+      <!-- Voltage Type (For 3-Phase) -->
+      <div class="lx-field lx-span-2" id="lx-vtype-container-13_0" style="display: none;">
+        <label>Voltage Type</label>
+        <div class="lx-toggle-group">
+          <button type="button" class="lx-toggle-btn active" id="btn-vll-13_0" onclick="setVType13_0('vll')">Line-to-Line (V<sub>LL</sub>)</button>
+          <button type="button" class="lx-toggle-btn" id="btn-vln-13_0" onclick="setVType13_0('vln')">Line-to-Neutral (V<sub>LN</sub>)</button>
+        </div>
+        <input type="hidden" id="lx-vtype-13_0" value="vll">
+      </div>
+
+      <!-- Power Factor (For AC) -->
+      <div class="lx-field lx-span-2" id="lx-pf-container-13_0" style="display: flex;">
+        <label>Power Factor (PF)</label>
+        <div class="lx-slider-group">
+          <input type="range" class="lx-slider" id="lx-pf-slider-13_0" min="0.1" max="1" step="0.01" value="1" oninput="document.getElementById('lx-pf-input-13_0').value = this.value; updatePFGradient13_0(); updateLuxCalc13_0()">
+          <input type="number" class="lx-slider-val" id="lx-pf-input-13_0" min="0.1" max="1" step="0.01" value="1" oninput="document.getElementById('lx-pf-slider-13_0').value = this.value; updatePFGradient13_0(); updateLuxCalc13_0()">
+        </div>
+      </div>
+      
+      <!-- Actions -->
+      <div class="lx-actions lx-span-2">
+        <button type="button" class="lx-btn lx-btn-reset" onclick="resetLux13_0()">Reset</button>
+        <button type="button" class="lx-btn lx-btn-primary" onclick="toggleMode13_0()" id="lx-mode-btn-13_0">Switch to Watts to Amps</button>
+        
+      </div>
+
+      <!-- Results Area -->
+      <div class="lx-field" id="res-amps-box-13_0">
+        <label id="lbl-res1-13_0">Power (kW)</label>
+        <div class="lx-input-group lx-readonly">
+          <input type="text" id="res-amps-13_0" readonly value="">
+          <span class="lx-unit-label" id="lbl-unit1-13_0">kW</span>
+        </div>
+      </div>
+      <div class="lx-field" id="res-ma-box-13_0">
+        <label id="lbl-res2-13_0">Power (W)</label>
+        <div class="lx-input-group lx-readonly">
+          <input type="text" id="res-ma-13_0" readonly value="">
+          <span class="lx-unit-label" id="lbl-unit2-13_0">W</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="lx-sidebar">
+    <div class="lx-sidebar-card">
+      <div class="lx-quick-mirror">
+        <div class="lx-mirror-line"></div>
+        <span class="val" id="lx-mirror-val-13_0">kW</span>
+      </div>
+      <p style="text-align: center;">Adjust inputs on the left. This box always mirrors your main result for quick reference.</p>
+    </div>
+    
+    <div class="lx-sidebar-card">
+       <h4 class="lx-card-title">QUICK TIPS</h4>
+       <ul>
+         <li>Match the system type (DC / 1-Phase / 3-Phase) to your circuit.</li>
+         <li>For three-phase, confirm whether your voltage is line-to-line or line-to-neutral.</li>
+         <li>Use a realistic power factor from equipment datasheets for more accurate results.</li>
+       </ul>
+    </div>
+  </div>
+</article>
+
+<script>
+// Logic for luxury calculator 13_0
+let luxMode13_0 = 'amps2kw';
+
+function updatePFGradient13_0() {
+  const slider = document.getElementById('lx-pf-slider-13_0');
+  if(!slider) return;
+  const val = (slider.value - slider.min) / (slider.max - slider.min) * 100;
+  slider.style.background = `linear-gradient(90deg, #00e5ff 0%, #00e5ff ${val}%, #1e293b ${val}%, #1e293b 100%)`;
+}
+
+function setVType13_0(type) {
+  document.getElementById('lx-vtype-13_0').value = type;
+  document.getElementById('btn-vll-13_0').className = 'lx-toggle-btn' + (type === 'vll' ? ' active' : '');
+  document.getElementById('btn-vln-13_0').className = 'lx-toggle-btn' + (type === 'vln' ? ' active' : '');
+  updateLuxCalc13_0();
+}
+
+function toggleMode13_0() {
+  luxMode13_0 = luxMode13_0 === 'kw2amps' ? 'amps2kw' : 'kw2amps';
+  document.getElementById('lx-mode-text-13_0').innerText = luxMode13_0 === 'kw2amps' ? 'AMPS TO WATTS' : 'WATTS TO AMPS';
+  document.getElementById('lx-mode-btn-13_0').innerText = luxMode13_0 === 'kw2amps' ? 'Switch to Watts to Amps' : 'Switch to Amps to Watts';
+  
+  // Switch power input label
+  document.getElementById('lbl-power-13_0').innerText = luxMode13_0 === 'kw2amps' ? 'Power' : 'Current';
+  document.getElementById('lx-power-13_0').placeholder = luxMode13_0 === 'kw2amps' ? 'Enter power' : 'Enter current';
+  
+  // Switch units
+  const unitSelect = document.getElementById('lx-power-unit-13_0');
+  if(luxMode13_0 === 'kw2amps') {
+    unitSelect.innerHTML = '<option value="kw">kW</option><option value="w">W</option>';
+  } else {
+    unitSelect.innerHTML = '<option value="a">A</option><option value="ma">mA</option>';
+  }
+  
+  // Switch result labels
+  document.getElementById('lbl-res1-13_0').innerText = luxMode13_0 === 'kw2amps' ? 'Current (amps)' : 'Power (kW)';
+  document.getElementById('lbl-res2-13_0').innerText = luxMode13_0 === 'kw2amps' ? 'Current (milliamps)' : 'Power (W)';
+  document.getElementById('lbl-unit1-13_0').innerText = luxMode13_0 === 'kw2amps' ? 'A' : 'kW';
+  document.getElementById('lbl-unit2-13_0').innerText = luxMode13_0 === 'kw2amps' ? 'mA' : 'W';
+  
+  updateLuxCalc13_0();
+}
+
+function updateLuxCalc13_0() {
+  const type = document.getElementById('lx-type-13_0').value;
+  document.getElementById('lx-vtype-container-13_0').style.display = type === 'ac3' ? 'flex' : 'none';
+  document.getElementById('lx-pf-container-13_0').style.display = type === 'dc' ? 'none' : 'flex';
+  
+  let val1 = parseFloat(document.getElementById('lx-power-13_0').value) || 0;
+  let unit1 = document.getElementById('lx-power-unit-13_0').value;
+  let volts = parseFloat(document.getElementById('lx-volts-13_0').value) || 0;
+  
+  let pfElem = document.getElementById('lx-pf-input-13_0');
+  let pf = pfElem ? (parseFloat(pfElem.value) || 1) : 1;
+  
+  let vtypeElem = document.getElementById('lx-vtype-13_0');
+  let vtype = vtypeElem ? vtypeElem.value : 'vll';
+  
+  let decimals = parseInt(document.getElementById('lx-dec-13_0').value);
+  
+  let result1 = 0;
+  let result2 = 0;
+  
+  if (luxMode13_0 === 'kw2amps') {
+    // val1 is power
+    let watts = unit1 === 'kw' ? val1 * 1000 : val1;
+    let amps = 0;
+    if (volts > 0) {
+      if (type === 'dc') {
+        amps = watts / volts;
+      } else if (type === 'ac1') {
+        amps = watts / (volts * pf);
+      } else if (type === 'ac3') {
+        if (vtype === 'vll') amps = watts / (1.732 * volts * pf);
+        else amps = watts / (3 * volts * pf);
+      }
+    }
+    result1 = amps;
+    result2 = amps * 1000;
+  } else {
+    // val1 is current
+    let amps = unit1 === 'a' ? val1 : val1 / 1000;
+    let watts = 0;
+    if (type === 'dc') {
+      watts = amps * volts;
+    } else if (type === 'ac1') {
+      watts = amps * volts * pf;
+    } else if (type === 'ac3') {
+      if (vtype === 'vll') watts = amps * 1.732 * volts * pf;
+      else watts = amps * 3 * volts * pf;
+    }
+    result1 = watts / 1000;
+    result2 = watts;
+  }
+  
+  document.getElementById('res-amps-13_0').value = result1.toFixed(decimals);
+  document.getElementById('res-ma-13_0').value = result2.toFixed(decimals);
+  
+  const mainMirror = result1.toFixed(decimals) + (luxMode13_0 === 'kw2amps' ? ' A' : ' kW');
+  document.getElementById('lx-mirror-val-13_0').innerText = mainMirror;
+}
+
+function resetLux13_0() {
+  document.getElementById('lx-power-13_0').value = '';
+  document.getElementById('res-amps-13_0').value = '';
+  document.getElementById('res-ma-13_0').value = '';
+  document.getElementById('lx-mirror-val-13_0').innerText = luxMode13_0 === 'kw2amps' ? 'A' : 'kW';
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    updatePFGradient13_0();
+    updateLuxCalc13_0();
+});
+</script>
 
         <aside class="visual-panel circuit-visual-panel tool-page-visual" aria-label="AC BTU and wattage diagram">
           <div class="tool-page-label">Cooling load and wattage flow</div>
@@ -443,28 +649,458 @@
         <div class="line" aria-hidden="true"></div>
       </div>
       <div class="sub-calculator-grid">
-        <article class="card mini-tool-calculator sub-calculator-card" data-mode="amps-to-watts" data-default-volts="120" data-phase="single">
-          <div class="tool-page-label">Sub calculator 1: amps to watts load</div>
-          <div class="tool-page-input-grid">
-            <label>Amps (A)<input class="tool-amps" type="number" value="15" min="0" step="any"></label><label>Watts (W)<input class="tool-watts" type="number" value="1800" min="0" step="any"></label>
-            <label>Volts (V)<input class="tool-volts" type="number" value="120" min="0.1" step="any"></label><label>Power Factor<input class="tool-pf" type="number" value="1" min="0.01" max="1" step="0.01"></label>
-            <label>kVA<input class="tool-kva" type="number" value="1.8" min="0" step="any"></label><label>MW<input class="tool-mw" type="number" value="0.0018" min="0" step="any"></label>
-            <label>Hours<input class="tool-hours" type="number" value="2" min="0" step="any"></label><label>Rate per kWh<input class="tool-rate" type="number" value="0.15" min="0" step="any"></label>
-          </div>
-          <div class="btn-row"><button type="button" class="btn btn-primary tool-calc-button">Calculate</button><button type="button" class="btn btn-outline btn-sm tool-reset-button">Reset</button></div>
-          <div class="tool-page-result" aria-live="polite"><span class="result-mini-unit">RESULT</span><strong class="tool-result-main">Ready</strong><p class="tool-result-detail">Enter values and press calculate.</p></div>
-        </article>
-        <article class="card mini-tool-calculator sub-calculator-card" data-mode="watts-to-amps" data-default-volts="120" data-phase="single">
-          <div class="tool-page-label">Sub calculator 2: watts to amps demand</div>
-          <div class="tool-page-input-grid">
-            <label>Amps (A)<input class="tool-amps" type="number" value="15" min="0" step="any"></label><label>Watts (W)<input class="tool-watts" type="number" value="1800" min="0" step="any"></label>
-            <label>Volts (V)<input class="tool-volts" type="number" value="120" min="0.1" step="any"></label><label>Power Factor<input class="tool-pf" type="number" value="0.9" min="0.01" max="1" step="0.01"></label>
-            <label>kVA<input class="tool-kva" type="number" value="1.8" min="0" step="any"></label><label>MW<input class="tool-mw" type="number" value="0.0018" min="0" step="any"></label>
-            <label>Hours<input class="tool-hours" type="number" value="4" min="0" step="any"></label><label>Rate per kWh<input class="tool-rate" type="number" value="0.15" min="0" step="any"></label>
-          </div>
-          <div class="btn-row"><button type="button" class="btn btn-primary tool-calc-button">Calculate</button><button type="button" class="btn btn-outline btn-sm tool-reset-button">Reset</button></div>
-          <div class="tool-page-result" aria-live="polite"><span class="result-mini-unit">RESULT</span><strong class="tool-result-main">Ready</strong><p class="tool-result-detail">Enter values and press calculate.</p></div>
-        </article>
+        <article class="lx-tool" id="lux-tool-13_1">
+  <div class="lx-main">
+    <div class="lx-header-row">
+      <div class="lx-mode-label">MODE: <span class="lx-cyan" id="lx-mode-text-13_1">WATTS TO AMPS</span></div>
+      <div class="lx-decimals">
+        <label>Decimals:</label>
+        <div class="lx-dec-ctrl">
+          <button type="button" class="lx-dec-btn" onclick="document.getElementById('lx-dec-13_1').value = Math.max(0, parseInt(document.getElementById('lx-dec-13_1').value)-1); updateLuxCalc13_1()">-</button>
+          <input type="number" id="lx-dec-13_1" class="lx-dec-input" value="4" readonly>
+          <button type="button" class="lx-dec-btn lx-cyan-bg" onclick="document.getElementById('lx-dec-13_1').value = Math.min(8, parseInt(document.getElementById('lx-dec-13_1').value)+1); updateLuxCalc13_1()">+</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="lx-grid">
+      <!-- Current Type -->
+      <div class="lx-field lx-span-2">
+        <label>System type</label>
+        <div class="lx-select-wrapper">
+          <select id="lx-type-13_1" onchange="updateLuxCalc13_1()">
+            <option value="dc" >Direct Current (DC)</option>
+            <option value="ac1" selected>Single-Phase</option>
+            <option value="ac3" >Three-Phase</option>
+          </select>
+        </div>
+      </div>
+      
+      <!-- Power -->
+      <div class="lx-field">
+        <label id="lbl-power-13_1">Current</label>
+        <div class="lx-input-group">
+          <input type="number" id="lx-power-13_1" value="15" placeholder="Enter current" oninput="updateLuxCalc13_1()">
+          <select class="lx-unit-select" id="lx-power-unit-13_1" onchange="updateLuxCalc13_1()">
+            <option value="a">A</option><option value="ma">mA</option>
+          </select>
+        </div>
+      </div>
+      
+      <!-- Voltage -->
+      <div class="lx-field">
+        <label>Voltage</label>
+        <div class="lx-input-group">
+          <input type="number" id="lx-volts-13_1" value="120" placeholder="Enter voltage" oninput="updateLuxCalc13_1()">
+          <span class="lx-unit-label">V</span>
+        </div>
+      </div>
+
+      <!-- Voltage Type (For 3-Phase) -->
+      <div class="lx-field lx-span-2" id="lx-vtype-container-13_1" style="display: none;">
+        <label>Voltage Type</label>
+        <div class="lx-toggle-group">
+          <button type="button" class="lx-toggle-btn active" id="btn-vll-13_1" onclick="setVType13_1('vll')">Line-to-Line (V<sub>LL</sub>)</button>
+          <button type="button" class="lx-toggle-btn" id="btn-vln-13_1" onclick="setVType13_1('vln')">Line-to-Neutral (V<sub>LN</sub>)</button>
+        </div>
+        <input type="hidden" id="lx-vtype-13_1" value="vll">
+      </div>
+
+      <!-- Power Factor (For AC) -->
+      <div class="lx-field lx-span-2" id="lx-pf-container-13_1" style="display: flex;">
+        <label>Power Factor (PF)</label>
+        <div class="lx-slider-group">
+          <input type="range" class="lx-slider" id="lx-pf-slider-13_1" min="0.1" max="1" step="0.01" value="1" oninput="document.getElementById('lx-pf-input-13_1').value = this.value; updatePFGradient13_1(); updateLuxCalc13_1()">
+          <input type="number" class="lx-slider-val" id="lx-pf-input-13_1" min="0.1" max="1" step="0.01" value="1" oninput="document.getElementById('lx-pf-slider-13_1').value = this.value; updatePFGradient13_1(); updateLuxCalc13_1()">
+        </div>
+      </div>
+      
+      <!-- Actions -->
+      <div class="lx-actions lx-span-2">
+        <button type="button" class="lx-btn lx-btn-reset" onclick="resetLux13_1()">Reset</button>
+        <button type="button" class="lx-btn lx-btn-primary" onclick="toggleMode13_1()" id="lx-mode-btn-13_1">Switch to Watts to Amps</button>
+        
+      </div>
+
+      <!-- Results Area -->
+      <div class="lx-field" id="res-amps-box-13_1">
+        <label id="lbl-res1-13_1">Power (kW)</label>
+        <div class="lx-input-group lx-readonly">
+          <input type="text" id="res-amps-13_1" readonly value="">
+          <span class="lx-unit-label" id="lbl-unit1-13_1">kW</span>
+        </div>
+      </div>
+      <div class="lx-field" id="res-ma-box-13_1">
+        <label id="lbl-res2-13_1">Power (W)</label>
+        <div class="lx-input-group lx-readonly">
+          <input type="text" id="res-ma-13_1" readonly value="">
+          <span class="lx-unit-label" id="lbl-unit2-13_1">W</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="lx-sidebar">
+    <div class="lx-sidebar-card">
+      <div class="lx-quick-mirror">
+        <div class="lx-mirror-line"></div>
+        <span class="val" id="lx-mirror-val-13_1">kW</span>
+      </div>
+      <p style="text-align: center;">Adjust inputs on the left. This box always mirrors your main result for quick reference.</p>
+    </div>
+    
+    <div class="lx-sidebar-card">
+       <h4 class="lx-card-title">QUICK TIPS</h4>
+       <ul>
+         <li>Match the system type (DC / 1-Phase / 3-Phase) to your circuit.</li>
+         <li>For three-phase, confirm whether your voltage is line-to-line or line-to-neutral.</li>
+         <li>Use a realistic power factor from equipment datasheets for more accurate results.</li>
+       </ul>
+    </div>
+  </div>
+</article>
+
+<script>
+// Logic for luxury calculator 13_1
+let luxMode13_1 = 'amps2kw';
+
+function updatePFGradient13_1() {
+  const slider = document.getElementById('lx-pf-slider-13_1');
+  if(!slider) return;
+  const val = (slider.value - slider.min) / (slider.max - slider.min) * 100;
+  slider.style.background = `linear-gradient(90deg, #00e5ff 0%, #00e5ff ${val}%, #1e293b ${val}%, #1e293b 100%)`;
+}
+
+function setVType13_1(type) {
+  document.getElementById('lx-vtype-13_1').value = type;
+  document.getElementById('btn-vll-13_1').className = 'lx-toggle-btn' + (type === 'vll' ? ' active' : '');
+  document.getElementById('btn-vln-13_1').className = 'lx-toggle-btn' + (type === 'vln' ? ' active' : '');
+  updateLuxCalc13_1();
+}
+
+function toggleMode13_1() {
+  luxMode13_1 = luxMode13_1 === 'kw2amps' ? 'amps2kw' : 'kw2amps';
+  document.getElementById('lx-mode-text-13_1').innerText = luxMode13_1 === 'kw2amps' ? 'AMPS TO WATTS' : 'WATTS TO AMPS';
+  document.getElementById('lx-mode-btn-13_1').innerText = luxMode13_1 === 'kw2amps' ? 'Switch to Watts to Amps' : 'Switch to Amps to Watts';
+  
+  // Switch power input label
+  document.getElementById('lbl-power-13_1').innerText = luxMode13_1 === 'kw2amps' ? 'Power' : 'Current';
+  document.getElementById('lx-power-13_1').placeholder = luxMode13_1 === 'kw2amps' ? 'Enter power' : 'Enter current';
+  
+  // Switch units
+  const unitSelect = document.getElementById('lx-power-unit-13_1');
+  if(luxMode13_1 === 'kw2amps') {
+    unitSelect.innerHTML = '<option value="kw">kW</option><option value="w">W</option>';
+  } else {
+    unitSelect.innerHTML = '<option value="a">A</option><option value="ma">mA</option>';
+  }
+  
+  // Switch result labels
+  document.getElementById('lbl-res1-13_1').innerText = luxMode13_1 === 'kw2amps' ? 'Current (amps)' : 'Power (kW)';
+  document.getElementById('lbl-res2-13_1').innerText = luxMode13_1 === 'kw2amps' ? 'Current (milliamps)' : 'Power (W)';
+  document.getElementById('lbl-unit1-13_1').innerText = luxMode13_1 === 'kw2amps' ? 'A' : 'kW';
+  document.getElementById('lbl-unit2-13_1').innerText = luxMode13_1 === 'kw2amps' ? 'mA' : 'W';
+  
+  updateLuxCalc13_1();
+}
+
+function updateLuxCalc13_1() {
+  const type = document.getElementById('lx-type-13_1').value;
+  document.getElementById('lx-vtype-container-13_1').style.display = type === 'ac3' ? 'flex' : 'none';
+  document.getElementById('lx-pf-container-13_1').style.display = type === 'dc' ? 'none' : 'flex';
+  
+  let val1 = parseFloat(document.getElementById('lx-power-13_1').value) || 0;
+  let unit1 = document.getElementById('lx-power-unit-13_1').value;
+  let volts = parseFloat(document.getElementById('lx-volts-13_1').value) || 0;
+  
+  let pfElem = document.getElementById('lx-pf-input-13_1');
+  let pf = pfElem ? (parseFloat(pfElem.value) || 1) : 1;
+  
+  let vtypeElem = document.getElementById('lx-vtype-13_1');
+  let vtype = vtypeElem ? vtypeElem.value : 'vll';
+  
+  let decimals = parseInt(document.getElementById('lx-dec-13_1').value);
+  
+  let result1 = 0;
+  let result2 = 0;
+  
+  if (luxMode13_1 === 'kw2amps') {
+    // val1 is power
+    let watts = unit1 === 'kw' ? val1 * 1000 : val1;
+    let amps = 0;
+    if (volts > 0) {
+      if (type === 'dc') {
+        amps = watts / volts;
+      } else if (type === 'ac1') {
+        amps = watts / (volts * pf);
+      } else if (type === 'ac3') {
+        if (vtype === 'vll') amps = watts / (1.732 * volts * pf);
+        else amps = watts / (3 * volts * pf);
+      }
+    }
+    result1 = amps;
+    result2 = amps * 1000;
+  } else {
+    // val1 is current
+    let amps = unit1 === 'a' ? val1 : val1 / 1000;
+    let watts = 0;
+    if (type === 'dc') {
+      watts = amps * volts;
+    } else if (type === 'ac1') {
+      watts = amps * volts * pf;
+    } else if (type === 'ac3') {
+      if (vtype === 'vll') watts = amps * 1.732 * volts * pf;
+      else watts = amps * 3 * volts * pf;
+    }
+    result1 = watts / 1000;
+    result2 = watts;
+  }
+  
+  document.getElementById('res-amps-13_1').value = result1.toFixed(decimals);
+  document.getElementById('res-ma-13_1').value = result2.toFixed(decimals);
+  
+  const mainMirror = result1.toFixed(decimals) + (luxMode13_1 === 'kw2amps' ? ' A' : ' kW');
+  document.getElementById('lx-mirror-val-13_1').innerText = mainMirror;
+}
+
+function resetLux13_1() {
+  document.getElementById('lx-power-13_1').value = '';
+  document.getElementById('res-amps-13_1').value = '';
+  document.getElementById('res-ma-13_1').value = '';
+  document.getElementById('lx-mirror-val-13_1').innerText = luxMode13_1 === 'kw2amps' ? 'A' : 'kW';
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    updatePFGradient13_1();
+    updateLuxCalc13_1();
+});
+</script>
+        <article class="lx-tool" id="lux-tool-13_2">
+  <div class="lx-main">
+    <div class="lx-header-row">
+      <div class="lx-mode-label">MODE: <span class="lx-cyan" id="lx-mode-text-13_2">AMPS TO WATTS</span></div>
+      <div class="lx-decimals">
+        <label>Decimals:</label>
+        <div class="lx-dec-ctrl">
+          <button type="button" class="lx-dec-btn" onclick="document.getElementById('lx-dec-13_2').value = Math.max(0, parseInt(document.getElementById('lx-dec-13_2').value)-1); updateLuxCalc13_2()">-</button>
+          <input type="number" id="lx-dec-13_2" class="lx-dec-input" value="4" readonly>
+          <button type="button" class="lx-dec-btn lx-cyan-bg" onclick="document.getElementById('lx-dec-13_2').value = Math.min(8, parseInt(document.getElementById('lx-dec-13_2').value)+1); updateLuxCalc13_2()">+</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="lx-grid">
+      <!-- Current Type -->
+      <div class="lx-field lx-span-2">
+        <label>System type</label>
+        <div class="lx-select-wrapper">
+          <select id="lx-type-13_2" onchange="updateLuxCalc13_2()">
+            <option value="dc" >Direct Current (DC)</option>
+            <option value="ac1" selected>Single-Phase</option>
+            <option value="ac3" >Three-Phase</option>
+          </select>
+        </div>
+      </div>
+      
+      <!-- Power -->
+      <div class="lx-field">
+        <label id="lbl-power-13_2">Power</label>
+        <div class="lx-input-group">
+          <input type="number" id="lx-power-13_2" value="1.8" placeholder="Enter power" oninput="updateLuxCalc13_2()">
+          <select class="lx-unit-select" id="lx-power-unit-13_2" onchange="updateLuxCalc13_2()">
+            <option value="kw">kW</option><option value="w">W</option>
+          </select>
+        </div>
+      </div>
+      
+      <!-- Voltage -->
+      <div class="lx-field">
+        <label>Voltage</label>
+        <div class="lx-input-group">
+          <input type="number" id="lx-volts-13_2" value="120" placeholder="Enter voltage" oninput="updateLuxCalc13_2()">
+          <span class="lx-unit-label">V</span>
+        </div>
+      </div>
+
+      <!-- Voltage Type (For 3-Phase) -->
+      <div class="lx-field lx-span-2" id="lx-vtype-container-13_2" style="display: none;">
+        <label>Voltage Type</label>
+        <div class="lx-toggle-group">
+          <button type="button" class="lx-toggle-btn active" id="btn-vll-13_2" onclick="setVType13_2('vll')">Line-to-Line (V<sub>LL</sub>)</button>
+          <button type="button" class="lx-toggle-btn" id="btn-vln-13_2" onclick="setVType13_2('vln')">Line-to-Neutral (V<sub>LN</sub>)</button>
+        </div>
+        <input type="hidden" id="lx-vtype-13_2" value="vll">
+      </div>
+
+      <!-- Power Factor (For AC) -->
+      <div class="lx-field lx-span-2" id="lx-pf-container-13_2" style="display: flex;">
+        <label>Power Factor (PF)</label>
+        <div class="lx-slider-group">
+          <input type="range" class="lx-slider" id="lx-pf-slider-13_2" min="0.1" max="1" step="0.01" value="0.9" oninput="document.getElementById('lx-pf-input-13_2').value = this.value; updatePFGradient13_2(); updateLuxCalc13_2()">
+          <input type="number" class="lx-slider-val" id="lx-pf-input-13_2" min="0.1" max="1" step="0.01" value="0.9" oninput="document.getElementById('lx-pf-slider-13_2').value = this.value; updatePFGradient13_2(); updateLuxCalc13_2()">
+        </div>
+      </div>
+      
+      <!-- Actions -->
+      <div class="lx-actions lx-span-2">
+        <button type="button" class="lx-btn lx-btn-reset" onclick="resetLux13_2()">Reset</button>
+        <button type="button" class="lx-btn lx-btn-primary" onclick="toggleMode13_2()" id="lx-mode-btn-13_2">Switch to Watts to Amps</button>
+        
+      </div>
+
+      <!-- Results Area -->
+      <div class="lx-field" id="res-amps-box-13_2">
+        <label id="lbl-res1-13_2">Current (amps)</label>
+        <div class="lx-input-group lx-readonly">
+          <input type="text" id="res-amps-13_2" readonly value="">
+          <span class="lx-unit-label" id="lbl-unit1-13_2">A</span>
+        </div>
+      </div>
+      <div class="lx-field" id="res-ma-box-13_2">
+        <label id="lbl-res2-13_2">Current (milliamps)</label>
+        <div class="lx-input-group lx-readonly">
+          <input type="text" id="res-ma-13_2" readonly value="">
+          <span class="lx-unit-label" id="lbl-unit2-13_2">mA</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="lx-sidebar">
+    <div class="lx-sidebar-card">
+      <div class="lx-quick-mirror">
+        <div class="lx-mirror-line"></div>
+        <span class="val" id="lx-mirror-val-13_2">A</span>
+      </div>
+      <p style="text-align: center;">Adjust inputs on the left. This box always mirrors your main result for quick reference.</p>
+    </div>
+    
+    <div class="lx-sidebar-card">
+       <h4 class="lx-card-title">QUICK TIPS</h4>
+       <ul>
+         <li>Match the system type (DC / 1-Phase / 3-Phase) to your circuit.</li>
+         <li>For three-phase, confirm whether your voltage is line-to-line or line-to-neutral.</li>
+         <li>Use a realistic power factor from equipment datasheets for more accurate results.</li>
+       </ul>
+    </div>
+  </div>
+</article>
+
+<script>
+// Logic for luxury calculator 13_2
+let luxMode13_2 = 'kw2amps';
+
+function updatePFGradient13_2() {
+  const slider = document.getElementById('lx-pf-slider-13_2');
+  if(!slider) return;
+  const val = (slider.value - slider.min) / (slider.max - slider.min) * 100;
+  slider.style.background = `linear-gradient(90deg, #00e5ff 0%, #00e5ff ${val}%, #1e293b ${val}%, #1e293b 100%)`;
+}
+
+function setVType13_2(type) {
+  document.getElementById('lx-vtype-13_2').value = type;
+  document.getElementById('btn-vll-13_2').className = 'lx-toggle-btn' + (type === 'vll' ? ' active' : '');
+  document.getElementById('btn-vln-13_2').className = 'lx-toggle-btn' + (type === 'vln' ? ' active' : '');
+  updateLuxCalc13_2();
+}
+
+function toggleMode13_2() {
+  luxMode13_2 = luxMode13_2 === 'kw2amps' ? 'amps2kw' : 'kw2amps';
+  document.getElementById('lx-mode-text-13_2').innerText = luxMode13_2 === 'kw2amps' ? 'AMPS TO WATTS' : 'WATTS TO AMPS';
+  document.getElementById('lx-mode-btn-13_2').innerText = luxMode13_2 === 'kw2amps' ? 'Switch to Watts to Amps' : 'Switch to Amps to Watts';
+  
+  // Switch power input label
+  document.getElementById('lbl-power-13_2').innerText = luxMode13_2 === 'kw2amps' ? 'Power' : 'Current';
+  document.getElementById('lx-power-13_2').placeholder = luxMode13_2 === 'kw2amps' ? 'Enter power' : 'Enter current';
+  
+  // Switch units
+  const unitSelect = document.getElementById('lx-power-unit-13_2');
+  if(luxMode13_2 === 'kw2amps') {
+    unitSelect.innerHTML = '<option value="kw">kW</option><option value="w">W</option>';
+  } else {
+    unitSelect.innerHTML = '<option value="a">A</option><option value="ma">mA</option>';
+  }
+  
+  // Switch result labels
+  document.getElementById('lbl-res1-13_2').innerText = luxMode13_2 === 'kw2amps' ? 'Current (amps)' : 'Power (kW)';
+  document.getElementById('lbl-res2-13_2').innerText = luxMode13_2 === 'kw2amps' ? 'Current (milliamps)' : 'Power (W)';
+  document.getElementById('lbl-unit1-13_2').innerText = luxMode13_2 === 'kw2amps' ? 'A' : 'kW';
+  document.getElementById('lbl-unit2-13_2').innerText = luxMode13_2 === 'kw2amps' ? 'mA' : 'W';
+  
+  updateLuxCalc13_2();
+}
+
+function updateLuxCalc13_2() {
+  const type = document.getElementById('lx-type-13_2').value;
+  document.getElementById('lx-vtype-container-13_2').style.display = type === 'ac3' ? 'flex' : 'none';
+  document.getElementById('lx-pf-container-13_2').style.display = type === 'dc' ? 'none' : 'flex';
+  
+  let val1 = parseFloat(document.getElementById('lx-power-13_2').value) || 0;
+  let unit1 = document.getElementById('lx-power-unit-13_2').value;
+  let volts = parseFloat(document.getElementById('lx-volts-13_2').value) || 0;
+  
+  let pfElem = document.getElementById('lx-pf-input-13_2');
+  let pf = pfElem ? (parseFloat(pfElem.value) || 1) : 1;
+  
+  let vtypeElem = document.getElementById('lx-vtype-13_2');
+  let vtype = vtypeElem ? vtypeElem.value : 'vll';
+  
+  let decimals = parseInt(document.getElementById('lx-dec-13_2').value);
+  
+  let result1 = 0;
+  let result2 = 0;
+  
+  if (luxMode13_2 === 'kw2amps') {
+    // val1 is power
+    let watts = unit1 === 'kw' ? val1 * 1000 : val1;
+    let amps = 0;
+    if (volts > 0) {
+      if (type === 'dc') {
+        amps = watts / volts;
+      } else if (type === 'ac1') {
+        amps = watts / (volts * pf);
+      } else if (type === 'ac3') {
+        if (vtype === 'vll') amps = watts / (1.732 * volts * pf);
+        else amps = watts / (3 * volts * pf);
+      }
+    }
+    result1 = amps;
+    result2 = amps * 1000;
+  } else {
+    // val1 is current
+    let amps = unit1 === 'a' ? val1 : val1 / 1000;
+    let watts = 0;
+    if (type === 'dc') {
+      watts = amps * volts;
+    } else if (type === 'ac1') {
+      watts = amps * volts * pf;
+    } else if (type === 'ac3') {
+      if (vtype === 'vll') watts = amps * 1.732 * volts * pf;
+      else watts = amps * 3 * volts * pf;
+    }
+    result1 = watts / 1000;
+    result2 = watts;
+  }
+  
+  document.getElementById('res-amps-13_2').value = result1.toFixed(decimals);
+  document.getElementById('res-ma-13_2').value = result2.toFixed(decimals);
+  
+  const mainMirror = result1.toFixed(decimals) + (luxMode13_2 === 'kw2amps' ? ' A' : ' kW');
+  document.getElementById('lx-mirror-val-13_2').innerText = mainMirror;
+}
+
+function resetLux13_2() {
+  document.getElementById('lx-power-13_2').value = '';
+  document.getElementById('res-amps-13_2').value = '';
+  document.getElementById('res-ma-13_2').value = '';
+  document.getElementById('lx-mirror-val-13_2').innerText = luxMode13_2 === 'kw2amps' ? 'A' : 'kW';
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    updatePFGradient13_2();
+    updateLuxCalc13_2();
+});
+</script>
       </div>
     </section></section>
 

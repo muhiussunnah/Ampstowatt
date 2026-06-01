@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
   <!-- ===== COMPLETE SEO META ===== -->
   <title>Amps to Volt-Amps Calculator | Convert A to VA Instantly</title>
-  <meta name="description" content="Free Amps to Volt-Amps Calculator â€” convert amperes to volt-amps for apparent power calculations. Includes DC, single-phase AC, and three-phase AC support. Essential for electrical engineering and power system design.">
+  <meta name="description" content="Free Amps to Volt-Amps Calculator � convert amperes to volt-amps for apparent power calculations. Includes DC, single-phase AC, and three-phase AC support. Essential for electrical engineering and power system design.">
   <meta name="keywords" content="amps to volt amps, ampere to va calculator, convert amps to va, apparent power calculator, kva calculator, electrical power calculator">
   <meta name="author" content="Amps To Watts Calculator">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
@@ -33,7 +33,7 @@
   <meta name="twitter:image" content="https://ampstowatt.com/og-image.jpg">
 
   <!-- ===== STYLES ===== -->
-  <link rel="stylesheet" href="/styles.min.css?v=20260531-lux-v15">
+  <link rel="stylesheet" href="/styles.min.css?v=20260601-lux-v19">
 
   <!-- ===== STRUCTURED DATA ===== -->
   <script type="application/ld+json">
@@ -60,8 +60,8 @@
       {
         "@type": "FAQPage",
         "mainEntity": [
-          { "@type": "Question", "name": "How do I convert amps to volt-amps?", "acceptedAnswer": { "@type": "Answer", "text": "VA = Amps Ã— Volts. For three-phase: VA = Amps Ã— Volts Ã— âˆš3 for line-to-line, or VA = Amps Ã— Volts Ã— 3 for line-to-neutral." } },
-          { "@type": "Question", "name": "What is the difference between watts and volt-amps?", "acceptedAnswer": { "@type": "Answer", "text": "Watts measure real power, volt-amps measure apparent power. VA = Watts Ã· Power Factor." } }
+          { "@type": "Question", "name": "How do I convert amps to volt-amps?", "acceptedAnswer": { "@type": "Answer", "text": "VA = Amps × Volts. For three-phase: VA = Amps × Volts × √3 for line-to-line, or VA = Amps × Volts × 3 for line-to-neutral." } },
+          { "@type": "Question", "name": "What is the difference between watts and volt-amps?", "acceptedAnswer": { "@type": "Answer", "text": "Watts measure real power, volt-amps measure apparent power. VA = Watts ÷ Power Factor." } }
         ]
       }
     ]
@@ -162,6 +162,8 @@
                ]
 }
   </script>
+  <link rel="stylesheet" href="/luxury-tools.css?v=20260601-lux-v19">
+  <link rel="stylesheet" href="/site-dark-luxury.css?v=20260601-dark-v1">
 </head>
 <body>
 
@@ -186,7 +188,7 @@
       <nav id="premium-site-nav" class="premium-nav" role="navigation" aria-label="Primary navigation">
         <a href="/" class="premium-nav-link">Home</a>
         <a href="/#calculator" class="premium-nav-link">Amps to Watts</a>
-        <a href="/#watts-to-amps" class="premium-nav-link">Watts to Amps</a>
+        
         <details class="premium-nav-menu">
           <summary>Voltage</summary>
           <div class="premium-nav-panel">
@@ -402,41 +404,238 @@
             <div class="visual-icon power" aria-hidden="true">VA</div>
             <div class="visual-info">
               <div class="visual-label">Apparent Power</div>
-              <div class="visual-value" id="visual-va">â€” VA</div>
+              <div class="visual-value" id="visual-va">� VA</div>
             </div>
           </div>
         </aside>
 
         <!-- Calculator Form -->
-        <article class="card card-glow calculator-card">
-          <form onsubmit="return false;" aria-label="Amps to Volt-Amps Calculator Form">
-            <div class="input-row">
-              <div class="input-group">
-                <label for="va-amps">Amps</label>
-                <input type="number" id="va-amps" value="15" min="0.1" step="any">
-              </div>
-              <div class="input-group">
-                <label for="va-volts">Volts</label>
-                <input type="number" id="va-volts" value="120" min="1" step="any">
-              </div>
-              <div class="input-group">
-                <label for="va-type">Phase</label>
-                <select id="va-type">
-                  <option value="dc">DC/1-Phase</option>
-                  <option value="ac3">3-Phase</option>
-                </select>
-              </div>
-            </div>
-            <div class="btn-row">
-              <button class="btn btn-primary" onclick="calcVA()">Calculate VA</button>
-            </div>
-          </form>
-          <div id="va-result" class="result-mini">
-            <div class="result-mini-unit">APPARENT POWER</div>
-            <div class="result-mini-val" id="va-val">â€”</div>
-            <div class="result-mini-unit">VA | â‰ˆ <span id="va-watt">â€”</span> W @ PF=0.85</div>
-          </div>
-        </article>
+        <article class="lx-tool" id="lux-tool-17_0">
+  <div class="lx-main">
+    <div class="lx-header-row">
+      <div class="lx-mode-label">MODE: <span class="lx-cyan" id="lx-mode-text-17_0">WATTS TO AMPS</span></div>
+      <div class="lx-decimals">
+        <label>Decimals:</label>
+        <div class="lx-dec-ctrl">
+          <button type="button" class="lx-dec-btn" onclick="document.getElementById('lx-dec-17_0').value = Math.max(0, parseInt(document.getElementById('lx-dec-17_0').value)-1); updateLuxCalc17_0()">-</button>
+          <input type="number" id="lx-dec-17_0" class="lx-dec-input" value="4" readonly>
+          <button type="button" class="lx-dec-btn lx-cyan-bg" onclick="document.getElementById('lx-dec-17_0').value = Math.min(8, parseInt(document.getElementById('lx-dec-17_0').value)+1); updateLuxCalc17_0()">+</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="lx-grid">
+      <!-- Current Type -->
+      <div class="lx-field lx-span-2">
+        <label>System type</label>
+        <div class="lx-select-wrapper">
+          <select id="lx-type-17_0" onchange="updateLuxCalc17_0()">
+            <option value="dc" >Direct Current (DC)</option>
+            <option value="ac1" selected>Single-Phase</option>
+            <option value="ac3" >Three-Phase</option>
+          </select>
+        </div>
+      </div>
+      
+      <!-- Power -->
+      <div class="lx-field">
+        <label id="lbl-power-17_0">Current</label>
+        <div class="lx-input-group">
+          <input type="number" id="lx-power-17_0" value="10" placeholder="Enter current" oninput="updateLuxCalc17_0()">
+          <select class="lx-unit-select" id="lx-power-unit-17_0" onchange="updateLuxCalc17_0()">
+            <option value="a">A</option><option value="ma">mA</option>
+          </select>
+        </div>
+      </div>
+      
+      <!-- Voltage -->
+      <div class="lx-field">
+        <label>Voltage</label>
+        <div class="lx-input-group">
+          <input type="number" id="lx-volts-17_0" value="120" placeholder="Enter voltage" oninput="updateLuxCalc17_0()">
+          <span class="lx-unit-label">V</span>
+        </div>
+      </div>
+
+      <!-- Voltage Type (For 3-Phase) -->
+      <div class="lx-field lx-span-2" id="lx-vtype-container-17_0" style="display: none;">
+        <label>Voltage Type</label>
+        <div class="lx-toggle-group">
+          <button type="button" class="lx-toggle-btn active" id="btn-vll-17_0" onclick="setVType17_0('vll')">Line-to-Line (V<sub>LL</sub>)</button>
+          <button type="button" class="lx-toggle-btn" id="btn-vln-17_0" onclick="setVType17_0('vln')">Line-to-Neutral (V<sub>LN</sub>)</button>
+        </div>
+        <input type="hidden" id="lx-vtype-17_0" value="vll">
+      </div>
+
+      <!-- Power Factor (For AC) -->
+      <div class="lx-field lx-span-2" id="lx-pf-container-17_0" style="display: flex;">
+        <label>Power Factor (PF)</label>
+        <div class="lx-slider-group">
+          <input type="range" class="lx-slider" id="lx-pf-slider-17_0" min="0.1" max="1" step="0.01" value="1" oninput="document.getElementById('lx-pf-input-17_0').value = this.value; updatePFGradient17_0(); updateLuxCalc17_0()">
+          <input type="number" class="lx-slider-val" id="lx-pf-input-17_0" min="0.1" max="1" step="0.01" value="1" oninput="document.getElementById('lx-pf-slider-17_0').value = this.value; updatePFGradient17_0(); updateLuxCalc17_0()">
+        </div>
+      </div>
+      
+      <!-- Actions -->
+      <div class="lx-actions lx-span-2">
+        <button type="button" class="lx-btn lx-btn-reset" onclick="resetLux17_0()">Reset</button>
+        <button type="button" class="lx-btn lx-btn-primary" onclick="toggleMode17_0()" id="lx-mode-btn-17_0">Switch to Watts to Amps</button>
+        
+      </div>
+
+      <!-- Results Area -->
+      <div class="lx-field" id="res-amps-box-17_0">
+        <label id="lbl-res1-17_0">Power (kW)</label>
+        <div class="lx-input-group lx-readonly">
+          <input type="text" id="res-amps-17_0" readonly value="">
+          <span class="lx-unit-label" id="lbl-unit1-17_0">kW</span>
+        </div>
+      </div>
+      <div class="lx-field" id="res-ma-box-17_0">
+        <label id="lbl-res2-17_0">Power (W)</label>
+        <div class="lx-input-group lx-readonly">
+          <input type="text" id="res-ma-17_0" readonly value="">
+          <span class="lx-unit-label" id="lbl-unit2-17_0">W</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="lx-sidebar">
+    <div class="lx-sidebar-card">
+      <div class="lx-quick-mirror">
+        <div class="lx-mirror-line"></div>
+        <span class="val" id="lx-mirror-val-17_0">kW</span>
+      </div>
+      <p style="text-align: center;">Adjust inputs on the left. This box always mirrors your main result for quick reference.</p>
+    </div>
+    
+    <div class="lx-sidebar-card">
+       <h4 class="lx-card-title">QUICK TIPS</h4>
+       <ul>
+         <li>Match the system type (DC / 1-Phase / 3-Phase) to your circuit.</li>
+         <li>For three-phase, confirm whether your voltage is line-to-line or line-to-neutral.</li>
+         <li>Use a realistic power factor from equipment datasheets for more accurate results.</li>
+       </ul>
+    </div>
+  </div>
+</article>
+
+<script>
+// Logic for luxury calculator 17_0
+let luxMode17_0 = 'amps2kw';
+
+function updatePFGradient17_0() {
+  const slider = document.getElementById('lx-pf-slider-17_0');
+  if(!slider) return;
+  const val = (slider.value - slider.min) / (slider.max - slider.min) * 100;
+  slider.style.background = `linear-gradient(90deg, #00e5ff 0%, #00e5ff ${val}%, #1e293b ${val}%, #1e293b 100%)`;
+}
+
+function setVType17_0(type) {
+  document.getElementById('lx-vtype-17_0').value = type;
+  document.getElementById('btn-vll-17_0').className = 'lx-toggle-btn' + (type === 'vll' ? ' active' : '');
+  document.getElementById('btn-vln-17_0').className = 'lx-toggle-btn' + (type === 'vln' ? ' active' : '');
+  updateLuxCalc17_0();
+}
+
+function toggleMode17_0() {
+  luxMode17_0 = luxMode17_0 === 'kw2amps' ? 'amps2kw' : 'kw2amps';
+  document.getElementById('lx-mode-text-17_0').innerText = luxMode17_0 === 'kw2amps' ? 'AMPS TO WATTS' : 'WATTS TO AMPS';
+  document.getElementById('lx-mode-btn-17_0').innerText = luxMode17_0 === 'kw2amps' ? 'Switch to Watts to Amps' : 'Switch to Amps to Watts';
+  
+  // Switch power input label
+  document.getElementById('lbl-power-17_0').innerText = luxMode17_0 === 'kw2amps' ? 'Power' : 'Current';
+  document.getElementById('lx-power-17_0').placeholder = luxMode17_0 === 'kw2amps' ? 'Enter power' : 'Enter current';
+  
+  // Switch units
+  const unitSelect = document.getElementById('lx-power-unit-17_0');
+  if(luxMode17_0 === 'kw2amps') {
+    unitSelect.innerHTML = '<option value="kw">kW</option><option value="w">W</option>';
+  } else {
+    unitSelect.innerHTML = '<option value="a">A</option><option value="ma">mA</option>';
+  }
+  
+  // Switch result labels
+  document.getElementById('lbl-res1-17_0').innerText = luxMode17_0 === 'kw2amps' ? 'Current (amps)' : 'Power (kW)';
+  document.getElementById('lbl-res2-17_0').innerText = luxMode17_0 === 'kw2amps' ? 'Current (milliamps)' : 'Power (W)';
+  document.getElementById('lbl-unit1-17_0').innerText = luxMode17_0 === 'kw2amps' ? 'A' : 'kW';
+  document.getElementById('lbl-unit2-17_0').innerText = luxMode17_0 === 'kw2amps' ? 'mA' : 'W';
+  
+  updateLuxCalc17_0();
+}
+
+function updateLuxCalc17_0() {
+  const type = document.getElementById('lx-type-17_0').value;
+  document.getElementById('lx-vtype-container-17_0').style.display = type === 'ac3' ? 'flex' : 'none';
+  document.getElementById('lx-pf-container-17_0').style.display = type === 'dc' ? 'none' : 'flex';
+  
+  let val1 = parseFloat(document.getElementById('lx-power-17_0').value) || 0;
+  let unit1 = document.getElementById('lx-power-unit-17_0').value;
+  let volts = parseFloat(document.getElementById('lx-volts-17_0').value) || 0;
+  
+  let pfElem = document.getElementById('lx-pf-input-17_0');
+  let pf = pfElem ? (parseFloat(pfElem.value) || 1) : 1;
+  
+  let vtypeElem = document.getElementById('lx-vtype-17_0');
+  let vtype = vtypeElem ? vtypeElem.value : 'vll';
+  
+  let decimals = parseInt(document.getElementById('lx-dec-17_0').value);
+  
+  let result1 = 0;
+  let result2 = 0;
+  
+  if (luxMode17_0 === 'kw2amps') {
+    // val1 is power
+    let watts = unit1 === 'kw' ? val1 * 1000 : val1;
+    let amps = 0;
+    if (volts > 0) {
+      if (type === 'dc') {
+        amps = watts / volts;
+      } else if (type === 'ac1') {
+        amps = watts / (volts * pf);
+      } else if (type === 'ac3') {
+        if (vtype === 'vll') amps = watts / (1.732 * volts * pf);
+        else amps = watts / (3 * volts * pf);
+      }
+    }
+    result1 = amps;
+    result2 = amps * 1000;
+  } else {
+    // val1 is current
+    let amps = unit1 === 'a' ? val1 : val1 / 1000;
+    let watts = 0;
+    if (type === 'dc') {
+      watts = amps * volts;
+    } else if (type === 'ac1') {
+      watts = amps * volts * pf;
+    } else if (type === 'ac3') {
+      if (vtype === 'vll') watts = amps * 1.732 * volts * pf;
+      else watts = amps * 3 * volts * pf;
+    }
+    result1 = watts / 1000;
+    result2 = watts;
+  }
+  
+  document.getElementById('res-amps-17_0').value = result1.toFixed(decimals);
+  document.getElementById('res-ma-17_0').value = result2.toFixed(decimals);
+  
+  const mainMirror = result1.toFixed(decimals) + (luxMode17_0 === 'kw2amps' ? ' A' : ' kW');
+  document.getElementById('lx-mirror-val-17_0').innerText = mainMirror;
+}
+
+function resetLux17_0() {
+  document.getElementById('lx-power-17_0').value = '';
+  document.getElementById('res-amps-17_0').value = '';
+  document.getElementById('res-ma-17_0').value = '';
+  document.getElementById('lx-mirror-val-17_0').innerText = luxMode17_0 === 'kw2amps' ? 'A' : 'kW';
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    updatePFGradient17_0();
+    updateLuxCalc17_0();
+});
+</script>
       </div>
     </section>
 
@@ -450,17 +649,17 @@
       <div class="formula-grid">
         <div class="formula-card">
           <h3>DC / Single-Phase AC</h3>
-          <div class="formula-equation">VA = I Ã— V</div>
+          <div class="formula-equation">VA = I × V</div>
           <p>Where:<br>I = Current (A)<br>V = Voltage (V)</p>
         </div>
         <div class="formula-card">
           <h3>Three-Phase AC (Line-to-Line)</h3>
-          <div class="formula-equation">VA = I Ã— V Ã— âˆš3</div>
-          <p>â‰ˆ I Ã— V Ã— 1.732</p>
+          <div class="formula-equation">VA = I × V × √3</div>
+          <p>≈ I × V × 1.732</p>
         </div>
         <div class="formula-card">
           <h3>Three-Phase AC (Line-to-Neutral)</h3>
-          <div class="formula-equation">VA = I Ã— V Ã— 3</div>
+          <div class="formula-equation">VA = I × V × 3</div>
           <p>For line-to-neutral voltage</p>
         </div>
       </div>
@@ -476,15 +675,15 @@
       <div class="examples-grid">
         <div class="example-card">
           <h3>Single-Phase Circuit</h3>
-          <p>15A at 120V:<br>15 Ã— 120 = 1800 VA<br>Typical for household circuit</p>
+          <p>15A at 120V:<br>15 × 120 = 1800 VA<br>Typical for household circuit</p>
         </div>
         <div class="example-card">
           <h3>Three-Phase Motor</h3>
-          <p>10A at 230V line-to-line:<br>10 Ã— 230 Ã— 1.732 â‰ˆ 1732 VA<br>Small industrial motor</p>
+          <p>10A at 230V line-to-line:<br>10 × 230 × 1.732 ≈ 1732 VA<br>Small industrial motor</p>
         </div>
         <div class="example-card">
           <h3>DC Power Supply</h3>
-          <p>5A at 48V:<br>5 Ã— 48 = 240 VA<br>Network equipment power</p>
+          <p>5A at 48V:<br>5 × 48 = 240 VA<br>Network equipment power</p>
         </div>
       </div>
     </section>
@@ -499,11 +698,11 @@
       <div class="faq-list">
         <div class="faq-item">
           <h3>How do I convert amps to volt-amps?</h3>
-          <p>For DC or single-phase AC: VA = Amps Ã— Volts. For three-phase: VA = Amps Ã— Volts Ã— âˆš3 (line-to-line) or VA = Amps Ã— Volts Ã— 3 (line-to-neutral).</p>
+          <p>For DC or single-phase AC: VA = Amps × Volts. For three-phase: VA = Amps × Volts × √3 (line-to-line) or VA = Amps × Volts × 3 (line-to-neutral).</p>
         </div>
         <div class="faq-item">
           <h3>What is the difference between VA and watts?</h3>
-          <p>VA measures apparent power (total power drawn), watts measure real power (useful power). VA = Watts Ã· Power Factor.</p>
+          <p>VA measures apparent power (total power drawn), watts measure real power (useful power). VA = Watts ÷ Power Factor.</p>
         </div>
         <div class="faq-item">
           <h3>When should I use VA instead of watts?</h3>

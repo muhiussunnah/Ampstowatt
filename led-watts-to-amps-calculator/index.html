@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -22,7 +22,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="LED Watts to Amps Calculator">
   <meta name="twitter:description" content="LED watt to amp calculator with formulas, voltage choices, power factor, and practical LED lighting examples.">
-  <link rel="stylesheet" href="/styles.min.css?v=20260531-lux-v15">
+  <link rel="stylesheet" href="/styles.min.css?v=20260601-lux-v19">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -130,6 +130,8 @@
                ]
 }
   </script>
+  <link rel="stylesheet" href="/luxury-tools.css?v=20260601-lux-v19">
+  <link rel="stylesheet" href="/site-dark-luxury.css?v=20260601-dark-v1">
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to Main Content</a>
@@ -148,7 +150,7 @@
       <nav id="premium-site-nav" class="premium-nav" role="navigation" aria-label="Primary navigation">
         <a href="/" class="premium-nav-link">Home</a>
         <a href="/#calculator" class="premium-nav-link">Amps to Watts</a>
-        <a href="/#watts-to-amps" class="premium-nav-link">Watts to Amps</a>
+        
         <details class="premium-nav-menu">
           <summary>Voltage</summary>
           <div class="premium-nav-panel">
@@ -214,28 +216,232 @@
         <div class="line" aria-hidden="true"></div>
       </div>
       <div class="two-col calculator-layout">
-      <article class="card card-glow calculator-card mini-tool-calculator" data-mode="watts-to-amps" data-default-volts="12" data-phase="single">
-        <div class="tool-page-label">Interactive Calculator</div>
-        <div class="tool-page-input-grid">
-          <label>Amps (A)<input class="tool-amps" type="number" value="10" min="0" step="any"></label>
-          <label>Watts (W)<input class="tool-watts" type="number" value="60" min="0" step="any"></label>
-          <label>Volts (V)<input class="tool-volts" type="number" value="12" min="0.1" step="any"></label>
-          <label>Power Factor<input class="tool-pf" type="number" value="0.90" min="0.01" max="1" step="0.01"></label>
-          <label>kVA<input class="tool-kva" type="number" value="1" min="0" step="any"></label>
-          <label>MW<input class="tool-mw" type="number" value="1" min="0" step="any"></label>
-          <label>Hours<input class="tool-hours" type="number" value="5" min="0" step="any"></label>
-          <label>Rate per kWh<input class="tool-rate" type="number" value="0.15" min="0" step="any"></label>
+      <article class="lx-tool" id="lux-tool-28_0">
+  <div class="lx-main">
+    <div class="lx-header-row">
+      <div class="lx-mode-label">MODE: <span class="lx-cyan" id="lx-mode-text-28_0">AMPS TO WATTS</span></div>
+      <div class="lx-decimals">
+        <label>Decimals:</label>
+        <div class="lx-dec-ctrl">
+          <button type="button" class="lx-dec-btn" onclick="document.getElementById('lx-dec-28_0').value = Math.max(0, parseInt(document.getElementById('lx-dec-28_0').value)-1); updateLuxCalc28_0()">-</button>
+          <input type="number" id="lx-dec-28_0" class="lx-dec-input" value="4" readonly>
+          <button type="button" class="lx-dec-btn lx-cyan-bg" onclick="document.getElementById('lx-dec-28_0').value = Math.min(8, parseInt(document.getElementById('lx-dec-28_0').value)+1); updateLuxCalc28_0()">+</button>
         </div>
-        <div class="btn-row">
-          <button type="button" class="btn btn-primary tool-calc-button">Calculate</button>
-          <button type="button" class="btn btn-outline btn-sm tool-reset-button">Reset</button>
+      </div>
+    </div>
+    
+    <div class="lx-grid">
+      <!-- Current Type -->
+      <div class="lx-field lx-span-2">
+        <label>System type</label>
+        <div class="lx-select-wrapper">
+          <select id="lx-type-28_0" onchange="updateLuxCalc28_0()">
+            <option value="dc" >Direct Current (DC)</option>
+            <option value="ac1" selected>Single-Phase</option>
+            <option value="ac3" >Three-Phase</option>
+          </select>
         </div>
-        <div class="tool-page-result" aria-live="polite">
-          <span class="result-mini-unit">RESULT</span>
-          <strong class="tool-result-main">Ready</strong>
-          <p class="tool-result-detail">Enter values and press calculate.</p>
+      </div>
+      
+      <!-- Power -->
+      <div class="lx-field">
+        <label id="lbl-power-28_0">Power</label>
+        <div class="lx-input-group">
+          <input type="number" id="lx-power-28_0" value="60" placeholder="Enter power" oninput="updateLuxCalc28_0()">
+          <select class="lx-unit-select" id="lx-power-unit-28_0" onchange="updateLuxCalc28_0()">
+            <option value="w">W</option><option value="kw">kW</option>
+          </select>
         </div>
-      </article>
+      </div>
+      
+      <!-- Voltage -->
+      <div class="lx-field">
+        <label>Voltage</label>
+        <div class="lx-input-group">
+          <input type="number" id="lx-volts-28_0" value="12" placeholder="Enter voltage" oninput="updateLuxCalc28_0()">
+          <span class="lx-unit-label">V</span>
+        </div>
+      </div>
+
+      <!-- Voltage Type (For 3-Phase) -->
+      <div class="lx-field lx-span-2" id="lx-vtype-container-28_0" style="display: none;">
+        <label>Voltage Type</label>
+        <div class="lx-toggle-group">
+          <button type="button" class="lx-toggle-btn active" id="btn-vll-28_0" onclick="setVType28_0('vll')">Line-to-Line (V<sub>LL</sub>)</button>
+          <button type="button" class="lx-toggle-btn" id="btn-vln-28_0" onclick="setVType28_0('vln')">Line-to-Neutral (V<sub>LN</sub>)</button>
+        </div>
+        <input type="hidden" id="lx-vtype-28_0" value="vll">
+      </div>
+
+      <!-- Power Factor (For AC) -->
+      <div class="lx-field lx-span-2" id="lx-pf-container-28_0" style="display: flex;">
+        <label>Power Factor (PF)</label>
+        <div class="lx-slider-group">
+          <input type="range" class="lx-slider" id="lx-pf-slider-28_0" min="0.1" max="1" step="0.01" value="0.90" oninput="document.getElementById('lx-pf-input-28_0').value = this.value; updatePFGradient28_0(); updateLuxCalc28_0()">
+          <input type="number" class="lx-slider-val" id="lx-pf-input-28_0" min="0.1" max="1" step="0.01" value="0.90" oninput="document.getElementById('lx-pf-slider-28_0').value = this.value; updatePFGradient28_0(); updateLuxCalc28_0()">
+        </div>
+      </div>
+      
+      <!-- Actions -->
+      <div class="lx-actions lx-span-2">
+        <button type="button" class="lx-btn lx-btn-reset" onclick="resetLux28_0()">Reset</button>
+        <button type="button" class="lx-btn lx-btn-primary" onclick="toggleMode28_0()" id="lx-mode-btn-28_0">Switch to Watts to Amps</button>
+        
+      </div>
+
+      <!-- Results Area -->
+      <div class="lx-field" id="res-amps-box-28_0">
+        <label id="lbl-res1-28_0">Current (amps)</label>
+        <div class="lx-input-group lx-readonly">
+          <input type="text" id="res-amps-28_0" readonly value="">
+          <span class="lx-unit-label" id="lbl-unit1-28_0">A</span>
+        </div>
+      </div>
+      <div class="lx-field" id="res-ma-box-28_0">
+        <label id="lbl-res2-28_0">Current (milliamps)</label>
+        <div class="lx-input-group lx-readonly">
+          <input type="text" id="res-ma-28_0" readonly value="">
+          <span class="lx-unit-label" id="lbl-unit2-28_0">mA</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="lx-sidebar">
+    <div class="lx-sidebar-card">
+      <div class="lx-quick-mirror">
+        <div class="lx-mirror-line"></div>
+        <span class="val" id="lx-mirror-val-28_0">A</span>
+      </div>
+      <p style="text-align: center;">Adjust inputs on the left. This box always mirrors your main result for quick reference.</p>
+    </div>
+    
+    <div class="lx-sidebar-card">
+       <h4 class="lx-card-title">QUICK TIPS</h4>
+       <ul>
+         <li>Match the system type (DC / 1-Phase / 3-Phase) to your circuit.</li>
+         <li>For three-phase, confirm whether your voltage is line-to-line or line-to-neutral.</li>
+         <li>Use a realistic power factor from equipment datasheets for more accurate results.</li>
+       </ul>
+    </div>
+  </div>
+</article>
+
+<script>
+// Logic for luxury calculator 28_0
+let luxMode28_0 = 'kw2amps';
+
+function updatePFGradient28_0() {
+  const slider = document.getElementById('lx-pf-slider-28_0');
+  if(!slider) return;
+  const val = (slider.value - slider.min) / (slider.max - slider.min) * 100;
+  slider.style.background = `linear-gradient(90deg, #00e5ff 0%, #00e5ff ${val}%, #1e293b ${val}%, #1e293b 100%)`;
+}
+
+function setVType28_0(type) {
+  document.getElementById('lx-vtype-28_0').value = type;
+  document.getElementById('btn-vll-28_0').className = 'lx-toggle-btn' + (type === 'vll' ? ' active' : '');
+  document.getElementById('btn-vln-28_0').className = 'lx-toggle-btn' + (type === 'vln' ? ' active' : '');
+  updateLuxCalc28_0();
+}
+
+function toggleMode28_0() {
+  luxMode28_0 = luxMode28_0 === 'kw2amps' ? 'amps2kw' : 'kw2amps';
+  document.getElementById('lx-mode-text-28_0').innerText = luxMode28_0 === 'kw2amps' ? 'AMPS TO WATTS' : 'WATTS TO AMPS';
+  document.getElementById('lx-mode-btn-28_0').innerText = luxMode28_0 === 'kw2amps' ? 'Switch to Watts to Amps' : 'Switch to Amps to Watts';
+  
+  // Switch power input label
+  document.getElementById('lbl-power-28_0').innerText = luxMode28_0 === 'kw2amps' ? 'Power' : 'Current';
+  document.getElementById('lx-power-28_0').placeholder = luxMode28_0 === 'kw2amps' ? 'Enter power' : 'Enter current';
+  
+  // Switch units
+  const unitSelect = document.getElementById('lx-power-unit-28_0');
+  if(luxMode28_0 === 'kw2amps') {
+    unitSelect.innerHTML = '<option value="kw">kW</option><option value="w">W</option>';
+  } else {
+    unitSelect.innerHTML = '<option value="a">A</option><option value="ma">mA</option>';
+  }
+  
+  // Switch result labels
+  document.getElementById('lbl-res1-28_0').innerText = luxMode28_0 === 'kw2amps' ? 'Current (amps)' : 'Power (kW)';
+  document.getElementById('lbl-res2-28_0').innerText = luxMode28_0 === 'kw2amps' ? 'Current (milliamps)' : 'Power (W)';
+  document.getElementById('lbl-unit1-28_0').innerText = luxMode28_0 === 'kw2amps' ? 'A' : 'kW';
+  document.getElementById('lbl-unit2-28_0').innerText = luxMode28_0 === 'kw2amps' ? 'mA' : 'W';
+  
+  updateLuxCalc28_0();
+}
+
+function updateLuxCalc28_0() {
+  const type = document.getElementById('lx-type-28_0').value;
+  document.getElementById('lx-vtype-container-28_0').style.display = type === 'ac3' ? 'flex' : 'none';
+  document.getElementById('lx-pf-container-28_0').style.display = type === 'dc' ? 'none' : 'flex';
+  
+  let val1 = parseFloat(document.getElementById('lx-power-28_0').value) || 0;
+  let unit1 = document.getElementById('lx-power-unit-28_0').value;
+  let volts = parseFloat(document.getElementById('lx-volts-28_0').value) || 0;
+  
+  let pfElem = document.getElementById('lx-pf-input-28_0');
+  let pf = pfElem ? (parseFloat(pfElem.value) || 1) : 1;
+  
+  let vtypeElem = document.getElementById('lx-vtype-28_0');
+  let vtype = vtypeElem ? vtypeElem.value : 'vll';
+  
+  let decimals = parseInt(document.getElementById('lx-dec-28_0').value);
+  
+  let result1 = 0;
+  let result2 = 0;
+  
+  if (luxMode28_0 === 'kw2amps') {
+    // val1 is power
+    let watts = unit1 === 'kw' ? val1 * 1000 : val1;
+    let amps = 0;
+    if (volts > 0) {
+      if (type === 'dc') {
+        amps = watts / volts;
+      } else if (type === 'ac1') {
+        amps = watts / (volts * pf);
+      } else if (type === 'ac3') {
+        if (vtype === 'vll') amps = watts / (1.732 * volts * pf);
+        else amps = watts / (3 * volts * pf);
+      }
+    }
+    result1 = amps;
+    result2 = amps * 1000;
+  } else {
+    // val1 is current
+    let amps = unit1 === 'a' ? val1 : val1 / 1000;
+    let watts = 0;
+    if (type === 'dc') {
+      watts = amps * volts;
+    } else if (type === 'ac1') {
+      watts = amps * volts * pf;
+    } else if (type === 'ac3') {
+      if (vtype === 'vll') watts = amps * 1.732 * volts * pf;
+      else watts = amps * 3 * volts * pf;
+    }
+    result1 = watts / 1000;
+    result2 = watts;
+  }
+  
+  document.getElementById('res-amps-28_0').value = result1.toFixed(decimals);
+  document.getElementById('res-ma-28_0').value = result2.toFixed(decimals);
+  
+  const mainMirror = result1.toFixed(decimals) + (luxMode28_0 === 'kw2amps' ? ' A' : ' kW');
+  document.getElementById('lx-mirror-val-28_0').innerText = mainMirror;
+}
+
+function resetLux28_0() {
+  document.getElementById('lx-power-28_0').value = '';
+  document.getElementById('res-amps-28_0').value = '';
+  document.getElementById('res-ma-28_0').value = '';
+  document.getElementById('lx-mirror-val-28_0').innerText = luxMode28_0 === 'kw2amps' ? 'A' : 'kW';
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    updatePFGradient28_0();
+    updateLuxCalc28_0();
+});
+</script>
 
       <aside class="visual-panel circuit-visual-panel tool-page-visual" aria-label="LED Watts to Amps Calculator diagram">
         <div class="tool-page-label">Technical Diagram</div>
@@ -277,7 +483,7 @@
           <div class="topic-icon" aria-hidden="true">LED</div>
           <div class="topic-copy">
             <h2>Introduction: Understanding the LED Watts to Amps Calculator</h2>
-            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>â†’</strong><span><b>Result</b><em>Usable output</em></span></div>
+            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>→</strong><span><b>Result</b><em>Usable output</em></span></div>
 <p class="content-p"><strong>An LED Watts to Amps Calculator is a power-to-current converter for LED Lighting.</strong> The input field for watts, input field for voltage, output field for amps, calculate button, and display screen work together to calculate LED amp draw.</p>
         <p class="content-p">The calculator supports LED watts to amps, LED power conversion, LED electrical load planning, LED power supply sizing, LED strip amp draw, LED driver amperage, Energy Efficiency checks, and LED Power Consumption estimates. It uses Ohm's Law and the electrical relationship between Power (Watts), Current (Amps), and Voltage (Volts).</p>
         <div class="topic-mini-diagram" aria-label="LED watts to amps process">
@@ -384,7 +590,7 @@
           <div class="topic-icon" aria-hidden="true">A</div>
           <div class="topic-copy">
             <h2>Why Convert LED Watts to Amps?</h2>
-            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>â†’</strong><span><b>Result</b><em>Usable output</em></span></div>
+            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>→</strong><span><b>Result</b><em>Usable output</em></span></div>
 <p class="content-p"><strong>Convert LED watts to amps to size the LED Driver, wire, fuse, breaker, and power supply correctly.</strong> Current draw controls heat, voltage drop, wire gauge sizing, and the safe load limit for an LED circuit.</p>
         <p class="content-p">LED Retrofit work, under cabinet LED load planning, emergency LED load amps, landscape lighting amp calculation, marine LED amp draw, and off-grid solar LED amps all need current values. Philips Lighting, Cree LED, Osram, Samsung LED, Lumileds, Mean Well (power supplies), Eaton, Acuity Brands, Signify, and Nichia publish LED electrical specs that use watts, volts, amps, driver type, and Power Factor.</p>
           </div>
@@ -403,7 +609,7 @@
           <div class="topic-icon" aria-hidden="true">W/V</div>
           <div class="topic-copy">
             <h2>The Basic Formula: Watts &divide; Volts = Amps</h2>
-            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>â†’</strong><span><b>Result</b><em>Usable output</em></span></div>
+            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>→</strong><span><b>Result</b><em>Usable output</em></span></div>
 <p class="content-p"><strong>The LED watt amp formula is Amps = Watts / Volts.</strong> A 60 W LED load at 12 V draws 5 A. A 60 W LED load at 24 V draws 2.5 A. A 60 W LED load at 120 V draws 0.5 A before AC driver power factor adjustment.</p>
         <div class="responsive-table-wrap">
           <table>
@@ -432,7 +638,7 @@
           <div class="topic-icon" aria-hidden="true">1</div>
           <div class="topic-copy">
             <h2>How to Use the LED Watts to Amps Calculator</h2>
-            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>â†’</strong><span><b>Result</b><em>Usable output</em></span></div>
+            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>→</strong><span><b>Result</b><em>Usable output</em></span></div>
 <p class="content-p"><strong>To use the LED Watts to Amps Calculator, enter LED wattage, choose voltage, and calculate amps.</strong> Use DC mode for LED strips and constant voltage power supplies. Use power factor for AC LED drivers.</p>
         <h3>Step 1: Determine Your LED Wattage</h3>
         <p class="content-p"><strong>Find LED wattage from the LED label, driver label, product sheet, or strip watts per meter.</strong> For multiple LEDs, add the wattage ratings. Ten 6 W fixtures equal 60 W. A 5 meter strip rated 14.4 W per meter equals 72 W.</p>
@@ -456,7 +662,7 @@
           <div class="topic-icon" aria-hidden="true">DC</div>
           <div class="topic-copy">
             <h2>Practical Applications of LED Watts to Amps Conversion</h2>
-            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>â†’</strong><span><b>Result</b><em>Usable output</em></span></div>
+            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>→</strong><span><b>Result</b><em>Usable output</em></span></div>
 <p class="content-p"><strong>LED watts to amps conversion is used for LED strips, high bay fixtures, LED Retrofit projects, dimmable LEDs, smart lighting, and solar lighting.</strong> The result helps select drivers, fuses, wire gauge, controllers, and backup battery capacity.</p>
         <h3>Low-Voltage LED Systems (12V and 24V)</h3>
         <p class="content-p"><strong>Low-voltage LED systems draw higher amps than high-voltage systems at the same wattage.</strong> A 120 W LED strip draws 10 A at 12 V and 5 A at 24 V. The 24 V system reduces voltage drop and can use smaller conductors for the same LED Power Consumption.</p>
@@ -478,7 +684,7 @@
           <div class="topic-icon" aria-hidden="true">!</div>
           <div class="topic-copy">
             <h2>Common Mistakes in LED Watt to Amp Conversion</h2>
-            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>â†’</strong><span><b>Result</b><em>Usable output</em></span></div>
+            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>→</strong><span><b>Result</b><em>Usable output</em></span></div>
 <p class="content-p"><strong>The most common LED watt to amp mistakes are using the wrong voltage and ignoring power factor.</strong> These mistakes undersize LED Driver units, overload dimmers, increase voltage drop, and reduce LED flicker amp stability.</p>
         <h3>Mistake 1: Assuming 120V for All Systems</h3>
         <p class="content-p"><strong>Do not assume every LED system uses 120 V.</strong> LED strip light calculator work often uses 12 V or 24 V DC. Commercial LED high bay amps may use 120 V, 208 V, 240 V, or 277 V AC depending on the building supply.</p>
@@ -500,7 +706,7 @@
           <div class="topic-icon" aria-hidden="true">M</div>
           <div class="topic-copy">
             <h2>Advanced Tips for Accurate Calculations</h2>
-            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>â†’</strong><span><b>Result</b><em>Usable output</em></span></div>
+            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>→</strong><span><b>Result</b><em>Usable output</em></span></div>
 <p class="content-p"><strong>Accurate LED current calculation uses measured voltage, real wattage, driver efficiency, power factor, and voltage drop.</strong> Thermal derating LED watts, high CRI watt calculation, dimmable LED current draw, and driver efficiency watt conversion can change the final amp value.</p>
         <h3>Using a Multimeter for Real-World Data</h3>
         <p class="content-p"><strong>Use a multimeter to measure real LED supply voltage and current.</strong> Measure DC LED strips on the DC range and AC LED driver input on the AC range. Compare measured current with the LED amps calculator result to catch voltage drop, faulty wiring, or driver overload.</p>

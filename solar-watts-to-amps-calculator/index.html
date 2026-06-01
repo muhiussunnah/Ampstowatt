@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -22,7 +22,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Solar Watts to Amps Calculator">
   <meta name="twitter:description" content="Calculate solar panels, charge controllers, and battery banks with formulas, examples, and FAQ.">
-  <link rel="stylesheet" href="/styles.min.css?v=20260531-lux-v15">
+  <link rel="stylesheet" href="/styles.min.css?v=20260601-lux-v19">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -130,6 +130,8 @@
                ]
 }
   </script>
+  <link rel="stylesheet" href="/luxury-tools.css?v=20260601-lux-v19">
+  <link rel="stylesheet" href="/site-dark-luxury.css?v=20260601-dark-v1">
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to Main Content</a>
@@ -148,7 +150,7 @@
       <nav id="premium-site-nav" class="premium-nav" role="navigation" aria-label="Primary navigation">
         <a href="/" class="premium-nav-link">Home</a>
         <a href="/#calculator" class="premium-nav-link">Amps to Watts</a>
-        <a href="/#watts-to-amps" class="premium-nav-link">Watts to Amps</a>
+        
         <details class="premium-nav-menu">
           <summary>Voltage</summary>
           <div class="premium-nav-panel">
@@ -214,28 +216,232 @@
         <div class="line" aria-hidden="true"></div>
       </div>
       <div class="two-col calculator-layout">
-      <article class="card card-glow calculator-card mini-tool-calculator" data-mode="watts-to-amps" data-default-volts="40" data-phase="single">
-        <div class="tool-page-label">Interactive calculator</div>
-        <div class="tool-page-input-grid">
-          <label>Amps (A)<input class="tool-amps" type="number" value="10" min="0" step="any"></label>
-          <label>Watts (W)<input class="tool-watts" type="number" value="1200" min="0" step="any"></label>
-          <label>Volts (V)<input class="tool-volts" type="number" value="40" min="0.1" step="any"></label>
-          <label>Power Factor<input class="tool-pf" type="number" value="1" min="0.01" max="1" step="0.01"></label>
-          <label>kVA<input class="tool-kva" type="number" value="10" min="0" step="any"></label>
-          <label>MW<input class="tool-mw" type="number" value="1" min="0" step="any"></label>
-          <label>Hours<input class="tool-hours" type="number" value="5" min="0" step="any"></label>
-          <label>Rate per kWh<input class="tool-rate" type="number" value="0.15" min="0" step="any"></label>
+      <article class="lx-tool" id="lux-tool-34_0">
+  <div class="lx-main">
+    <div class="lx-header-row">
+      <div class="lx-mode-label">MODE: <span class="lx-cyan" id="lx-mode-text-34_0">AMPS TO WATTS</span></div>
+      <div class="lx-decimals">
+        <label>Decimals:</label>
+        <div class="lx-dec-ctrl">
+          <button type="button" class="lx-dec-btn" onclick="document.getElementById('lx-dec-34_0').value = Math.max(0, parseInt(document.getElementById('lx-dec-34_0').value)-1); updateLuxCalc34_0()">-</button>
+          <input type="number" id="lx-dec-34_0" class="lx-dec-input" value="4" readonly>
+          <button type="button" class="lx-dec-btn lx-cyan-bg" onclick="document.getElementById('lx-dec-34_0').value = Math.min(8, parseInt(document.getElementById('lx-dec-34_0').value)+1); updateLuxCalc34_0()">+</button>
         </div>
-        <div class="btn-row">
-          <button type="button" class="btn btn-primary tool-calc-button">Calculate</button>
-          <button type="button" class="btn btn-outline btn-sm tool-reset-button">Reset</button>
+      </div>
+    </div>
+    
+    <div class="lx-grid">
+      <!-- Current Type -->
+      <div class="lx-field lx-span-2">
+        <label>System type</label>
+        <div class="lx-select-wrapper">
+          <select id="lx-type-34_0" onchange="updateLuxCalc34_0()">
+            <option value="dc" >Direct Current (DC)</option>
+            <option value="ac1" selected>Single-Phase</option>
+            <option value="ac3" >Three-Phase</option>
+          </select>
         </div>
-        <div class="tool-page-result" aria-live="polite">
-          <span class="result-mini-unit">RESULT</span>
-          <strong class="tool-result-main">Ready</strong>
-          <p class="tool-result-detail">Enter values and press calculate.</p>
+      </div>
+      
+      <!-- Power -->
+      <div class="lx-field">
+        <label id="lbl-power-34_0">Power</label>
+        <div class="lx-input-group">
+          <input type="number" id="lx-power-34_0" value="1.2" placeholder="Enter power" oninput="updateLuxCalc34_0()">
+          <select class="lx-unit-select" id="lx-power-unit-34_0" onchange="updateLuxCalc34_0()">
+            <option value="kw">kW</option><option value="w">W</option>
+          </select>
         </div>
-      </article>
+      </div>
+      
+      <!-- Voltage -->
+      <div class="lx-field">
+        <label>Voltage</label>
+        <div class="lx-input-group">
+          <input type="number" id="lx-volts-34_0" value="40" placeholder="Enter voltage" oninput="updateLuxCalc34_0()">
+          <span class="lx-unit-label">V</span>
+        </div>
+      </div>
+
+      <!-- Voltage Type (For 3-Phase) -->
+      <div class="lx-field lx-span-2" id="lx-vtype-container-34_0" style="display: none;">
+        <label>Voltage Type</label>
+        <div class="lx-toggle-group">
+          <button type="button" class="lx-toggle-btn active" id="btn-vll-34_0" onclick="setVType34_0('vll')">Line-to-Line (V<sub>LL</sub>)</button>
+          <button type="button" class="lx-toggle-btn" id="btn-vln-34_0" onclick="setVType34_0('vln')">Line-to-Neutral (V<sub>LN</sub>)</button>
+        </div>
+        <input type="hidden" id="lx-vtype-34_0" value="vll">
+      </div>
+
+      <!-- Power Factor (For AC) -->
+      <div class="lx-field lx-span-2" id="lx-pf-container-34_0" style="display: flex;">
+        <label>Power Factor (PF)</label>
+        <div class="lx-slider-group">
+          <input type="range" class="lx-slider" id="lx-pf-slider-34_0" min="0.1" max="1" step="0.01" value="1" oninput="document.getElementById('lx-pf-input-34_0').value = this.value; updatePFGradient34_0(); updateLuxCalc34_0()">
+          <input type="number" class="lx-slider-val" id="lx-pf-input-34_0" min="0.1" max="1" step="0.01" value="1" oninput="document.getElementById('lx-pf-slider-34_0').value = this.value; updatePFGradient34_0(); updateLuxCalc34_0()">
+        </div>
+      </div>
+      
+      <!-- Actions -->
+      <div class="lx-actions lx-span-2">
+        <button type="button" class="lx-btn lx-btn-reset" onclick="resetLux34_0()">Reset</button>
+        <button type="button" class="lx-btn lx-btn-primary" onclick="toggleMode34_0()" id="lx-mode-btn-34_0">Switch to Watts to Amps</button>
+        
+      </div>
+
+      <!-- Results Area -->
+      <div class="lx-field" id="res-amps-box-34_0">
+        <label id="lbl-res1-34_0">Current (amps)</label>
+        <div class="lx-input-group lx-readonly">
+          <input type="text" id="res-amps-34_0" readonly value="">
+          <span class="lx-unit-label" id="lbl-unit1-34_0">A</span>
+        </div>
+      </div>
+      <div class="lx-field" id="res-ma-box-34_0">
+        <label id="lbl-res2-34_0">Current (milliamps)</label>
+        <div class="lx-input-group lx-readonly">
+          <input type="text" id="res-ma-34_0" readonly value="">
+          <span class="lx-unit-label" id="lbl-unit2-34_0">mA</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="lx-sidebar">
+    <div class="lx-sidebar-card">
+      <div class="lx-quick-mirror">
+        <div class="lx-mirror-line"></div>
+        <span class="val" id="lx-mirror-val-34_0">A</span>
+      </div>
+      <p style="text-align: center;">Adjust inputs on the left. This box always mirrors your main result for quick reference.</p>
+    </div>
+    
+    <div class="lx-sidebar-card">
+       <h4 class="lx-card-title">QUICK TIPS</h4>
+       <ul>
+         <li>Match the system type (DC / 1-Phase / 3-Phase) to your circuit.</li>
+         <li>For three-phase, confirm whether your voltage is line-to-line or line-to-neutral.</li>
+         <li>Use a realistic power factor from equipment datasheets for more accurate results.</li>
+       </ul>
+    </div>
+  </div>
+</article>
+
+<script>
+// Logic for luxury calculator 34_0
+let luxMode34_0 = 'kw2amps';
+
+function updatePFGradient34_0() {
+  const slider = document.getElementById('lx-pf-slider-34_0');
+  if(!slider) return;
+  const val = (slider.value - slider.min) / (slider.max - slider.min) * 100;
+  slider.style.background = `linear-gradient(90deg, #00e5ff 0%, #00e5ff ${val}%, #1e293b ${val}%, #1e293b 100%)`;
+}
+
+function setVType34_0(type) {
+  document.getElementById('lx-vtype-34_0').value = type;
+  document.getElementById('btn-vll-34_0').className = 'lx-toggle-btn' + (type === 'vll' ? ' active' : '');
+  document.getElementById('btn-vln-34_0').className = 'lx-toggle-btn' + (type === 'vln' ? ' active' : '');
+  updateLuxCalc34_0();
+}
+
+function toggleMode34_0() {
+  luxMode34_0 = luxMode34_0 === 'kw2amps' ? 'amps2kw' : 'kw2amps';
+  document.getElementById('lx-mode-text-34_0').innerText = luxMode34_0 === 'kw2amps' ? 'AMPS TO WATTS' : 'WATTS TO AMPS';
+  document.getElementById('lx-mode-btn-34_0').innerText = luxMode34_0 === 'kw2amps' ? 'Switch to Watts to Amps' : 'Switch to Amps to Watts';
+  
+  // Switch power input label
+  document.getElementById('lbl-power-34_0').innerText = luxMode34_0 === 'kw2amps' ? 'Power' : 'Current';
+  document.getElementById('lx-power-34_0').placeholder = luxMode34_0 === 'kw2amps' ? 'Enter power' : 'Enter current';
+  
+  // Switch units
+  const unitSelect = document.getElementById('lx-power-unit-34_0');
+  if(luxMode34_0 === 'kw2amps') {
+    unitSelect.innerHTML = '<option value="kw">kW</option><option value="w">W</option>';
+  } else {
+    unitSelect.innerHTML = '<option value="a">A</option><option value="ma">mA</option>';
+  }
+  
+  // Switch result labels
+  document.getElementById('lbl-res1-34_0').innerText = luxMode34_0 === 'kw2amps' ? 'Current (amps)' : 'Power (kW)';
+  document.getElementById('lbl-res2-34_0').innerText = luxMode34_0 === 'kw2amps' ? 'Current (milliamps)' : 'Power (W)';
+  document.getElementById('lbl-unit1-34_0').innerText = luxMode34_0 === 'kw2amps' ? 'A' : 'kW';
+  document.getElementById('lbl-unit2-34_0').innerText = luxMode34_0 === 'kw2amps' ? 'mA' : 'W';
+  
+  updateLuxCalc34_0();
+}
+
+function updateLuxCalc34_0() {
+  const type = document.getElementById('lx-type-34_0').value;
+  document.getElementById('lx-vtype-container-34_0').style.display = type === 'ac3' ? 'flex' : 'none';
+  document.getElementById('lx-pf-container-34_0').style.display = type === 'dc' ? 'none' : 'flex';
+  
+  let val1 = parseFloat(document.getElementById('lx-power-34_0').value) || 0;
+  let unit1 = document.getElementById('lx-power-unit-34_0').value;
+  let volts = parseFloat(document.getElementById('lx-volts-34_0').value) || 0;
+  
+  let pfElem = document.getElementById('lx-pf-input-34_0');
+  let pf = pfElem ? (parseFloat(pfElem.value) || 1) : 1;
+  
+  let vtypeElem = document.getElementById('lx-vtype-34_0');
+  let vtype = vtypeElem ? vtypeElem.value : 'vll';
+  
+  let decimals = parseInt(document.getElementById('lx-dec-34_0').value);
+  
+  let result1 = 0;
+  let result2 = 0;
+  
+  if (luxMode34_0 === 'kw2amps') {
+    // val1 is power
+    let watts = unit1 === 'kw' ? val1 * 1000 : val1;
+    let amps = 0;
+    if (volts > 0) {
+      if (type === 'dc') {
+        amps = watts / volts;
+      } else if (type === 'ac1') {
+        amps = watts / (volts * pf);
+      } else if (type === 'ac3') {
+        if (vtype === 'vll') amps = watts / (1.732 * volts * pf);
+        else amps = watts / (3 * volts * pf);
+      }
+    }
+    result1 = amps;
+    result2 = amps * 1000;
+  } else {
+    // val1 is current
+    let amps = unit1 === 'a' ? val1 : val1 / 1000;
+    let watts = 0;
+    if (type === 'dc') {
+      watts = amps * volts;
+    } else if (type === 'ac1') {
+      watts = amps * volts * pf;
+    } else if (type === 'ac3') {
+      if (vtype === 'vll') watts = amps * 1.732 * volts * pf;
+      else watts = amps * 3 * volts * pf;
+    }
+    result1 = watts / 1000;
+    result2 = watts;
+  }
+  
+  document.getElementById('res-amps-34_0').value = result1.toFixed(decimals);
+  document.getElementById('res-ma-34_0').value = result2.toFixed(decimals);
+  
+  const mainMirror = result1.toFixed(decimals) + (luxMode34_0 === 'kw2amps' ? ' A' : ' kW');
+  document.getElementById('lx-mirror-val-34_0').innerText = mainMirror;
+}
+
+function resetLux34_0() {
+  document.getElementById('lx-power-34_0').value = '';
+  document.getElementById('res-amps-34_0').value = '';
+  document.getElementById('res-ma-34_0').value = '';
+  document.getElementById('lx-mirror-val-34_0').innerText = luxMode34_0 === 'kw2amps' ? 'A' : 'kW';
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    updatePFGradient34_0();
+    updateLuxCalc34_0();
+});
+</script>
 
       <aside class="visual-panel circuit-visual-panel tool-page-visual" aria-label="Solar Watts to Amps Calculator diagram">
         <div class="tool-page-label">Technical diagram</div>
@@ -277,7 +483,7 @@
           <div class="topic-icon" aria-hidden="true">12V</div>
           <div class="topic-copy">
             <h2>12V Solar Panel Watts to Amps Calculator</h2>
-            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>â†’</strong><span><b>Result</b><em>Usable output</em></span></div>
+            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>→</strong><span><b>Result</b><em>Usable output</em></span></div>
             <p><strong>A 12v solar panel watts to amps calculator divides solar watts by 12 volts to estimate charging amps.</strong> The basic formula is I = P / V, where current in amps equals solar panel wattage divided by voltage. A 100W solar panel at 12V gives 8.33A before real-world losses. A 200W solar panel at 12V gives 16.67A before controller loss, heat loss, wiring loss, and battery charging limits.</p>
             <p>A 12V solar panel current output is used for deep cycle battery charging, lithium battery systems, lead acid battery banks, RV solar kits, off-grid solar systems, and backup power. Use solar panel voltage from the panel label or charge controller display. A multimeter can confirm actual voltage and electric current under sun. Size the fuse, circuit breaker, copper wire, American Wire Gauge (AWG), and voltage drop target after the current estimate.</p>
             <p>For battery charging, the solar charge controller changes the final current. A PWM controller connects the panel closer to battery voltage, so a nominal 12V panel works best with a 12V battery. An MPPT controller can accept higher panel voltage and convert the extra voltage into charging current. This is why a 400W panel at 40V can show 10A on the panel side and near 30A on the battery side after efficiency loss. Separate panel-side amps from battery-side amps before choosing cable and protection.</p>
@@ -289,7 +495,7 @@
           <div class="topic-icon" aria-hidden="true">AU</div>
           <div class="topic-copy">
             <h2>12V Solar Panel Watts to Amps Calculator Australia</h2>
-            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>â†’</strong><span><b>Result</b><em>Usable output</em></span></div>
+            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>→</strong><span><b>Result</b><em>Usable output</em></span></div>
             <p><strong>A 12v solar panel watts to amps calculator Australia uses the same DC formula: amps = watts / volts.</strong> A 12V solar panel system in Australia still charges a battery bank with direct current, so a 160W panel can supply about 13.33A at 12V before efficiency loss. A 300W portable solar blanket can supply about 25A at 12V in ideal conditions.</p>
             <p>Australian users often size solar panels for caravans, utes, camping batteries, lithium battery boxes, and off-grid sheds. Use the panel wattage, solar panel voltage, solar charge controller type, and battery capacity in amp hours. MPPT controllers can harvest higher panel voltage and convert it into battery charging current. PWM controllers pull panel voltage closer to battery voltage. Check cable length, wire gauge, fuse size, and voltage drop. Use local electrical rules and International Electrotechnical Commission (IEC) style equipment ratings where required.</p>
             <p>A practical Australian 12V setup may include a 200W panel, a 20A charge controller, a 100Ah lithium battery, and a fused battery lead. The calculator gives the expected charging amps, but the hardware rating must exceed the highest current under bright sun and cold panel conditions. Cold solar cells can raise voltage, while hot panels reduce wattage. Leave margin for solar array expansion, controller limits, and long cable runs across a caravan roof or canopy.</p>
@@ -341,7 +547,7 @@
           <div class="topic-icon" aria-hidden="true">PV</div>
           <div class="topic-copy">
             <h2>Solar Panel Watts to Amps Calculator</h2>
-            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>â†’</strong><span><b>Result</b><em>Usable output</em></span></div>
+            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>→</strong><span><b>Result</b><em>Usable output</em></span></div>
             <p><strong>A solar panel watts to amps calculator converts solar panel wattage into current at a selected voltage.</strong> Use I = P / V for direct current. A 400W solar panel at 40V produces about 10A at maximum power. The same 400W charging a 12V battery through an MPPT controller can produce about 33.33A before controller loss.</p>
             <p>This difference matters. Solar panel voltage is not always the same as battery voltage. A photovoltaic system (PV System) may wire panels in series for higher voltage and lower current, then use a charge controller to convert panel power into battery charging amps. Solar panel current calculation supports MPPT controller sizing, PWM controller limits, solar inverter sizing, fuse selection, wire gauge, voltage drop, and solar battery sizing. Always compare open circuit voltage, operating voltage, short circuit current, and controller input limits before wiring a solar array.</p>
             <p>Panel-side current is important for solar array conductors and connectors. Battery-side current is important for controller output wiring and battery protection. Inverter-side current is important when stored energy becomes alternating current (AC). Power Factor and Root Mean Square (RMS) values apply on the AC load side, not on the DC solar panel side. Keep these parts separate so the solar amperage conversion formula does not get applied to the wrong circuit.</p>
@@ -382,7 +588,7 @@
           <div class="topic-icon" aria-hidden="true">CALC</div>
           <div class="topic-copy">
             <h2>How the Solar Watts to Amps Calculator Works</h2>
-            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>â†’</strong><span><b>Result</b><em>Usable output</em></span></div>
+            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>→</strong><span><b>Result</b><em>Usable output</em></span></div>
             <p><strong>A solar watts to amps calculator finds solar current from wattage and voltage in one step.</strong> Enter panel watts, system voltage, charge controller efficiency, and sun hours to estimate amps, amp hours, watt hours, kilowatt hours, and battery charging current. Use the calculator at the top of this page for a quick solar amperage conversion formula result.</p>
             <p>The main formulas are I = P / V, Ah = Wh / V, P = V x I, and runtime = battery capacity (Wh) / load power (W). A good solar power calculator should support 12V, 24V, and 48V systems, MPPT and PWM controller behavior, solar battery sizing, solar cable sizing, and voltage drop. Use the result for planning, then confirm final electrical circuit protection with the solar equipment manuals and applicable NEC or IEC rules.</p>
             <p>The calculator helps compare panel upgrades. If a system changes from 200W to 600W on a 12V battery, ideal battery charging current changes from 16.67A to 50A. That may require a larger charge controller, larger fuse, thicker wire, and a battery that accepts the higher charge rate. If the same 600W array charges a 24V battery, ideal current is 25A, which is easier for wiring and controller output. Larger off-grid systems often move from 12V to 24V or 48V to reduce current, heat, voltage drop, and copper wire cost.</p>

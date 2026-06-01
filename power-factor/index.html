@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -62,7 +62,7 @@
     ]
   }
   </script>
-<link rel="stylesheet" href="/styles.min.css?v=20260531-lux-v15">
+<link rel="stylesheet" href="/styles.min.css?v=20260601-lux-v19">
 
   <script type="application/ld+json" data-auto-seo-schema>
 {
@@ -158,6 +158,8 @@
                ]
 }
   </script>
+  <link rel="stylesheet" href="/luxury-tools.css?v=20260601-lux-v19">
+  <link rel="stylesheet" href="/site-dark-luxury.css?v=20260601-dark-v1">
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to Main Content</a>
@@ -178,7 +180,7 @@
       <nav id="premium-site-nav" class="premium-nav" role="navigation" aria-label="Primary navigation">
         <a href="/" class="premium-nav-link">Home</a>
         <a href="/#calculator" class="premium-nav-link">Amps to Watts</a>
-        <a href="/#watts-to-amps" class="premium-nav-link">Watts to Amps</a>
+        
         <details class="premium-nav-menu">
           <summary>Voltage</summary>
           <div class="premium-nav-panel">
@@ -268,37 +270,234 @@
       </div>
 
       <div class="two-col calculator-layout">
-        <aside class="visual-panel circuit-visual-panel" aria-label="Power factor visualization">
-          <div class="visual-panel-topline"><h4 class="visual-header">Power Triangle</h4><span class="circuit-status" role="status" aria-live="polite">Ready</span></div>
-          <div class="circuit-diagram-card">
-            <svg viewBox="0 0 480 320" role="img" aria-label="Power factor triangle diagram">
-              <polygon points="100,260 340,260 100,40" fill="#eff6ff" stroke="#2563eb" stroke-width="4"/>
-              <text x="220" y="100" text-anchor="middle" class="diagram-label">REAL POWER</text>
-              <text x="120" y="240" text-anchor="middle" class="diagram-label">REACTIVE POWER</text>
-              <text x="320" y="280" text-anchor="middle" class="diagram-label">APPARENT POWER</text>
-              <text x="320" y="180" text-anchor="middle" class="diagram-value" id="pf-diagram-pf">PF = ï¿½</text>
-            </svg>
-          </div>
-          <div class="visual-row compact"><div class="visual-icon voltage" aria-hidden="true">V</div><div class="visual-info"><div class="visual-label">Voltage</div><div class="visual-value" id="pf-visual-volts">ï¿½ V</div></div></div>
-          <div class="visual-row compact"><div class="visual-icon power" aria-hidden="true">W</div><div class="visual-info"><div class="visual-label">Watts</div><div class="visual-value" id="pf-visual-watts">ï¿½ W</div></div></div>
-          <div class="visual-row compact"><div class="visual-icon" aria-hidden="true">VA</div><div class="visual-info"><div class="visual-label">Apparent Power</div><div class="visual-value" id="pf-visual-va">ï¿½ VA</div></div></div>
-        </aside>
+        
 
-        <article class="card card-glow calculator-card">
-          <form onsubmit="return false;" aria-label="Power Factor Calculator Form">
-            <div class="input-row">
-              <div class="input-group"><label for="pf-watts">Watts (W)</label><input type="number" id="pf-watts" value="1500" min="0.1" step="any"></div>
-              <div class="input-group"><label for="pf-va">Volt-Amps (VA)</label><input type="number" id="pf-va" value="1800" min="0.1" step="any"></div>
-              <div class="input-group"><label for="pf-volts">Voltage (V)</label><input type="number" id="pf-volts" value="230" min="1" step="any"></div>
-            </div>
-            <div class="btn-row"><button class="btn btn-primary" onclick="calcPF()">Calculate Power Factor</button></div>
-          </form>
-          <div id="pf-result" class="result-mini" aria-live="polite">
-            <div class="result-mini-unit">POWER FACTOR</div>
-            <div class="result-mini-val" id="pf-val">ï¿½</div>
-            <div class="result-mini-unit">PF | Current: <span id="pf-amps">ï¿½</span> A | Reactive: <span id="pf-var">ï¿½</span> VAR</div>
-          </div>
-        </article>
+        <article class="lx-tool" id="lux-tool-31_0">
+  <div class="lx-main">
+    <div class="lx-header-row">
+      <div class="lx-mode-label">MODE: <span class="lx-cyan" id="lx-mode-text-31_0">WATTS TO AMPS</span></div>
+      <div class="lx-decimals">
+        <label>Decimals:</label>
+        <div class="lx-dec-ctrl">
+          <button type="button" class="lx-dec-btn" onclick="document.getElementById('lx-dec-31_0').value = Math.max(0, parseInt(document.getElementById('lx-dec-31_0').value)-1); updateLuxCalc31_0()">-</button>
+          <input type="number" id="lx-dec-31_0" class="lx-dec-input" value="4" readonly>
+          <button type="button" class="lx-dec-btn lx-cyan-bg" onclick="document.getElementById('lx-dec-31_0').value = Math.min(8, parseInt(document.getElementById('lx-dec-31_0').value)+1); updateLuxCalc31_0()">+</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="lx-grid">
+      <!-- Current Type -->
+      <div class="lx-field lx-span-2">
+        <label>System type</label>
+        <div class="lx-select-wrapper">
+          <select id="lx-type-31_0" onchange="updateLuxCalc31_0()">
+            <option value="dc" >Direct Current (DC)</option>
+            <option value="ac1" selected>Single-Phase</option>
+            <option value="ac3" >Three-Phase</option>
+          </select>
+        </div>
+      </div>
+      
+      <!-- Power -->
+      <div class="lx-field">
+        <label id="lbl-power-31_0">Current</label>
+        <div class="lx-input-group">
+          <input type="number" id="lx-power-31_0" value="10" placeholder="Enter current" oninput="updateLuxCalc31_0()">
+          <select class="lx-unit-select" id="lx-power-unit-31_0" onchange="updateLuxCalc31_0()">
+            <option value="a">A</option><option value="ma">mA</option>
+          </select>
+        </div>
+      </div>
+      
+      <!-- Voltage -->
+      <div class="lx-field">
+        <label>Voltage</label>
+        <div class="lx-input-group">
+          <input type="number" id="lx-volts-31_0" value="120" placeholder="Enter voltage" oninput="updateLuxCalc31_0()">
+          <span class="lx-unit-label">V</span>
+        </div>
+      </div>
+
+      <!-- Voltage Type (For 3-Phase) -->
+      <div class="lx-field lx-span-2" id="lx-vtype-container-31_0" style="display: none;">
+        <label>Voltage Type</label>
+        <div class="lx-toggle-group">
+          <button type="button" class="lx-toggle-btn active" id="btn-vll-31_0" onclick="setVType31_0('vll')">Line-to-Line (V<sub>LL</sub>)</button>
+          <button type="button" class="lx-toggle-btn" id="btn-vln-31_0" onclick="setVType31_0('vln')">Line-to-Neutral (V<sub>LN</sub>)</button>
+        </div>
+        <input type="hidden" id="lx-vtype-31_0" value="vll">
+      </div>
+
+      <!-- Power Factor (For AC) -->
+      <div class="lx-field lx-span-2" id="lx-pf-container-31_0" style="display: flex;">
+        <label>Power Factor (PF)</label>
+        <div class="lx-slider-group">
+          <input type="range" class="lx-slider" id="lx-pf-slider-31_0" min="0.1" max="1" step="0.01" value="1" oninput="document.getElementById('lx-pf-input-31_0').value = this.value; updatePFGradient31_0(); updateLuxCalc31_0()">
+          <input type="number" class="lx-slider-val" id="lx-pf-input-31_0" min="0.1" max="1" step="0.01" value="1" oninput="document.getElementById('lx-pf-slider-31_0').value = this.value; updatePFGradient31_0(); updateLuxCalc31_0()">
+        </div>
+      </div>
+      
+      <!-- Actions -->
+      <div class="lx-actions lx-span-2">
+        <button type="button" class="lx-btn lx-btn-reset" onclick="resetLux31_0()">Reset</button>
+        <button type="button" class="lx-btn lx-btn-primary" onclick="toggleMode31_0()" id="lx-mode-btn-31_0">Switch to Watts to Amps</button>
+        
+      </div>
+
+      <!-- Results Area -->
+      <div class="lx-field" id="res-amps-box-31_0">
+        <label id="lbl-res1-31_0">Power (kW)</label>
+        <div class="lx-input-group lx-readonly">
+          <input type="text" id="res-amps-31_0" readonly value="">
+          <span class="lx-unit-label" id="lbl-unit1-31_0">kW</span>
+        </div>
+      </div>
+      <div class="lx-field" id="res-ma-box-31_0">
+        <label id="lbl-res2-31_0">Power (W)</label>
+        <div class="lx-input-group lx-readonly">
+          <input type="text" id="res-ma-31_0" readonly value="">
+          <span class="lx-unit-label" id="lbl-unit2-31_0">W</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="lx-sidebar">
+    <div class="lx-sidebar-card">
+      <div class="lx-quick-mirror">
+        <div class="lx-mirror-line"></div>
+        <span class="val" id="lx-mirror-val-31_0">kW</span>
+      </div>
+      <p style="text-align: center;">Adjust inputs on the left. This box always mirrors your main result for quick reference.</p>
+    </div>
+    
+    <div class="lx-sidebar-card">
+       <h4 class="lx-card-title">QUICK TIPS</h4>
+       <ul>
+         <li>Match the system type (DC / 1-Phase / 3-Phase) to your circuit.</li>
+         <li>For three-phase, confirm whether your voltage is line-to-line or line-to-neutral.</li>
+         <li>Use a realistic power factor from equipment datasheets for more accurate results.</li>
+       </ul>
+    </div>
+  </div>
+</article>
+
+<script>
+// Logic for luxury calculator 31_0
+let luxMode31_0 = 'amps2kw';
+
+function updatePFGradient31_0() {
+  const slider = document.getElementById('lx-pf-slider-31_0');
+  if(!slider) return;
+  const val = (slider.value - slider.min) / (slider.max - slider.min) * 100;
+  slider.style.background = `linear-gradient(90deg, #00e5ff 0%, #00e5ff ${val}%, #1e293b ${val}%, #1e293b 100%)`;
+}
+
+function setVType31_0(type) {
+  document.getElementById('lx-vtype-31_0').value = type;
+  document.getElementById('btn-vll-31_0').className = 'lx-toggle-btn' + (type === 'vll' ? ' active' : '');
+  document.getElementById('btn-vln-31_0').className = 'lx-toggle-btn' + (type === 'vln' ? ' active' : '');
+  updateLuxCalc31_0();
+}
+
+function toggleMode31_0() {
+  luxMode31_0 = luxMode31_0 === 'kw2amps' ? 'amps2kw' : 'kw2amps';
+  document.getElementById('lx-mode-text-31_0').innerText = luxMode31_0 === 'kw2amps' ? 'AMPS TO WATTS' : 'WATTS TO AMPS';
+  document.getElementById('lx-mode-btn-31_0').innerText = luxMode31_0 === 'kw2amps' ? 'Switch to Watts to Amps' : 'Switch to Amps to Watts';
+  
+  // Switch power input label
+  document.getElementById('lbl-power-31_0').innerText = luxMode31_0 === 'kw2amps' ? 'Power' : 'Current';
+  document.getElementById('lx-power-31_0').placeholder = luxMode31_0 === 'kw2amps' ? 'Enter power' : 'Enter current';
+  
+  // Switch units
+  const unitSelect = document.getElementById('lx-power-unit-31_0');
+  if(luxMode31_0 === 'kw2amps') {
+    unitSelect.innerHTML = '<option value="kw">kW</option><option value="w">W</option>';
+  } else {
+    unitSelect.innerHTML = '<option value="a">A</option><option value="ma">mA</option>';
+  }
+  
+  // Switch result labels
+  document.getElementById('lbl-res1-31_0').innerText = luxMode31_0 === 'kw2amps' ? 'Current (amps)' : 'Power (kW)';
+  document.getElementById('lbl-res2-31_0').innerText = luxMode31_0 === 'kw2amps' ? 'Current (milliamps)' : 'Power (W)';
+  document.getElementById('lbl-unit1-31_0').innerText = luxMode31_0 === 'kw2amps' ? 'A' : 'kW';
+  document.getElementById('lbl-unit2-31_0').innerText = luxMode31_0 === 'kw2amps' ? 'mA' : 'W';
+  
+  updateLuxCalc31_0();
+}
+
+function updateLuxCalc31_0() {
+  const type = document.getElementById('lx-type-31_0').value;
+  document.getElementById('lx-vtype-container-31_0').style.display = type === 'ac3' ? 'flex' : 'none';
+  document.getElementById('lx-pf-container-31_0').style.display = type === 'dc' ? 'none' : 'flex';
+  
+  let val1 = parseFloat(document.getElementById('lx-power-31_0').value) || 0;
+  let unit1 = document.getElementById('lx-power-unit-31_0').value;
+  let volts = parseFloat(document.getElementById('lx-volts-31_0').value) || 0;
+  
+  let pfElem = document.getElementById('lx-pf-input-31_0');
+  let pf = pfElem ? (parseFloat(pfElem.value) || 1) : 1;
+  
+  let vtypeElem = document.getElementById('lx-vtype-31_0');
+  let vtype = vtypeElem ? vtypeElem.value : 'vll';
+  
+  let decimals = parseInt(document.getElementById('lx-dec-31_0').value);
+  
+  let result1 = 0;
+  let result2 = 0;
+  
+  if (luxMode31_0 === 'kw2amps') {
+    // val1 is power
+    let watts = unit1 === 'kw' ? val1 * 1000 : val1;
+    let amps = 0;
+    if (volts > 0) {
+      if (type === 'dc') {
+        amps = watts / volts;
+      } else if (type === 'ac1') {
+        amps = watts / (volts * pf);
+      } else if (type === 'ac3') {
+        if (vtype === 'vll') amps = watts / (1.732 * volts * pf);
+        else amps = watts / (3 * volts * pf);
+      }
+    }
+    result1 = amps;
+    result2 = amps * 1000;
+  } else {
+    // val1 is current
+    let amps = unit1 === 'a' ? val1 : val1 / 1000;
+    let watts = 0;
+    if (type === 'dc') {
+      watts = amps * volts;
+    } else if (type === 'ac1') {
+      watts = amps * volts * pf;
+    } else if (type === 'ac3') {
+      if (vtype === 'vll') watts = amps * 1.732 * volts * pf;
+      else watts = amps * 3 * volts * pf;
+    }
+    result1 = watts / 1000;
+    result2 = watts;
+  }
+  
+  document.getElementById('res-amps-31_0').value = result1.toFixed(decimals);
+  document.getElementById('res-ma-31_0').value = result2.toFixed(decimals);
+  
+  const mainMirror = result1.toFixed(decimals) + (luxMode31_0 === 'kw2amps' ? ' A' : ' kW');
+  document.getElementById('lx-mirror-val-31_0').innerText = mainMirror;
+}
+
+function resetLux31_0() {
+  document.getElementById('lx-power-31_0').value = '';
+  document.getElementById('res-amps-31_0').value = '';
+  document.getElementById('res-ma-31_0').value = '';
+  document.getElementById('lx-mirror-val-31_0').innerText = luxMode31_0 === 'kw2amps' ? 'A' : 'kW';
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    updatePFGradient31_0();
+    updateLuxCalc31_0();
+});
+</script>
       </div>
     </section>
 
@@ -336,7 +535,7 @@
             <p><strong>The power factor calculation formula is PF = P / S, where P is real power and S is apparent power.</strong> In watts and volt-amps, PF = W / VA. In kilowatts and kVA, PF = kW / kVA. The impedance phase angle formula is PF = cos phi.</p>
             <div class="formula-display"><strong>PF = Real Power / Apparent Power</strong></div>
             <div class="formula-display"><strong>PF = W / VA = kW / kVA = cos phi</strong></div>
-            <p>The Power Triangle connects Active Power, Reactive Power, and Apparent Power. The Pythagorean theorem gives Sï¿½ = Pï¿½ + Qï¿½, where Q is Reactive Power in Volt-Amps-Reactive (VAR). Resistors dissipate real power. Inductors and Capacitors create Reactance, phase shift, and reactive power in Alternating current (AC) circuits. Direct current (DC) circuits normally do not use power factor in the same way.</p>
+            <p>The Power Triangle connects Active Power, Reactive Power, and Apparent Power. The Pythagorean theorem gives S� = P� + Q�, where Q is Reactive Power in Volt-Amps-Reactive (VAR). Resistors dissipate real power. Inductors and Capacitors create Reactance, phase shift, and reactive power in Alternating current (AC) circuits. Direct current (DC) circuits normally do not use power factor in the same way.</p>
           </div>
         </section>
 
@@ -373,9 +572,9 @@
           <div class="topic-icon" aria-hidden="true">EX</div>
           <div class="topic-copy">
             <h2>Power Factor Calculation Example</h2>
-            <p><strong>If a load uses 1,500W and draws 1,800VA, the power factor is 0.833.</strong> PF = 1500 / 1800 = 0.833. At 230V, the current is 1800 / 230 = 7.83A. Reactive power is Q = square root of 1800ï¿½ - 1500ï¿½ = 994.99VAR.</p>
+            <p><strong>If a load uses 1,500W and draws 1,800VA, the power factor is 0.833.</strong> PF = 1500 / 1800 = 0.833. At 230V, the current is 1800 / 230 = 7.83A. Reactive power is Q = square root of 1800� - 1500� = 994.99VAR.</p>
             <p>This power factor example uses the power triangle representation. P is real power. S is apparent power. Q is reactive power. The same method works in a power factor calculator app, power factor converter, power factor finder, and power factor online tool. Use measured RMS voltage and RMS current for real AC circuit analysis.</p>
-            <div class="table-wrap"><table class="reference-table"><thead><tr><th>Value</th><th>Number</th><th>Formula</th></tr></thead><tbody><tr><td>Real power</td><td>1500W</td><td>P</td></tr><tr><td>Apparent power</td><td>1800VA</td><td>S</td></tr><tr><td>Power factor</td><td>0.833</td><td>P / S</td></tr><tr><td>Reactive power</td><td>995VAR</td><td>sqrt(Sï¿½ - Pï¿½)</td></tr></tbody></table></div>
+            <div class="table-wrap"><table class="reference-table"><thead><tr><th>Value</th><th>Number</th><th>Formula</th></tr></thead><tbody><tr><td>Real power</td><td>1500W</td><td>P</td></tr><tr><td>Apparent power</td><td>1800VA</td><td>S</td></tr><tr><td>Power factor</td><td>0.833</td><td>P / S</td></tr><tr><td>Reactive power</td><td>995VAR</td><td>sqrt(S� - P�)</td></tr></tbody></table></div>
           </div>
         </section>
 
@@ -384,7 +583,7 @@
           <div class="topic-copy">
             <h2>Power Factor Calculation Excel Sheet</h2>
             <p><strong>A power factor calculation Excel sheet should include watts, VA, kW, kVA, kVAR, RMS voltage, current, frequency, old PF, target PF, and capacitor correction results.</strong> Use columns for input values, formulas, and pass/fail notes. A power factor calculation sheet should separate single phase and three phase formulas.</p>
-            <p>Excel can calculate PF = kW / kVA, kVAR = square root of kVAï¿½ - kWï¿½, and capacitor correction kVAR = P x (tan phi old - tan phi new). Add fields for balanced loads, line to line voltage, line to neutral voltage, frequency, and phase type. A spreadsheet is useful before capacitor bank sizing, before power quality audits, and during old motor retrofit studies.</p>
+            <p>Excel can calculate PF = kW / kVA, kVAR = square root of kVA� - kW�, and capacitor correction kVAR = P x (tan phi old - tan phi new). Add fields for balanced loads, line to line voltage, line to neutral voltage, frequency, and phase type. A spreadsheet is useful before capacitor bank sizing, before power quality audits, and during old motor retrofit studies.</p>
           </div>
         </section>
 
@@ -392,7 +591,7 @@
           <div class="topic-icon" aria-hidden="true">3P</div>
           <div class="topic-copy">
             <h2>Power Factor Calculation Formula for 3 Phase</h2>
-            <p><strong>For balanced three phase with line to line voltage, PF = 1000 x kW / (1.732 x V x I).</strong> Apparent power is kVA = 1.732 x V x I / 1000. Reactive power is kVAR = square root of kVAï¿½ - kWï¿½.</p>
+            <p><strong>For balanced three phase with line to line voltage, PF = 1000 x kW / (1.732 x V x I).</strong> Apparent power is kVA = 1.732 x V x I / 1000. Reactive power is kVAR = square root of kVA� - kW�.</p>
             <p>For line to neutral voltage, PF = 1000 x kW / (3 x V x I). This three phase circuit calculation matches common Electrical Calculators, Three phase calculator pages, and RapidTables-style formulas. Use line to line voltage when the voltage is measured between two phase conductors. Use line to neutral voltage when the voltage is measured from phase to neutral. Do not mix voltage types in the same formula.</p>
             <div class="formula-display"><strong>PF = 1000 x kW / (1.732 x VLL x I)</strong></div>
           </div>
@@ -411,7 +610,7 @@
           <div class="topic-icon" aria-hidden="true">MV</div>
           <div class="topic-copy">
             <h2>Power Factor Calculation MW MVAR</h2>
-            <p><strong>Power factor calculation with MW and MVAR uses PF = MW / square root of MWï¿½ + MVARï¿½.</strong> Apparent power in MVA is the vector sum of MW and MVAR. If a plant has 10MW and 6MVAR, MVA = square root of 10ï¿½ + 6ï¿½ = 11.66MVA and PF = 10 / 11.66 = 0.857.</p>
+            <p><strong>Power factor calculation with MW and MVAR uses PF = MW / square root of MW� + MVAR�.</strong> Apparent power in MVA is the vector sum of MW and MVAR. If a plant has 10MW and 6MVAR, MVA = square root of 10� + 6� = 11.66MVA and PF = 10 / 11.66 = 0.857.</p>
             <p>This method is useful for utility feeders, microgrids, mining conveyor systems, data center UPS systems, commercial HVAC retrofits, old transformer loads, and power factor calculation with MW and MVAR. MW is active power. MVAR is reactive power. MVA is apparent power. The power triangle and Pythagorean theorem link all three values.</p>
           </div>
         </section>
@@ -438,8 +637,8 @@
           <div class="topic-icon" aria-hidden="true">EX</div>
           <div class="topic-copy">
             <h3>Power Factor Calculation with Example</h3>
-            <p><strong>A 5kW motor drawing 6.25kVA has a power factor of 0.80.</strong> PF = 5 / 6.25 = 0.80. Reactive power is square root of 6.25ï¿½ - 5ï¿½ = 3.75kVAR.</p>
-            <p>If the target PF is 0.95, corrected kVA = 5 / 0.95 = 5.26kVA. Corrected kVAR = square root of 5.26ï¿½ - 5ï¿½ = 1.64kVAR. The required correction is 3.75 - 1.64 = 2.11kVAR. This is the capacitor bank kVAR target before checking voltage, frequency, harmonics, and switching steps.</p>
+            <p><strong>A 5kW motor drawing 6.25kVA has a power factor of 0.80.</strong> PF = 5 / 6.25 = 0.80. Reactive power is square root of 6.25� - 5� = 3.75kVAR.</p>
+            <p>If the target PF is 0.95, corrected kVA = 5 / 0.95 = 5.26kVA. Corrected kVAR = square root of 5.26� - 5� = 1.64kVAR. The required correction is 3.75 - 1.64 = 2.11kVAR. This is the capacitor bank kVAR target before checking voltage, frequency, harmonics, and switching steps.</p>
           </div>
         </section>
 
@@ -457,7 +656,7 @@
           <div class="topic-copy">
             <h3>Power Factor Calculator Capacitor</h3>
             <p><strong>A power factor calculator capacitor section estimates the capacitor bank kVAR needed to raise PF from an old value to a target value.</strong> Use Qc = P x (tan phi old - tan phi new). Phi is the arccosine of the power factor.</p>
-            <p>For single phase capacitance, C = Qc / (2 x pi x f x Vï¿½). For three phase line to neutral correction, divide per phase as required by the connection. A power factor correction capacitor should be connected with proper protection and switching. Harmonics can require detuned capacitor banks.</p>
+            <p>For single phase capacitance, C = Qc / (2 x pi x f x V�). For three phase line to neutral correction, divide per phase as required by the connection. A power factor correction capacitor should be connected with proper protection and switching. Harmonics can require detuned capacitor banks.</p>
           </div>
         </section>
 
@@ -493,7 +692,7 @@
           <div class="topic-copy">
             <h3>Power Factor Formula Derivation</h3>
             <p><strong>Power factor formula derivation comes from the relationship between Active Power and Apparent Power.</strong> In an AC circuit, voltage and current can be separated by an impedance phase angle. Real power equals apparent power times cos phi.</p>
-            <p>So P = S x cos phi, and PF = P / S = cos phi. With the power triangle, S is the vector sum of P and Q. The same structure appears in impedance, where Zï¿½ = Rï¿½ + Xï¿½ for resistance, reactance, and impedance.</p>
+            <p>So P = S x cos phi, and PF = P / S = cos phi. With the power triangle, S is the vector sum of P and Q. The same structure appears in impedance, where Z� = R� + X� for resistance, reactance, and impedance.</p>
           </div>
         </section>
       </article>
