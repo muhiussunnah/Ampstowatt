@@ -1560,3 +1560,254 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+// ===== LUXURY THEME ENGINE: 100% IMAGE REPLICATION =====
+document.addEventListener('DOMContentLoaded', () => {
+  const calcForms = document.querySelectorAll('.ptool-card, .mini-tool-calculator');
+  if (calcForms.length === 0) return;
+
+  calcForms.forEach(formEl => {
+    if (formEl.dataset.luxEngineApplied) return;
+    formEl.dataset.luxEngineApplied = 'true';
+
+    // Build Luxury Wrapper
+    const luxWrapper = document.createElement('div');
+    luxWrapper.className = 'lux-calculator-wrapper';
+
+    // Find title
+    let titleText = 'CALCULATOR';
+    const headSpan = formEl.querySelector('.ptool-head strong');
+    const h1 = document.querySelector('h1');
+    if (headSpan) titleText = headSpan.textContent.trim().toUpperCase();
+    else if (h1) titleText = h1.textContent.trim().toUpperCase();
+    else titleText = document.title.split('-')[0].trim().toUpperCase();
+
+    // Create Left Col
+    const leftCol = document.createElement('div');
+    leftCol.className = 'lux-left-col';
+    
+    // Top Row: Mode + Decimals
+    const topRow = document.createElement('div');
+    topRow.className = 'lux-top-row';
+    topRow.innerHTML = `
+      <div class="lux-mode-badge"><span class="lux-dot"></span> MODE: ${titleText}</div>
+      <div class="lux-decimals">
+        <span>Decimals:</span>
+        <div class="lux-stepper">
+          <button type="button" class="minus" onclick="if(window.decimals>0){window.decimals--; if(window.calcMain)calcMain(); if(window.toolCalc)toolCalc();}">−</button>
+          <span id="lux-dec-val">2</span>
+          <button type="button" class="plus" onclick="if(window.decimals<6){window.decimals++; if(window.calcMain)calcMain(); if(window.toolCalc)toolCalc();}">+</button>
+        </div>
+      </div>
+    `;
+    leftCol.appendChild(topRow);
+
+    // Form inputs wrapper
+    const inputsGrid = document.createElement('div');
+    inputsGrid.className = 'lux-inputs-grid';
+
+    // Extract inputs
+    const originalInputs = formEl.querySelectorAll('input, select');
+    
+    originalInputs.forEach(origInput => {
+      if (origInput.type === 'hidden' || origInput.type === 'range') return;
+
+      const group = document.createElement('div');
+      group.className = 'lux-input-group';
+
+      let labelText = '';
+      if (origInput.labels && origInput.labels.length > 0) {
+        labelText = origInput.labels[0].textContent.trim();
+      } else {
+        const prev = origInput.previousElementSibling;
+        if (prev && prev.tagName === 'LABEL') labelText = prev.textContent.trim();
+        else {
+          const parent = origInput.closest('label');
+          if (parent) {
+            const clone = parent.cloneNode(true);
+            const inp = clone.querySelector('input, select');
+            if(inp) clone.removeChild(inp);
+            labelText = clone.textContent.trim();
+          }
+        }
+      }
+
+      const labelEl = document.createElement('label');
+      labelEl.textContent = labelText || 'Input';
+      group.appendChild(labelEl);
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'lux-input-wrapper';
+
+      let proxyInput;
+      if (origInput.tagName === 'SELECT') {
+        proxyInput = document.createElement('select');
+        Array.from(origInput.options).forEach(opt => {
+          const newOpt = document.createElement('option');
+          newOpt.value = opt.value;
+          newOpt.textContent = opt.textContent;
+          if (opt.selected) newOpt.selected = true;
+          proxyInput.appendChild(newOpt);
+        });
+      } else {
+        proxyInput = document.createElement('input');
+        proxyInput.type = origInput.type;
+        proxyInput.value = origInput.value;
+        if (origInput.min !== '') proxyInput.min = origInput.min;
+        if (origInput.max !== '') proxyInput.max = origInput.max;
+        if (origInput.step !== '') proxyInput.step = origInput.step;
+      }
+
+      // Sync proxy to orig
+      proxyInput.addEventListener('input', (e) => {
+        origInput.value = e.target.value;
+        origInput.dispatchEvent(new Event('input', { bubbles: true }));
+        origInput.dispatchEvent(new Event('change', { bubbles: true }));
+        
+        if (typeof window.calcMain === 'function') window.calcMain();
+        if (typeof window.toolCalc === 'function') window.toolCalc();
+      });
+
+      // Sync orig to proxy
+      origInput.addEventListener('input', (e) => {
+        proxyInput.value = e.target.value;
+      });
+      origInput.addEventListener('change', (e) => {
+        proxyInput.value = e.target.value;
+      });
+
+      wrapper.appendChild(proxyInput);
+
+      // Unit Addon logic
+      const lowerLabel = labelText.toLowerCase();
+      let unitStr = '';
+      if (lowerLabel.includes('amps') || lowerLabel.includes('current')) unitStr = 'A';
+      else if (lowerLabel.includes('watts') || lowerLabel.includes('power')) unitStr = 'W';
+      else if (lowerLabel.includes('volts') || lowerLabel.includes('voltage')) unitStr = 'V';
+      else if (lowerLabel.includes('hz') || lowerLabel.includes('frequency')) unitStr = 'Hz';
+      else if (lowerLabel.includes('hours')) unitStr = 'h';
+      else if (lowerLabel.includes('kva')) unitStr = 'kVA';
+      else if (lowerLabel.includes('mw')) unitStr = 'MW';
+      else if (lowerLabel.includes('rate')) unitStr = '$';
+
+      if (unitStr) {
+        const unitEl = document.createElement('span');
+        unitEl.className = 'lux-unit';
+        unitEl.textContent = unitStr;
+        wrapper.appendChild(unitEl);
+      }
+
+      group.appendChild(wrapper);
+      inputsGrid.appendChild(group);
+    });
+    
+    leftCol.appendChild(inputsGrid);
+
+    // Buttons
+    const btnRow = document.createElement('div');
+    btnRow.className = 'lux-btn-row';
+    const resetBtn = document.createElement('button');
+    resetBtn.className = 'lux-btn-outline';
+    resetBtn.textContent = 'Reset';
+    resetBtn.type = 'button';
+    resetBtn.onclick = () => {
+      const origReset = formEl.querySelector('.tool-reset-button, .ptool-btn-reset');
+      if (origReset) origReset.click();
+      else if(typeof window.resetMain === 'function') window.resetMain();
+      
+      setTimeout(() => {
+        const origs = formEl.querySelectorAll('input, select');
+        const proxies = inputsGrid.querySelectorAll('input, select');
+        origs.forEach((o, i) => {
+          if (proxies[i] && o.type !== 'hidden' && o.type !== 'range') proxies[i].value = o.value;
+        });
+      }, 50);
+    };
+
+    const calcBtn = document.createElement('button');
+    calcBtn.className = 'lux-btn-primary';
+    const mainBtn = formEl.querySelector('.tool-calc-button, .ptool-btn-calc');
+    calcBtn.textContent = mainBtn ? mainBtn.textContent.replace(/⚡|^\s+|\s+$/g, '').trim() : 'Calculate';
+    calcBtn.type = 'button';
+    calcBtn.onclick = () => {
+      if (mainBtn) mainBtn.click();
+      else {
+        if(typeof window.calcMain === 'function') window.calcMain();
+        if(typeof window.toolCalc === 'function') window.toolCalc();
+      }
+    };
+
+    btnRow.appendChild(resetBtn);
+    btnRow.appendChild(calcBtn);
+    leftCol.appendChild(btnRow);
+
+    // Create Right Col
+    const rightCol = document.createElement('div');
+    rightCol.className = 'lux-right-col';
+
+    const liveResult = document.createElement('div');
+    liveResult.className = 'lux-live-result-box';
+    liveResult.innerHTML = `
+      <div class="lux-live-header">LIVE RESULT</div>
+      <div class="lux-live-value" id="lux-main-val">Ready</div>
+      <div class="lux-live-sub" id="lux-sub-val">Enter values</div>
+      <p class="lux-live-desc">Adjust inputs on the left. This box always mirrors your main result for quick reference.</p>
+    `;
+    rightCol.appendChild(liveResult);
+
+    // Quick tips
+    const rulesEl = formEl.querySelector('.ptool-rules, .calculator-rules');
+    if (rulesEl) {
+      const tipsBox = document.createElement('div');
+      tipsBox.className = 'lux-quick-tips';
+      tipsBox.innerHTML = '<div class="lux-tips-header">QUICK TIPS & FORMULAS</div>';
+      
+      const rulesClone = document.createElement('div');
+      rulesClone.className = 'lux-rules-container';
+      Array.from(rulesEl.querySelectorAll('.rule-card, .ptool-rule')).forEach(rule => {
+         const newRule = document.createElement('div');
+         newRule.className = 'lux-rule-card';
+         newRule.innerHTML = rule.innerHTML;
+         rulesClone.appendChild(newRule);
+      });
+      tipsBox.appendChild(rulesClone);
+      rightCol.appendChild(tipsBox);
+    }
+
+    luxWrapper.appendChild(leftCol);
+    luxWrapper.appendChild(rightCol);
+
+    // Hide original and append
+    formEl.style.display = 'none';
+    formEl.parentNode.insertBefore(luxWrapper, formEl);
+
+    // Setup Mutation Observer
+    const resultBox = formEl.querySelector('.ptool-console-val, .tool-result-main');
+    const resultSubBox = formEl.querySelector('.ptool-console-sub, .tool-result-detail');
+    
+    if (resultBox) {
+      const observer = new MutationObserver(() => {
+        document.getElementById('lux-main-val').textContent = resultBox.textContent;
+        if (resultSubBox) document.getElementById('lux-sub-val').innerHTML = resultSubBox.innerHTML;
+      });
+      observer.observe(resultBox, { childList: true, characterData: true, subtree: true });
+      if (resultSubBox) observer.observe(resultSubBox, { childList: true, characterData: true, subtree: true });
+      
+      document.getElementById('lux-main-val').textContent = resultBox.textContent;
+      if (resultSubBox) document.getElementById('lux-sub-val').innerHTML = resultSubBox.innerHTML;
+    }
+  });
+
+  // Ensure formatPowerValue uses our new decimal span
+  const origFormatPowerValue = window.formatPowerValue;
+  if(origFormatPowerValue) {
+     window.formatPowerValue = function(watts) {
+        const el = document.getElementById('lux-dec-val');
+        if(el) el.textContent = window.decimals;
+        if (!watts || watts <= 0) return '—';
+        if (watts >= 1e6) return (watts / 1e6).toFixed(window.decimals) + ' MW';
+        if (watts >= 1e3) return (watts / 1e3).toFixed(window.decimals) + ' kW';
+        return watts.toFixed(window.decimals) + ' W';
+     };
+  }
+});

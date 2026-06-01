@@ -11808,3 +11808,241 @@ p, .hero-subtitle, .detail-label, .main-tool-card-head p {
   background: transparent !important;
   border: none !important;
 }
+
+/* ===== LUXURY 2-COLUMN THEME ENGINE CSS ===== */
+.lux-calculator-wrapper {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 24px !important;
+  max-width: 1000px !important;
+  margin: 0 auto 40px !important;
+  font-family: inherit !important;
+}
+@media (max-width: 768px) {
+  .lux-calculator-wrapper {
+    grid-template-columns: 1fr !important;
+  }
+}
+.lux-left-col {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 20px !important;
+}
+.lux-top-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+.lux-mode-badge {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  color: #00e5ff !important;
+  font-weight: 800 !important;
+  font-size: 13px !important;
+  letter-spacing: 1px !important;
+}
+.lux-dot {
+  width: 8px !important;
+  height: 8px !important;
+  background: #00e5ff !important;
+  border-radius: 50% !important;
+  box-shadow: 0 0 10px #00e5ff !important;
+}
+.lux-decimals {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  color: #94a3b8 !important;
+  font-size: 13px !important;
+}
+.lux-stepper {
+  display: flex !important;
+  align-items: center !important;
+  background: #0b1426 !important;
+  border-radius: 6px !important;
+  overflow: hidden !important;
+  border: 1px solid #1e2d4a !important;
+}
+.lux-stepper button {
+  background: transparent !important;
+  border: none !important;
+  color: #00e5ff !important;
+  width: 30px !important;
+  height: 30px !important;
+  cursor: pointer !important;
+  font-size: 16px !important;
+  font-weight: bold !important;
+}
+.lux-stepper button.plus {
+  background: #00e5ff !important;
+  color: #000 !important;
+}
+.lux-stepper span {
+  width: 24px !important;
+  text-align: center !important;
+  color: #fff !important;
+  font-weight: bold !important;
+  background: #02050a !important;
+  height: 30px !important;
+  line-height: 30px !important;
+  display: inline-block !important;
+}
+
+.lux-inputs-grid {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 16px !important;
+  background: #0b1426 !important;
+  padding: 24px !important;
+  border-radius: 12px !important;
+  border: 1px solid #1e2d4a !important;
+}
+.lux-input-group label {
+  display: block !important;
+  margin-bottom: 8px !important;
+  color: #ffffff !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}
+.lux-input-wrapper {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+}
+.lux-input-wrapper input, .lux-input-wrapper select {
+  width: 100% !important;
+  background: #02050a !important;
+  border: 1px solid #1e2d4a !important;
+  color: #ffffff !important;
+  padding: 14px 16px !important;
+  border-radius: 8px !important;
+  font-size: 16px !important;
+  font-weight: bold !important;
+  outline: none !important;
+  transition: border-color 0.2s !important;
+  height: auto !important;
+  margin: 0 !important;
+}
+.lux-input-wrapper input:focus, .lux-input-wrapper select:focus {
+  border-color: #00e5ff !important;
+}
+.lux-unit {
+  position: absolute !important;
+  right: 16px !important;
+  color: #94a3b8 !important;
+  font-weight: bold !important;
+  pointer-events: none !important;
+}
+
+.lux-btn-row {
+  display: flex !important;
+  gap: 16px !important;
+  margin-top: 10px !important;
+}
+.lux-btn-outline {
+  flex: 1 !important;
+  background: transparent !important;
+  border: 1px solid #1e2d4a !important;
+  color: #fff !important;
+  padding: 16px !important;
+  border-radius: 8px !important;
+  font-weight: bold !important;
+  cursor: pointer !important;
+  transition: all 0.2s !important;
+}
+.lux-btn-outline:hover {
+  background: #1e2d4a !important;
+}
+.lux-btn-primary {
+  flex: 2 !important;
+  background: #00e5ff !important;
+  border: none !important;
+  color: #000 !important;
+  padding: 16px !important;
+  border-radius: 8px !important;
+  font-weight: 900 !important;
+  font-size: 16px !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 15px rgba(0,229,255,0.3) !important;
+  transition: transform 0.2s !important;
+}
+.lux-btn-primary:hover {
+  transform: translateY(-2px) !important;
+}
+
+.lux-right-col {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 24px !important;
+}
+.lux-live-result-box {
+  background: #0b1426 !important;
+  border-radius: 12px !important;
+  border: 1px solid #1e2d4a !important;
+  border-top: 4px solid #00e5ff !important;
+  padding: 32px 24px !important;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4) !important;
+}
+.lux-live-header {
+  color: #00e5ff !important;
+  font-weight: 900 !important;
+  font-size: 12px !important;
+  letter-spacing: 1px !important;
+  margin-bottom: 16px !important;
+}
+.lux-live-value {
+  color: #ffffff !important;
+  font-size: 48px !important;
+  font-weight: 900 !important;
+  line-height: 1.1 !important;
+  margin-bottom: 8px !important;
+  word-break: break-word !important;
+}
+.lux-live-sub {
+  color: #00e5ff !important;
+  font-size: 14px !important;
+  font-weight: bold !important;
+  margin-bottom: 20px !important;
+}
+.lux-live-desc {
+  color: #94a3b8 !important;
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+  margin: 0 !important;
+}
+.lux-quick-tips {
+  background: #0b1426 !important;
+  border-radius: 12px !important;
+  border: 1px solid #1e2d4a !important;
+  padding: 24px !important;
+}
+.lux-tips-header {
+  color: #ffffff !important;
+  font-weight: 800 !important;
+  font-size: 14px !important;
+  margin-bottom: 16px !important;
+}
+.lux-rules-container {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}
+.lux-rule-card {
+  background: #02050a !important;
+  border: 1px solid #1e2d4a !important;
+  padding: 12px !important;
+  border-radius: 6px !important;
+}
+.lux-rule-card .rule-label {
+  display: block !important;
+  color: #00e5ff !important;
+  font-size: 11px !important;
+  font-weight: bold !important;
+  margin-bottom: 4px !important;
+  text-transform: uppercase !important;
+}
+.lux-rule-card strong {
+  color: #fff !important;
+  font-size: 13px !important;
+}
