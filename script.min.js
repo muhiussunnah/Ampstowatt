@@ -1758,6 +1758,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ===== LUXURY THEME ENGINE: 100% IMAGE REPLICATION =====
 document.addEventListener('DOMContentLoaded', () => {
+  return; // DISABLED OLD ENGINE
   // Inject CSS directly to bypass cache issues
   const styleId = 'lux-theme-engine-css';
   if (!document.getElementById(styleId)) {
@@ -2273,4 +2274,196 @@ document.addEventListener('DOMContentLoaded', () => {
         return watts.toFixed(window.decimals) + ' W';
      };
   }
+});
+
+/* ===== NEW OPUS LAYOUT ENGINE ===== */
+document.addEventListener('DOMContentLoaded', () => {
+  const ptoolCards = document.querySelectorAll('.ptool-card, .mini-tool-calculator');
+  if (ptoolCards.length === 0) return;
+
+  ptoolCards.forEach(card => {
+    // Attempt to hide the old visual panel if it exists
+    const vp = document.querySelector('.circuit-visual-panel');
+    if (vp) vp.style.display = 'none';
+
+    // Get the title and mode from old header
+    const oldHead = card.querySelector('.ptool-head strong');
+    const titleText = oldHead ? oldHead.textContent.trim() : 'kW to Amps';
+    
+    // Create new container
+    const container = document.createElement('div');
+    container.className = 'new-layout-container';
+
+    // Build Header
+    const headerHtml = `
+      <div class="new-header">
+        <div class="new-header-left">
+          <h1 class="new-title">${titleText}</h1>
+          <p class="new-subtitle">DC, single-phase, and three-phase with unit pickers and power factor. Results update instantly.</p>
+          <div class="new-mode-badge">MODE: ${titleText.toUpperCase()}</div>
+        </div>
+        <div class="new-decimals-wrap">
+          <span class="new-decimals-label">Decimals:</span>
+          <div class="new-decimals-controls">
+            <button type="button" class="new-decimals-btn minus" onclick="if(window.decimals>0){window.decimals--; if(window.calcMain)calcMain(); document.getElementById('new-dec-val').textContent=window.decimals;}">âˆ’</button>
+            <div class="new-decimals-val" id="new-dec-val">2</div>
+            <button type="button" class="new-decimals-btn plus" onclick="if(window.decimals<6){window.decimals++; if(window.calcMain)calcMain(); document.getElementById('new-dec-val').textContent=window.decimals;}">+</button>
+          </div>
+        </div>
+      </div>
+    `;
+    container.innerHTML = headerHtml;
+
+    // Build Grid for Inputs
+    const grid = document.createElement('div');
+    grid.className = 'new-grid';
+
+    // Extract inputs from old form
+    const oldGroups = Array.from(card.querySelectorAll('.ptool-group'));
+    oldGroups.forEach(group => {
+      const labelEl = group.querySelector('label');
+      const inputEl = group.querySelector('input, select');
+      if (!labelEl || !inputEl) return;
+
+      const labelText = labelEl.textContent;
+      let unit = '';
+      if (labelText.toLowerCase().includes('amp') || labelText.toLowerCase().includes('current')) unit = 'A';
+      else if (labelText.toLowerCase().includes('volt')) unit = 'V';
+      else if (labelText.toLowerCase().includes('watt') || labelText.toLowerCase().includes('power')) unit = 'kW';
+      else if (labelText.toLowerCase().includes('freq')) unit = 'Hz';
+      else if (labelText.toLowerCase().includes('factor')) unit = 'PF';
+      
+      const wrapper = document.createElement('div');
+      wrapper.className = 'new-group';
+      
+      const newLabel = document.createElement('label');
+      newLabel.className = 'new-label';
+      newLabel.textContent = labelText;
+      
+      const inputWrap = document.createElement('div');
+      inputWrap.className = 'new-input-wrap';
+      
+      // Move original input
+      inputWrap.appendChild(inputEl);
+      
+      if (unit && inputEl.tagName !== 'SELECT') {
+        const unitBox = document.createElement('div');
+        unitBox.className = 'new-unit';
+        unitBox.textContent = unit;
+        inputWrap.appendChild(unitBox);
+      } else if (inputEl.tagName === 'SELECT') {
+         // Create a fake dropdown arrow for select elements
+      }
+      
+      wrapper.appendChild(newLabel);
+      wrapper.appendChild(inputWrap);
+      grid.appendChild(wrapper);
+    });
+
+    // Extract Buttons
+    const oldCalcBtn = card.querySelector('.ptool-btn-calc');
+    const oldResetBtn = card.querySelector('.ptool-btn-reset');
+    
+    if (oldCalcBtn && oldResetBtn) {
+      const btnRow = document.createElement('div');
+      btnRow.className = 'new-btn-row';
+      
+      const newReset = document.createElement('button');
+      newReset.className = 'new-btn-reset';
+      newReset.textContent = 'Reset';
+      newReset.type = 'button';
+      newReset.onclick = () => { if(window.resetMain) resetMain(); };
+      
+      const newCalc = document.createElement('button');
+      newCalc.className = 'new-btn-calc';
+      newCalc.textContent = oldCalcBtn.textContent.replace(/âš¡/g, '').trim();
+      newCalc.type = 'button';
+      newCalc.onclick = () => { if(window.calcMain) calcMain(); };
+      
+      btnRow.appendChild(newReset);
+      btnRow.appendChild(newCalc);
+      
+      grid.appendChild(btnRow);
+    }
+
+    container.appendChild(grid);
+
+    // Build Results Area exactly like input boxes
+    const resultsArea = document.createElement('div');
+    resultsArea.className = 'new-results-area';
+    
+    // Main Result Box
+    const resGroup1 = document.createElement('div');
+    resGroup1.className = 'new-group';
+    resGroup1.innerHTML = \`
+      <label class="new-label">Current (amps)</label>
+      <div class="new-input-wrap">
+        <div class="new-result-val" id="proxy-main-val" style="padding-top:13px; color:#fff;"></div>
+        <div class="new-unit" id="proxy-main-unit">A</div>
+      </div>
+    \`;
+    resultsArea.appendChild(resGroup1);
+
+    // Sub Result Box
+    const resGroup2 = document.createElement('div');
+    resGroup2.className = 'new-group';
+    resGroup2.innerHTML = \`
+      <label class="new-label">Current (milliamps)</label>
+      <div class="new-input-wrap">
+        <div class="new-result-val" id="proxy-sub-val" style="padding-top:13px; color:#fff;"></div>
+        <div class="new-unit" id="proxy-sub-unit">mA</div>
+      </div>
+    \`;
+    resultsArea.appendChild(resGroup2);
+
+    container.appendChild(resultsArea);
+
+    // Formula Strip
+    const oldFormula = card.querySelector('#main-rule-formula');
+    if (oldFormula) {
+      const formStrip = document.createElement('div');
+      formStrip.className = 'new-formula-strip';
+      formStrip.innerHTML = \`Formula used: <strong>\${oldFormula.textContent}</strong>\`;
+      container.appendChild(formStrip);
+    }
+
+    // Insert new container BEFORE the old card
+    card.parentNode.insertBefore(container, card);
+
+    // Sync Results
+    const originalMain = document.getElementById('main-watt');
+    const originalSub = document.getElementById('main-va-out');
+    
+    if (originalMain) {
+        const observer = new MutationObserver(() => {
+            document.getElementById('proxy-main-val').textContent = originalMain.textContent;
+            
+            // Adjust label based on unit text
+            const unitText = document.getElementById('main-watt-unit');
+            if (unitText) {
+                if(unitText.textContent.includes('Watt')) {
+                   document.getElementById('proxy-main-unit').textContent = 'W';
+                   resGroup1.querySelector('label').textContent = 'Power (watts)';
+                }
+            }
+            
+            if (originalSub) {
+                // If it's a VA output, just display it
+                document.getElementById('proxy-sub-val').textContent = originalSub.textContent;
+                resGroup2.querySelector('label').textContent = 'Apparent Power';
+                document.getElementById('proxy-sub-unit').textContent = 'VA';
+            } else {
+                // Approximate milliamps
+                const val = parseFloat(originalMain.textContent);
+                if(!isNaN(val)) {
+                    document.getElementById('proxy-sub-val').textContent = (val * 1000).toFixed(0);
+                }
+            }
+        });
+        observer.observe(originalMain, { childList: true, characterData: true, subtree: true });
+        if (originalSub) {
+            observer.observe(originalSub, { childList: true, characterData: true, subtree: true });
+        }
+    }
+  });
 });
