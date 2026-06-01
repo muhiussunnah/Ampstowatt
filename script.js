@@ -1505,14 +1505,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const resultBoxes = document.querySelectorAll('.tool-page-result, .ptool-console, .result-mini');
   if (resultBoxes.length > 0) {
     const decimalsHtml = `
-      <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px; justify-content:flex-end;">
-        <span style="color:var(--text3); font-size:12px; font-weight:bold;">Decimals:</span>
-        <button class="ui-stepper-btn" type="button" onclick="if(window.decimals>0){window.decimals--; if(window.calcMain)calcMain();}">-</button>
-        <span id="ui-decimal-val" style="color:#fff; font-weight:bold; width:20px; text-align:center;">2</span>
-        <button class="ui-stepper-btn" type="button" onclick="if(window.decimals<6){window.decimals++; if(window.calcMain)calcMain();}">+</button>
+      <div class="ui-decimals-container" style="display:flex; align-items:center; gap:8px; margin-bottom:15px; justify-content:flex-end;">
+        <span class="ui-decimals-label" style="color:var(--text2); font-size:14px;">Decimals:</span>
+        <div class="ui-stepper-group" style="display:flex; align-items:center; border:1px solid var(--border); border-radius:6px; overflow:hidden;">
+          <button class="ui-stepper-btn minus" type="button" onclick="if(window.decimals>0){window.decimals--; if(window.calcMain)calcMain();}">âˆ’</button>
+          <span id="ui-decimal-val" class="ui-stepper-val" style="width:32px; text-align:center; color:#ffffff; font-weight:bold; background:var(--input-bg); height:32px; line-height:32px; display:inline-block; font-size:14px; border-left:1px solid var(--border); border-right:1px solid var(--border);">2</span>
+          <button class="ui-stepper-btn plus" type="button" onclick="if(window.decimals<6){window.decimals++; if(window.calcMain)calcMain();}">+</button>
+        </div>
       </div>
     `;
-    resultBoxes[0].insertAdjacentHTML('afterbegin', decimalsHtml);
+    resultBoxes[0].insertAdjacentHTML('beforebegin', decimalsHtml);
     window.decimals = 2;
     const origFormatPowerValue = window.formatPowerValue;
     if(origFormatPowerValue) {
@@ -1555,46 +1557,6 @@ document.addEventListener('DOMContentLoaded', () => {
       input.addEventListener('input', (e) => {
         slider.value = e.target.value;
       });
-    }
-  });
-
-  // ===== DYNAMIC TOOLBOX LAYOUT INJECTION =====
-  const cards = document.querySelectorAll('.calculator-card, .mini-tool-calculator');
-  cards.forEach(card => {
-    // Only upgrade if it doesn't already have a topbar
-    if (!card.querySelector('.ptool-topbar') && !card.classList.contains('ptool-card')) {
-      // Create topbar
-      const topbar = document.createElement('div');
-      topbar.className = 'ptool-topbar';
-      topbar.innerHTML = `
-        <div class="ptool-topbar-left" style="display:flex; align-items:center; font-size:11px; font-weight:bold; color:var(--text3);">
-          <span class="ptool-status-dot"></span>
-          <span>LIVE SYSTEM</span>
-        </div>
-        <div class="ptool-topbar-center" style="font-size:12px; letter-spacing:1px; color:var(--text);">
-          <strong>PROFESSIONAL TOOLBOX</strong>
-        </div>
-        <div class="ptool-topbar-right">
-          <span class="ptool-badge">PRO v9</span>
-        </div>
-      `;
-      
-      // Upgrade card classes
-      card.classList.add('ptool-card', 'ptool-v9');
-      card.style.padding = '0'; // Remove default padding since topbar is edge-to-edge
-      
-      // Wrap existing contents in ptool-body for padding
-      const body = document.createElement('div');
-      body.className = 'ptool-body';
-      body.style.padding = '24px';
-      
-      // Move all children into body
-      while (card.firstChild) {
-        body.appendChild(card.firstChild);
-      }
-      
-      card.appendChild(topbar);
-      card.appendChild(body);
     }
   });
 });

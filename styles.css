@@ -11692,3 +11692,119 @@ input:focus, select:focus, .ptool-input:focus {
   font-weight: bold;
   border: 1px solid var(--primary);
 }
+
+/* ===== PERFECT PURE LUXURY IMAGE REPLICATION ===== */
+:root, [data-theme="light"], body {
+  --bg: #040914 !important;
+  --surface: #0b1426 !important;
+  --surface2: #1e2d4a !important;
+  --input-bg: #02050a !important;
+  --border: #1e2d4a !important;
+  --border-light: #1e2d4a !important;
+  --border-strong: #1e2d4a !important;
+  --primary: #00e5ff !important;
+  --primary-light: #00e5ff !important;
+  --primary-dark: #00b3cc !important;
+  --primary-glow: rgba(0, 229, 255, 0.3) !important;
+  --accent-cyan: #00e5ff !important;
+  --text: #ffffff !important;
+  --text2: #94a3b8 !important;
+  --text3: #94a3b8 !important;
+  --text4: #94a3b8 !important;
+  --radius: 12px !important;
+}
+
+body {
+  background-color: var(--bg) !important;
+  background-image: 
+    linear-gradient(rgba(0, 229, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 255, 0.04) 1px, transparent 1px) !important;
+  background-size: 32px 32px !important;
+  color: var(--text) !important;
+}
+
+/* Cards */
+.card, .calculator-card, .visual-panel, .content-card, .ptool-card {
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4) !important;
+  border-radius: var(--radius) !important;
+}
+
+/* Inputs */
+input[type="number"], input[type="text"], select, .ptool-input, .tool-amps, .tool-watts, .tool-volts, .tool-pf, .tool-kva, .tool-mw, .tool-hours, .tool-rate {
+  background: var(--input-bg) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text) !important;
+  border-radius: 8px !important;
+}
+
+/* Ensure unit add-ons match the card background like in the image */
+.input-group-addon, .unit-addon, label, .input-group label, .ptool-group label {
+  color: var(--text2) !important;
+}
+
+/* Headings and Titles */
+.tool-page-label, .section-heading, h1, h2, h3, h4, .brand-badge-dot + span, .hero-title, .ptool-head strong {
+  color: #ffffff !important;
+}
+
+/* Paragraphs and secondary text */
+p, .hero-subtitle, .detail-label, .main-tool-card-head p {
+  color: var(--text2) !important;
+}
+
+/* Primary Button (Neon Cyan + Black text) */
+.btn-primary, .tool-calc-button, .ptool-btn-calc, .plus {
+  background: var(--primary) !important;
+  color: #000000 !important;
+  border: none !important;
+  font-weight: 800 !important;
+  text-shadow: none !important;
+  box-shadow: 0 4px 15px var(--primary-glow) !important;
+}
+
+/* Secondary Button (Outline) */
+.btn-outline, .tool-reset-button, .ptool-btn-reset, .minus {
+  background: transparent !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+}
+.minus {
+  color: var(--primary) !important;
+}
+.ui-stepper-btn {
+  border-radius: 0 !important;
+  border: none !important;
+  width: 32px !important;
+  height: 32px !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* MODE Accents */
+.brand-badge, .kicker, .ptool-status-dot + span, .brand-badge-dot, .ptool-head span {
+  color: var(--primary) !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.ptool-head span {
+  background: rgba(0, 229, 255, 0.1) !important;
+}
+
+/* Remove ptool-topbar completely */
+.ptool-topbar {
+  display: none !important;
+}
+.ptool-body {
+  padding: 0 !important;
+}
+.ptool-card {
+  padding: clamp(18px, 3vw, 28px) !important;
+}
+.ptool-input-row, .ptool-presets, .ptool-intent, .ptool-rules, .ptool-console {
+  background: transparent !important;
+  border: none !important;
+}
