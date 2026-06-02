@@ -491,6 +491,162 @@ tbody tr:hover td {
 }
 
 /* ═══════════════════════════════════════════
+   ARTICLE BODY & TOPIC BLOCKS LAYOUT
+   ═══════════════════════════════════════════ */
+.topical-query-section {
+    max-width: 900px !important;
+    margin: 0 auto !important;
+    padding: 24px 0 !important;
+}
+.topic-article-visual {
+    margin-bottom: 32px !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 20px !important;
+    align-items: stretch !important;
+}
+.topic-block {
+    display: flex !important;
+    gap: 24px !important;
+    margin-bottom: 40px !important;
+    align-items: flex-start !important;
+}
+.topic-icon {
+    flex: 0 0 64px !important;
+    height: 64px !important;
+    background: linear-gradient(135deg, rgba(0,229,255,0.08), rgba(0,229,255,0.02)) !important;
+    border: 1px solid rgba(0,229,255,0.2) !important;
+    border-radius: 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #00e5ff !important;
+    font-weight: 800 !important;
+    font-size: 20px !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 8px 16px rgba(0,0,0,0.2) !important;
+}
+.topic-copy {
+    flex: 1 !important;
+    min-width: 0 !important;
+}
+.topic-copy h2, .topic-copy h3 {
+    font-size: 28px !important;
+    background: linear-gradient(135deg, #ffffff, #00e5ff) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    margin-bottom: 16px !important;
+    letter-spacing: -0.5px !important;
+}
+.content-p {
+    font-size: 16px !important;
+    color: #cbd5e1 !important;
+    line-height: 1.8 !important;
+    margin-bottom: 20px !important;
+}
+.content-p strong {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+.topic-inline-visual, .topic-formula-grid, .topic-equation-strip {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 12px !important;
+    margin: 24px 0 !important;
+    align-items: center !important;
+    width: 100% !important;
+    overflow: hidden !important;
+}
+@media (max-width: 768px) {
+    .topic-article-visual {
+        flex-direction: column !important;
+    }
+    .topic-signal-grid {
+        flex: auto !important;
+        width: 100% !important;
+    }
+    .topic-block {
+        flex-direction: column !important;
+        gap: 16px !important;
+    }
+    .topic-icon {
+        flex: 0 0 48px !important;
+        height: 48px !important;
+        font-size: 16px !important;
+        border-radius: 12px !important;
+    }
+}
+
+/* ═══════════════════════════════════════════
+   TOPIC DIAGRAM SPLIT / FORMULA VISUALS
+   ═══════════════════════════════════════════ */
+.topic-diagram-split {
+    flex: 1 !important;
+    min-width: 300px !important;
+    background: linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px),
+                linear-gradient(135deg, #0b1120, #0f172a) !important;
+    background-size: 24px 24px, 24px 24px, auto !important;
+    border: 1px solid rgba(0,229,255,0.1) !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.02), 0 8px 24px rgba(0,0,0,0.4) !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+}
+.topic-diagram-split text, .topic-diagram-svg text {
+    fill: #ffffff !important;
+    font-weight: 700 !important;
+    font-family: system-ui, -apple-system, sans-serif !important;
+}
+.topic-svg-box {
+    fill: rgba(0,229,255,0.06) !important;
+    stroke: rgba(0,229,255,0.25) !important;
+}
+.topic-svg-box.alt {
+    fill: rgba(245,158,11,0.06) !important;
+    stroke: rgba(245,158,11,0.25) !important;
+}
+.topic-svg-core {
+    fill: rgba(0,229,255,0.04) !important;
+    stroke: rgba(0,229,255,0.25) !important;
+}
+.topic-svg-output {
+    fill: rgba(16,185,129,0.06) !important;
+    stroke: rgba(16,185,129,0.25) !important;
+}
+.topic-svg-wire {
+    stroke: #38bdf8 !important;
+}
+.topic-signal-grid {
+    flex: 0 0 280px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    justify-content: center !important;
+    background: transparent !important;
+    border-left: 1px solid rgba(0,229,255,0.1) !important;
+}
+.topic-signal-grid span, .topic-inline-visual span, .topic-formula-grid span, .topic-equation-strip span, .topic-equation-strip strong {
+    background: #0f172a !important;
+    border: 1px solid rgba(148,163,184,0.06) !important;
+    color: #cbd5e1 !important;
+    border-radius: 8px !important;
+    transition: all 0.3s ease !important;
+}
+.topic-signal-grid span:hover, .topic-inline-visual span:hover, .topic-formula-grid span:hover {
+    border-color: rgba(0,229,255,0.2) !important;
+    background: rgba(0,229,255,0.04) !important;
+}
+.topic-signal-grid span b, .topic-inline-visual span b, .topic-formula-grid span strong, .topic-equation-strip strong {
+    color: #ffffff !important;
+}
+.topic-signal-grid span em, .topic-inline-visual span em, .topic-formula-grid span code, .topic-equation-strip span {
+    color: #94a3b8 !important;
+}
+.topic-inline-visual i, .topic-equation-strip i {
+    color: #00e5ff !important;
+}
+
+/* ═══════════════════════════════════════════
    TOOL CARDS — "Explore Our Guides" section
    Reference Image: Category labels with colored accents
    ═══════════════════════════════════════════ */
