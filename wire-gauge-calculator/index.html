@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -22,8 +22,7 @@
   <meta property="og:description" content="Choose wire gauge from current, voltage, distance, AC/DC type, conduit, insulation, ampacity, and voltage drop. Includes AWG, mm2, speaker wire, battery wire, and 3 phase guidance." />
   <meta property="og:site_name" content="Amps To Watts Calculator">
   <meta property="og:locale" content="en_US">
-<link rel="stylesheet" href="/styles.min.css?v=20260601-lux-v19">
-  <script type="application/ld+json">
+<script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -55,103 +54,10 @@
     ]
   }
   </script>
-
-  <script type="application/ld+json" data-auto-seo-schema>
-{
-    "@context":  "https://schema.org",
-    "@graph":  [
-                   {
-                       "name":  "Amps To Watts Calculator",
-                       "@id":  "https://ampstowatt.com/#organization",
-                       "logo":  "https://ampstowatt.com/favicon.svg",
-                       "email":  "ampstowatt@gmail.com",
-                       "@type":  "Organization",
-                       "url":  "https://ampstowatt.com/"
-                   },
-                   {
-                       "isPartOf":  {
-                                        "@id":  "https://ampstowatt.com/#website"
-                                    },
-                       "name":  "Wire Gauge Calculator | Wire Size, AWG, Ampacity \u0026 Distance",
-                       "@id":  "https://ampstowatt.com/wire-gauge-calculator/#webpage",
-                       "headline":  "Wire Gauge Calculator",
-                       "publisher":  {
-                                         "@id":  "https://ampstowatt.com/#organization"
-                                     },
-                       "@type":  "WebPage",
-                       "url":  "https://ampstowatt.com/wire-gauge-calculator/"
-                   },
-                   {
-                       "@type":  "BreadcrumbList",
-                       "itemListElement":  [
-                                               {
-                                                   "position":  1,
-                                                   "name":  "Home",
-                                                   "item":  "https://ampstowatt.com/",
-                                                   "@type":  "ListItem"
-                                               },
-                                               {
-                                                   "position":  2,
-                                                   "name":  "Wire Gauge Calculator",
-                                                   "item":  "https://ampstowatt.com/wire-gauge-calculator/",
-                                                   "@type":  "ListItem"
-                                               }
-                                           ]
-                   },
-                   [
-                       {
-                           "url":  "https://ampstowatt.com/",
-                           "name":  "Home",
-                           "@type":  "SiteNavigationElement"
-                       },
-                       {
-                           "url":  "https://ampstowatt.com/calculators/",
-                           "name":  "All Calculators",
-                           "@type":  "SiteNavigationElement"
-                       },
-                       {
-                           "url":  "https://ampstowatt.com/#calculator",
-                           "name":  "Amps to Watts Calculator",
-                           "@type":  "SiteNavigationElement"
-                       },
-                       {
-                           "url":  "https://ampstowatt.com/#watts-to-amps",
-                           "name":  "Watts to Amps Calculator",
-                           "@type":  "SiteNavigationElement"
-                       },
-                       {
-                           "url":  "https://ampstowatt.com/voltage-drop-calculator/",
-                           "name":  "Voltage Drop Calculator",
-                           "@type":  "SiteNavigationElement"
-                       },
-                       {
-                           "url":  "https://ampstowatt.com/wire-gauge-calculator/",
-                           "name":  "Wire Gauge Calculator",
-                           "@type":  "SiteNavigationElement"
-                       },
-                       {
-                           "url":  "https://ampstowatt.com/contact-us/",
-                           "name":  "Contact",
-                           "@type":  "SiteNavigationElement"
-                       }
-                   ],
-                   {
-                       "name":  "Wire Gauge Calculator",
-                       "applicationCategory":  "EngineeringApplication",
-                       "offers":  {
-                                      "price":  "0",
-                                      "priceCurrency":  "USD",
-                                      "@type":  "Offer"
-                                  },
-                       "operatingSystem":  "Web",
-                       "@type":  "SoftwareApplication",
-                       "url":  "https://ampstowatt.com/wire-gauge-calculator/"
-                   }
-               ]
-}
-  </script>
-  <link rel="stylesheet" href="/luxury-tools.css?v=20260601-lux-v19">
-  <link rel="stylesheet" href="/site-dark-luxury.css?v=20260601-dark-v1">
+  <link rel="preload" href="/site-dark-luxury.min.css?v=electrical-20260602" as="style">
+  <link rel="stylesheet" href="/site-dark-luxury.min.css?v=electrical-20260602">
+  <link rel="stylesheet" href="/luxury-tools.min.css?v=electrical-20260602" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="/styles.min.css?v=electrical-20260602" media="print" onload="this.media='all'">
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to Main Content</a>
@@ -171,7 +77,6 @@
 
       <nav id="premium-site-nav" class="premium-nav" role="navigation" aria-label="Primary navigation">
         <a href="/" class="premium-nav-link">Home</a>
-        <a href="/#calculator" class="premium-nav-link">Amps to Watts</a>
         
         <details class="premium-nav-menu">
           <summary>Voltage</summary>
@@ -264,233 +169,33 @@
       <div class="two-col calculator-layout">
         
 
-        <article class="lx-tool" id="lux-tool-38_0">
+        <article class="lx-tool specialty-calculator" id="wire-gauge-tool">
   <div class="lx-main">
     <div class="lx-header-row">
-      <div class="lx-mode-label">MODE: <span class="lx-cyan" id="lx-mode-text-38_0">WATTS TO AMPS</span></div>
-      <div class="lx-decimals">
-        <label>Decimals:</label>
-        <div class="lx-dec-ctrl">
-          <button type="button" class="lx-dec-btn" onclick="document.getElementById('lx-dec-38_0').value = Math.max(0, parseInt(document.getElementById('lx-dec-38_0').value)-1); updateLuxCalc38_0()">-</button>
-          <input type="number" id="lx-dec-38_0" class="lx-dec-input" value="4" readonly>
-          <button type="button" class="lx-dec-btn lx-cyan-bg" onclick="document.getElementById('lx-dec-38_0').value = Math.min(8, parseInt(document.getElementById('lx-dec-38_0').value)+1); updateLuxCalc38_0()">+</button>
-        </div>
-      </div>
+      <div class="lx-mode-label">MODE: <span class="lx-cyan">WIRE SIZE</span></div>
     </div>
-    
     <div class="lx-grid">
-      <!-- Current Type -->
-      <div class="lx-field lx-span-2">
-        <label>System type</label>
-        <div class="lx-select-wrapper">
-          <select id="lx-type-38_0" onchange="updateLuxCalc38_0()">
-            <option value="dc" >Direct Current (DC)</option>
-            <option value="ac1" selected>Single-Phase</option>
-            <option value="ac3" >Three-Phase</option>
-          </select>
-        </div>
-      </div>
-      
-      <!-- Power -->
-      <div class="lx-field">
-        <label id="lbl-power-38_0">Current</label>
-        <div class="lx-input-group">
-          <input type="number" id="lx-power-38_0" value="10" placeholder="Enter current" oninput="updateLuxCalc38_0()">
-          <select class="lx-unit-select" id="lx-power-unit-38_0" onchange="updateLuxCalc38_0()">
-            <option value="a">A</option><option value="ma">mA</option>
-          </select>
-        </div>
-      </div>
-      
-      <!-- Voltage -->
-      <div class="lx-field">
-        <label>Voltage</label>
-        <div class="lx-input-group">
-          <input type="number" id="lx-volts-38_0" value="120" placeholder="Enter voltage" oninput="updateLuxCalc38_0()">
-          <span class="lx-unit-label">V</span>
-        </div>
-      </div>
-
-      <!-- Voltage Type (For 3-Phase) -->
-      <div class="lx-field lx-span-2" id="lx-vtype-container-38_0" style="display: none;">
-        <label>Voltage Type</label>
-        <div class="lx-toggle-group">
-          <button type="button" class="lx-toggle-btn active" id="btn-vll-38_0" onclick="setVType38_0('vll')">Line-to-Line (V<sub>LL</sub>)</button>
-          <button type="button" class="lx-toggle-btn" id="btn-vln-38_0" onclick="setVType38_0('vln')">Line-to-Neutral (V<sub>LN</sub>)</button>
-        </div>
-        <input type="hidden" id="lx-vtype-38_0" value="vll">
-      </div>
-
-      <!-- Power Factor (For AC) -->
-      <div class="lx-field lx-span-2" id="lx-pf-container-38_0" style="display: flex;">
-        <label>Power Factor (PF)</label>
-        <div class="lx-slider-group">
-          <input type="range" class="lx-slider" id="lx-pf-slider-38_0" min="0.1" max="1" step="0.01" value="1" oninput="document.getElementById('lx-pf-input-38_0').value = this.value; updatePFGradient38_0(); updateLuxCalc38_0()">
-          <input type="number" class="lx-slider-val" id="lx-pf-input-38_0" min="0.1" max="1" step="0.01" value="1" oninput="document.getElementById('lx-pf-slider-38_0').value = this.value; updatePFGradient38_0(); updateLuxCalc38_0()">
-        </div>
-      </div>
-      
-      <!-- Actions -->
-      <div class="lx-actions lx-span-2">
-        <button type="button" class="lx-btn lx-btn-reset" onclick="resetLux38_0()">Reset</button>
-        <button type="button" class="lx-btn lx-btn-primary" onclick="toggleMode38_0()" id="lx-mode-btn-38_0">Switch to Watts to Amps</button>
-        
-      </div>
-
-      <!-- Results Area -->
-      <div class="lx-field" id="res-amps-box-38_0">
-        <label id="lbl-res1-38_0">Power (kW)</label>
-        <div class="lx-input-group lx-readonly">
-          <input type="text" id="res-amps-38_0" readonly value="">
-          <span class="lx-unit-label" id="lbl-unit1-38_0">kW</span>
-        </div>
-      </div>
-      <div class="lx-field" id="res-ma-box-38_0">
-        <label id="lbl-res2-38_0">Power (W)</label>
-        <div class="lx-input-group lx-readonly">
-          <input type="text" id="res-ma-38_0" readonly value="">
-          <span class="lx-unit-label" id="lbl-unit2-38_0">W</span>
-        </div>
-      </div>
+      <div class="lx-field"><label for="wg-material">Material</label><div class="lx-select-wrapper"><select id="wg-material"><option value="copper">Copper</option><option value="aluminum">Aluminum</option></select></div></div>
+      <div class="lx-field"><label for="wg-system">System type</label><div class="lx-select-wrapper"><select id="wg-system"><option value="dc">DC</option><option value="ac1" selected>Single-phase AC</option><option value="ac3">Three-phase AC</option></select></div></div>
+      <div class="lx-field"><label for="wg-volts">Source voltage</label><div class="lx-input-group"><input type="number" id="wg-volts" value="120" min="0" step="any"><span class="lx-unit-label">V</span></div></div>
+      <div class="lx-field"><label for="wg-amps">Current draw</label><div class="lx-input-group"><input type="number" id="wg-amps" value="20" min="0" step="any"><span class="lx-unit-label">A</span></div></div>
+      <div class="lx-field lx-span-2"><label for="wg-dist">One-way distance</label><div class="lx-input-group"><input type="number" id="wg-dist" value="100" min="0" step="any"><select class="lx-unit-select" id="wg-distance-unit"><option value="ft">ft</option><option value="m">m</option></select></div></div>
+      <div class="lx-field"><label for="wg-drop">Allowable voltage drop</label><div class="lx-input-group"><input type="number" id="wg-drop" value="3" min="0.1" max="20" step="0.1"><span class="lx-unit-label">%</span></div></div>
+      <div class="lx-field"><label for="wg-temp">Ambient temperature</label><div class="lx-input-group"><input type="number" id="wg-temp" value="30" min="0" step="1"><span class="lx-unit-label">C</span></div></div>
+      <div class="lx-field lx-span-2"><label for="wg-install">Installation</label><div class="lx-select-wrapper"><select id="wg-install"><option value="open">Open air / normal</option><option value="conduit">Conduit</option><option value="buried">Buried / bundled</option></select></div></div>
+      <div class="lx-field"><label>Recommended size</label><div class="lx-input-group lx-readonly"><input type="text" id="wg-size" readonly><span class="lx-unit-label">AWG</span></div></div>
+      <div class="lx-field"><label>Estimated ampacity</label><div class="lx-input-group lx-readonly"><input type="text" id="wg-ampacity" readonly><span class="lx-unit-label">ref</span></div></div>
+      <div class="lx-field"><label>Voltage drop</label><div class="lx-input-group lx-readonly"><input type="text" id="wg-drop-result" readonly><span class="lx-unit-label">V</span></div></div>
+      <div class="lx-field"><label>Drop percentage</label><div class="lx-input-group lx-readonly"><input type="text" id="wg-drop-pct" readonly><span class="lx-unit-label">%</span></div></div>
+      <div class="lx-field lx-span-2"><label>Maximum power at entered voltage</label><div class="lx-input-group lx-readonly"><input type="text" id="wg-maxw" readonly><span class="lx-unit-label">W</span></div></div>
     </div>
   </div>
-  
-  <div class="lx-sidebar">
-    <div class="lx-sidebar-card">
-      <div class="lx-quick-mirror">
-        <div class="lx-mirror-line"></div>
-        <span class="val" id="lx-mirror-val-38_0">kW</span>
-      </div>
-      <p style="text-align: center;">Adjust inputs on the left. This box always mirrors your main result for quick reference.</p>
-    </div>
-    
-    <div class="lx-sidebar-card">
-       <h4 class="lx-card-title">QUICK TIPS</h4>
-       <ul>
-         <li>Match the system type (DC / 1-Phase / 3-Phase) to your circuit.</li>
-         <li>For three-phase, confirm whether your voltage is line-to-line or line-to-neutral.</li>
-         <li>Use a realistic power factor from equipment datasheets for more accurate results.</li>
-       </ul>
-    </div>
+  <div class="lx-sidebar" id="wg-result">
+    <div class="lx-sidebar-card"><h4 class="lx-card-title">RESULT MIRROR</h4><div class="lx-quick-mirror"><div class="lx-mirror-line"></div><span class="val" id="wg-diagram-size">12 AWG</span></div></div>
+    <div class="lx-sidebar-card"><h4 class="lx-card-title">SIZING BASIS</h4><p>Selection checks ampacity first, then voltage drop over the entered one-way distance.</p></div>
   </div>
 </article>
-
-<script>
-// Logic for luxury calculator 38_0
-let luxMode38_0 = 'amps2kw';
-
-function updatePFGradient38_0() {
-  const slider = document.getElementById('lx-pf-slider-38_0');
-  if(!slider) return;
-  const val = (slider.value - slider.min) / (slider.max - slider.min) * 100;
-  slider.style.background = `linear-gradient(90deg, #00e5ff 0%, #00e5ff ${val}%, #1e293b ${val}%, #1e293b 100%)`;
-}
-
-function setVType38_0(type) {
-  document.getElementById('lx-vtype-38_0').value = type;
-  document.getElementById('btn-vll-38_0').className = 'lx-toggle-btn' + (type === 'vll' ? ' active' : '');
-  document.getElementById('btn-vln-38_0').className = 'lx-toggle-btn' + (type === 'vln' ? ' active' : '');
-  updateLuxCalc38_0();
-}
-
-function toggleMode38_0() {
-  luxMode38_0 = luxMode38_0 === 'kw2amps' ? 'amps2kw' : 'kw2amps';
-  document.getElementById('lx-mode-text-38_0').innerText = luxMode38_0 === 'kw2amps' ? 'AMPS TO WATTS' : 'WATTS TO AMPS';
-  document.getElementById('lx-mode-btn-38_0').innerText = luxMode38_0 === 'kw2amps' ? 'Switch to Watts to Amps' : 'Switch to Amps to Watts';
-  
-  // Switch power input label
-  document.getElementById('lbl-power-38_0').innerText = luxMode38_0 === 'kw2amps' ? 'Power' : 'Current';
-  document.getElementById('lx-power-38_0').placeholder = luxMode38_0 === 'kw2amps' ? 'Enter power' : 'Enter current';
-  
-  // Switch units
-  const unitSelect = document.getElementById('lx-power-unit-38_0');
-  if(luxMode38_0 === 'kw2amps') {
-    unitSelect.innerHTML = '<option value="kw">kW</option><option value="w">W</option>';
-  } else {
-    unitSelect.innerHTML = '<option value="a">A</option><option value="ma">mA</option>';
-  }
-  
-  // Switch result labels
-  document.getElementById('lbl-res1-38_0').innerText = luxMode38_0 === 'kw2amps' ? 'Current (amps)' : 'Power (kW)';
-  document.getElementById('lbl-res2-38_0').innerText = luxMode38_0 === 'kw2amps' ? 'Current (milliamps)' : 'Power (W)';
-  document.getElementById('lbl-unit1-38_0').innerText = luxMode38_0 === 'kw2amps' ? 'A' : 'kW';
-  document.getElementById('lbl-unit2-38_0').innerText = luxMode38_0 === 'kw2amps' ? 'mA' : 'W';
-  
-  updateLuxCalc38_0();
-}
-
-function updateLuxCalc38_0() {
-  const type = document.getElementById('lx-type-38_0').value;
-  document.getElementById('lx-vtype-container-38_0').style.display = type === 'ac3' ? 'flex' : 'none';
-  document.getElementById('lx-pf-container-38_0').style.display = type === 'dc' ? 'none' : 'flex';
-  
-  let val1 = parseFloat(document.getElementById('lx-power-38_0').value) || 0;
-  let unit1 = document.getElementById('lx-power-unit-38_0').value;
-  let volts = parseFloat(document.getElementById('lx-volts-38_0').value) || 0;
-  
-  let pfElem = document.getElementById('lx-pf-input-38_0');
-  let pf = pfElem ? (parseFloat(pfElem.value) || 1) : 1;
-  
-  let vtypeElem = document.getElementById('lx-vtype-38_0');
-  let vtype = vtypeElem ? vtypeElem.value : 'vll';
-  
-  let decimals = parseInt(document.getElementById('lx-dec-38_0').value);
-  
-  let result1 = 0;
-  let result2 = 0;
-  
-  if (luxMode38_0 === 'kw2amps') {
-    // val1 is power
-    let watts = unit1 === 'kw' ? val1 * 1000 : val1;
-    let amps = 0;
-    if (volts > 0) {
-      if (type === 'dc') {
-        amps = watts / volts;
-      } else if (type === 'ac1') {
-        amps = watts / (volts * pf);
-      } else if (type === 'ac3') {
-        if (vtype === 'vll') amps = watts / (1.732 * volts * pf);
-        else amps = watts / (3 * volts * pf);
-      }
-    }
-    result1 = amps;
-    result2 = amps * 1000;
-  } else {
-    // val1 is current
-    let amps = unit1 === 'a' ? val1 : val1 / 1000;
-    let watts = 0;
-    if (type === 'dc') {
-      watts = amps * volts;
-    } else if (type === 'ac1') {
-      watts = amps * volts * pf;
-    } else if (type === 'ac3') {
-      if (vtype === 'vll') watts = amps * 1.732 * volts * pf;
-      else watts = amps * 3 * volts * pf;
-    }
-    result1 = watts / 1000;
-    result2 = watts;
-  }
-  
-  document.getElementById('res-amps-38_0').value = result1.toFixed(decimals);
-  document.getElementById('res-ma-38_0').value = result2.toFixed(decimals);
-  
-  const mainMirror = result1.toFixed(decimals) + (luxMode38_0 === 'kw2amps' ? ' A' : ' kW');
-  document.getElementById('lx-mirror-val-38_0').innerText = mainMirror;
-}
-
-function resetLux38_0() {
-  document.getElementById('lx-power-38_0').value = '';
-  document.getElementById('res-amps-38_0').value = '';
-  document.getElementById('res-ma-38_0').value = '';
-  document.getElementById('lx-mirror-val-38_0').innerText = luxMode38_0 === 'kw2amps' ? 'A' : 'kW';
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    updatePFGradient38_0();
-    updateLuxCalc38_0();
-});
-</script>
-      </div>
+</div>
     </section>
 
     <section class="content-section wire-gauge-article topical-query-section" aria-label="Wire Gauge Calculator Guide">
@@ -505,7 +210,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="topic-icon" aria-hidden="true">3P</div>
           <div class="topic-copy">
             <h2>3 Phase Wire Gauge Calculator</h2>
-            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>→</strong><span><b>Result</b><em>Usable output</em></span></div>
+            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>â†’</strong><span><b>Result</b><em>Usable output</em></span></div>
             <p><strong>A 3 phase wire gauge calculator sizes wire from line current, line voltage, distance, insulation, conduit, and voltage drop.</strong> Use 3 phase current per conductor, not total system watts, when selecting AWG or sq mm. For 220V, 240V, 400V, and 480V AC 3 phase circuits, voltage drop and current capacity must both pass before the wire size is acceptable.</p>
             <p>3 phase motors, sub panel feeders, transformers, and industrial loads create heat during long duty cycles. Choose copper or aluminum conductor data, confirm the installation temperature, and check local code before final wiring.</p>
             <div class="topic-mini-diagram" aria-label="3 phase wire diagram">
@@ -518,7 +223,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="topic-icon" aria-hidden="true">50A</div>
           <div class="topic-copy">
             <h2>50 Amp Wire Gauge Calculator</h2>
-            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>→</strong><span><b>Result</b><em>Usable output</em></span></div>
+            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>â†’</strong><span><b>Result</b><em>Usable output</em></span></div>
             <p><strong>A 50 amp wire gauge calculator normally starts at 6 AWG copper for many short residential circuits, then adjusts for distance, insulation, temperature, and conduit.</strong> A 50 amp circuit at 120V carries 6,000 watts at unity power factor. A 50 amp circuit at 240V carries 12,000 watts at unity power factor.</p>
         <p>Long 50 amp runs need voltage drop checks. A wire gauge calculator for distance may recommend a larger conductor than a basic ampacity chart. A sub panel, EV charger, welder, or RV outlet needs breaker, terminal, and local code verification.</p>
             <div class="topic-mini-card-grid" aria-label="50 amp wire reference">
@@ -531,7 +236,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="topic-icon" aria-hidden="true">BAT</div>
           <div class="topic-copy">
             <h2>Battery Wire Gauge Calculator</h2>
-            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>→</strong><span><b>Result</b><em>Usable output</em></span></div>
+            <div class="topic-equation-strip section-flow-visual" aria-label="Section calculation flow"><span><b>Input</b><em>Known values</em></span><strong>=</strong><span><b>Formula</b><em>Apply conversion</em></span><strong>â†’</strong><span><b>Result</b><em>Usable output</em></span></div>
             <p><strong>A battery wire gauge calculator sizes low-voltage DC cable from amps, cable length, system voltage, and voltage drop percentage.</strong> 12V and 24V battery systems lose more usable voltage over the same distance than 120V or 240V AC systems, so battery wire often needs larger AWG or sq mm cable.</p>
             <p>Use battery wire sizing for inverters, solar panels, charge controllers, DC fuse blocks, automotive wiring, and car audio power cable. Match cable size to current, fuse rating, insulation temperature, and the positive-plus-negative circuit length.</p>
             <div class="topic-mini-diagram" aria-label="Battery wire sizing diagram">
@@ -928,18 +633,20 @@ document.addEventListener("DOMContentLoaded", () => {
           <a href="/terms-conditions/">Terms &amp; Conditions</a>
         </nav>
       </section>
-    </div>
-<div class="premium-footer-bottom">
+</div>
+
+    <div class="premium-footer-bottom">
       <p>(c) 2026 Amps To Watts Calculator. Built for clear electrical planning and professional reference.</p>
     </div>
   </footer>
 
 
-  <button class="premium-back-to-top" type="button" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <button class="premium-back-to-top" type="button" aria-label="Back to top">
     <span aria-hidden="true">^</span><strong>Top</strong>
   </button>
 
-  <script src="/script.min.js?v=20260520-perf-v13" defer></script>
+  <script src="/script.min.js?v=electrical-20260602" defer></script>
 </body>
 </html>
+
 

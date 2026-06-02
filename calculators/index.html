@@ -33,10 +33,7 @@
   <meta name="twitter:image" content="https://ampstowatt.com/og-image.jpg">
 
   <!-- ===== STYLES ===== -->
-  <link rel="stylesheet" href="/styles.min.css?v=20260601-lux-v19">
-  <link rel="stylesheet" href="/site-dark-luxury.css?v=20260601-dark-v1">
-
-  <!-- ===== STRUCTURED DATA ===== -->
+<!-- ===== STRUCTURED DATA ===== -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -112,89 +109,10 @@
     ]
   }
   </script>
-
-  <script type="application/ld+json" data-auto-seo-schema>
-{
-    "@context":  "https://schema.org",
-    "@graph":  [
-                   {
-                       "name":  "Amps To Watts Calculator",
-                       "@id":  "https://ampstowatt.com/#organization",
-                       "logo":  "https://ampstowatt.com/favicon.svg",
-                       "email":  "ampstowatt@gmail.com",
-                       "@type":  "Organization",
-                       "url":  "https://ampstowatt.com/"
-                   },
-                   {
-                       "isPartOf":  {
-                                        "@id":  "https://ampstowatt.com/#website"
-                                    },
-                       "name":  "Electrical Calculators | Amps to Watts, Watt Hours, Voltage Drop \u0026 More",
-                       "@id":  "https://ampstowatt.com/calculators/#webpage",
-                       "headline":  "Electrical Calculator Page Directory",
-                       "publisher":  {
-                                         "@id":  "https://ampstowatt.com/#organization"
-                                     },
-                       "@type":  "WebPage",
-                       "url":  "https://ampstowatt.com/calculators/"
-                   },
-                   {
-                       "@type":  "BreadcrumbList",
-                       "itemListElement":  [
-                                               {
-                                                   "position":  1,
-                                                   "name":  "Home",
-                                                   "item":  "https://ampstowatt.com/",
-                                                   "@type":  "ListItem"
-                                               },
-                                               {
-                                                   "position":  2,
-                                                   "name":  "Electrical Calculator Page Directory",
-                                                   "item":  "https://ampstowatt.com/calculators/",
-                                                   "@type":  "ListItem"
-                                               }
-                                           ]
-                   },
-                   [
-                       {
-                           "url":  "https://ampstowatt.com/",
-                           "name":  "Home",
-                           "@type":  "SiteNavigationElement"
-                       },
-                       {
-                           "url":  "https://ampstowatt.com/calculators/",
-                           "name":  "All Calculators",
-                           "@type":  "SiteNavigationElement"
-                       },
-                       {
-                           "url":  "https://ampstowatt.com/#calculator",
-                           "name":  "Amps to Watts Calculator",
-                           "@type":  "SiteNavigationElement"
-                       },
-                       {
-                           "url":  "https://ampstowatt.com/#watts-to-amps",
-                           "name":  "Watts to Amps Calculator",
-                           "@type":  "SiteNavigationElement"
-                       },
-                       {
-                           "url":  "https://ampstowatt.com/voltage-drop-calculator/",
-                           "name":  "Voltage Drop Calculator",
-                           "@type":  "SiteNavigationElement"
-                       },
-                       {
-                           "url":  "https://ampstowatt.com/wire-gauge-calculator/",
-                           "name":  "Wire Gauge Calculator",
-                           "@type":  "SiteNavigationElement"
-                       },
-                       {
-                           "url":  "https://ampstowatt.com/contact-us/",
-                           "name":  "Contact",
-                           "@type":  "SiteNavigationElement"
-                       }
-                   ]
-               ]
-}
-  </script>
+  <link rel="preload" href="/site-dark-luxury.min.css?v=electrical-20260602" as="style">
+  <link rel="stylesheet" href="/site-dark-luxury.min.css?v=electrical-20260602">
+  <link rel="stylesheet" href="/luxury-tools.min.css?v=electrical-20260602" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="/styles.min.css?v=electrical-20260602" media="print" onload="this.media='all'">
 </head>
 <body>
 
@@ -218,7 +136,6 @@
 
       <nav id="premium-site-nav" class="premium-nav" role="navigation" aria-label="Primary navigation">
         <a href="/" class="premium-nav-link">Home</a>
-        <a href="/#calculator" class="premium-nav-link">Amps to Watts</a>
         
         <details class="premium-nav-menu">
           <summary>Voltage</summary>
@@ -526,19 +443,20 @@
           <a href="/terms-conditions/">Terms &amp; Conditions</a>
         </nav>
       </section>
-    </div>
-<div class="premium-footer-bottom">
+</div>
+
+    <div class="premium-footer-bottom">
       <p>(c) 2026 Amps To Watts Calculator. Built for clear electrical planning and professional reference.</p>
     </div>
   </footer>
 
   <!-- ===== SCRIPTS ===== -->
 
-  <button class="premium-back-to-top" type="button" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <button class="premium-back-to-top" type="button" aria-label="Back to top">
     <span aria-hidden="true">^</span><strong>Top</strong>
   </button>
 
-  <script src="/script.min.js?v=20260520-perf-v13" defer></script>
+  <script src="/script.min.js?v=electrical-20260602" defer></script>
 </body>
 </html>
 

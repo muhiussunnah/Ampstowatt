@@ -22,8 +22,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Solar Watts to Amps Calculator">
   <meta name="twitter:description" content="Calculate solar panels, charge controllers, and battery banks with formulas, examples, and FAQ.">
-  <link rel="stylesheet" href="/styles.min.css?v=20260601-lux-v19">
-  <script type="application/ld+json">
+<script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -35,103 +34,10 @@
     ]
   }
   </script>
-
-  <script type="application/ld+json" data-auto-seo-schema>
-{
-    "@context":  "https://schema.org",
-    "@graph":  [
-                   {
-                       "name":  "Amps To Watts Calculator",
-                       "@id":  "https://ampstowatt.com/#organization",
-                       "logo":  "https://ampstowatt.com/favicon.svg",
-                       "email":  "ampstowatt@gmail.com",
-                       "@type":  "Organization",
-                       "url":  "https://ampstowatt.com/"
-                   },
-                   {
-                       "isPartOf":  {
-                                        "@id":  "https://ampstowatt.com/#website"
-                                    },
-                       "name":  "Solar Watts to Amps Calculator | Solar Panel Amps, Ah, Battery Sizing",
-                       "@id":  "https://ampstowatt.com/solar-watts-to-amps-calculator/#webpage",
-                       "headline":  "Solar Watts to Amps Calculator",
-                       "publisher":  {
-                                         "@id":  "https://ampstowatt.com/#organization"
-                                     },
-                       "@type":  "WebPage",
-                       "url":  "https://ampstowatt.com/solar-watts-to-amps-calculator/"
-                   },
-                   {
-                       "@type":  "BreadcrumbList",
-                       "itemListElement":  [
-                                               {
-                                                   "position":  1,
-                                                   "name":  "Home",
-                                                   "item":  "https://ampstowatt.com/",
-                                                   "@type":  "ListItem"
-                                               },
-                                               {
-                                                   "position":  2,
-                                                   "name":  "Solar Watts to Amps Calculator",
-                                                   "item":  "https://ampstowatt.com/solar-watts-to-amps-calculator/",
-                                                   "@type":  "ListItem"
-                                               }
-                                           ]
-                   },
-                   [
-                       {
-                           "url":  "https://ampstowatt.com/",
-                           "name":  "Home",
-                           "@type":  "SiteNavigationElement"
-                       },
-                       {
-                           "url":  "https://ampstowatt.com/calculators/",
-                           "name":  "All Calculators",
-                           "@type":  "SiteNavigationElement"
-                       },
-                       {
-                           "url":  "https://ampstowatt.com/#calculator",
-                           "name":  "Amps to Watts Calculator",
-                           "@type":  "SiteNavigationElement"
-                       },
-                       {
-                           "url":  "https://ampstowatt.com/#watts-to-amps",
-                           "name":  "Watts to Amps Calculator",
-                           "@type":  "SiteNavigationElement"
-                       },
-                       {
-                           "url":  "https://ampstowatt.com/voltage-drop-calculator/",
-                           "name":  "Voltage Drop Calculator",
-                           "@type":  "SiteNavigationElement"
-                       },
-                       {
-                           "url":  "https://ampstowatt.com/wire-gauge-calculator/",
-                           "name":  "Wire Gauge Calculator",
-                           "@type":  "SiteNavigationElement"
-                       },
-                       {
-                           "url":  "https://ampstowatt.com/contact-us/",
-                           "name":  "Contact",
-                           "@type":  "SiteNavigationElement"
-                       }
-                   ],
-                   {
-                       "name":  "Solar Watts to Amps Calculator",
-                       "applicationCategory":  "EngineeringApplication",
-                       "offers":  {
-                                      "price":  "0",
-                                      "priceCurrency":  "USD",
-                                      "@type":  "Offer"
-                                  },
-                       "operatingSystem":  "Web",
-                       "@type":  "SoftwareApplication",
-                       "url":  "https://ampstowatt.com/solar-watts-to-amps-calculator/"
-                   }
-               ]
-}
-  </script>
-  <link rel="stylesheet" href="/luxury-tools.css?v=20260601-lux-v19">
-  <link rel="stylesheet" href="/site-dark-luxury.css?v=20260601-dark-v1">
+  <link rel="preload" href="/site-dark-luxury.min.css?v=electrical-20260602" as="style">
+  <link rel="stylesheet" href="/site-dark-luxury.min.css?v=electrical-20260602">
+  <link rel="stylesheet" href="/luxury-tools.min.css?v=electrical-20260602" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="/styles.min.css?v=electrical-20260602" media="print" onload="this.media='all'">
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to Main Content</a>
@@ -144,12 +50,13 @@
           <span class="premium-brand-line">Electrical calculation suite</span>
         </span>
       </a>
+
       <button class="premium-menu-button" type="button" aria-label="Open navigation" aria-controls="premium-site-nav" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
+
       <nav id="premium-site-nav" class="premium-nav" role="navigation" aria-label="Primary navigation">
         <a href="/" class="premium-nav-link">Home</a>
-        <a href="/#calculator" class="premium-nav-link">Amps to Watts</a>
         
         <details class="premium-nav-menu">
           <summary>Voltage</summary>
@@ -223,9 +130,9 @@
       <div class="lx-decimals">
         <label>Decimals:</label>
         <div class="lx-dec-ctrl">
-          <button type="button" class="lx-dec-btn" onclick="document.getElementById('lx-dec-34_0').value = Math.max(0, parseInt(document.getElementById('lx-dec-34_0').value)-1); updateLuxCalc34_0()">-</button>
+          <button type="button" class="lx-dec-btn">-</button>
           <input type="number" id="lx-dec-34_0" class="lx-dec-input" value="4" readonly>
-          <button type="button" class="lx-dec-btn lx-cyan-bg" onclick="document.getElementById('lx-dec-34_0').value = Math.min(8, parseInt(document.getElementById('lx-dec-34_0').value)+1); updateLuxCalc34_0()">+</button>
+          <button type="button" class="lx-dec-btn lx-cyan-bg">+</button>
         </div>
       </div>
     </div>
@@ -235,7 +142,7 @@
       <div class="lx-field lx-span-2">
         <label>System type</label>
         <div class="lx-select-wrapper">
-          <select id="lx-type-34_0" onchange="updateLuxCalc34_0()">
+          <select id="lx-type-34_0">
             <option value="dc" >Direct Current (DC)</option>
             <option value="ac1" selected>Single-Phase</option>
             <option value="ac3" >Three-Phase</option>
@@ -247,8 +154,8 @@
       <div class="lx-field">
         <label id="lbl-power-34_0">Power</label>
         <div class="lx-input-group">
-          <input type="number" id="lx-power-34_0" value="1.2" placeholder="Enter power" oninput="updateLuxCalc34_0()">
-          <select class="lx-unit-select" id="lx-power-unit-34_0" onchange="updateLuxCalc34_0()">
+          <input type="number" id="lx-power-34_0" value="1.2" placeholder="Enter power">
+          <select class="lx-unit-select" id="lx-power-unit-34_0">
             <option value="kw">kW</option><option value="w">W</option>
           </select>
         </div>
@@ -258,7 +165,7 @@
       <div class="lx-field">
         <label>Voltage</label>
         <div class="lx-input-group">
-          <input type="number" id="lx-volts-34_0" value="40" placeholder="Enter voltage" oninput="updateLuxCalc34_0()">
+          <input type="number" id="lx-volts-34_0" value="40" placeholder="Enter voltage">
           <span class="lx-unit-label">V</span>
         </div>
       </div>
@@ -267,8 +174,8 @@
       <div class="lx-field lx-span-2" id="lx-vtype-container-34_0" style="display: none;">
         <label>Voltage Type</label>
         <div class="lx-toggle-group">
-          <button type="button" class="lx-toggle-btn active" id="btn-vll-34_0" onclick="setVType34_0('vll')">Line-to-Line (V<sub>LL</sub>)</button>
-          <button type="button" class="lx-toggle-btn" id="btn-vln-34_0" onclick="setVType34_0('vln')">Line-to-Neutral (V<sub>LN</sub>)</button>
+          <button type="button" class="lx-toggle-btn active" id="btn-vll-34_0">Line-to-Line (V<sub>LL</sub>)</button>
+          <button type="button" class="lx-toggle-btn" id="btn-vln-34_0">Line-to-Neutral (V<sub>LN</sub>)</button>
         </div>
         <input type="hidden" id="lx-vtype-34_0" value="vll">
       </div>
@@ -277,15 +184,15 @@
       <div class="lx-field lx-span-2" id="lx-pf-container-34_0" style="display: flex;">
         <label>Power Factor (PF)</label>
         <div class="lx-slider-group">
-          <input type="range" class="lx-slider" id="lx-pf-slider-34_0" min="0.1" max="1" step="0.01" value="1" oninput="document.getElementById('lx-pf-input-34_0').value = this.value; updatePFGradient34_0(); updateLuxCalc34_0()">
-          <input type="number" class="lx-slider-val" id="lx-pf-input-34_0" min="0.1" max="1" step="0.01" value="1" oninput="document.getElementById('lx-pf-slider-34_0').value = this.value; updatePFGradient34_0(); updateLuxCalc34_0()">
+          <input type="range" class="lx-slider" id="lx-pf-slider-34_0" min="0.1" max="1" step="0.01" value="1">
+          <input type="number" class="lx-slider-val" id="lx-pf-input-34_0" min="0.1" max="1" step="0.01" value="1">
         </div>
       </div>
       
       <!-- Actions -->
       <div class="lx-actions lx-span-2">
-        <button type="button" class="lx-btn lx-btn-reset" onclick="resetLux34_0()">Reset</button>
-        <button type="button" class="lx-btn lx-btn-primary" onclick="toggleMode34_0()" id="lx-mode-btn-34_0">Switch to Watts to Amps</button>
+        <button type="button" class="lx-btn lx-btn-reset">Reset</button>
+        <button type="button" class="lx-btn lx-btn-primary" id="lx-mode-btn-34_0">Switch to Watts to Amps</button>
         
       </div>
 
@@ -326,124 +233,7 @@
     </div>
   </div>
 </article>
-
-<script>
-// Logic for luxury calculator 34_0
-let luxMode34_0 = 'kw2amps';
-
-function updatePFGradient34_0() {
-  const slider = document.getElementById('lx-pf-slider-34_0');
-  if(!slider) return;
-  const val = (slider.value - slider.min) / (slider.max - slider.min) * 100;
-  slider.style.background = `linear-gradient(90deg, #00e5ff 0%, #00e5ff ${val}%, #1e293b ${val}%, #1e293b 100%)`;
-}
-
-function setVType34_0(type) {
-  document.getElementById('lx-vtype-34_0').value = type;
-  document.getElementById('btn-vll-34_0').className = 'lx-toggle-btn' + (type === 'vll' ? ' active' : '');
-  document.getElementById('btn-vln-34_0').className = 'lx-toggle-btn' + (type === 'vln' ? ' active' : '');
-  updateLuxCalc34_0();
-}
-
-function toggleMode34_0() {
-  luxMode34_0 = luxMode34_0 === 'kw2amps' ? 'amps2kw' : 'kw2amps';
-  document.getElementById('lx-mode-text-34_0').innerText = luxMode34_0 === 'kw2amps' ? 'AMPS TO WATTS' : 'WATTS TO AMPS';
-  document.getElementById('lx-mode-btn-34_0').innerText = luxMode34_0 === 'kw2amps' ? 'Switch to Watts to Amps' : 'Switch to Amps to Watts';
-  
-  // Switch power input label
-  document.getElementById('lbl-power-34_0').innerText = luxMode34_0 === 'kw2amps' ? 'Power' : 'Current';
-  document.getElementById('lx-power-34_0').placeholder = luxMode34_0 === 'kw2amps' ? 'Enter power' : 'Enter current';
-  
-  // Switch units
-  const unitSelect = document.getElementById('lx-power-unit-34_0');
-  if(luxMode34_0 === 'kw2amps') {
-    unitSelect.innerHTML = '<option value="kw">kW</option><option value="w">W</option>';
-  } else {
-    unitSelect.innerHTML = '<option value="a">A</option><option value="ma">mA</option>';
-  }
-  
-  // Switch result labels
-  document.getElementById('lbl-res1-34_0').innerText = luxMode34_0 === 'kw2amps' ? 'Current (amps)' : 'Power (kW)';
-  document.getElementById('lbl-res2-34_0').innerText = luxMode34_0 === 'kw2amps' ? 'Current (milliamps)' : 'Power (W)';
-  document.getElementById('lbl-unit1-34_0').innerText = luxMode34_0 === 'kw2amps' ? 'A' : 'kW';
-  document.getElementById('lbl-unit2-34_0').innerText = luxMode34_0 === 'kw2amps' ? 'mA' : 'W';
-  
-  updateLuxCalc34_0();
-}
-
-function updateLuxCalc34_0() {
-  const type = document.getElementById('lx-type-34_0').value;
-  document.getElementById('lx-vtype-container-34_0').style.display = type === 'ac3' ? 'flex' : 'none';
-  document.getElementById('lx-pf-container-34_0').style.display = type === 'dc' ? 'none' : 'flex';
-  
-  let val1 = parseFloat(document.getElementById('lx-power-34_0').value) || 0;
-  let unit1 = document.getElementById('lx-power-unit-34_0').value;
-  let volts = parseFloat(document.getElementById('lx-volts-34_0').value) || 0;
-  
-  let pfElem = document.getElementById('lx-pf-input-34_0');
-  let pf = pfElem ? (parseFloat(pfElem.value) || 1) : 1;
-  
-  let vtypeElem = document.getElementById('lx-vtype-34_0');
-  let vtype = vtypeElem ? vtypeElem.value : 'vll';
-  
-  let decimals = parseInt(document.getElementById('lx-dec-34_0').value);
-  
-  let result1 = 0;
-  let result2 = 0;
-  
-  if (luxMode34_0 === 'kw2amps') {
-    // val1 is power
-    let watts = unit1 === 'kw' ? val1 * 1000 : val1;
-    let amps = 0;
-    if (volts > 0) {
-      if (type === 'dc') {
-        amps = watts / volts;
-      } else if (type === 'ac1') {
-        amps = watts / (volts * pf);
-      } else if (type === 'ac3') {
-        if (vtype === 'vll') amps = watts / (1.732 * volts * pf);
-        else amps = watts / (3 * volts * pf);
-      }
-    }
-    result1 = amps;
-    result2 = amps * 1000;
-  } else {
-    // val1 is current
-    let amps = unit1 === 'a' ? val1 : val1 / 1000;
-    let watts = 0;
-    if (type === 'dc') {
-      watts = amps * volts;
-    } else if (type === 'ac1') {
-      watts = amps * volts * pf;
-    } else if (type === 'ac3') {
-      if (vtype === 'vll') watts = amps * 1.732 * volts * pf;
-      else watts = amps * 3 * volts * pf;
-    }
-    result1 = watts / 1000;
-    result2 = watts;
-  }
-  
-  document.getElementById('res-amps-34_0').value = result1.toFixed(decimals);
-  document.getElementById('res-ma-34_0').value = result2.toFixed(decimals);
-  
-  const mainMirror = result1.toFixed(decimals) + (luxMode34_0 === 'kw2amps' ? ' A' : ' kW');
-  document.getElementById('lx-mirror-val-34_0').innerText = mainMirror;
-}
-
-function resetLux34_0() {
-  document.getElementById('lx-power-34_0').value = '';
-  document.getElementById('res-amps-34_0').value = '';
-  document.getElementById('res-ma-34_0').value = '';
-  document.getElementById('lx-mirror-val-34_0').innerText = luxMode34_0 === 'kw2amps' ? 'A' : 'kW';
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    updatePFGradient34_0();
-    updateLuxCalc34_0();
-});
-</script>
-
-      <aside class="visual-panel circuit-visual-panel tool-page-visual" aria-label="Solar Watts to Amps Calculator diagram">
+<aside class="visual-panel circuit-visual-panel tool-page-visual" aria-label="Solar Watts to Amps Calculator diagram">
         <div class="tool-page-label">Technical diagram</div>
         <svg viewBox="0 0 560 240" role="img" aria-label="Solar Watts to Amps Calculator electrical flow diagram">
           <defs>
@@ -952,17 +742,18 @@ document.addEventListener("DOMContentLoaded", () => {
           <a href="/terms-conditions/">Terms &amp; Conditions</a>
         </nav>
       </section>
-    </div>
-<div class="premium-footer-bottom">
+</div>
+
+    <div class="premium-footer-bottom">
       <p>(c) 2026 Amps To Watts Calculator. Built for clear electrical planning and professional reference.</p>
     </div>
   </footer>
 
-  <button class="premium-back-to-top" type="button" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <button class="premium-back-to-top" type="button" aria-label="Back to top">
     <span aria-hidden="true">^</span><strong>Top</strong>
   </button>
 
-  <script src="/script.min.js?v=20260520-perf-v13" defer></script>
+  <script src="/script.min.js?v=electrical-20260602" defer></script>
   <script src="/tool-page.min.js?v=20260520-perf-v13" defer></script>
 </body>
 </html>

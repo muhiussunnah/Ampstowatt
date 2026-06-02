@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap');
+
 /* =======================================================================
    SITE-WIDE DARK LUXURY THEME — V2 PREMIUM
    Complete redesign matching the reference images' ultra-premium aesthetic.
@@ -7,9 +9,9 @@
 /* ── ROOT VARIABLE NUCLEAR OVERRIDE ── */
 :root {
     /* Backgrounds */
-    --bg-body: #0a0f1f !important;
-    --bg-surface: #0f192d !important;
-    --bg-elevated: #1a2538 !important;
+    --bg-body: #030712 !important;
+    --bg-surface: #0b0f19 !important;
+    --bg-elevated: #0f172a !important;
     --bg-code: #05080f !important;
 
     /* Text Colors */
@@ -20,17 +22,17 @@
 
     /* Accents – Emerald Green (primary) */
     /* Changed from Cyan to Emerald Green per user request */
-    --accent-primary: #10b981 !important;
-    --accent-primary-hover: #34d399 !important;
-    --accent-primary-glow: rgba(16, 185, 129, 0.3) !important;
+    --accent-primary: #d4af37 !important;
+    --accent-primary-hover: #e5c158 !important;
+    --accent-primary-glow: rgba(212, 175, 55, 0.28) !important;
 
     /* Accents – Secondary (blue/purple) */
-    --accent-secondary: #3b82f6 !important;
+    --accent-secondary: #00e5ff !important;
     --accent-tertiary: #8b5cf6 !important;
 
     /* Borders & Dividers */
-    --border-light: rgba(16, 185, 129, 0.25) !important;
-    --border-medium: rgba(16, 185, 129, 0.5) !important;
+    --border-light: rgba(255, 255, 255, 0.06) !important;
+    --border-medium: rgba(212, 175, 55, 0.36) !important;
     --border-error: #ff4d4d !important;
 
     /* Status / Feedback */
@@ -40,11 +42,21 @@
     --info: #10b981 !important;
 
     /* Glassmorphic Card Settings */
-    --glass-bg: rgba(15, 25, 45, 0.9) !important;
+    --glass-bg: rgba(11, 15, 25, 0.86) !important;
     --glass-blur: 12px !important;
     --glass-border: 1px solid rgba(16, 185, 129, 0.3) !important;
     
     color-scheme: dark !important;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6,
+.hero-title, .section-heading, .premium-brand-name {
+    font-family: 'Outfit', 'Inter', system-ui, sans-serif !important;
+    letter-spacing: 0 !important;
 }
 
 /* ── GLOBAL RESETS ── */
@@ -1662,4 +1674,826 @@ input::placeholder { color: #94a3b8 !important; }
 }
 .responsive-ref-table tr:hover td {
     background: rgba(16, 185, 129, 0.1) !important;
+}
+
+.lx-tool.specialty-calculator {
+    background: linear-gradient(145deg, rgba(11,15,25,0.96), rgba(15,23,42,0.88)) !important;
+    border: 1px solid rgba(212,175,55,0.22) !important;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.05) !important;
+    backdrop-filter: blur(18px) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+}
+
+.lx-tool.specialty-calculator input,
+.lx-tool.specialty-calculator select,
+.lx-tool.specialty-calculator .lx-readonly input {
+    min-height: 52px !important;
+    border-radius: 8px !important;
+    background: rgba(3,7,18,0.72) !important;
+    border: 1px solid rgba(255,255,255,0.08) !important;
+    color: var(--text-primary) !important;
+    font-family: 'Inter', system-ui, sans-serif !important;
+}
+
+.lx-tool.specialty-calculator input:focus,
+.lx-tool.specialty-calculator select:focus {
+    border-color: var(--accent-primary) !important;
+    box-shadow: 0 0 0 3px rgba(212,175,55,0.16), 0 0 24px rgba(0,229,255,0.08) !important;
+}
+
+.lx-tool.specialty-calculator label {
+    color: var(--text-secondary) !important;
+    font-weight: 700 !important;
+}
+
+.lx-tool.specialty-calculator .lx-sidebar-card {
+    background: rgba(3,7,18,0.58) !important;
+    border-color: rgba(255,255,255,0.08) !important;
+}
+
+.premium-back-to-top,
+#lx-scroll-top {
+    width: 54px !important;
+    height: 54px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    display: grid !important;
+    place-items: center !important;
+    background: rgba(11,15,25,0.86) !important;
+    border: 1px solid rgba(212,175,55,0.34) !important;
+    color: var(--accent-primary) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+}
+
+.premium-back-to-top strong,
+#lx-scroll-top strong {
+    display: none !important;
+}
+
+.premium-back-to-top:hover,
+#lx-scroll-top:hover {
+    color: #030712 !important;
+    background: var(--accent-primary) !important;
+    box-shadow: 0 0 28px rgba(212,175,55,0.45), 0 0 42px rgba(0,229,255,0.14) !important;
+}
+
+/* =======================================================================
+   ELECTRICAL CONTRAST REFRESH
+   A site-wide "amps to watts" palette: current=copper, voltage=cyan,
+   power=amber, with calmer graphite surfaces and stronger readability.
+   ======================================================================= */
+:root {
+    --bg-body: #05070b !important;
+    --bg-surface: #10141d !important;
+    --bg-elevated: #171d29 !important;
+    --bg-code: #080b10 !important;
+    --text-primary: #f8fafc !important;
+    --text-secondary: #d7dee9 !important;
+    --text-muted: #a8b3c2 !important;
+    --text-inverse: #111827 !important;
+    --accent-primary: #f59e0b !important;
+    --accent-primary-hover: #fbbf24 !important;
+    --accent-primary-glow: rgba(245, 158, 11, 0.28) !important;
+    --accent-secondary: #22d3ee !important;
+    --accent-tertiary: #c47a32 !important;
+    --current-copper: #c47a32 !important;
+    --voltage-cyan: #22d3ee !important;
+    --power-amber: #f59e0b !important;
+    --watt-gold: #fbbf24 !important;
+    --border-light: rgba(255, 255, 255, 0.10) !important;
+    --border-medium: rgba(245, 158, 11, 0.42) !important;
+    --success: #34d399 !important;
+    --warning: #fbbf24 !important;
+    --info: #22d3ee !important;
+    --glass-bg: rgba(16, 20, 29, 0.92) !important;
+    --glass-border: 1px solid rgba(245, 158, 11, 0.24) !important;
+}
+
+html,
+body {
+    background:
+        radial-gradient(circle at 18% -10%, rgba(34, 211, 238, 0.12), transparent 32%),
+        radial-gradient(circle at 86% 8%, rgba(245, 158, 11, 0.12), transparent 30%),
+        linear-gradient(180deg, #05070b 0%, #0b1018 48%, #05070b 100%) !important;
+}
+
+.site-header,
+.premium-header,
+.pro-header,
+header[role="banner"] {
+    background: rgba(5, 7, 11, 0.92) !important;
+    border-bottom: 1px solid rgba(245, 158, 11, 0.28) !important;
+}
+
+.premium-brand-mark,
+.pro-logo-icon,
+.icon-circle,
+.btn-primary,
+.ptool-btn-calc,
+.lx-btn-primary,
+.primary-btn,
+.skip-link {
+    background: linear-gradient(135deg, var(--power-amber), var(--watt-gold)) !important;
+    color: #111827 !important;
+    box-shadow: 0 10px 24px rgba(245, 158, 11, 0.28) !important;
+}
+
+a,
+h3,
+h4,
+.content-h3,
+.content-h4,
+.topic-copy h3,
+.premium-nav a:hover,
+.premium-nav summary:hover,
+.footer-section-heading,
+.metric-value,
+.device-grid-val,
+.formula-chip,
+.value-stack span b {
+    color: var(--power-amber) !important;
+}
+
+a:hover,
+.premium-nav a:focus,
+.premium-nav summary:focus {
+    color: var(--watt-gold) !important;
+}
+
+.brand-header,
+.primary-tool-section,
+.calculator-card,
+.card,
+.explainer-card,
+.topic-card,
+.technical-visual-card,
+.seo-visual-card,
+.lx-tool,
+.ptool-card,
+.premium-nav-panel,
+.nav-dropdown-menu,
+.footer-disclaimer,
+.premium-footer-note,
+.preference-card,
+.page-toc {
+    background:
+        linear-gradient(145deg, rgba(16, 20, 29, 0.96), rgba(23, 29, 41, 0.90)) !important;
+    border-color: rgba(255, 255, 255, 0.10) !important;
+    box-shadow: 0 18px 46px rgba(0, 0, 0, 0.42) !important;
+}
+
+.brand-badge,
+.hero-flow span,
+.topic-equation-strip,
+.section-flow-visual,
+.example-box,
+.highlight-box,
+.value-stack span,
+code,
+.formula,
+.visual-metric,
+.responsive-ref-table-wrapper {
+    background: rgba(34, 211, 238, 0.08) !important;
+    border-color: rgba(34, 211, 238, 0.24) !important;
+}
+
+.brand-badge,
+.hero-meter span,
+.hero-flow span,
+.visual-icon.voltage,
+.svg-wire,
+.svg-wave,
+.triangle-line,
+.seo-visual-kicker {
+    color: var(--voltage-cyan) !important;
+}
+
+.brand-badge-dot {
+    background: var(--voltage-cyan) !important;
+    box-shadow: 0 0 14px rgba(34, 211, 238, 0.65) !important;
+}
+
+.visual-icon.current,
+.topic-mini-card-grid b,
+.premium-language-option.is-active,
+.lang-btn:hover,
+.lang-btn.active {
+    color: var(--current-copper) !important;
+}
+
+.visual-icon.power,
+.result-value,
+.ptool-console-val,
+.lx-cyan,
+.lx-mirror-val,
+.lx-quick-mirror .val {
+    color: var(--power-amber) !important;
+}
+
+input,
+select,
+textarea,
+.ptool-input,
+.calculator-card input,
+.calculator-card select,
+.lx-tool input,
+.lx-tool select {
+    background: #0b1018 !important;
+    color: #f8fafc !important;
+    border-color: rgba(255, 255, 255, 0.14) !important;
+}
+
+input:hover,
+select:hover,
+textarea:hover,
+.ptool-input:hover,
+.lx-tool input:hover,
+.lx-tool select:hover {
+    border-color: rgba(34, 211, 238, 0.34) !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+.ptool-input:focus,
+.calculator-card input:focus,
+.calculator-card select:focus,
+.lx-tool input:focus,
+.lx-tool select:focus {
+    background: #080b10 !important;
+    border-color: var(--voltage-cyan) !important;
+    box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.16), 0 0 18px rgba(245, 158, 11, 0.10) !important;
+}
+
+table,
+.responsive-ref-table {
+    background: #10141d !important;
+}
+
+th,
+.responsive-ref-table th {
+    background: rgba(245, 158, 11, 0.16) !important;
+    border-bottom-color: rgba(245, 158, 11, 0.55) !important;
+}
+
+tr:hover td,
+.responsive-ref-table tr:hover td,
+.faq-container .faq-q:hover {
+    background: rgba(34, 211, 238, 0.08) !important;
+}
+
+.section-divider .line,
+.hero-flow i,
+.tool-svg-wire,
+.svg-wire,
+.svg-wave,
+.triangle-line {
+    background: linear-gradient(90deg, var(--current-copper), var(--voltage-cyan), var(--power-amber)) !important;
+    stroke: var(--voltage-cyan) !important;
+}
+
+::selection {
+    background: rgba(245, 158, 11, 0.32) !important;
+    color: #ffffff !important;
+}
+
+::-webkit-scrollbar-track {
+    background: #05070b !important;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(245, 158, 11, 0.38) !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(34, 211, 238, 0.55) !important;
+}
+
+/* =======================================================================
+   HOMEPAGE ELECTRICAL VISUAL SYSTEM
+   Overrides home-only cards, diagrams, FAQ and generated visual elements.
+   ======================================================================= */
+body:has(.home-hero-compact) .container {
+    max-width: 1320px !important;
+}
+
+.home-hero-compact {
+    position: relative !important;
+    overflow: hidden !important;
+    min-height: 260px !important;
+    padding: clamp(32px, 5vw, 64px) clamp(18px, 4vw, 44px) !important;
+    border-radius: 12px !important;
+    background:
+        linear-gradient(90deg, rgba(34, 211, 238, 0.05) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(245, 158, 11, 0.05) 1px, transparent 1px),
+        radial-gradient(circle at 18% 16%, rgba(34, 211, 238, 0.18), transparent 30%),
+        radial-gradient(circle at 82% 22%, rgba(245, 158, 11, 0.18), transparent 34%),
+        linear-gradient(135deg, #080b10, #10141d 58%, #05070b) !important;
+    background-size: 34px 34px, 34px 34px, auto, auto, auto !important;
+    border: 1px solid rgba(245, 158, 11, 0.28) !important;
+}
+
+.home-hero-compact::before {
+    content: "A  +  V  =  W";
+    position: absolute !important;
+    right: clamp(18px, 5vw, 72px) !important;
+    bottom: clamp(14px, 4vw, 42px) !important;
+    color: rgba(248, 250, 252, 0.08) !important;
+    font-family: 'Outfit', 'Inter', system-ui, sans-serif !important;
+    font-size: clamp(42px, 9vw, 128px) !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+    pointer-events: none !important;
+}
+
+.home-hero-compact::after {
+    content: "";
+    position: absolute !important;
+    left: 8% !important;
+    right: 8% !important;
+    bottom: 20px !important;
+    height: 3px !important;
+    border-radius: 999px !important;
+    background: linear-gradient(90deg, var(--current-copper), var(--voltage-cyan), var(--power-amber)) !important;
+    box-shadow: 0 0 22px rgba(34, 211, 238, 0.28), 0 0 22px rgba(245, 158, 11, 0.18) !important;
+}
+
+.home-hero-compact .brand-badge,
+.home-hero-compact .hero-title,
+.home-hero-compact .hero-content {
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+.home-hero-compact .hero-title {
+    max-width: 820px !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    text-shadow: 0 12px 32px rgba(0, 0, 0, 0.45) !important;
+}
+
+.home-hero-compact .hero-subtitle {
+    max-width: 860px !important;
+    color: #d7dee9 !important;
+}
+
+.home-hero-compact .hero-subtitle strong,
+.main-tool-card-head strong {
+    color: #ffffff !important;
+}
+
+.primary-tool-section.ptool-v9,
+#main-lux-tool,
+#main-lux-tool .lx-sidebar-card,
+.ptool-console {
+    background:
+        radial-gradient(circle at 12% 0%, rgba(34, 211, 238, 0.10), transparent 30%),
+        linear-gradient(145deg, rgba(16, 20, 29, 0.98), rgba(23, 29, 41, 0.94)) !important;
+    border-color: rgba(245, 158, 11, 0.30) !important;
+}
+
+#main-lux-tool .lx-mode-label,
+#main-lux-tool .lx-card-title,
+#main-lux-tool label {
+    color: #fbbf24 !important;
+}
+
+#main-lux-tool .lx-input-group,
+#main-lux-tool .lx-toggle-group,
+#main-lux-tool .lx-dec-ctrl {
+    border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+#main-lux-tool .lx-toggle-btn.active,
+#main-lux-tool .lx-dec-btn.lx-cyan-bg {
+    background: linear-gradient(135deg, var(--voltage-cyan), #67e8f9) !important;
+    color: #06252c !important;
+}
+
+.content-visual-grid,
+.topic-article-visual,
+.keyword-flow-visual,
+.keyword-card-visual,
+.keyword-formula-visual,
+.keyword-scale-visual,
+.keyword-chart-visual,
+.topical-hub-visual,
+.topic-reverse-visual,
+.topic-relation-grid,
+.topic-wave-diagram {
+    background:
+        linear-gradient(145deg, rgba(16, 20, 29, 0.82), rgba(8, 11, 16, 0.78)) !important;
+    border: 1px solid rgba(255, 255, 255, 0.10) !important;
+    border-radius: 10px !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+}
+
+.technical-visual-card,
+.process-step-card,
+.safety-check-card,
+.topic-signal-grid span,
+.topic-inline-visual span,
+.topic-formula-grid span,
+.topic-reverse-visual span,
+.topic-relation-grid span,
+.keyword-flow-visual span,
+.keyword-card-visual span,
+.keyword-formula-visual span,
+.keyword-scale-visual span,
+.keyword-chart-visual span,
+.topical-hub-visual span {
+    background: linear-gradient(145deg, #10141d, #171d29) !important;
+    border: 1px solid rgba(255, 255, 255, 0.11) !important;
+    color: #d7dee9 !important;
+}
+
+.technical-visual-card:hover,
+.process-step-card:hover,
+.safety-check-card:hover,
+.keyword-flow-visual span:hover,
+.keyword-card-visual span:hover,
+.keyword-formula-visual span:hover,
+.keyword-scale-visual span:hover,
+.keyword-chart-visual span:hover {
+    border-color: rgba(245, 158, 11, 0.45) !important;
+    box-shadow: 0 12px 28px rgba(245, 158, 11, 0.10), 0 0 18px rgba(34, 211, 238, 0.08) !important;
+}
+
+.technical-visual-card strong,
+.process-step-card strong,
+.safety-check-card strong,
+.keyword-flow-visual b,
+.keyword-card-visual b,
+.keyword-formula-visual b,
+.keyword-scale-visual b,
+.keyword-chart-visual b,
+.topical-hub-visual b,
+.topic-signal-grid b,
+.topic-inline-visual b,
+.topic-formula-grid strong {
+    color: #f8fafc !important;
+}
+
+.technical-visual-card small,
+.process-step-card small,
+.safety-check-card small,
+.keyword-flow-visual em,
+.keyword-card-visual em,
+.keyword-formula-visual em,
+.keyword-scale-visual em,
+.keyword-chart-visual em,
+.topical-hub-visual em {
+    color: #a8b3c2 !important;
+}
+
+.formula-chip,
+.keyword-card-visual code,
+.topic-formula-grid code {
+    color: #111827 !important;
+    background: linear-gradient(135deg, var(--power-amber), var(--watt-gold)) !important;
+    border-color: rgba(245, 158, 11, 0.50) !important;
+    text-shadow: none !important;
+}
+
+.mini-svg-diagram,
+.topic-circuit-svg,
+.topic-wave-diagram svg {
+    background: transparent !important;
+}
+
+.mini-svg-diagram text,
+.topic-circuit-svg text,
+.topic-wave-diagram text {
+    fill: #f8fafc !important;
+    text-shadow: none !important;
+}
+
+.svg-source,
+.topic-svg-box {
+    fill: rgba(196, 122, 50, 0.18) !important;
+    stroke: var(--current-copper) !important;
+}
+
+.svg-load,
+.topic-svg-output {
+    fill: rgba(245, 158, 11, 0.18) !important;
+    stroke: var(--power-amber) !important;
+}
+
+.svg-wire,
+.svg-wave,
+.topic-svg-wire,
+.topic-wave-diagram path,
+.topic-wave-diagram line {
+    stroke: var(--voltage-cyan) !important;
+    filter: drop-shadow(0 0 5px rgba(34, 211, 238, 0.45)) !important;
+}
+
+.svg-wave.secondary,
+.triangle-line.strong {
+    stroke: var(--current-copper) !important;
+}
+
+.svg-wave.tertiary {
+    stroke: var(--power-amber) !important;
+}
+
+.triangle-fill,
+.topic-svg-core {
+    fill: rgba(34, 211, 238, 0.10) !important;
+    stroke: rgba(34, 211, 238, 0.42) !important;
+}
+
+.faq-section {
+    background: transparent !important;
+    border: 0 !important;
+}
+
+.faq-card {
+    background:
+        radial-gradient(circle at 12% 0%, rgba(34, 211, 238, 0.08), transparent 34%),
+        linear-gradient(145deg, rgba(16, 20, 29, 0.96), rgba(23, 29, 41, 0.90)) !important;
+    border: 1px solid rgba(245, 158, 11, 0.24) !important;
+}
+
+#faq-container {
+    display: grid !important;
+    gap: 12px !important;
+}
+
+#faq-container .faq-item {
+    overflow: hidden !important;
+    border-radius: 10px !important;
+    background: #10141d !important;
+    border: 1px solid rgba(255, 255, 255, 0.11) !important;
+}
+
+#faq-container .faq-q {
+    min-height: 58px !important;
+    background: linear-gradient(90deg, rgba(196, 122, 50, 0.10), rgba(34, 211, 238, 0.06)) !important;
+    color: #f8fafc !important;
+    font-family: 'Outfit', 'Inter', system-ui, sans-serif !important;
+}
+
+#faq-container .faq-q span:first-child::before {
+    content: "W";
+    display: inline-grid !important;
+    place-items: center !important;
+    width: 28px !important;
+    height: 28px !important;
+    margin-right: 10px !important;
+    border-radius: 50% !important;
+    background: var(--power-amber) !important;
+    color: #111827 !important;
+    font-size: 12px !important;
+    font-weight: 900 !important;
+}
+
+#faq-container .faq-q[aria-expanded="true"] {
+    border-bottom: 1px solid rgba(245, 158, 11, 0.28) !important;
+}
+
+#faq-container .faq-icon {
+    color: var(--voltage-cyan) !important;
+    font-size: 22px !important;
+}
+
+#faq-container .faq-a,
+#faq-container .faq-a p {
+    background: #0b1018 !important;
+    color: #d7dee9 !important;
+}
+
+/* =========================================================
+   FINAL HOMEPAGE PALETTE TUNING - AMPS TO WATTS
+   Copper = current/amps, blue = voltage, gold = watts/power.
+   Keeps the electrical identity while reducing harsh neon contrast.
+   ========================================================= */
+:root {
+    --electric-bg: #0d1117 !important;
+    --electric-surface: #151a22 !important;
+    --electric-surface-2: #1b2230 !important;
+    --current-copper: #c47a32 !important;
+    --current-copper-soft: rgba(196, 122, 50, 0.16) !important;
+    --voltage-cyan: #38bdf8 !important;
+    --voltage-cyan-soft: rgba(56, 189, 248, 0.12) !important;
+    --power-amber: #f59e0b !important;
+    --watt-gold: #f3c969 !important;
+    --power-amber-soft: rgba(245, 158, 11, 0.15) !important;
+    --text-main: #f4f7fb !important;
+    --text-muted: #aeb8c6 !important;
+    --line-soft: rgba(255, 255, 255, 0.10) !important;
+    --line-electric: rgba(245, 158, 11, 0.28) !important;
+    --accent-primary: var(--power-amber) !important;
+    --accent-secondary: var(--voltage-cyan) !important;
+}
+
+body,
+.site-main,
+.home,
+.home-page {
+    background:
+        radial-gradient(circle at 18% 4%, rgba(196, 122, 50, 0.08), transparent 28%),
+        radial-gradient(circle at 82% 10%, rgba(56, 189, 248, 0.06), transparent 32%),
+        linear-gradient(180deg, #0d1117 0%, #10151d 44%, #0d1117 100%) !important;
+    color: var(--text-main) !important;
+}
+
+a,
+.ultra-link:hover,
+.semantic-link-list a:hover strong,
+.tool-card-arrow,
+.home-tool-kicker,
+.seo-visual-kicker,
+.topic-equation-strip em,
+.section-flow-visual em,
+.topic-value-cards b,
+.topic-step-row b,
+.topic-signal-grid b,
+.topic-mini-card-grid b,
+.hero-meter span,
+.hero-stat-grid span,
+.example-box strong {
+    color: var(--power-amber) !important;
+    text-shadow: none !important;
+}
+
+.btn-primary,
+.luxury-btn,
+.calculate-btn,
+button[type="submit"],
+.lx-convert-btn,
+#main-lux-tool .lx-dec-btn.lx-cyan-bg,
+#main-lux-tool .lx-toggle-btn.active,
+.result-card.primary,
+.formula-chip,
+.keyword-card-visual code,
+.topic-formula-grid code {
+    background: linear-gradient(135deg, var(--power-amber), var(--watt-gold)) !important;
+    border-color: rgba(245, 158, 11, 0.42) !important;
+    color: #121820 !important;
+    box-shadow: 0 8px 22px rgba(245, 158, 11, 0.18) !important;
+    text-shadow: none !important;
+}
+
+.btn-primary:hover,
+.luxury-btn:hover,
+.calculate-btn:hover,
+button[type="submit"]:hover,
+.lx-convert-btn:hover {
+    background: linear-gradient(135deg, #f3c969, #f59e0b) !important;
+    box-shadow: 0 12px 28px rgba(245, 158, 11, 0.24) !important;
+}
+
+input,
+select,
+textarea,
+.input-field,
+.select-field,
+.lx-input-group,
+.lx-toggle-group,
+.lx-dec-ctrl {
+    background: #101720 !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+    color: var(--text-main) !important;
+}
+
+input:hover,
+select:hover,
+textarea:hover,
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: rgba(245, 158, 11, 0.48) !important;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.14) !important;
+}
+
+.home-hero-compact,
+.primary-tool-section.ptool-v9,
+#main-lux-tool,
+#main-lux-tool .lx-sidebar-card,
+.ptool-console,
+.faq-card,
+.technical-visual-card,
+.process-step-card,
+.safety-check-card,
+.premium-visual-card,
+.tool-card,
+.home-tool-card,
+.content-card,
+.calculator-card,
+.semantic-link-cluster,
+.legal-card,
+.preference-card {
+    background:
+        linear-gradient(145deg, rgba(21, 26, 34, 0.96), rgba(14, 18, 25, 0.94)) !important;
+    border-color: var(--line-soft) !important;
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.26) !important;
+}
+
+.home-hero-compact::before {
+    background:
+        linear-gradient(rgba(245, 158, 11, 0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56, 189, 248, 0.045) 1px, transparent 1px) !important;
+    background-size: 34px 34px !important;
+}
+
+.home-hero-compact::after {
+    color: var(--watt-gold) !important;
+    border-color: rgba(245, 158, 11, 0.30) !important;
+    background:
+        radial-gradient(circle, rgba(245, 158, 11, 0.13), transparent 60%),
+        rgba(12, 17, 24, 0.72) !important;
+    box-shadow: inset 0 0 20px rgba(245, 158, 11, 0.08) !important;
+}
+
+.hero-flow i,
+.topology-rail i,
+.topic-inline-visual i,
+.seo-chart-bars i,
+.svg-wave,
+.topic-svg-wire,
+.topic-wave-diagram path,
+.topic-wave-diagram line {
+    background: linear-gradient(90deg, var(--current-copper), var(--power-amber), var(--voltage-cyan)) !important;
+    stroke: var(--power-amber) !important;
+    box-shadow: none !important;
+    filter: drop-shadow(0 0 3px rgba(245, 158, 11, 0.26)) !important;
+}
+
+.svg-source,
+.tool-svg-source,
+.topic-svg-box,
+.circuit-box,
+.circuit-node,
+.pv-box,
+.pv-accent,
+.seo-visual-svg rect {
+    fill: var(--current-copper-soft) !important;
+    stroke: var(--current-copper) !important;
+    filter: drop-shadow(0 0 3px rgba(196, 122, 50, 0.30)) !important;
+}
+
+.svg-load,
+.tool-svg-core,
+.topic-svg-output,
+.topic-svg-core,
+.pv-core,
+.triangle-fill {
+    fill: var(--power-amber-soft) !important;
+    stroke: var(--power-amber) !important;
+    filter: drop-shadow(0 0 3px rgba(245, 158, 11, 0.25)) !important;
+}
+
+.visual-icon.voltage,
+.tool-card-icon.blue,
+.tool-card-icon.cyan,
+.ultra-lang,
+.faq-icon,
+#faq-container .faq-icon {
+    background: var(--voltage-cyan-soft) !important;
+    border-color: rgba(56, 189, 248, 0.22) !important;
+    color: #7dd3fc !important;
+}
+
+.visual-icon.current,
+.tool-card-icon.orange,
+.tool-card-icon.amber {
+    background: var(--current-copper-soft) !important;
+    border-color: rgba(196, 122, 50, 0.30) !important;
+    color: #e3a66d !important;
+}
+
+#faq-container .faq-item {
+    background: #111821 !important;
+    border-color: rgba(255, 255, 255, 0.10) !important;
+}
+
+#faq-container .faq-q {
+    background: linear-gradient(90deg, rgba(196, 122, 50, 0.12), rgba(245, 158, 11, 0.08), rgba(56, 189, 248, 0.05)) !important;
+    color: var(--text-main) !important;
+}
+
+#faq-container .faq-q span:first-child::before {
+    background: linear-gradient(135deg, var(--current-copper), var(--power-amber)) !important;
+    color: #111827 !important;
+}
+
+#faq-container .faq-a,
+#faq-container .faq-a p {
+    background: #0e141d !important;
+    color: var(--text-muted) !important;
+}
+
+.skip-link {
+    background: var(--power-amber) !important;
+    color: #111827 !important;
+}
+
+.home-tool-card.main-tool {
+    background: linear-gradient(145deg, rgba(21, 26, 34, 0.98), rgba(14, 18, 25, 0.96)) !important;
+    border-top: 4px solid var(--power-amber) !important;
+    border-color: rgba(245, 158, 11, 0.24) !important;
+    color: var(--text-main) !important;
 }

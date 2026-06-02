@@ -11,7 +11,7 @@
   
 
   const TRANSLATIONS = {};
-  const MACHINE_TRANSLATION_ENDPOINT = 'https://translate.googleapis.com/translate_a/single';
+  const MACHINE_TRANSLATION_ENDPOINT = '';
   const MACHINE_TRANSLATION_SEPARATOR = '__AMPSTOWATT_I18N_SEP__';
   const MACHINE_TRANSLATION_BATCH_LIMIT = 1200;
   const MACHINE_TRANSLATION_CACHE = {};
@@ -101,10 +101,25 @@
     }
   ];
 
-  const RESISTANCE_VALUES = {
-    copper: { 14: 0.002525, 12: 0.001588, 10: 0.000999, 8: 0.000628, 6: 0.000395 },
-    aluminum: { 14: 0.00408, 12: 0.00256, 10: 0.00161, 8: 0.00101, 6: 0.00064 }
-  };
+  const WIRE_DATA = [
+    { size: '14 AWG', key: '14', copper: 2.525, aluminum: 4.17, ampacity: 15 },
+    { size: '12 AWG', key: '12', copper: 1.588, aluminum: 2.62, ampacity: 20 },
+    { size: '10 AWG', key: '10', copper: 0.999, aluminum: 1.65, ampacity: 30 },
+    { size: '8 AWG', key: '8', copper: 0.628, aluminum: 1.04, ampacity: 40 },
+    { size: '6 AWG', key: '6', copper: 0.395, aluminum: 0.653, ampacity: 55 },
+    { size: '4 AWG', key: '4', copper: 0.2485, aluminum: 0.410, ampacity: 70 },
+    { size: '2 AWG', key: '2', copper: 0.1563, aluminum: 0.258, ampacity: 95 },
+    { size: '1/0 AWG', key: '1/0', copper: 0.0983, aluminum: 0.162, ampacity: 125 },
+    { size: '2/0 AWG', key: '2/0', copper: 0.0779, aluminum: 0.129, ampacity: 145 },
+    { size: '3/0 AWG', key: '3/0', copper: 0.0618, aluminum: 0.102, ampacity: 165 },
+    { size: '4/0 AWG', key: '4/0', copper: 0.0490, aluminum: 0.0808, ampacity: 195 }
+  ];
+
+  const RESISTANCE_VALUES = WIRE_DATA.reduce((values, wire) => {
+    values.copper[wire.key] = wire.copper;
+    values.aluminum[wire.key] = wire.aluminum;
+    return values;
+  }, { copper: {}, aluminum: {} });
 
   // ===== INITIALIZATION =====
 
@@ -159,9 +174,9 @@
       'premium-type', 'premium-watts', 'premium-volts', 'premium-freq', 'premium-pf', 'premium-efficiency',
       'ah-amps', 'ah-volts', 'ah-hours', 'ah-eff', 'ah-type',
       'va-amps', 'va-volts', 'va-type',
-      'vd-amps', 'vd-volts', 'vd-dist', 'vd-gauge', 'vd-material',
+      'vd-amps', 'vd-volts', 'vd-dist', 'vd-gauge', 'vd-material', 'vd-system', 'vd-distance-unit',
       'pf-watts', 'pf-va', 'pf-volts',
-      'wg-amps', 'wg-volts', 'wg-temp', 'wg-install'
+      'wg-amps', 'wg-volts', 'wg-temp', 'wg-install', 'wg-material', 'wg-system', 'wg-dist', 'wg-distance-unit', 'wg-drop'
     ];
 
     liveIds.forEach(id => {
@@ -514,7 +529,7 @@
 
     container.innerHTML = FAQ_DATA.map((f, i) =>
       `<div class="faq-item" role="listitem">
-        <button class="faq-q" aria-expanded="false" aria-controls="faq-answer-${i}">
+        <button class="faq-q" id="faq-question-${i}" aria-expanded="false" aria-controls="faq-answer-${i}">
           <span>${f.q}</span>
           <span class="faq-icon" aria-hidden="true">+</span>
         </button>
@@ -1006,25 +1021,41 @@
   // ===== TOOL: VOLTAGE DROP =====
 
   function calcVoltageDrop() {
-    const a = parseFloat(document.getElementById('vd-amps').value);
-    const v = parseFloat(document.getElementById('vd-volts').value);
-    const d = parseFloat(document.getElementById('vd-dist').value);
-    const g = document.getElementById('vd-gauge').value;
-    const m = document.getElementById('vd-material').value;
+    const ampsInput = document.getElementById('vd-amps');
+    const voltsInput = document.getElementById('vd-volts');
+    const distanceInput = document.getElementById('vd-dist');
+    const gaugeInput = document.getElementById('vd-gauge');
+    const materialInput = document.getElementById('vd-material');
+    if (!ampsInput || !voltsInput || !distanceInput || !gaugeInput || !materialInput) return;
 
-    if (!a || !v || !d || a <= 0 || v <= 0 || d <= 0) return;
+    const a = parseFloat(ampsInput.value);
+    const v = parseFloat(voltsInput.value);
+    const rawDistance = parseFloat(distanceInput.value);
+    const g = gaugeInput.value;
+    const m = materialInput.value;
+    const system = (document.getElementById('vd-system') || {}).value || 'dc';
+    const distanceUnit = (document.getElementById('vd-distance-unit') || {}).value || 'ft';
 
-    const resistance = RESISTANCE_VALUES[m][g] || 0.001588;
-    const drop = 2 * a * resistance * d;
+    if (!a || !v || !rawDistance || a <= 0 || v <= 0 || rawDistance <= 0) return;
 
-    document.getElementById('vd-drop').textContent = drop.toFixed(3);
-    document.getElementById('vd-pct').textContent = ((drop / v) * 100).toFixed(2);
-    document.getElementById('vd-end').textContent = (v - drop).toFixed(1);
+    const distanceFeet = distanceUnit === 'm' ? rawDistance * 3.28084 : rawDistance;
+    const resistance = (RESISTANCE_VALUES[m] && RESISTANCE_VALUES[m][g]) || RESISTANCE_VALUES.copper['12'];
+    const multiplier = system === 'ac3' ? Math.sqrt(3) : 2;
+    const drop = multiplier * distanceFeet * a * resistance / 1000;
+    const pct = (drop / v) * 100;
+    const endVoltage = v - drop;
+
+    setText('vd-drop', drop.toFixed(3));
+    setText('vd-pct', pct.toFixed(2));
+    setText('vd-end', endVoltage.toFixed(1));
+    setText('vd-loss-watts', (drop * a).toFixed(2));
+    setText('vd-formula', (system === 'ac3' ? 'Vdrop = sqrt(3) x L x I x R / 1000' : 'Vdrop = 2 x L x I x R / 1000'));
     setText('vd-visual-amps', a.toFixed(2) + ' A');
     setText('vd-visual-volts', v.toFixed(1) + ' V');
     setText('vd-visual-drop', drop.toFixed(3) + ' V');
     setText('vd-diagram-drop', drop.toFixed(2) + ' V drop');
-    document.getElementById('vd-result').classList.add('show');
+    const result = document.getElementById('vd-result');
+    if (result) result.classList.add('show');
   }
 
   window.calcVoltageDrop = calcVoltageDrop;
@@ -1056,10 +1087,19 @@
   // ===== TOOL: WIRE GAUGE =====
 
   function calcWireGauge() {
-    const a = parseFloat(document.getElementById('wg-amps').value);
-    const v = parseFloat(document.getElementById('wg-volts').value);
-    const temp = parseFloat(document.getElementById('wg-temp').value);
-    const inst = document.getElementById('wg-install').value;
+    const ampsInput = document.getElementById('wg-amps');
+    const voltsInput = document.getElementById('wg-volts');
+    if (!ampsInput || !voltsInput) return;
+
+    const a = parseFloat(ampsInput.value);
+    const v = parseFloat(voltsInput.value);
+    const temp = parseFloat((document.getElementById('wg-temp') || {}).value || '30');
+    const inst = (document.getElementById('wg-install') || {}).value || 'open';
+    const material = (document.getElementById('wg-material') || {}).value || 'copper';
+    const system = (document.getElementById('wg-system') || {}).value || 'dc';
+    const rawDistance = parseFloat((document.getElementById('wg-dist') || {}).value || '0');
+    const distanceUnit = (document.getElementById('wg-distance-unit') || {}).value || 'ft';
+    const allowedDrop = parseFloat((document.getElementById('wg-drop') || {}).value || '3');
 
     if (!a || !v || a <= 0 || v <= 0) return;
 
@@ -1067,25 +1107,37 @@
     if (temp > 30) derate *= (1 - (temp - 30) * 0.005);
     if (inst === 'conduit') derate *= 0.8;
     if (inst === 'buried') derate *= 0.7;
+    derate = Math.max(derate, 0.35);
 
     const adjA = a / derate;
-    let g;
+    const distanceFeet = distanceUnit === 'm' ? rawDistance * 3.28084 : rawDistance;
+    const multiplier = system === 'ac3' ? Math.sqrt(3) : 2;
+    const maxDropVolts = v * (allowedDrop / 100);
 
-    if (adjA <= 15) g = '14 AWG';
-    else if (adjA <= 20) g = '12 AWG';
-    else if (adjA <= 30) g = '10 AWG';
-    else if (adjA <= 40) g = '8 AWG';
-    else if (adjA <= 55) g = '6 AWG';
-    else if (adjA <= 70) g = '4 AWG';
-    else g = '2 AWG+';
+    const selected = WIRE_DATA.find((wire) => {
+      if (wire.ampacity < adjA) return false;
+      if (!distanceFeet || !allowedDrop) return true;
+      const resistance = wire[material] || wire.copper;
+      const drop = multiplier * distanceFeet * a * resistance / 1000;
+      return drop <= maxDropVolts;
+    }) || WIRE_DATA[WIRE_DATA.length - 1];
 
-    document.getElementById('wg-size').textContent = g;
-    document.getElementById('wg-maxw').textContent = (a * v).toFixed(0);
+    const selectedResistance = selected[material] || selected.copper;
+    const selectedDrop = distanceFeet ? multiplier * distanceFeet * a * selectedResistance / 1000 : 0;
+    const selectedPct = selectedDrop ? (selectedDrop / v) * 100 : 0;
+    const g = selected.size;
+
+    setText('wg-size', g);
+    setText('wg-maxw', (a * v).toFixed(0));
+    setText('wg-drop-result', selectedDrop.toFixed(3));
+    setText('wg-drop-pct', selectedPct.toFixed(2));
+    setText('wg-ampacity', selected.ampacity + ' A');
     setText('wg-visual-amps', a.toFixed(2) + ' A');
     setText('wg-visual-volts', v.toFixed(1) + ' V');
     setText('wg-visual-size', g);
     setText('wg-diagram-size', g);
-    document.getElementById('wg-result').classList.add('show');
+    const result = document.getElementById('wg-result');
+    if (result) result.classList.add('show');
   }
 
   window.calcWireGauge = calcWireGauge;
@@ -1496,201 +1548,6 @@
     document.querySelectorAll('.premium-nav a').forEach((link) => {
       link.addEventListener('click', () => {
         nav.classList.remove('is-open');
-    ['ja', 'Japanese'],
-    ['ko', 'Korean'],
-    ['ms', 'Malay'],
-    ['pl', 'Polish'],
-    ['id', 'Indonesian'],
-    ['ar', 'Arabic'],
-    ['bg', 'Bulgarian'],
-    ['tr', 'Turkish'],
-    ['sv', 'Swedish'],
-    ['ur', 'Urdu']
-  ];
-
-  function getSavedLanguage() {
-    localStorage.removeItem('siteLanguage');
-    localStorage.removeItem('preferredLanguage');
-    return 'en';
-  }
-
-  function getLanguageName(code) {
-    const match = languages.find((item) => item[0] === code);
-    return match ? match[1] : 'English';
-  }
-
-  function applyDirection(code) {
-    document.documentElement.dir = ['ar', 'ur'].includes(code) ? 'rtl' : 'ltr';
-  }
-
-  function setLanguage(code, shouldReload) {
-    applyDirection(code);
-    if (window.switchLanguage) window.switchLanguage(code);
-    document.querySelectorAll('.premium-language-option').forEach((button) => {
-      button.classList.toggle('is-active', button.dataset.lang === code);
-      button.setAttribute('aria-pressed', String(button.dataset.lang === code));
-    });
-    const label = document.querySelector('.premium-language-current');
-    if (label) label.textContent = getLanguageName(code);
-  }
-
-  function initPremiumLanguageSelector() {
-    const headerInner = document.querySelector('.premium-header-inner');
-    const menuButton = document.querySelector('.premium-menu-button');
-    if (!headerInner || document.querySelector('.premium-language-shell')) return;
-
-    const savedLanguage = getSavedLanguage();
-    const shell = document.createElement('div');
-    shell.className = 'premium-language-shell';
-    shell.innerHTML = `
-      <button class="premium-language-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-label="Choose website language">
-        <span class="premium-language-icon" aria-hidden="true">Aa</span>
-        <span class="premium-language-current">${getLanguageName(savedLanguage)}</span>
-      </button>
-      <div class="premium-language-menu" role="menu" aria-label="Website language options">
-        <div class="premium-language-title">Choose Language</div>
-        <div class="premium-language-grid">
-          ${languages.map(([code, name]) => `<button class="premium-language-option${code === savedLanguage ? ' is-active' : ''}" type="button" data-lang="${code}" role="menuitemradio" aria-pressed="${code === savedLanguage}">${name}</button>`).join('')}
-        </div>
-      </div>
-    `;
-
-    if (menuButton) {
-      headerInner.insertBefore(shell, menuButton);
-    } else {
-      headerInner.appendChild(shell);
-    }
-
-    const toggle = shell.querySelector('.premium-language-toggle');
-    const panel = shell.querySelector('.premium-language-menu');
-
-    toggle.addEventListener('click', () => {
-      const isOpen = shell.classList.toggle('is-open');
-      toggle.setAttribute('aria-expanded', String(isOpen));
-    });
-
-    shell.querySelectorAll('.premium-language-option').forEach((button) => {
-      button.addEventListener('click', () => {
-        setLanguage(button.dataset.lang, true);
-        shell.classList.remove('is-open');
-        toggle.setAttribute('aria-expanded', 'false');
-      });
-    });
-
-    document.addEventListener('click', (event) => {
-      if (!shell.contains(event.target)) {
-        shell.classList.remove('is-open');
-        toggle.setAttribute('aria-expanded', 'false');
-      }
-    });
-
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') {
-        shell.classList.remove('is-open');
-        toggle.setAttribute('aria-expanded', 'false');
-      }
-    });
-
-    panel.addEventListener('click', (event) => event.stopPropagation());
-    applyDirection(savedLanguage);
-    if (savedLanguage !== 'en' && window.switchLanguage) window.switchLanguage(savedLanguage);
-  }
-
-  function initPremiumFooterLanguages() {
-    const footerInner = document.querySelector('.premium-footer-inner');
-    if (!footerInner || document.querySelector('.premium-footer-language')) return;
-
-    const savedLanguage = getSavedLanguage();
-    const section = document.createElement('section');
-    section.className = 'premium-footer-language';
-    section.setAttribute('aria-label', 'Website language options');
-    section.innerHTML = `
-      <div class="footer-section-heading">Languages</div>
-      <p>Choose a language for the website.</p>
-      <div class="premium-footer-language-grid">
-        ${languages.map(([code, name]) => `<button class="premium-language-option${code === savedLanguage ? ' is-active' : ''}" type="button" data-lang="${code}" aria-pressed="${code === savedLanguage}">${name}</button>`).join('')}
-      </div>
-    `;
-    footerInner.appendChild(section);
-
-    section.querySelectorAll('.premium-language-option').forEach((button) => {
-      button.addEventListener('click', () => setLanguage(button.dataset.lang, true));
-    });
-  }
-
-  function initPremiumBackToTop() {
-    if (document.querySelector('.premium-back-to-top')) return;
-
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'premium-back-to-top';
-    button.setAttribute('aria-label', 'Back to top');
-    button.innerHTML = '<span aria-hidden="true">^</span><strong>Top</strong>';
-    document.body.appendChild(button);
-
-    const updateButton = () => {
-      button.classList.toggle('is-visible', window.scrollY > 420);
-    };
-
-    button.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    window.addEventListener('scroll', updateButton, { passive: true });
-    updateButton();
-  }
-
-  function initPremiumSocialShare() {
-    // Contact & Trust and DMCA sections removed
-    return;
-  }
-
-  function runWhenIdle(callback) {
-    if ('requestIdleCallback' in window) {
-      window.requestIdleCallback(callback, { timeout: 1600 });
-      return;
-    }
-    window.setTimeout(callback, 350);
-  }
-
-  function initPremiumEnhancements() {
-    initPremiumLanguageSelector();
-    initPremiumSocialShare();
-    runWhenIdle(() => {
-      initPremiumFooterLanguages();
-      initPremiumBackToTop();
-    });
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initPremiumEnhancements);
-  } else {
-    initPremiumEnhancements();
-  }
-})();
-
-// Premium universal navigation controller
-(function() {
-  function initPremiumNavigation() {
-    const button = document.querySelector('.premium-menu-button');
-    const nav = document.querySelector('.premium-nav');
-    if (!button || !nav) return;
-
-    button.addEventListener('click', () => {
-      const isOpen = nav.classList.toggle('is-open');
-      button.setAttribute('aria-expanded', String(isOpen));
-    });
-
-    document.addEventListener('click', (event) => {
-      if (!nav.contains(event.target) && !button.contains(event.target)) {
-        nav.classList.remove('is-open');
-        button.setAttribute('aria-expanded', 'false');
-      }
-    });
-
-    document.querySelectorAll('.premium-nav a').forEach((link) => {
-      link.addEventListener('click', () => {
-        nav.classList.remove('is-open');
         button.setAttribute('aria-expanded', 'false');
       });
     });
@@ -1700,6 +1557,206 @@
     document.addEventListener('DOMContentLoaded', initPremiumNavigation);
   } else {
     initPremiumNavigation();
+  }
+})();
+
+// Universal calculator controller for generated lx-tool widgets.
+(function() {
+  function suffixFromTool(tool) {
+    const id = tool.id || '';
+    return id === 'lux-tool' ? '' : id.replace(/^lux-tool-?/, '');
+  }
+
+  function scopedId(base, suffix) {
+    return suffix ? base + '-' + suffix : base;
+  }
+
+  function getEl(base, suffix) {
+    return document.getElementById(scopedId(base, suffix));
+  }
+
+  function getMode(tool, suffix) {
+    if (!tool.dataset.lxMode) {
+      const unit = getEl('lx-power-unit', suffix);
+      tool.dataset.lxMode = unit && ['kw', 'w'].includes(unit.value) ? 'kw2amps' : 'amps2kw';
+    }
+    return tool.dataset.lxMode;
+  }
+
+  function setTextById(base, suffix, value) {
+    const node = getEl(base, suffix);
+    if (node) node.innerText = value;
+  }
+
+  function updatePFGradient(tool) {
+    const suffix = suffixFromTool(tool);
+    const slider = getEl('lx-pf-slider', suffix);
+    if (!slider) return;
+    const min = parseFloat(slider.min) || 0;
+    const max = parseFloat(slider.max) || 1;
+    const val = ((parseFloat(slider.value) - min) / (max - min)) * 100;
+    slider.style.background = `linear-gradient(90deg, #d97706 0%, #f59e0b ${val}%, #1f2937 ${val}%, #1f2937 100%)`;
+  }
+
+  function setVType(tool, type) {
+    const suffix = suffixFromTool(tool);
+    const hidden = getEl('lx-vtype', suffix);
+    const vll = getEl('btn-vll', suffix);
+    const vln = getEl('btn-vln', suffix);
+    if (hidden) hidden.value = type;
+    if (vll) vll.className = 'lx-toggle-btn' + (type === 'vll' ? ' active' : '');
+    if (vln) vln.className = 'lx-toggle-btn' + (type === 'vln' ? ' active' : '');
+    updateCalc(tool);
+  }
+
+  function syncModeLabels(tool) {
+    const suffix = suffixFromTool(tool);
+    const mode = getMode(tool, suffix);
+    const unitSelect = getEl('lx-power-unit', suffix);
+    const isPowerInput = mode === 'kw2amps';
+
+    setTextById('lx-mode-text', suffix, isPowerInput ? 'AMPS TO WATTS' : 'WATTS TO AMPS');
+    setTextById('lx-mode-btn', suffix, isPowerInput ? 'Switch to Watts to Amps' : 'Switch to Amps to Watts');
+    setTextById('lbl-power', suffix, isPowerInput ? 'Power' : 'Current');
+    setTextById('lbl-res1', suffix, isPowerInput ? 'Current (amps)' : 'Power (kW)');
+    setTextById('lbl-res2', suffix, isPowerInput ? 'Current (milliamps)' : 'Power (W)');
+    setTextById('lbl-unit1', suffix, isPowerInput ? 'A' : 'kW');
+    setTextById('lbl-unit2', suffix, isPowerInput ? 'mA' : 'W');
+
+    const input = getEl('lx-power', suffix);
+    if (input) input.placeholder = isPowerInput ? 'Enter power' : 'Enter current';
+    if (unitSelect) {
+      const desired = isPowerInput
+        ? '<option value="kw">kW</option><option value="w">W</option>'
+        : '<option value="a">A</option><option value="ma">mA</option>';
+      if (unitSelect.innerHTML !== desired) unitSelect.innerHTML = desired;
+    }
+  }
+
+  function toggleMode(tool) {
+    const suffix = suffixFromTool(tool);
+    tool.dataset.lxMode = getMode(tool, suffix) === 'kw2amps' ? 'amps2kw' : 'kw2amps';
+    syncModeLabels(tool);
+    updateCalc(tool);
+  }
+
+  function updateCalc(tool) {
+    const suffix = suffixFromTool(tool);
+    const type = (getEl('lx-type', suffix) || {}).value || 'dc';
+    const vtypeContainer = getEl('lx-vtype-container', suffix);
+    const pfContainer = getEl('lx-pf-container', suffix);
+    if (vtypeContainer) vtypeContainer.style.display = type === 'ac3' ? 'flex' : 'none';
+    if (pfContainer) pfContainer.style.display = type === 'dc' ? 'none' : 'flex';
+
+    syncModeLabels(tool);
+    updatePFGradient(tool);
+
+    const powerInput = getEl('lx-power', suffix);
+    const unitSelect = getEl('lx-power-unit', suffix);
+    const voltsInput = getEl('lx-volts', suffix);
+    const decInput = getEl('lx-dec', suffix);
+    const resultOne = getEl('res-amps', suffix);
+    const resultTwo = getEl('res-ma', suffix);
+    if (!powerInput || !unitSelect || !voltsInput || !resultOne || !resultTwo) return;
+
+    const value = parseFloat(powerInput.value) || 0;
+    const volts = parseFloat(voltsInput.value) || 0;
+    const unit = unitSelect.value;
+    const pfInput = getEl('lx-pf-input', suffix);
+    const pf = pfInput ? (parseFloat(pfInput.value) || 1) : 1;
+    const vtype = ((getEl('lx-vtype', suffix) || {}).value) || 'vll';
+    const decimals = Math.max(0, Math.min(8, parseInt((decInput || {}).value || '4', 10)));
+    const mode = getMode(tool, suffix);
+    let result1 = 0;
+    let result2 = 0;
+
+    if (mode === 'kw2amps') {
+      const watts = unit === 'kw' ? value * 1000 : value;
+      let amps = 0;
+      if (volts > 0) {
+        if (type === 'dc') amps = watts / volts;
+        else if (type === 'ac1') amps = watts / (volts * pf);
+        else amps = watts / ((vtype === 'vll' ? Math.sqrt(3) : 3) * volts * pf);
+      }
+      result1 = amps;
+      result2 = amps * 1000;
+    } else {
+      const amps = unit === 'a' ? value : value / 1000;
+      let watts = 0;
+      if (type === 'dc') watts = amps * volts;
+      else if (type === 'ac1') watts = amps * volts * pf;
+      else watts = amps * (vtype === 'vll' ? Math.sqrt(3) : 3) * volts * pf;
+      result1 = watts / 1000;
+      result2 = watts;
+    }
+
+    resultOne.value = result1.toFixed(decimals);
+    resultTwo.value = result2.toFixed(decimals);
+    setTextById('lx-mirror-val', suffix, result1.toFixed(decimals) + (mode === 'kw2amps' ? ' A' : ' kW'));
+  }
+
+  function resetCalc(tool) {
+    const suffix = suffixFromTool(tool);
+    const input = getEl('lx-power', suffix);
+    const resultOne = getEl('res-amps', suffix);
+    const resultTwo = getEl('res-ma', suffix);
+    if (input) input.value = '';
+    if (resultOne) resultOne.value = '';
+    if (resultTwo) resultTwo.value = '';
+    setTextById('lx-mirror-val', suffix, getMode(tool, suffix) === 'kw2amps' ? 'A' : 'kW');
+  }
+
+  function changeDecimals(tool, delta) {
+    const suffix = suffixFromTool(tool);
+    const input = getEl('lx-dec', suffix);
+    if (!input) return;
+    input.value = String(Math.max(0, Math.min(8, (parseInt(input.value, 10) || 0) + delta)));
+    updateCalc(tool);
+  }
+
+  function bindTool(tool) {
+    if (tool.classList.contains('specialty-calculator')) return;
+    syncModeLabels(tool);
+    updateCalc(tool);
+  }
+
+  document.addEventListener('input', (event) => {
+    const tool = event.target.closest('.lx-tool');
+    if (!tool || tool.classList.contains('specialty-calculator')) return;
+    const suffix = suffixFromTool(tool);
+    if (event.target.id === scopedId('lx-pf-slider', suffix)) {
+      const pfInput = getEl('lx-pf-input', suffix);
+      if (pfInput) pfInput.value = event.target.value;
+    }
+    if (event.target.id === scopedId('lx-pf-input', suffix)) {
+      const pfSlider = getEl('lx-pf-slider', suffix);
+      if (pfSlider) pfSlider.value = event.target.value;
+    }
+    updateCalc(tool);
+  });
+
+  document.addEventListener('change', (event) => {
+    const tool = event.target.closest('.lx-tool');
+    if (tool && !tool.classList.contains('specialty-calculator')) updateCalc(tool);
+  });
+
+  document.addEventListener('click', (event) => {
+    const tool = event.target.closest('.lx-tool');
+    if (!tool || tool.classList.contains('specialty-calculator')) return;
+    const button = event.target.closest('button');
+    if (!button) return;
+
+    if (button.id.indexOf('btn-vll') === 0) setVType(tool, 'vll');
+    else if (button.id.indexOf('btn-vln') === 0) setVType(tool, 'vln');
+    else if (button.id.indexOf('lx-mode-btn') === 0) toggleMode(tool);
+    else if (button.classList.contains('lx-btn-reset')) resetCalc(tool);
+    else if (button.classList.contains('lx-dec-btn')) changeDecimals(tool, button.classList.contains('lx-cyan-bg') ? 1 : -1);
+  });
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => document.querySelectorAll('.lx-tool').forEach(bindTool));
+  } else {
+    document.querySelectorAll('.lx-tool').forEach(bindTool);
   }
 })();
 
