@@ -535,18 +535,26 @@
 
   function toggleFaq(btn) {
     const ans = btn.nextElementSibling;
+    const icon = btn.querySelector('.faq-icon');
     const isOpen = ans.classList.contains('open');
 
     // Close all FAQs
-    document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
+    document.querySelectorAll('.faq-a').forEach(a => {
+      a.classList.remove('open');
+      a.style.display = 'none';
+    });
     document.querySelectorAll('.faq-q').forEach(b => {
       b.setAttribute('aria-expanded', 'false');
+      const i = b.querySelector('.faq-icon');
+      if (i) i.textContent = '+';
     });
 
     // Open clicked FAQ if wasn't open
     if (!isOpen) {
       ans.classList.add('open');
+      ans.style.display = 'block';
       btn.setAttribute('aria-expanded', 'true');
+      if (icon) icon.textContent = '−';
     }
   }
 
@@ -1488,6 +1496,201 @@
     document.querySelectorAll('.premium-nav a').forEach((link) => {
       link.addEventListener('click', () => {
         nav.classList.remove('is-open');
+    ['ja', 'Japanese'],
+    ['ko', 'Korean'],
+    ['ms', 'Malay'],
+    ['pl', 'Polish'],
+    ['id', 'Indonesian'],
+    ['ar', 'Arabic'],
+    ['bg', 'Bulgarian'],
+    ['tr', 'Turkish'],
+    ['sv', 'Swedish'],
+    ['ur', 'Urdu']
+  ];
+
+  function getSavedLanguage() {
+    localStorage.removeItem('siteLanguage');
+    localStorage.removeItem('preferredLanguage');
+    return 'en';
+  }
+
+  function getLanguageName(code) {
+    const match = languages.find((item) => item[0] === code);
+    return match ? match[1] : 'English';
+  }
+
+  function applyDirection(code) {
+    document.documentElement.dir = ['ar', 'ur'].includes(code) ? 'rtl' : 'ltr';
+  }
+
+  function setLanguage(code, shouldReload) {
+    applyDirection(code);
+    if (window.switchLanguage) window.switchLanguage(code);
+    document.querySelectorAll('.premium-language-option').forEach((button) => {
+      button.classList.toggle('is-active', button.dataset.lang === code);
+      button.setAttribute('aria-pressed', String(button.dataset.lang === code));
+    });
+    const label = document.querySelector('.premium-language-current');
+    if (label) label.textContent = getLanguageName(code);
+  }
+
+  function initPremiumLanguageSelector() {
+    const headerInner = document.querySelector('.premium-header-inner');
+    const menuButton = document.querySelector('.premium-menu-button');
+    if (!headerInner || document.querySelector('.premium-language-shell')) return;
+
+    const savedLanguage = getSavedLanguage();
+    const shell = document.createElement('div');
+    shell.className = 'premium-language-shell';
+    shell.innerHTML = `
+      <button class="premium-language-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-label="Choose website language">
+        <span class="premium-language-icon" aria-hidden="true">Aa</span>
+        <span class="premium-language-current">${getLanguageName(savedLanguage)}</span>
+      </button>
+      <div class="premium-language-menu" role="menu" aria-label="Website language options">
+        <div class="premium-language-title">Choose Language</div>
+        <div class="premium-language-grid">
+          ${languages.map(([code, name]) => `<button class="premium-language-option${code === savedLanguage ? ' is-active' : ''}" type="button" data-lang="${code}" role="menuitemradio" aria-pressed="${code === savedLanguage}">${name}</button>`).join('')}
+        </div>
+      </div>
+    `;
+
+    if (menuButton) {
+      headerInner.insertBefore(shell, menuButton);
+    } else {
+      headerInner.appendChild(shell);
+    }
+
+    const toggle = shell.querySelector('.premium-language-toggle');
+    const panel = shell.querySelector('.premium-language-menu');
+
+    toggle.addEventListener('click', () => {
+      const isOpen = shell.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    shell.querySelectorAll('.premium-language-option').forEach((button) => {
+      button.addEventListener('click', () => {
+        setLanguage(button.dataset.lang, true);
+        shell.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!shell.contains(event.target)) {
+        shell.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        shell.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    panel.addEventListener('click', (event) => event.stopPropagation());
+    applyDirection(savedLanguage);
+    if (savedLanguage !== 'en' && window.switchLanguage) window.switchLanguage(savedLanguage);
+  }
+
+  function initPremiumFooterLanguages() {
+    const footerInner = document.querySelector('.premium-footer-inner');
+    if (!footerInner || document.querySelector('.premium-footer-language')) return;
+
+    const savedLanguage = getSavedLanguage();
+    const section = document.createElement('section');
+    section.className = 'premium-footer-language';
+    section.setAttribute('aria-label', 'Website language options');
+    section.innerHTML = `
+      <div class="footer-section-heading">Languages</div>
+      <p>Choose a language for the website.</p>
+      <div class="premium-footer-language-grid">
+        ${languages.map(([code, name]) => `<button class="premium-language-option${code === savedLanguage ? ' is-active' : ''}" type="button" data-lang="${code}" aria-pressed="${code === savedLanguage}">${name}</button>`).join('')}
+      </div>
+    `;
+    footerInner.appendChild(section);
+
+    section.querySelectorAll('.premium-language-option').forEach((button) => {
+      button.addEventListener('click', () => setLanguage(button.dataset.lang, true));
+    });
+  }
+
+  function initPremiumBackToTop() {
+    if (document.querySelector('.premium-back-to-top')) return;
+
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'premium-back-to-top';
+    button.setAttribute('aria-label', 'Back to top');
+    button.innerHTML = '<span aria-hidden="true">^</span><strong>Top</strong>';
+    document.body.appendChild(button);
+
+    const updateButton = () => {
+      button.classList.toggle('is-visible', window.scrollY > 420);
+    };
+
+    button.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    window.addEventListener('scroll', updateButton, { passive: true });
+    updateButton();
+  }
+
+  function initPremiumSocialShare() {
+    // Contact & Trust and DMCA sections removed
+    return;
+  }
+
+  function runWhenIdle(callback) {
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(callback, { timeout: 1600 });
+      return;
+    }
+    window.setTimeout(callback, 350);
+  }
+
+  function initPremiumEnhancements() {
+    initPremiumLanguageSelector();
+    initPremiumSocialShare();
+    runWhenIdle(() => {
+      initPremiumFooterLanguages();
+      initPremiumBackToTop();
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPremiumEnhancements);
+  } else {
+    initPremiumEnhancements();
+  }
+})();
+
+// Premium universal navigation controller
+(function() {
+  function initPremiumNavigation() {
+    const button = document.querySelector('.premium-menu-button');
+    const nav = document.querySelector('.premium-nav');
+    if (!button || !nav) return;
+
+    button.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('is-open');
+      button.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!nav.contains(event.target) && !button.contains(event.target)) {
+        nav.classList.remove('is-open');
+        button.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    document.querySelectorAll('.premium-nav a').forEach((link) => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('is-open');
         button.setAttribute('aria-expanded', 'false');
       });
     });
@@ -1513,5 +1716,28 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   btn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+
+// URGENT FIX: Device Card Logic
+document.addEventListener('DOMContentLoaded', () => {
+  const deviceCards = document.querySelectorAll('.device-grid-card');
+  deviceCards.forEach(card => {
+    card.addEventListener('click', () => {
+      const watts = card.getAttribute('data-watts');
+      if (watts) {
+        // Attempt to find calculator power input (kw2amps mode or general input)
+        // Usually power inputs have IDs like 'lx-power-25_0'
+        const powerInput = document.querySelector('input[placeholder*="power"], input[id^="lx-power"]');
+        if(powerInput) {
+           powerInput.value = watts;
+           // Trigger input event to update calculations
+           powerInput.dispatchEvent(new Event('input'));
+           // Scroll to calculator
+           powerInput.scrollIntoView({behavior: 'smooth', block: 'center'});
+        }
+      }
+    });
   });
 });

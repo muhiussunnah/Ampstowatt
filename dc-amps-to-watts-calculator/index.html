@@ -444,24 +444,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
       <aside class="visual-panel circuit-visual-panel tool-page-visual" aria-label="DC Amps to Watts Calculator diagram">
         <div class="tool-page-label">Technical Diagram</div>
-        <svg viewBox="0 0 560 240" role="img" aria-label="DC amps to watts electrical flow diagram">
-          <defs>
-            <marker id="arrow-dc-amps-to-watts-calculator" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
-              <path d="M0,0 L0,6 L9,3 z" fill="#1d4ed8"></path>
-            </marker>
-          </defs>
-          <rect x="28" y="72" width="118" height="72" rx="10" class="tool-svg-source"></rect>
-          <rect x="214" y="55" width="138" height="106" rx="12" class="tool-svg-core"></rect>
-          <rect x="418" y="72" width="114" height="72" rx="10" class="tool-svg-output"></rect>
-          <path d="M146 108 H214" class="tool-svg-wire" marker-end="url(#arrow-dc-amps-to-watts-calculator)"></path>
-          <path d="M352 108 H418" class="tool-svg-wire" marker-end="url(#arrow-dc-amps-to-watts-calculator)"></path>
-          <text x="87" y="100">CURRENT</text>
-          <text x="87" y="124">Amps</text>
-          <text x="283" y="94">W = A x V</text>
-          <text x="283" y="120">DC Formula</text>
-          <text x="475" y="100">POWER</text>
-          <text x="475" y="124">Watts</text>
-        </svg>
+        <div class="svg-visual-wrapper">
+          <svg viewBox="0 0 560 240" role="img" aria-label="DC amps to watts electrical flow diagram">
+            <defs>
+              <marker id="arrow-dc-amps-to-watts-calculator" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L0,6 L9,3 z" fill="#1d4ed8"></path>
+              </marker>
+            </defs>
+            <rect x="28" y="72" width="118" height="72" rx="10" class="tool-svg-source"></rect>
+            <rect x="214" y="55" width="138" height="106" rx="12" class="tool-svg-core"></rect>
+            <rect x="418" y="72" width="114" height="72" rx="10" class="tool-svg-output"></rect>
+            <path d="M146 108 H214" class="tool-svg-wire" marker-end="url(#arrow-dc-amps-to-watts-calculator)"></path>
+            <path d="M352 108 H418" class="tool-svg-wire" marker-end="url(#arrow-dc-amps-to-watts-calculator)"></path>
+            <text x="87" y="100">CURRENT</text>
+            <text x="87" y="124">Amps</text>
+            <text x="283" y="94">W = A x V</text>
+            <text x="283" y="120">DC Formula</text>
+            <text x="475" y="100">POWER</text>
+            <text x="475" y="124">Watts</text>
+          </svg>
+        </div>
         <div class="topic-mini-card-grid">
           <span><b>12V Systems</b><code>10 A x 12 V = 120 W</code></span>
           <span><b>24V Systems</b><code>10 A x 24 V = 240 W</code></span>
@@ -469,6 +471,52 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       </aside>
           </div>
+    </section>
+
+    <!-- ===== DEVICE DATABASE SECTION ===== -->
+    <section class="devices-section" aria-label="Device Database">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">LOAD</div>
+        <div class="section-heading">Common Device Power Ratings</div>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+      <article class="card devices-card">
+        <p class="content-p" style="margin-bottom:12px;">Click any device to load its typical values into the DC Amps to Watts Calculator above.</p>
+        <div class="device-grid-container" id="device-grid" role="list" aria-label="Common device power ratings">
+          <div class="device-grid-card" data-watts="9">
+            <span class="device-grid-title">LED Bulb</span>
+            <span class="device-grid-val">9 W</span>
+          </div>
+          <div class="device-grid-card" data-watts="65">
+            <span class="device-grid-title">Laptop</span>
+            <span class="device-grid-val">65 W</span>
+          </div>
+          <div class="device-grid-card" data-watts="120">
+            <span class="device-grid-title">55" TV</span>
+            <span class="device-grid-val">120 W</span>
+          </div>
+          <div class="device-grid-card" data-watts="200">
+            <span class="device-grid-title">Fridge</span>
+            <span class="device-grid-val">200 W</span>
+          </div>
+          <div class="device-grid-card" data-watts="1000">
+            <span class="device-grid-title">Microwave</span>
+            <span class="device-grid-val">1000 W</span>
+          </div>
+          <div class="device-grid-card" data-watts="1800">
+            <span class="device-grid-title">Hair Dryer</span>
+            <span class="device-grid-val">1800 W</span>
+          </div>
+          <div class="device-grid-card" data-watts="2000">
+            <span class="device-grid-title">AC Unit 1.5T</span>
+            <span class="device-grid-val">2000 W</span>
+          </div>
+          <div class="device-grid-card" data-watts="7200">
+            <span class="device-grid-title">EV Charger L2</span>
+            <span class="device-grid-val">7200 W</span>
+          </div>
+        </div>
+      </article>
     </section>
 
     <section class="content-section topical-query-section dc-amps-article topical-query-section" aria-label="DC amps to watts article">

@@ -909,11 +909,11 @@ tbody tr:hover td {
 .topic-mini-card-grid b { color: #00e5ff !important; }
 
 /* Topic SVG Elements */
-.topic-svg-box { fill: rgba(0,229,255,0.06) !important; stroke: rgba(0,229,255,0.25) !important; }
-.topic-svg-box.alt { fill: rgba(245,158,11,0.06) !important; stroke: rgba(245,158,11,0.25) !important; }
-.topic-svg-core { fill: rgba(0,229,255,0.04) !important; stroke: rgba(0,229,255,0.25) !important; }
-.topic-svg-output { fill: rgba(16,185,129,0.06) !important; stroke: rgba(16,185,129,0.25) !important; }
-.topic-svg-wire { stroke: #38bdf8 !important; }
+.topic-svg-box { fill: rgba(0,229,255,0.1) !important; stroke: #00e5ff !important; filter: drop-shadow(0 0 4px rgba(0,229,255,0.5)) !important; }
+.topic-svg-box.alt { fill: rgba(245,158,11,0.1) !important; stroke: #f59e0b !important; filter: drop-shadow(0 0 4px rgba(245,158,11,0.5)) !important; }
+.topic-svg-core { fill: rgba(0,229,255,0.05) !important; stroke: #38bdf8 !important; filter: drop-shadow(0 0 4px rgba(56,189,248,0.5)) !important; }
+.topic-svg-output { fill: rgba(16,185,129,0.1) !important; stroke: #10b981 !important; filter: drop-shadow(0 0 4px rgba(16,185,129,0.5)) !important; }
+.topic-svg-wire { stroke: #38bdf8 !important; filter: drop-shadow(0 0 3px rgba(56,189,248,0.8)) !important; }
 .topic-core-text { fill: #00e5ff !important; }
 .topic-hero-diagram { background: #0f172a !important; border: 1px solid rgba(0,229,255,0.08) !important; }
 
@@ -940,11 +940,11 @@ tbody tr:hover td {
 
 /* Circuit diagram inside SEO section */
 .seo-guideline-circuit { background: transparent !important; }
-.circuit-box { fill: #0f172a !important; stroke: rgba(0,229,255,0.2) !important; }
-.circuit-node { fill: #060b13 !important; stroke: #00e5ff !important; }
-.circuit-wire { stroke: rgba(0,229,255,0.3) !important; }
-.circuit-wire-soft { stroke: rgba(0,229,255,0.12) !important; }
-.circuit-muted { fill: #64748b !important; }
+.circuit-box { fill: rgba(0,229,255,0.1) !important; stroke: #00e5ff !important; filter: drop-shadow(0 0 4px rgba(0,229,255,0.5)) !important; }
+.circuit-node { fill: rgba(0,229,255,0.1) !important; stroke: #00e5ff !important; filter: drop-shadow(0 0 4px rgba(0,229,255,0.5)) !important; }
+.circuit-wire { stroke: #38bdf8 !important; filter: drop-shadow(0 0 3px rgba(56,189,248,0.8)) !important; }
+.circuit-wire-soft { stroke: #0ea5e9 !important; filter: drop-shadow(0 0 3px rgba(14,165,233,0.6)) !important; }
+.circuit-muted { fill: #cbd5e1 !important; text-shadow: 0 0 5px rgba(0,229,255,0.3) !important; }
 .seo-guideline-circuit text { fill: #e2e8f0 !important; }
 
 /* Bar chart */
@@ -971,20 +971,26 @@ tbody tr:hover td {
 .premium-visual-card p { color: #94a3b8 !important; }
 
 /* Premium visual SVG elements */
-.pv-box { fill: #0f172a !important; stroke: rgba(0,229,255,0.15) !important; }
-.pv-core { fill: #060b13 !important; stroke: rgba(0,229,255,0.25) !important; }
-.pv-accent { fill: rgba(0,229,255,0.06) !important; stroke: rgba(0,229,255,0.2) !important; }
-.pv-success { fill: rgba(16,185,129,0.06) !important; stroke: rgba(16,185,129,0.2) !important; }
-.pv-warning { fill: rgba(245,158,11,0.06) !important; stroke: rgba(245,158,11,0.2) !important; }
-.pv-wire { stroke: rgba(0,229,255,0.25) !important; }
-.pv-muted { fill: #64748b !important; }
+.pv-box { fill: rgba(0,229,255,0.1) !important; stroke: #00e5ff !important; filter: drop-shadow(0 0 4px rgba(0,229,255,0.5)) !important; }
+.pv-core { fill: rgba(0,229,255,0.05) !important; stroke: #38bdf8 !important; filter: drop-shadow(0 0 4px rgba(56,189,248,0.5)) !important; }
+.pv-accent { fill: rgba(0,229,255,0.1) !important; stroke: #00e5ff !important; filter: drop-shadow(0 0 4px rgba(0,229,255,0.5)) !important; }
+.pv-success { fill: rgba(16,185,129,0.1) !important; stroke: #10b981 !important; filter: drop-shadow(0 0 4px rgba(16,185,129,0.5)) !important; }
+.pv-warning { fill: rgba(245,158,11,0.1) !important; stroke: #f59e0b !important; filter: drop-shadow(0 0 4px rgba(245,158,11,0.5)) !important; }
+.pv-wire { stroke: #38bdf8 !important; filter: drop-shadow(0 0 3px rgba(56,189,248,0.8)) !important; }
+.pv-muted { fill: #cbd5e1 !important; text-shadow: 0 0 5px rgba(0,229,255,0.3) !important; }
 .premium-visual-card svg text { fill: #e2e8f0 !important; }
 
 /* Tool page SVGs */
-.tool-svg-source { fill: rgba(0,229,255,0.06) !important; stroke: rgba(0,229,255,0.2) !important; }
-.tool-svg-core { fill: rgba(0,229,255,0.04) !important; stroke: rgba(0,229,255,0.25) !important; }
-.tool-svg-output { fill: rgba(16,185,129,0.06) !important; stroke: rgba(16,185,129,0.2) !important; }
-.tool-svg-wire { stroke: #38bdf8 !important; }
+.tool-svg-source { fill: rgba(0,229,255,0.1) !important; stroke: #00e5ff !important; filter: drop-shadow(0 0 4px rgba(0,229,255,0.5)) !important; }
+.tool-svg-core { fill: rgba(0,229,255,0.05) !important; stroke: #38bdf8 !important; filter: drop-shadow(0 0 4px rgba(56,189,248,0.5)) !important; }
+.tool-svg-output { fill: rgba(16,185,129,0.1) !important; stroke: #10b981 !important; filter: drop-shadow(0 0 4px rgba(16,185,129,0.5)) !important; }
+.tool-svg-wire { stroke: #38bdf8 !important; filter: drop-shadow(0 0 3px rgba(56,189,248,0.8)) !important; }
+
+/* Global SVG Overrides for all inline SVGs to match aesthetic */
+.seo-visual-svg rect { fill: rgba(0,229,255,0.06) !important; stroke: #00e5ff !important; filter: drop-shadow(0 0 4px rgba(0,229,255,0.5)) !important; }
+.seo-visual-svg path { stroke: #38bdf8 !important; filter: drop-shadow(0 0 3px rgba(56,189,248,0.8)) !important; }
+.seo-visual-svg circle { fill: rgba(16,185,129,0.1) !important; stroke: #10b981 !important; filter: drop-shadow(0 0 4px rgba(16,185,129,0.5)) !important; }
+.seo-visual-svg text { fill: #cbd5e1 !important; text-shadow: 0 0 5px rgba(0,229,255,0.3) !important; }
 
 /* ═══════════════════════════════════════════
    SEMANTIC LINK MAP / RELATED CALCULATORS
@@ -1536,7 +1542,7 @@ input::placeholder { color: #475569 !important; }
 }
 
 .ptool-console {
-    background: rgba(0, 229, 255, 0.1) !important;
+    background: rgba(16, 185, 129, 0.15) !important;
     border-left: 4px solid var(--accent-primary) !important;
     border-radius: 8px !important;
     padding: 24px !important;
@@ -1547,4 +1553,113 @@ input::placeholder { color: #475569 !important; }
     font-weight: bold !important;
     font-size: 48px !important;
     font-family: monospace, monospace !important;
+}
+
+/* ═══════════════════════════════════════════
+   URGENT FULL WEBSITE FIX COMPONENTS
+   ═══════════════════════════════════════════ */
+
+/* 1. SVG Formula Wrapper */
+.svg-visual-wrapper {
+    background: rgba(0, 0, 0, 0.6) !important;
+    padding: 1rem !important;
+    border-radius: 12px !important;
+    border-left: 4px solid var(--accent-primary) !important;
+    margin: 1.5rem 0 !important;
+}
+
+/* 2. Enhanced FAQ Toggle Section */
+.faq-container .faq-item {
+    background: var(--bg-elevated) !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(16, 185, 129, 0.3) !important;
+    border-radius: 0 !important;
+    margin-bottom: 0 !important;
+}
+.faq-container .faq-q {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    cursor: pointer !important;
+    color: var(--accent-primary) !important;
+    font-weight: bold !important;
+    padding: 1rem !important;
+    background: transparent !important;
+    transition: background 0.3s ease !important;
+}
+.faq-container .faq-q:hover {
+    background: rgba(16, 185, 129, 0.1) !important;
+}
+.faq-container .faq-a {
+    color: var(--text-secondary) !important;
+    padding: 0.5rem 1rem 1rem 1rem !important;
+    display: none; /* Toggled by JS */
+    background: transparent !important;
+    border-top: none !important;
+}
+.faq-container .faq-icon {
+    font-size: 1.5rem !important;
+    color: var(--accent-primary) !important;
+    transition: transform 0.3s ease !important;
+}
+
+/* 3. Device Card Grid */
+.device-grid-container {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) !important;
+    gap: 1rem !important;
+    margin: 2rem 0 !important;
+}
+.device-grid-card {
+    background: var(--bg-surface) !important;
+    border-radius: 1rem !important;
+    padding: 1rem !important;
+    text-align: center !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer !important;
+    border: 1px solid transparent !important;
+}
+.device-grid-card:hover {
+    border-color: var(--accent-primary) !important;
+    transform: translateY(-4px) !important;
+    box-shadow: 0 8px 16px var(--accent-primary-glow) !important;
+}
+.device-grid-title {
+    color: var(--text-primary) !important;
+    font-weight: bold !important;
+    margin-bottom: 0.5rem !important;
+    display: block !important;
+}
+.device-grid-val {
+    color: var(--accent-primary) !important;
+    font-size: 1.25rem !important;
+    display: block !important;
+}
+
+/* 4. Responsive Reference Tables */
+.responsive-ref-table-wrapper {
+    overflow-x: auto !important;
+    margin: 2rem 0 !important;
+    border-radius: 8px !important;
+    border: 1px solid var(--border-light) !important;
+}
+.responsive-ref-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    background: var(--bg-surface) !important;
+    color: var(--text-primary) !important;
+}
+.responsive-ref-table th {
+    background: rgba(16, 185, 129, 0.2) !important;
+    border-bottom: 2px solid var(--accent-primary) !important;
+    padding: 1rem !important;
+    text-align: left !important;
+    color: var(--text-primary) !important;
+}
+.responsive-ref-table td {
+    padding: 1rem !important;
+    border-bottom: 1px solid var(--border-light) !important;
+}
+.responsive-ref-table tr:hover td {
+    background: rgba(16, 185, 129, 0.1) !important;
 }
