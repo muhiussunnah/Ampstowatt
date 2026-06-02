@@ -255,28 +255,9 @@
   }
 
   function requestMachineTranslation(lang, chunk) {
-    const params = new URLSearchParams({
-      client: 'gtx',
-      sl: 'en',
-      tl: lang,
-      dt: 't',
-      q: chunk.join(MACHINE_TRANSLATION_SEPARATOR)
-    });
-
-    return fetch(MACHINE_TRANSLATION_ENDPOINT + '?' + params.toString(), { cache: 'no-store' })
-      .then((response) => response.ok ? response.json() : null)
-      .then((data) => {
-        if (!Array.isArray(data) || !Array.isArray(data[0])) return [];
-        const translatedJoined = data[0].map((part) => (Array.isArray(part) ? (part[0] || '') : '')).join('');
-        const translatedParts = translatedJoined.split(MACHINE_TRANSLATION_SEPARATOR);
-
-        if (translatedParts.length === chunk.length) {
-          return translatedParts.map((item) => item.trim());
-        }
-
-        return chunk.map((item) => item);
-      })
-      .catch(() => chunk.map((item) => item));
+    // Machine translation disabled for performance and stability.
+    // Rely exclusively on static JSON translations.
+    return Promise.resolve(chunk.map((item) => item));
   }
 
   function loadMachineTranslations(lang, phrases) {
@@ -424,12 +405,25 @@
     const grid = document.getElementById('device-grid');
     if (!grid) return;
 
-    grid.innerHTML = DEVICES.map(d =>
-      `<div class="device-chip" onclick="window.loadDevice('${d.name.replace(/'/g, "\\'")}', ${d.watts})" role="listitem" tabindex="0" onkeydown="if(event.key==='Enter')window.loadDevice('${d.name.replace(/'/g, "\\'")}', ${d.watts})">
+    grid.innerHTML = DEVICES.map((d, i) =>
+      `<div class="device-chip" data-index="${i}" role="listitem" tabindex="0">
         <div class="device-name">${d.name}</div>
         <div class="device-watt">${d.watts}W</div>
       </div>`
     ).join('');
+
+    grid.querySelectorAll('.device-chip').forEach(chip => {
+      chip.addEventListener('click', function() {
+        const d = DEVICES[this.getAttribute('data-index')];
+        if(window.loadDevice) window.loadDevice(d.name, d.watts);
+      });
+      chip.addEventListener('keydown', function(e) {
+        if(e.key === 'Enter') {
+          const d = DEVICES[this.getAttribute('data-index')];
+          if(window.loadDevice) window.loadDevice(d.name, d.watts);
+        }
+      });
+    });
   }
 
   function getHeadingVisualType(text) {
@@ -520,7 +514,7 @@
 
     container.innerHTML = FAQ_DATA.map((f, i) =>
       `<div class="faq-item" role="listitem">
-        <button class="faq-q" onclick="window.toggleFaq(this)" aria-expanded="false" aria-controls="faq-answer-${i}">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-answer-${i}">
           <span>${f.q}</span>
           <span class="faq-icon" aria-hidden="true">+</span>
         </button>
@@ -529,6 +523,12 @@
         </div>
       </div>`
     ).join('');
+
+    container.querySelectorAll('.faq-q').forEach(btn => {
+      btn.addEventListener('click', function() {
+        toggleFaq(this);
+      });
+    });
   }
 
   // ===== UI UTILITIES =====
