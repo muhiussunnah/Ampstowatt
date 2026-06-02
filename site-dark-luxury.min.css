@@ -6,48 +6,72 @@
 
 /* ── ROOT VARIABLE NUCLEAR OVERRIDE ── */
 :root {
-    --bg: #020617 !important;
-    --surface: #0b1120 !important;
-    --surface2: #0f172a !important;
-    --border: rgba(0,229,255,0.12) !important;
-    --border-light: rgba(148,163,184,0.08) !important;
-    --border-strong: rgba(0,229,255,0.25) !important;
-    --primary: #00e5ff !important;
-    --primary-light: #38bdf8 !important;
-    --primary-dark: #00c8e6 !important;
-    --primary-glow: rgba(0,229,255,0.15) !important;
-    --accent-gold: #00e5ff !important;
-    --accent-gold-glow: rgba(0,229,255,0.08) !important;
-    --accent-cyan: #00e5ff !important;
-    --accent-blue: #38bdf8 !important;
-    --accent-purple: #a78bfa !important;
-    --accent-green: #10b981 !important;
-    --accent-orange: #f59e0b !important;
-    --cyan: #00e5ff !important;
-    --amber: #f59e0b !important;
-    --amber-light: #fbbf24 !important;
-    --green: #10b981 !important;
-    --red: #ef4444 !important;
-    --purple: #a78bfa !important;
-    --text: #e2e8f0 !important;
-    --text2: #cbd5e1 !important;
-    --text3: #94a3b8 !important;
-    --text4: #64748b !important;
-    --radius: 14px !important;
-    --radius-sm: 10px !important;
-    --shadow-sm: 0 2px 6px rgba(0,0,0,0.5) !important;
-    --shadow: 0 8px 24px rgba(0,0,0,0.6) !important;
-    --shadow-lg: 0 16px 48px rgba(0,0,0,0.7) !important;
+    /* Backgrounds */
+    --bg-body: #0a0f1f !important;
+    --bg-surface: #0f192d !important;
+    --bg-elevated: #1a2538 !important;
+    --bg-code: #05080f !important;
+
+    /* Text Colors */
+    --text-primary: #eef2ff !important;
+    --text-secondary: #cbd5e6 !important;
+    --text-muted: #8e9cbb !important;
+    --text-inverse: #0a0f1f !important;
+
+    /* Accents – Cyan (primary) */
+    --accent-primary: #00e5ff !important;
+    --accent-primary-hover: #33ebff !important;
+    --accent-primary-glow: rgba(0, 229, 255, 0.3) !important;
+
+    /* Accents – Secondary (blue/purple) */
+    --accent-secondary: #3b82f6 !important;
+    --accent-tertiary: #8b5cf6 !important;
+
+    /* Borders & Dividers */
+    --border-light: rgba(0, 229, 255, 0.25) !important;
+    --border-medium: rgba(0, 229, 255, 0.5) !important;
+    --border-error: #ff4d4d !important;
+
+    /* Status / Feedback */
+    --success: #00d26a !important;
+    --warning: #ffb347 !important;
+    --error: #ff4d4d !important;
+    --info: #00e5ff !important;
+
+    /* Glassmorphic Card Settings */
+    --glass-bg: rgba(15, 25, 45, 0.9) !important;
+    --glass-blur: 12px !important;
+    --glass-border: 1px solid rgba(0, 229, 255, 0.5) !important;
+    
     color-scheme: dark !important;
 }
 
 /* ── GLOBAL RESETS ── */
-body {
-    background: #020617 !important;
-    color: #e2e8f0 !important;
+html, body {
+    height: auto !important;
+    min-height: 100vh !important;
+    background: var(--bg-body) !important;
+    color: var(--text-primary) !important;
 }
-.container {
-    color: #e2e8f0 !important;
+
+.container, main, .premium-header-inner, .pro-header-inner, .footer-inner {
+    max-width: 1280px !important;
+    width: 90% !important;
+    margin: 0 auto !important;
+    padding: 1rem !important;
+    color: var(--text-primary) !important;
+}
+
+img, svg, .diagram, .tool-diagram, .power-house-diagram {
+    max-width: 100% !important;
+    height: auto !important;
+    display: block !important;
+}
+
+/* Image fallback */
+svg, .topic-circuit-svg, .tool-card-visual {
+    background: var(--bg-surface) !important;
+    border-radius: 8px !important;
 }
 
 /* ═══════════════════════════════════════════
@@ -56,147 +80,186 @@ body {
 
 /* h1: Pure white, commanding */
 h1, .hero-title, .hero-title h1 {
-    color: #ffffff !important;
-    -webkit-text-fill-color: #ffffff !important;
+    color: var(--text-primary) !important;
+    -webkit-text-fill-color: var(--text-primary) !important;
     background: none !important;
 }
 
-/* h2: White, strong section headers */
+/* h2: strong section headers */
 h2, .section-divider h2, .section-divider .section-heading,
 .section-heading, .topic-copy h2, .explainer-card h2,
 .explainer-card h3, .topology-header h2 {
-    color: #ffffff !important;
+    color: var(--text-primary) !important;
 }
 
-/* h3: CYAN — this is the key accent from the reference images */
+/* h3: CYAN — this is the key accent */
 h3, .content-h3, .topic-copy h3 {
-    color: #00e5ff !important;
+    color: var(--accent-primary) !important;
 }
 
 /* h4: Cyan, lighter */
 h4, .content-h4 {
-    color: #00e5ff !important;
+    color: var(--accent-primary) !important;
 }
 
 /* Body text */
 p, .content-p, .tool-description, .tool-use-case,
 .faq-a p, .hero-subtitle, .topic-copy p,
 .explainer-card p {
-    color: #94a3b8 !important;
+    color: var(--text-secondary) !important;
 }
 
 /* Bold text in paragraphs — slightly brighter */
 .content-p strong, .content-p b, p strong, p b,
 .topic-copy p strong, .hero-subtitle strong {
-    color: #e2e8f0 !important;
+    color: var(--text-primary) !important;
 }
 
 /* Lists */
 ol, ul, li, .content-list, .content-list li {
-    color: #94a3b8 !important;
+    color: var(--text-secondary) !important;
 }
 
 li strong, li b {
-    color: #e2e8f0 !important;
+    color: var(--text-primary) !important;
 }
 
 /* Links inside content */
 a {
-    color: #00e5ff !important;
+    color: var(--accent-primary) !important;
 }
 a:hover {
-    color: #38bdf8 !important;
+    color: var(--accent-primary-hover) !important;
+    text-decoration: underline !important;
 }
 
 /* Code */
 code, .formula {
-    background: rgba(0,229,255,0.08) !important;
-    color: #00e5ff !important;
-    border: 1px solid rgba(0,229,255,0.15) !important;
+    background: var(--bg-code) !important;
+    color: var(--text-secondary) !important;
+    border: 1px solid var(--border-light) !important;
+    border-radius: 4px !important;
 }
 
 /* ═══════════════════════════════════════════
-   HEADER — FROSTED GLASS DARK
+   HEADER — RESPONSIVE & ACCESSIBLE
    ═══════════════════════════════════════════ */
 .site-header, .premium-header, .pro-header,
 header[role="banner"] {
-    background: rgba(6,11,19,0.95) !important;
-    border-bottom: 1px solid rgba(0,229,255,0.12) !important;
+    background: rgba(10, 15, 31, 0.9) !important;
+    border-bottom: 1px solid var(--border-medium) !important;
     box-shadow: 0 4px 30px rgba(0,0,0,0.6) !important;
     backdrop-filter: blur(24px) !important;
     -webkit-backdrop-filter: blur(24px) !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1000 !important;
 }
 
 .premium-header-inner, .pro-header-inner, .header-inner {
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
 }
 
 /* Logo & Brand */
 .premium-brand, .premium-brand-name, .premium-brand-copy span,
 .pro-logo .header-logo-text, .header-logo, .site-logo {
-    color: #ffffff !important;
-    -webkit-text-fill-color: #ffffff !important;
+    color: var(--text-primary) !important;
+    -webkit-text-fill-color: var(--text-primary) !important;
     background: none !important;
+    text-decoration: none !important;
 }
 
 .premium-brand-mark, .pro-logo-icon {
-    background: linear-gradient(135deg, #00e5ff, #0ea5e9) !important;
-    color: #000 !important;
-    box-shadow: 0 4px 16px rgba(0,229,255,0.3) !important;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)) !important;
+    color: var(--text-inverse) !important;
+    box-shadow: 0 4px 16px var(--accent-primary-glow) !important;
 }
 
 .premium-brand-line {
-    color: #64748b !important;
+    color: var(--text-muted) !important;
 }
 
 /* Nav Links */
 .premium-nav a, .premium-nav summary, .pro-nav .nav-link,
 .nav-link, .premium-nav-link {
-    color: #cbd5e1 !important;
+    color: var(--text-primary) !important;
     background: transparent !important;
     border-color: transparent !important;
 }
 
 .premium-nav a:hover, .premium-nav a:focus, .premium-nav summary:hover,
 .pro-nav .nav-link:hover, .nav-link:hover, .premium-nav-link:hover {
-    color: #00e5ff !important;
+    color: var(--accent-primary) !important;
     background: rgba(0,229,255,0.08) !important;
-    border-color: rgba(0,229,255,0.2) !important;
+    border-color: var(--border-light) !important;
 }
 
 /* Nav Dropdowns */
 .premium-nav-panel, .nav-dropdown-menu {
-    background: #0b1120 !important;
-    border: 1px solid rgba(0,229,255,0.15) !important;
+    background: var(--bg-elevated) !important;
+    border: 1px solid var(--border-light) !important;
     box-shadow: 0 20px 50px rgba(0,0,0,0.7) !important;
 }
 
 .premium-nav-panel a, .nav-dropdown-menu a {
-    color: #cbd5e1 !important;
+    color: var(--text-secondary) !important;
 }
 .premium-nav-panel a:hover, .premium-nav-panel a:focus,
 .nav-dropdown-menu a:hover {
-    background: rgba(0,229,255,0.08) !important;
-    color: #00e5ff !important;
+    background: var(--accent-primary-glow) !important;
+    color: var(--accent-primary) !important;
 }
-.premium-nav-panel a span { color: #e2e8f0 !important; }
-.premium-nav-panel a small { color: #64748b !important; }
-.premium-nav-panel a:hover span { color: #00e5ff !important; }
-.premium-nav-panel a::after { color: #00e5ff !important; }
-.nav-dropdown-menu a::after { color: #00e5ff !important; }
+.premium-nav-panel a span { color: var(--text-primary) !important; }
+.premium-nav-panel a small { color: var(--text-muted) !important; }
+.premium-nav-panel a:hover span { color: var(--accent-primary) !important; }
 
-/* Mobile Menu */
-.premium-menu-button span { background: #cbd5e1 !important; }
+/* Mobile Menu Toggle button */
+.premium-menu-button {
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer !important;
+    display: none !important; /* Hidden on desktop */
+    flex-direction: column !important;
+    gap: 5px !important;
+}
+.premium-menu-button span { 
+    background: var(--text-primary) !important; 
+    width: 28px !important;
+    height: 3px !important;
+    border-radius: 2px !important;
+    transition: 0.3s !important;
+}
 
-/* Nav Bar Pill */
+/* Nav Bar Layout */
 .premium-nav {
-    background: rgba(15,23,42,0.6) !important;
-    border: 1px solid rgba(0,229,255,0.12) !important;
-    border-radius: 12px !important;
-    padding: 6px !important;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.4) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+@media (max-width: 768px) {
+    .premium-menu-button {
+        display: flex !important;
+    }
+    .premium-nav {
+        display: none !important; /* Hidden by default on mobile */
+        flex-direction: column !important;
+        position: absolute !important;
+        top: 100% !important;
+        left: 0 !important;
+        width: 100% !important;
+        background: var(--bg-elevated) !important;
+        border-bottom: 1px solid var(--border-medium) !important;
+        padding: 1rem !important;
+    }
+    .premium-nav.is-open {
+        display: flex !important;
+    }
 }
 
 /* ═══════════════════════════════════════════
@@ -265,13 +328,15 @@ header[role="banner"] {
 .card, .content-card, .formula-card, .pf-card,
 .examples-card, .tables-card, .considerations-card,
 .devices-card, .faq-card, .premium-card {
-    background: #0b1120 !important;
-    border: 1px solid rgba(0,229,255,0.08) !important;
+    background: var(--glass-bg) !important;
+    border: var(--glass-border) !important;
     box-shadow: 0 10px 28px rgba(0,0,0,0.4) !important;
-    color: #cbd5e1 !important;
+    color: var(--text-primary) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
 }
 .card:hover {
-    border-color: rgba(0,229,255,0.2) !important;
+    border-color: rgba(0,229,255,0.8) !important;
     box-shadow: 0 16px 40px rgba(0,0,0,0.5) !important;
 }
 
@@ -303,85 +368,81 @@ header[role="banner"] {
 
 /* ═══════════════════════════════════════════
    TABLES — DARK WITH CYAN HEADERS & VALUES
-   Reference Image: Quick Reference kW to Amps table
    ═══════════════════════════════════════════ */
 table, .reference-table, .policy-table {
-    background: #0b1120 !important;
+    background: var(--bg-surface) !important;
     border-collapse: collapse !important;
 }
 
 .table-wrap, .responsive-table-wrap, .policy-table-wrap {
-    border: 1px solid rgba(0,229,255,0.1) !important;
+    border: 1px solid var(--border-medium) !important;
     box-shadow: 0 4px 16px rgba(0,0,0,0.4) !important;
     border-radius: 12px !important;
     overflow: hidden !important;
 }
 
 th, .reference-table th, .policy-table th {
-    background: #0f172a !important;
-    color: #94a3b8 !important;
-    border-bottom: 1px solid rgba(0,229,255,0.15) !important;
+    background: var(--bg-elevated) !important;
+    color: var(--text-primary) !important;
+    border-bottom: 1px solid var(--border-medium) !important;
     font-weight: 800 !important;
     letter-spacing: 0.05em !important;
 }
 
 td, .reference-table td, .policy-table td {
-    color: #00e5ff !important;
-    border-bottom: 1px solid rgba(148,163,184,0.06) !important;
+    color: var(--accent-primary) !important;
+    border-bottom: 1px solid var(--border-light) !important;
     background: transparent !important;
 }
 
 /* First column in tables — label column — lighter gray */
 td:first-child {
-    color: #e2e8f0 !important;
+    color: var(--text-primary) !important;
     font-weight: 600 !important;
 }
 
 tbody tr:hover td {
-    background: rgba(0,229,255,0.04) !important;
+    background: var(--accent-primary-glow) !important;
 }
 
 /* ═══════════════════════════════════════════
    VISUAL PANELS / CIRCUIT DIAGRAMS
    ═══════════════════════════════════════════ */
 .visual-panel, .tool-page-visual, .seo-guideline-circuit {
-    background: linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px),
-                linear-gradient(135deg, #0b1120, #0f172a) !important;
-    background-size: 24px 24px, 24px 24px, auto !important;
-    border: 1px solid rgba(0,229,255,0.1) !important;
+    background: linear-gradient(135deg, var(--bg-body), var(--bg-surface)) !important;
+    border: 1px solid var(--border-medium) !important;
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.02), 0 8px 24px rgba(0,0,0,0.4) !important;
 }
 .visual-panel text, .tool-page-visual text, .circuit-diagram-card text, .seo-guideline-circuit text {
-    fill: #ffffff !important;
+    fill: var(--text-primary) !important;
     font-weight: 700 !important;
     font-family: system-ui, -apple-system, sans-serif !important;
 }
 .visual-panel::before {
-    background: #0f172a !important;
-    border: 1px solid rgba(0,229,255,0.12) !important;
-    color: #00e5ff !important;
+    background: var(--bg-surface) !important;
+    border: 1px solid var(--border-light) !important;
+    color: var(--accent-primary) !important;
 }
 .visual-row {
-    background: #0f172a !important;
-    border: 1px solid rgba(148,163,184,0.06) !important;
+    background: var(--bg-surface) !important;
+    border: 1px solid var(--border-light) !important;
 }
 .visual-row:hover {
-    border-color: rgba(0,229,255,0.2) !important;
-    background: rgba(0,229,255,0.03) !important;
+    border-color: var(--border-medium) !important;
+    background: var(--accent-primary-glow) !important;
 }
 .visual-icon.voltage { background: rgba(0,229,255,0.08) !important; color: #00e5ff !important; border-color: rgba(0,229,255,0.2) !important; }
 .visual-icon.current { background: rgba(245,158,11,0.08) !important; color: #f59e0b !important; border-color: rgba(245,158,11,0.2) !important; }
 .visual-icon.power { background: rgba(16,185,129,0.08) !important; color: #10b981 !important; border-color: rgba(16,185,129,0.2) !important; }
-.visual-label { color: #64748b !important; }
-.visual-value { color: #e2e8f0 !important; }
-.visual-metric { background: #0f172a !important; border: 1px solid rgba(148,163,184,0.06) !important; }
-.visual-metric:hover { border-color: rgba(0,229,255,0.2) !important; }
-.metric-label, .detail-label, .result-mini-unit { color: #64748b !important; }
-.metric-value, .detail-value { color: #00e5ff !important; }
-.metric-value.green { color: #10b981 !important; }
-.metric-value.amber { color: #f59e0b !important; }
-.visual-bar-wrap { background: #1e293b !important; }
+.visual-label { color: var(--text-secondary) !important; }
+.visual-value { color: var(--text-primary) !important; }
+.visual-metric { background: var(--bg-surface) !important; border: 1px solid var(--border-light) !important; }
+.visual-metric:hover { border-color: var(--border-medium) !important; }
+.metric-label, .detail-label, .result-mini-unit { color: var(--text-secondary) !important; }
+.metric-value, .detail-value { color: var(--accent-primary) !important; }
+.metric-value.green { color: var(--success) !important; }
+.metric-value.amber { color: var(--warning) !important; }
+.visual-bar-wrap { background: var(--bg-elevated) !important; }
 
 .circuit-diagram-card, .battery-diagram-card,
 .power-diagram-card {
@@ -1366,4 +1427,77 @@ input::placeholder { color: #475569 !important; }
    ═══════════════════════════════════════════ */
 @media print {
     body { background: #fff !important; color: #000 !important; }
+}
+
+/* ═══════════════════════════════════════════
+   CALCULATOR TOOL — GRID REBUILD & READABILITY
+   ═══════════════════════════════════════════ */
+.ptool-card {
+    background: var(--glass-bg) !important;
+    border: var(--glass-border) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+}
+
+.ptool-input-row {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 20px !important;
+}
+
+@media (max-width: 768px) {
+    .ptool-input-row {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+.ptool-input {
+    background: var(--bg-surface) !important;
+    border: 1px solid var(--border-medium) !important;
+    color: var(--text-primary) !important;
+    font-size: 16px !important; /* Readable font size minimum */
+    padding: 16px !important; /* Large padding */
+    min-height: 54px !important;
+}
+
+.ptool-input:focus {
+    border-color: var(--accent-primary) !important;
+    box-shadow: 0 0 12px var(--accent-primary-glow) !important;
+}
+
+.ptool-group label {
+    color: var(--text-secondary) !important;
+    font-size: 13px !important;
+}
+
+.ptool-btn-calc {
+    background: var(--accent-primary) !important;
+    color: var(--text-inverse) !important;
+    font-size: 18px !important;
+    font-weight: 900 !important;
+    padding: 16px 24px !important;
+    border: none !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    width: 100% !important;
+}
+
+.ptool-btn-calc:hover {
+    background: var(--accent-primary-hover) !important;
+    color: var(--text-inverse) !important;
+    box-shadow: 0 8px 24px var(--accent-primary-glow) !important;
+}
+
+.ptool-console {
+    background: rgba(0, 229, 255, 0.1) !important;
+    border-left: 4px solid var(--accent-primary) !important;
+    border-radius: 8px !important;
+    padding: 24px !important;
+}
+
+.ptool-console-val {
+    color: var(--accent-primary) !important;
+    font-weight: bold !important;
+    font-size: 48px !important;
+    font-family: monospace, monospace !important;
 }
