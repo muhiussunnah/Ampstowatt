@@ -393,6 +393,96 @@ tbody tr:hover td {
 .diagram-value { fill: #e2e8f0 !important; }
 
 /* ═══════════════════════════════════════════
+   FORMULA & TECHNICAL VISUAL CARDS
+   ═══════════════════════════════════════════ */
+.technical-visual-card, .power-triangle-card, .formula-chip-card {
+    background: linear-gradient(135deg, #0b1120, #0f172a) !important;
+    border: 1px solid rgba(0,229,255,0.1) !important;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5) !important;
+    color: #cbd5e1 !important;
+    border-radius: 12px !important;
+    transition: all 0.3s ease !important;
+}
+.technical-visual-card:hover {
+    border-color: rgba(0,229,255,0.25) !important;
+    box-shadow: 0 12px 32px rgba(0,229,255,0.08) !important;
+    transform: translateY(-2px) !important;
+}
+.technical-visual-card strong {
+    color: #ffffff !important;
+    display: block !important;
+    margin-top: 12px !important;
+}
+.technical-visual-card small {
+    color: #94a3b8 !important;
+    display: block !important;
+    margin-top: 4px !important;
+}
+.value-stack {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+.value-stack span {
+    background: #0f172a !important;
+    border: 1px solid rgba(148,163,184,0.06) !important;
+    color: #cbd5e1 !important;
+    border-radius: 8px !important;
+    padding: 10px 14px !important;
+    display: block !important;
+    margin-bottom: 8px !important;
+    transition: all 0.3s ease !important;
+}
+.value-stack span:hover {
+    border-color: rgba(0,229,255,0.2) !important;
+    background: rgba(0,229,255,0.04) !important;
+}
+.value-stack span b {
+    color: #00e5ff !important;
+    margin-right: 8px !important;
+}
+.formula-chip {
+    background: rgba(0,229,255,0.06) !important;
+    border: 1px solid rgba(0,229,255,0.15) !important;
+    color: #00e5ff !important;
+    border-radius: 6px !important;
+    padding: 6px 12px !important;
+    display: inline-block !important;
+    font-weight: 800 !important;
+}
+
+/* SVG Overrides for Technical Cards */
+.svg-source, .svg-load {
+    fill: rgba(0,229,255,0.06) !important;
+    stroke: rgba(0,229,255,0.25) !important;
+}
+.svg-wire {
+    stroke: #38bdf8 !important;
+}
+.svg-wave {
+    fill: none !important;
+    stroke: #00e5ff !important;
+    stroke-width: 3 !important;
+}
+.svg-wave.secondary { stroke: #38bdf8 !important; }
+.svg-wave.tertiary { stroke: #0ea5e9 !important; }
+.mini-svg-diagram text {
+    fill: #e2e8f0 !important;
+    font-weight: bold !important;
+}
+.triangle-fill {
+    fill: rgba(0,229,255,0.04) !important;
+    stroke: none !important;
+}
+.triangle-line {
+    stroke: #00e5ff !important;
+    stroke-width: 3 !important;
+}
+.triangle-line.strong {
+    stroke: #38bdf8 !important;
+}
+
+/* ═══════════════════════════════════════════
    TOOL CARDS — "Explore Our Guides" section
    Reference Image: Category labels with colored accents
    ═══════════════════════════════════════════ */
