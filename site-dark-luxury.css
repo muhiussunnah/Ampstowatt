@@ -1033,7 +1033,7 @@ input:focus, select:focus {
     border-color: #00e5ff !important;
     box-shadow: 0 0 0 3px rgba(0,229,255,0.12) !important;
 }
-input::placeholder { color: #475569 !important; }
+input::placeholder { color: #94a3b8 !important; }
 
 .btn-primary {
     background: linear-gradient(135deg, #00e5ff, #0ea5e9) !important;
@@ -1261,8 +1261,8 @@ input::placeholder { color: #475569 !important; }
     color: var(--text-secondary) !important;
 }
 .disclaimer-header { color: var(--accent-primary) !important; }
-.disclaimer-text { color: var(--text-secondary) !important; }
-.disclaimer-text strong { color: var(--text-primary) !important; }
+.disclaimer-text { color: var(--text-muted) !important; }
+.disclaimer-text strong { color: var(--text-secondary) !important; }
 .footer-languages {
     background: var(--bg-surface) !important;
     border: 1px solid var(--border-light) !important;
@@ -1283,7 +1283,7 @@ input::placeholder { color: #475569 !important; }
     color: var(--text-inverse) !important;
 }
 .premium-footer-bottom, .footer-bottom {
-    color: var(--text-secondary) !important;
+    color: var(--text-muted) !important;
     border-top: 1px solid var(--border-light) !important;
 }
 .footer-inner .footer-nav a {
@@ -1319,9 +1319,9 @@ input::placeholder { color: #475569 !important; }
     transition: all 0.3s ease !important;
 }
 .premium-back-to-top:hover, #lx-scroll-top:hover {
-    background: #00e5ff !important;
-    color: #000 !important;
-    box-shadow: 0 12px 40px rgba(0,229,255,0.4) !important;
+    background: #0b1120 !important;
+    color: #00e5ff !important;
+    box-shadow: 0 6px 30px rgba(0,229,255,0.6) !important;
     transform: translateY(-5px) !important;
 }
 
