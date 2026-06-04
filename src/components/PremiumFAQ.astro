@@ -16,33 +16,40 @@ const questions = tool
   ? [
       {
         q: `How does the ${name} calculator work?`,
-        a: `Enter the known electrical values, then the calculator applies ${formula} to return a planning result instantly.`
+        a: `Enter the known electrical values, then the calculator applies ${formula} to return a planning result instantly.`,
+        icon: 'W'
       },
       {
         q: `What inputs do I need for the ${name} calculator?`,
-        a: `Most calculations need current, voltage, and the correct circuit type. ${mode !== 'DC' ? 'For AC systems, use a realistic power factor from the equipment nameplate when available.' : 'For DC systems, power factor is not required.'}`
+        a: `Most calculations need current, voltage, and the correct circuit type. ${mode !== 'DC' ? 'For AC systems, use a realistic power factor from the equipment nameplate when available.' : 'For DC systems, power factor is not required.'}`,
+        icon: 'IN'
       },
       {
         q: `Can I use this result for real wiring or breaker sizing?`,
-        a: 'Use the result for planning and comparison. Final wiring, breaker, conductor, voltage-drop, derating, and code decisions should be verified by a qualified electrician or engineer.'
+        a: 'Use the result for planning and comparison. Final wiring, breaker, conductor, voltage-drop, derating, and code decisions should be verified by a qualified electrician or engineer.',
+        icon: 'SA'
       },
       {
         q: 'Why do AC and three-phase results differ from DC?',
-        a: 'DC uses a direct volts x amps relationship. AC can include power factor, and three-phase systems use a phase multiplier or line-to-neutral formula.'
+        a: 'DC uses a direct volts x amps relationship. AC can include power factor, and three-phase systems use a phase multiplier or line-to-neutral formula.',
+        icon: 'AC'
       }
     ]
   : [
       {
         q: 'Which calculator should I use first?',
-        a: 'Use Amps to Watts when you know current and voltage. Use Watts to Amps when you know load power and need current draw.'
+        a: 'Use Amps to Watts when you know current and voltage. Use Watts to Amps when you know load power and need current draw.',
+        icon: 'A'
       },
       {
         q: 'Do the calculators support AC, DC, and three-phase systems?',
-        a: 'Yes. The suite includes DC, single-phase AC, three-phase AC, power factor, battery energy, wire gauge, and voltage-drop workflows.'
+        a: 'Yes. The suite includes DC, single-phase AC, three-phase AC, power factor, battery energy, wire gauge, and voltage-drop workflows.',
+        icon: 'AC'
       },
       {
         q: 'Are the calculators suitable for safety-critical electrical design?',
-        a: 'They are educational planning tools. Verify final electrical work with equipment data, applicable code, and a licensed professional.'
+        a: 'They are educational planning tools. Verify final electrical work with equipment data, applicable code, and a licensed professional.',
+        icon: 'SA'
       }
     ];
 
@@ -70,7 +77,12 @@ const faqSchema = {
   <div class="premium-faq-list">
     {questions.map((item, index) => (
       <details open={index === 0}>
-        <summary>{item.q}</summary>
+        <summary>
+          <span style="display: inline-flex; align-items: center; gap: 0.6rem;">
+            <span style="display: grid; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: 8px; background: rgba(22, 217, 244, 0.1); border: 1px solid rgba(22, 217, 244, 0.2); font-size: 0.85rem; flex-shrink: 0;">{item.icon}</span>
+            {item.q}
+          </span>
+        </summary>
         <p>{item.a}</p>
       </details>
     ))}

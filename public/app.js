@@ -135,26 +135,18 @@
 
     const resAmps = toolField(tool, 'res-amps');
     const resMa = toolField(tool, 'res-ma');
+    const resKw = toolField(tool, 'res-kw');
+    const resWatts = toolField(tool, 'res-watts');
     const mirror = toolField(tool, 'lx-mirror-val');
-    const resultOne = toolField(tool, 'res-watts') || toolField(tool, 'res-kw');
 
     if (resAmps) resAmps.value = mode === 'amps-to-watts' ? format(watts / 1000, decimals) : format(amps, decimals);
     if (resMa) resMa.value = mode === 'amps-to-watts' ? format(watts, decimals) : format(amps * 1000, decimals);
-    if (resultOne) resultOne.value = format(watts, decimals);
+    if (resKw) resKw.value = mode === 'amps-to-watts' ? format(watts / 1000, decimals) : format(amps, decimals);
+    if (resWatts) resWatts.value = mode === 'amps-to-watts' ? format(watts, decimals) : format(amps * 1000, decimals);
     if (mirror) {
       mirror.textContent = mode === 'amps-to-watts'
         ? `${format(watts, decimals)} W`
         : `${format(amps, decimals)} A`;
-    }
-
-    /* Update gauge if present */
-    const gaugeFill = tool.querySelector('#gauge-fill');
-    if (gaugeFill) {
-      const val = mode === 'amps-to-watts' ? watts : amps;
-      const maxVal = mode === 'amps-to-watts' ? 10000 : 100;
-      const percentage = Math.min(1, Math.max(0, val / maxVal));
-      const offset = 125.6 - (125.6 * percentage);
-      gaugeFill.style.strokeDashoffset = offset;
     }
 
     /* Store last result for copy/export */
@@ -235,14 +227,14 @@
     const copyBtn = document.createElement('button');
     copyBtn.type = 'button';
     copyBtn.className = 'lx-action-copy';
-    copyBtn.textContent = '⎘ Copy';
+    copyBtn.textContent = 'Copy';
     copyBtn.title = 'Copy result to clipboard';
     copyBtn.addEventListener('click', () => copyResult(tool));
 
     const exportBtn = document.createElement('button');
     exportBtn.type = 'button';
     exportBtn.className = 'lx-action-export';
-    exportBtn.textContent = '↓ Export';
+    exportBtn.textContent = 'Export';
     exportBtn.title = 'Download result as text file';
     exportBtn.addEventListener('click', () => exportResult(tool));
 
@@ -251,16 +243,101 @@
   }
 
   /* ----------------------------------------------------------------
+     CALCULATION HISTORY
+     ---------------------------------------------------------------- */
+  const MAX_HISTORY = 5;
+
+  function addToHistory(tool) {
+    const result = tool.dataset.lastResult;
+    const input = tool.dataset.lastInput;
+    if (!result || result === 'No result') return;
+
+    const historyPanel = document.getElementById('calc-history');
+    const historyList = document.getElementById('calc-history-list');
+    if (!historyPanel || !historyList) return;
+
+    historyPanel.style.display = '';
+
+    const item = document.createElement('div');
+    item.className = 'calc-history-item';
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    item.innerHTML = `<span class="hist-result">${result.split(' (')[0]}</span><span class="hist-input">${input}</span><span class="hist-time">${timeStr}</span>`;
+
+    historyList.insertBefore(item, historyList.firstChild);
+
+    // Keep max items
+    while (historyList.children.length > MAX_HISTORY) {
+      historyList.removeChild(historyList.lastChild);
+    }
+  }
+
+  /* ----------------------------------------------------------------
+     DEVICE PRESETS
+     ---------------------------------------------------------------- */
+  function initDevicePresets() {
+    // Legacy presets
+    $$('[data-watts]').forEach((card) => {
+      card.addEventListener('click', () => {
+        const tool = $('.lx-tool');
+        const field = tool && toolField(tool, 'lx-power');
+        const unit = tool && toolField(tool, 'lx-power-unit');
+        if (!tool || !field) return;
+        setMode(tool, 'watts-to-amps');
+        field.value = card.dataset.watts || '0';
+        if (unit) unit.value = 'w';
+        updateCalculator(tool);
+        tool.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    });
+
+    // New preset buttons
+    $$('[data-preset-watts]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const tool = $('.lx-tool');
+        if (!tool) return;
+        const powerField = toolField(tool, 'lx-power');
+        const voltsField = toolField(tool, 'lx-volts');
+        const unitField = toolField(tool, 'lx-power-unit');
+
+        setMode(tool, 'watts-to-amps');
+        if (powerField) powerField.value = btn.dataset.presetWatts;
+        if (voltsField && btn.dataset.presetVolts) voltsField.value = btn.dataset.presetVolts;
+        if (unitField) unitField.value = 'w';
+        updateCalculator(tool);
+        addToHistory(tool);
+
+        // Visual feedback
+        btn.style.borderColor = 'rgba(22, 217, 244, 0.5)';
+        btn.style.background = 'rgba(22, 217, 244, 0.08)';
+        setTimeout(() => {
+          btn.style.borderColor = '';
+          btn.style.background = '';
+        }, 600);
+      });
+    });
+  }
+
+  /* ----------------------------------------------------------------
      CALCULATOR INIT
      ---------------------------------------------------------------- */
+  let calcDebounce = null;
   function initCalculators() {
     $$('.lx-tool').forEach((tool) => {
       if (tool.dataset.ready === 'true') return;
       tool.dataset.ready = 'true';
       setMode(tool, getMode(tool));
       $$('input, select, button', tool).forEach((control) => {
-        control.addEventListener('input', () => updateCalculator(tool));
-        control.addEventListener('change', () => updateCalculator(tool));
+        control.addEventListener('input', () => {
+          updateCalculator(tool);
+          clearTimeout(calcDebounce);
+          calcDebounce = setTimeout(() => addToHistory(tool), 1500);
+        });
+        control.addEventListener('change', () => {
+          updateCalculator(tool);
+          clearTimeout(calcDebounce);
+          calcDebounce = setTimeout(() => addToHistory(tool), 1500);
+        });
       });
       $$('[id^="lx-pf-slider"]', tool).forEach((slider) => {
         slider.addEventListener('input', () => {
@@ -311,25 +388,6 @@
       injectCopyExportButtons(tool);
 
       updateCalculator(tool);
-    });
-  }
-
-  /* ----------------------------------------------------------------
-     DEVICE PRESETS
-     ---------------------------------------------------------------- */
-  function initDevicePresets() {
-    $$('[data-watts]').forEach((card) => {
-      card.addEventListener('click', () => {
-        const tool = $('.lx-tool');
-        const field = tool && toolField(tool, 'lx-power');
-        const unit = tool && toolField(tool, 'lx-power-unit');
-        if (!tool || !field) return;
-        setMode(tool, 'watts-to-amps');
-        field.value = card.dataset.watts || '0';
-        if (unit) unit.value = 'w';
-        updateCalculator(tool);
-        tool.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      });
     });
   }
 
@@ -397,28 +455,21 @@
   }
 
   /* ----------------------------------------------------------------
-     SCROLL REVEAL
+     SCROLL PROGRESS BAR
      ---------------------------------------------------------------- */
-  function initScrollReveal() {
-    const targets = $$('.premium-directory-group, .premium-trust-section, .premium-faq-section, .premium-feature-strip a, .premium-tool-card, .premium-trust-item');
-    if (!targets.length || !('IntersectionObserver' in window)) return;
+  function initScrollProgress() {
+    const bar = document.getElementById('scroll-progress');
+    if (!bar) return;
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    function updateProgress() {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      bar.style.width = progress + '%';
+    }
 
-    targets.forEach((el, i) => {
-      el.classList.add('reveal');
-      /* Stagger within groups */
-      const delay = Math.min(i % 6, 3);
-      if (delay > 0) el.classList.add(`reveal-delay-${delay}`);
-      observer.observe(el);
-    });
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
   }
 
   /* ----------------------------------------------------------------
@@ -469,7 +520,8 @@
     initNavigation();
     initCookieBar();
     initBackToTop();
-    initScrollReveal();
+    initScrollProgress();
+    // Keep the site fast: no scroll reveal or animated counter work.
     
     // Only init calculator logic if present
     if (document.querySelector('.lx-tool')) {

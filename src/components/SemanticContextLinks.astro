@@ -5,30 +5,30 @@ export interface Props {
 
 const { slug = '' } = Astro.props;
 
-// Define the semantic silos
+// Define the semantic silos with icons
 const silos = {
   lowVoltage: [
-    { href: "/12v-amps-to-watts-calculator/", title: "12V Amps to Watts", desc: "Low-voltage DC loads" },
-    { href: "/solar-watts-to-amps-calculator/", title: "Solar Watts to Amps", desc: "PV and charge current" },
-    { href: "/led-watts-to-amps-calculator/", title: "LED Watts to Amps", desc: "LED strip and driver loads" },
-    { href: "/dc-amps-to-watts-calculator/", title: "DC Amps to Watts", desc: "Battery and solar DC" }
+    { href: "/12v-amps-to-watts-calculator/", title: "12V Amps to Watts", desc: "Low-voltage DC loads", icon: "12V" },
+    { href: "/solar-watts-to-amps-calculator/", title: "Solar Watts to Amps", desc: "PV and charge current", icon: "PV" },
+    { href: "/led-watts-to-amps-calculator/", title: "LED Watts to Amps", desc: "LED strip and driver loads", icon: "LED" },
+    { href: "/dc-amps-to-watts-calculator/", title: "DC Amps to Watts", desc: "Battery and solar DC", icon: "DC" }
   ],
   mainsVoltage: [
-    { href: "/120v-amps-to-watts-calculator/", title: "120V Amps to Watts", desc: "North American outlets" },
-    { href: "/220v-amps-to-watts-calculator/", title: "220V Amps to Watts", desc: "220 volt appliances" },
-    { href: "/240v-amps-to-watts-calculator/", title: "240V Amps to Watts", desc: "Dryers, heaters, EV circuits" },
-    { href: "/single-phase-amps-to-watts-calculator/", title: "Single Phase Amps to Watts", desc: "Residential AC loads" }
+    { href: "/120v-amps-to-watts-calculator/", title: "120V Amps to Watts", desc: "North American outlets", icon: "120" },
+    { href: "/220v-amps-to-watts-calculator/", title: "220V Amps to Watts", desc: "220 volt appliances", icon: "220" },
+    { href: "/240v-amps-to-watts-calculator/", title: "240V Amps to Watts", desc: "Dryers, heaters, EV circuits", icon: "240" },
+    { href: "/single-phase-amps-to-watts-calculator/", title: "Single Phase Amps to Watts", desc: "Residential AC loads", icon: "AC" }
   ],
   industrial: [
-    { href: "/3-phase-amps-to-watts-calculator/", title: "3 Phase Amps to Watts", desc: "Industrial line voltage" },
-    { href: "/megawatts-to-amps-calculator/", title: "Megawatts to Amps", desc: "Large system current" },
-    { href: "/kva-to-watts-calculator/", title: "kVA to Watts", desc: "Apparent to real power" },
-    { href: "/ac-amps-to-watts-calculator/", title: "AC Amps to Watts", desc: "RMS voltage and PF" }
+    { href: "/3-phase-amps-to-watts-calculator/", title: "3 Phase Amps to Watts", desc: "Industrial line voltage", icon: "3P" },
+    { href: "/megawatts-to-amps-calculator/", title: "Megawatts to Amps", desc: "Large system current", icon: "MW" },
+    { href: "/kva-to-watts-calculator/", title: "kVA to Watts", desc: "Apparent to real power", icon: "kVA" },
+    { href: "/ac-amps-to-watts-calculator/", title: "AC Amps to Watts", desc: "RMS voltage and PF", icon: "AC" }
   ],
   audio: [
-    { href: "/speaker-amp-power-calculator/", title: "Speaker Amp Power", desc: "Audio amplifier planning" },
-    { href: "/12v-amps-to-watts-calculator/", title: "12V Amps to Watts", desc: "Car audio 12V loads" },
-    { href: "/amp-power-consumption-calculator/", title: "Amp Power Consumption", desc: "Runtime and energy use" }
+    { href: "/speaker-amp-power-calculator/", title: "Speaker Amp Power", desc: "Audio amplifier planning", icon: "SPK" },
+    { href: "/12v-amps-to-watts-calculator/", title: "12V Amps to Watts", desc: "Car audio 12V loads", icon: "12V" },
+    { href: "/amp-power-consumption-calculator/", title: "Amp Power Consumption", desc: "Runtime and energy use", icon: "RUN" }
   ]
 };
 
@@ -85,8 +85,11 @@ const sectionTitle = titles[currentSiloKey];
         <nav class="semantic-link-list" aria-label="Related tools">
           {relatedLinks.map(link => (
             <a href={link.href}>
-              <strong>{link.title}</strong>
-              <span>{link.desc}</span>
+              <span style="display: flex; align-items: center; gap: 0.6rem;">
+                <span style="display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 8px; background: rgba(22, 217, 244, 0.08); border: 1px solid rgba(22, 217, 244, 0.15); font-size: 1rem; flex-shrink: 0;">{link.icon}</span>
+                <strong>{link.title}</strong>
+              </span>
+              <span style="padding-left: 2.6rem;">{link.desc}</span>
             </a>
           ))}
         </nav>
