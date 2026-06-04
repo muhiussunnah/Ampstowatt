@@ -1,0 +1,231 @@
+---
+import '../styles/site.css';
+import { tools } from '@/data/tools';
+import type { Tool } from '@/data/tools';
+import PremiumFAQ from '@/components/PremiumFAQ.astro';
+import AmpsToWattsCalculator from '@/components/AmpsToWattsCalculator.astro';
+
+type Props = {
+  title: string;
+  description: string;
+  canonicalPath?: string;
+  keywords?: string;
+  legacySchema?: string;
+  legacyMode?: boolean;
+  tool?: Tool;
+  showCalculator?: boolean;
+  kicker?: string;
+  h1Title?: string;
+};
+
+const { 
+  title, 
+  description, 
+  canonicalPath = '/', 
+  keywords = '', 
+  legacySchema = '', 
+  legacyMode = false,
+  tool,
+  showCalculator = false,
+  kicker = 'Premium electrical calculator suite',
+  h1Title = title.replace(' | Amps To Watts Calculator', '')
+} = Astro.props;
+
+const canonical = new URL(canonicalPath, 'https://ampstowatt.com').toString();
+const image = new URL('/og-image.jpg', 'https://ampstowatt.com').toString();
+
+/* Breadcrumb */
+const isHome = canonicalPath === '/';
+const pageTitle = title.replace(' | Amps To Watts Calculator', '').replace(' - Amps To Watts Calculator', '');
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': 'https://ampstowatt.com/#website',
+      name: 'Amps To Watts Calculator',
+      url: 'https://ampstowatt.com/'
+    },
+    {
+      '@type': 'WebPage',
+      '@id': `${canonical}#webpage`,
+      url: canonical,
+      name: title,
+      description,
+      isPartOf: { '@id': 'https://ampstowatt.com/#website' },
+      inLanguage: 'en-US',
+      primaryImageOfPage: { '@id': `${canonical}#primaryimage` }
+    },
+    {
+      '@type': 'ImageObject',
+      '@id': `${canonical}#primaryimage`,
+      url: image,
+      width: 1200,
+      height: 630
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://ampstowatt.com/' },
+        ...(!isHome ? [{ '@type': 'ListItem', position: 2, name: pageTitle, item: canonical }] : [])
+      ]
+    },
+    {
+      '@type': 'WebApplication',
+      name: title,
+      url: canonical,
+      applicationCategory: 'EngineeringApplication',
+      operatingSystem: 'All',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+      description
+    }
+  ]
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {keywords && <meta name="keywords" content={keywords} />}
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+    <meta name="author" content="Amps To Watts Calculator" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content="#030815" />
+    <!-- Google Fonts — Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" /></noscript>
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Amps To Watts Calculator" />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    {legacySchema && <script type="application/ld+json" set:html={legacySchema} />}
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <!-- ===== HEADER ===== -->
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="Amps To Watts Calculator home">
+        <span class="brand-mark">AW</span>
+        <span>
+          <strong>Amps To Watts</strong>
+          <small>Premium electrical calculators</small>
+        </span>
+      </a>
+      <button class="nav-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
+        <a href="/">Home</a>
+        <a href="/#voltage-circuits">Voltage Circuits</a>
+        <a href="/#ac-dc-power">AC/DC Power</a>
+        <a href="/#component-calculators">Components</a>
+        <a href="/power-factor/">Power Factor</a>
+        <a href="/contact-us/">Contact</a>
+      </nav>
+    </header>
+
+    <!-- ===== BREADCRUMB ===== -->
+    {!isHome && (
+      <div class="breadcrumb-bar">
+        <nav aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span class="breadcrumb-sep" aria-hidden="true">›</span>
+          <span class="breadcrumb-current">{pageTitle}</span>
+        </nav>
+      </div>
+    )}
+
+    <!-- ===== MAIN ===== -->
+    <main id="main-content" class={legacyMode ? 'legacy-shell' : ''}>
+      <div class="legacy-content">
+        <!-- H1 and Tool Section (Immediately above fold) -->
+        {showCalculator && (
+          <section class="premium-unified-hero">
+            <div class="premium-hero-copy">
+              <p class="premium-kicker">{kicker}</p>
+              <h1>{h1Title}</h1>
+              {tool && <div class="premium-formula-pill">{tool.formula}</div>}
+              <p>{description}</p>
+            </div>
+            <AmpsToWattsCalculator tool={tool} />
+          </section>
+        )}
+        
+        <slot />
+      </div>
+    </main>
+
+    <!-- ===== FAQ (Always at the bottom) ===== -->
+    <div class={legacyMode ? 'legacy-shell' : ''}>
+      <div class="legacy-content" style="padding-top: 0;">
+        <PremiumFAQ tool={tool} />
+      </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="site-footer">
+      <div>
+        <a class="footer-brand" href="/">Amps To Watts Calculator</a>
+        <p>Premium electrical calculators for current, voltage, watts, kW, VA, battery energy, wire sizing, and voltage drop. Educational use only; verify safety-critical work with a licensed professional.</p>
+      </div>
+      <div>
+        <p class="footer-col-title">Theory & Principles</p>
+        <nav aria-label="Electrical theory">
+          <a href="/ac-amps-to-watts-calculator/">AC Power Dynamics</a>
+          <a href="/dc-amps-to-watts-calculator/">DC Systems</a>
+          <a href="/3-phase-amps-to-watts-calculator/">Three-Phase Mechanics</a>
+          <a href="/power-factor/">Power Factor Guide</a>
+          <a href="/kva-to-watts-calculator/">Apparent Power (kVA)</a>
+        </nav>
+      </div>
+      <div>
+        <p class="footer-col-title">Circuit Standards</p>
+        <nav aria-label="Circuit standards">
+          <a href="/12v-amps-to-watts-calculator/">Low Voltage (12V)</a>
+          <a href="/120v-amps-to-watts-calculator/">US Mains (120V)</a>
+          <a href="/240v-amps-to-watts-calculator/">US Split-Phase (240V)</a>
+          <a href="/amps-to-watts-230v-calculator/">UK/EU Mains (230V)</a>
+        </nav>
+      </div>
+      <div>
+        <p class="footer-col-title">Resources</p>
+        <nav aria-label="Resource links">
+          <a href="/about-us/">About</a>
+          <a href="/privacy-policy/">Privacy</a>
+          <a href="/terms-conditions/">Terms</a>
+          <a href="/disclaimer/">Disclaimer</a>
+          <a href="/site-map/">Site map</a>
+        </nav>
+      </div>
+      <p class="copyright">© 2026 Amps To Watts Calculator. All rights reserved.</p>
+    </footer>
+
+    <!-- Back to top -->
+    <button class="back-to-top" type="button" aria-label="Back to top" title="Back to top">↑</button>
+
+    {(showCalculator || isHome) && <script src="/app.js" defer></script>}
+  </body>
+</html>

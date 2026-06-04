@@ -1,0 +1,57 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SemanticContextLinks from '@/components/SemanticContextLinks.astro';
+import { allRouteSlugs, getPageBySlug, getToolBySlug, tools } from '@/data/tools';
+import { getLegacyPage } from '@/lib/legacy';
+
+export function getStaticPaths() {
+  return allRouteSlugs.map((slug) => ({ params: { slug } }));
+}
+
+const slug = Astro.params.slug ?? '';
+const tool = getToolBySlug(slug);
+const page = getPageBySlug(slug);
+const legacy = getLegacyPage(slug) ?? (slug === 'amps-to-watts-calculator' ? getLegacyPage('') : getLegacyPage(tool?.slug ?? ''));
+const title = legacy?.title ?? tool?.title ?? page?.title ?? 'Amps To Watts Calculator';
+const description = legacy?.description ?? tool?.description ?? page?.description ?? 'Premium amps to watts calculator and electrical conversion tools.';
+const canonicalSlug = tool?.slug ?? page?.slug ?? slug;
+const isDirectoryPage = page?.slug === 'calculators' || page?.slug === 'site-map';
+
+if (!tool && !page && !legacy) {
+  return Astro.redirect('/');
+}
+
+const isToolPage = Boolean(tool) || Boolean(legacy && !isDirectoryPage);
+const kicker = tool?.eyebrow ?? (legacy ? "Amps To Watts resource" : "Amps To Watts Calculator");
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  keywords={legacy?.keywords}
+  legacySchema={legacy?.schema}
+  legacyMode={Boolean(legacy || isDirectoryPage)}
+  canonicalPath={`/${canonicalSlug}/`}
+  tool={tool}
+  showCalculator={isToolPage}
+  kicker={kicker}
+  h1Title={page?.title ?? tool?.title ?? title}
+>
+  {isDirectoryPage ? (
+    <div />
+  ) : legacy ? (
+    <>
+      <div set:html={legacy.body} />
+      <SemanticContextLinks slug={slug} />
+    </>
+  ) : (
+    <>
+      <section class="card">
+        <h2>{page!.title}</h2>
+        <p>Amps To Watts Calculator is an independent educational resource for electrical planning. The calculators are designed to make formulas clear, reduce manual mistakes, and help visitors compare current, voltage, power, energy, and conductor requirements.</p>
+        <p>For safety-critical electrical work, always verify results with equipment nameplate data, applicable electrical code, and a licensed electrician or qualified engineer.</p>
+        <p>Questions, corrections, and content suggestions can be sent through the contact page.</p>
+      </section>
+    </>
+  )}
+</BaseLayout>

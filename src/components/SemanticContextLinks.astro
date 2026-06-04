@@ -1,0 +1,96 @@
+---
+export interface Props {
+  slug?: string;
+}
+
+const { slug = '' } = Astro.props;
+
+// Define the semantic silos
+const silos = {
+  lowVoltage: [
+    { href: "/12v-amps-to-watts-calculator/", title: "12V Amps to Watts", desc: "Low-voltage DC loads" },
+    { href: "/solar-watts-to-amps-calculator/", title: "Solar Watts to Amps", desc: "PV and charge current" },
+    { href: "/led-watts-to-amps-calculator/", title: "LED Watts to Amps", desc: "LED strip and driver loads" },
+    { href: "/dc-amps-to-watts-calculator/", title: "DC Amps to Watts", desc: "Battery and solar DC" }
+  ],
+  mainsVoltage: [
+    { href: "/120v-amps-to-watts-calculator/", title: "120V Amps to Watts", desc: "North American outlets" },
+    { href: "/220v-amps-to-watts-calculator/", title: "220V Amps to Watts", desc: "220 volt appliances" },
+    { href: "/240v-amps-to-watts-calculator/", title: "240V Amps to Watts", desc: "Dryers, heaters, EV circuits" },
+    { href: "/single-phase-amps-to-watts-calculator/", title: "Single Phase Amps to Watts", desc: "Residential AC loads" }
+  ],
+  industrial: [
+    { href: "/3-phase-amps-to-watts-calculator/", title: "3 Phase Amps to Watts", desc: "Industrial line voltage" },
+    { href: "/megawatts-to-amps-calculator/", title: "Megawatts to Amps", desc: "Large system current" },
+    { href: "/kva-to-watts-calculator/", title: "kVA to Watts", desc: "Apparent to real power" },
+    { href: "/ac-amps-to-watts-calculator/", title: "AC Amps to Watts", desc: "RMS voltage and PF" }
+  ],
+  audio: [
+    { href: "/speaker-amp-power-calculator/", title: "Speaker Amp Power", desc: "Audio amplifier planning" },
+    { href: "/12v-amps-to-watts-calculator/", title: "12V Amps to Watts", desc: "Car audio 12V loads" },
+    { href: "/amp-power-consumption-calculator/", title: "Amp Power Consumption", desc: "Runtime and energy use" }
+  ]
+};
+
+// Map slugs to their primary silo
+const siloMapping: Record<string, keyof typeof silos> = {
+  '12v-amps-to-watts-calculator': 'lowVoltage',
+  'solar-watts-to-amps-calculator': 'lowVoltage',
+  'led-watts-to-amps-calculator': 'lowVoltage',
+  'dc-amps-to-watts-calculator': 'lowVoltage',
+  '120v-amps-to-watts-calculator': 'mainsVoltage',
+  '220v-amps-to-watts-calculator': 'mainsVoltage',
+  '230v-amps-to-watts-calculator': 'mainsVoltage',
+  '240v-amps-to-watts-calculator': 'mainsVoltage',
+  'amps-to-watts-120v-calculator': 'mainsVoltage',
+  'amps-to-watts-220v-calculator': 'mainsVoltage',
+  'amps-to-watts-230v-calculator': 'mainsVoltage',
+  'amps-to-watts-240v-calculator': 'mainsVoltage',
+  'single-phase-amps-to-watts-calculator': 'mainsVoltage',
+  '3-phase-amps-to-watts-calculator': 'industrial',
+  'amps-to-watts-3-phase-calculator': 'industrial',
+  'megawatts-to-amps-calculator': 'industrial',
+  'kva-to-watts-calculator': 'industrial',
+  'ac-amps-to-watts-calculator': 'industrial',
+  'amps-to-watts-ac-calculator': 'industrial',
+  'speaker-amp-power-calculator': 'audio',
+  'amp-power-consumption-calculator': 'audio'
+};
+
+// Default to mainsVoltage if unmapped
+const currentSiloKey = siloMapping[slug] || 'mainsVoltage';
+const currentSilo = silos[currentSiloKey];
+
+// Filter out the current page so we don't link to ourselves
+const relatedLinks = currentSilo.filter(link => link.href !== `/${slug}/`);
+
+const titles = {
+  lowVoltage: "Related Low Voltage & DC Tools",
+  mainsVoltage: "Related Mains Voltage & AC Tools",
+  industrial: "Related Industrial & 3-Phase Tools",
+  audio: "Related Audio & Amplification Tools"
+};
+const sectionTitle = titles[currentSiloKey];
+---
+
+{relatedLinks.length > 0 && (
+  <section class="content-section semantic-link-map" aria-label="Contextual electrical calculators">
+    <div class="section-divider">
+      <div class="icon-circle" aria-hidden="true">Hub</div>
+      <h2>{sectionTitle}</h2>
+      <div class="line" aria-hidden="true"></div>
+    </div>
+    <div class="semantic-link-map-grid" style="grid-template-columns: 1fr;">
+      <section class="semantic-link-cluster" style="padding:0; border:none; background:transparent;">
+        <nav class="semantic-link-list" aria-label="Related tools">
+          {relatedLinks.map(link => (
+            <a href={link.href}>
+              <strong>{link.title}</strong>
+              <span>{link.desc}</span>
+            </a>
+          ))}
+        </nav>
+      </section>
+    </div>
+  </section>
+)}

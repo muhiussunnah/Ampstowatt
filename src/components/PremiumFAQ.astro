@@ -1,0 +1,79 @@
+---
+import type { Tool } from '@/data/tools';
+
+type Props = {
+  tool?: Tool;
+  title?: string;
+};
+
+const { tool, title = 'Frequently Asked Questions' } = Astro.props;
+const name = tool?.shortTitle ?? title;
+const formula = tool?.formula ?? 'W = A x V x PF';
+const mode = tool?.defaultPhase === 'dc' ? 'DC' : tool?.defaultPhase === 'ac3' ? 'three-phase' : 'AC/DC';
+const heading = tool ? `${name} FAQ` : title;
+const ariaLabel = heading.toLowerCase().endsWith('faq') ? heading : `${heading} FAQ`;
+const questions = tool
+  ? [
+      {
+        q: `How does the ${name} calculator work?`,
+        a: `Enter the known electrical values, then the calculator applies ${formula} to return a planning result instantly.`
+      },
+      {
+        q: `What inputs do I need for the ${name} calculator?`,
+        a: `Most calculations need current, voltage, and the correct circuit type. ${mode !== 'DC' ? 'For AC systems, use a realistic power factor from the equipment nameplate when available.' : 'For DC systems, power factor is not required.'}`
+      },
+      {
+        q: `Can I use this result for real wiring or breaker sizing?`,
+        a: 'Use the result for planning and comparison. Final wiring, breaker, conductor, voltage-drop, derating, and code decisions should be verified by a qualified electrician or engineer.'
+      },
+      {
+        q: 'Why do AC and three-phase results differ from DC?',
+        a: 'DC uses a direct volts x amps relationship. AC can include power factor, and three-phase systems use a phase multiplier or line-to-neutral formula.'
+      }
+    ]
+  : [
+      {
+        q: 'Which calculator should I use first?',
+        a: 'Use Amps to Watts when you know current and voltage. Use Watts to Amps when you know load power and need current draw.'
+      },
+      {
+        q: 'Do the calculators support AC, DC, and three-phase systems?',
+        a: 'Yes. The suite includes DC, single-phase AC, three-phase AC, power factor, battery energy, wire gauge, and voltage-drop workflows.'
+      },
+      {
+        q: 'Are the calculators suitable for safety-critical electrical design?',
+        a: 'They are educational planning tools. Verify final electrical work with equipment data, applicable code, and a licensed professional.'
+      }
+    ];
+
+/* FAQ structured data for SEO */
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: questions.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a
+    }
+  }))
+};
+---
+
+<section class="premium-faq-section" id="faq" aria-label={ariaLabel}>
+  <div class="premium-faq-heading">
+    <p class="premium-kicker">FAQ</p>
+    <h2>{heading}</h2>
+    <p>Fast answers before you use the calculator or compare formulas.</p>
+  </div>
+  <div class="premium-faq-list">
+    {questions.map((item, index) => (
+      <details open={index === 0}>
+        <summary>{item.q}</summary>
+        <p>{item.a}</p>
+      </details>
+    ))}
+  </div>
+</section>
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />

@@ -1,0 +1,38 @@
+---
+type Props = {
+  title: string;
+  eyebrow?: string;
+  formula?: string;
+  kind?: string;
+};
+
+const { title, eyebrow = 'Electrical conversion model', formula = 'W = A x V x PF', kind = 'core' } = Astro.props;
+const inputLabel = kind === 'dc' ? 'DC' : kind === 'three' ? '3P' : kind === 'wire' ? 'AWG' : 'AC';
+---
+
+<div class={`aw-electric-visual aw-electric-visual--${kind}`} role="img" aria-label={`${title} visual conversion model`}>
+  <div class="aw-visual-topline">
+    <span>{eyebrow}</span>
+    <strong>{formula}</strong>
+  </div>
+  <div class="aw-circuit-stage" aria-hidden="true">
+    <div class="aw-port aw-port-input">
+      <small>Input</small>
+      <b>{inputLabel}</b>
+    </div>
+    <div class="aw-flow aw-flow-one"><i></i><i></i><i></i></div>
+    <div class="aw-meter">
+      <span>A</span>
+      <span>V</span>
+      <span>{kind === 'dc' ? 'Wh' : 'PF'}</span>
+    </div>
+    <div class="aw-flow aw-flow-two"><i></i><i></i><i></i></div>
+    <div class="aw-port aw-port-output">
+      <small>Result</small>
+      <b>{kind === 'wire' ? 'OK' : 'W'}</b>
+    </div>
+  </div>
+  <div class="aw-phase-strip" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
+</div>

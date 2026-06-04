@@ -1,0 +1,57 @@
+---
+import PageVisual from './PageVisual.astro';
+import type { Tool } from '@/data/tools';
+
+type Props = {
+  title: string;
+  description: string;
+  tools: Tool[];
+};
+
+const { title, description, tools } = Astro.props;
+const groups = [
+  { label: 'Core power', icon: '⚡', match: ['amps-to-watts', 'watts-to-amps', 'amps-to-kw', 'kva-to-watts'] },
+  { label: 'Batteries and solar', icon: '🔋', match: ['amp-hours'] },
+  { label: 'Wiring and safety', icon: '🔌', match: ['voltage-drop', 'wire-gauge', 'power-factor', 'volt-amps'] }
+];
+---
+
+<section class="premium-directory-hero">
+  <div>
+    <p class="premium-kicker">Calculator library</p>
+    <h1>{title}</h1>
+    <p>{description}</p>
+    <div class="premium-directory-stats">
+      <span><b>{tools.length}</b><small>Calculators</small></span>
+      <span><b>AC/DC</b><small>Phase modes</small></span>
+      <span><b>Free</b><small>No sign-up</small></span>
+    </div>
+  </div>
+  <PageVisual title={title} eyebrow="Amps to watts suite" formula="A + V + PF = W" kind="core" />
+</section>
+
+<section class="premium-tool-directory" aria-label="Premium calculator directory">
+  <div class="premium-search-wrap">
+    <input type="search" id="calc-search" placeholder="Search calculators…" aria-label="Search calculators" />
+  </div>
+  {groups.map((group) => (
+    <article class="premium-directory-group" data-group>
+      <div class="premium-group-heading">
+        <span>{group.icon} {group.label}</span>
+        <strong>{tools.filter((tool) => group.match.includes(tool.kind)).length} tools</strong>
+      </div>
+      <div class="premium-tool-grid">
+        {tools
+          .filter((tool) => group.match.includes(tool.kind))
+          .map((tool) => (
+            <a class="premium-tool-card" href={`/${tool.slug}/`} data-search-card>
+              <span>{tool.eyebrow}</span>
+              <strong>{tool.shortTitle}</strong>
+              <p>{tool.description}</p>
+              <em>{tool.formula}</em>
+            </a>
+          ))}
+      </div>
+    </article>
+  ))}
+</section>
