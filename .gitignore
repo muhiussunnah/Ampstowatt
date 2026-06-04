@@ -4,3 +4,5 @@ dist
 .env
 astro-dev.log
 astro-dev.err.log
+astro-preview.log
+astro-preview.err.log

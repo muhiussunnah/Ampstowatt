@@ -1,4 +1,4 @@
-export type ToolKind =
+﻿export type ToolKind =
   | 'amps-to-watts'
   | 'watts-to-amps'
   | 'amp-hours'
@@ -39,7 +39,7 @@ export const tools: Tool[] = [
   { slug: 'power-factor', title: 'Power Factor Calculator', shortTitle: 'Power Factor', description: 'Calculate power factor from real power and apparent power, plus current at the selected voltage.', kind: 'power-factor', eyebrow: 'Power quality', formula: 'PF = Watts / VA', highlights: ['Real vs apparent power', 'Current estimate', 'PF quality band'] },
   { slug: 'kva-to-watts-calculator', title: 'kVA To Watts Calculator', shortTitle: 'kVA to Watts', description: 'Convert apparent power in kVA to real power in watts and kilowatts using power factor.', kind: 'kva-to-watts', eyebrow: 'Generator and UPS sizing', formula: 'Watts = kVA x 1000 x PF', highlights: ['Generator planning', 'UPS load estimates', 'PF-adjusted watts'] },
   { slug: 'amps-to-kw-calculator', title: 'Amps To kW Calculator', shortTitle: 'Amps to kW', description: 'Convert amps to kilowatts for DC, AC single-phase, and AC three-phase electrical systems.', kind: 'amps-to-kw', defaultVoltage: 240, defaultPhase: 'ac1', eyebrow: 'Kilowatt planning', formula: 'kW = Watts / 1000', highlights: ['Fast kW conversion', 'AC and DC support', 'Load planning result'] },
-  { slug: 'voltage-amps-watts-calculator', title: 'Voltage Amps Watts Calculator', shortTitle: 'V A W', description: 'Solve common voltage, current, and wattage relationships using Watt’s law.', kind: 'amps-to-watts', defaultVoltage: 120, defaultPhase: 'dc', eyebrow: 'Watt’s law suite', formula: 'P = V x I', highlights: ['Find watts from V and A', 'Clear formula context', 'General electrical planning'] },
+  { slug: 'voltage-amps-watts-calculator', title: 'Voltage Amps Watts Calculator', shortTitle: 'V A W', description: "Solve common voltage, current, and wattage relationships using Watt's law.", kind: 'amps-to-watts', defaultVoltage: 120, defaultPhase: 'dc', eyebrow: "Watt's law suite", formula: 'P = V x I', highlights: ['Find watts from V and A', 'Clear formula context', 'General electrical planning'] },
   { slug: 'solar-watts-to-amps-calculator', title: 'Solar Watts To Amps Calculator', shortTitle: 'Solar W to A', description: 'Convert solar panel wattage to charging amps using system voltage and efficiency.', kind: 'watts-to-amps', defaultVoltage: 12, defaultPhase: 'dc', eyebrow: 'Solar charge current', formula: 'Amps = Watts / Volts', highlights: ['12V, 24V, 48V systems', 'Charge controller estimates', 'Efficiency support'] },
   { slug: 'led-watts-to-amps-calculator', title: 'LED Watts To Amps Calculator', shortTitle: 'LED W to A', description: 'Calculate LED driver current draw from watts and voltage.', kind: 'watts-to-amps', defaultVoltage: 12, defaultPhase: 'dc', eyebrow: 'LED driver sizing', formula: 'Amps = Watts / Volts', highlights: ['LED strips and drivers', 'Low-voltage DC', 'Current draw output'] },
   { slug: 'speaker-amp-power-calculator', title: 'Speaker Amp Power Calculator', shortTitle: 'Speaker Power', description: 'Estimate amplifier current draw from output watts, voltage, and efficiency.', kind: 'watts-to-amps', defaultVoltage: 12, defaultPhase: 'dc', eyebrow: 'Audio systems', formula: 'Amps = Watts / (Volts x Efficiency)', highlights: ['Car audio friendly', 'Efficiency input', 'Fuse planning context'] },
@@ -87,3 +87,4 @@ export function getToolBySlug(slug: string) {
 export function getPageBySlug(slug: string) {
   return pages.find((page) => page.slug === slug);
 }
+

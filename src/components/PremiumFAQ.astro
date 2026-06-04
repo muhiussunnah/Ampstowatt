@@ -78,8 +78,8 @@ const faqSchema = {
     {questions.map((item, index) => (
       <details open={index === 0}>
         <summary>
-          <span style="display: inline-flex; align-items: center; gap: 0.6rem;">
-            <span style="display: grid; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: 8px; background: rgba(22, 217, 244, 0.1); border: 1px solid rgba(22, 217, 244, 0.2); font-size: 0.85rem; flex-shrink: 0;">{item.icon}</span>
+          <span class="faq-summary-inner">
+            <span class="faq-badge">{item.icon}</span>
             {item.q}
           </span>
         </summary>

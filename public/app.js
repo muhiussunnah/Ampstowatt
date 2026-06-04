@@ -1,6 +1,6 @@
 /* ================================================================
-   AMPS TO WATTS — PREMIUM CLIENT SCRIPT
-   Calculator logic, interactions, and micro-animations
+   AMPS TO WATTS - PREMIUM CLIENT SCRIPT
+   Calculator logic and interactions
    ================================================================ */
 (function () {
   'use strict';
@@ -87,8 +87,8 @@
     const type = toolField(tool, 'lx-type')?.value || 'dc';
     const vtype = toolField(tool, 'lx-vtype-container');
     const pf = toolField(tool, 'lx-pf-container');
-    if (vtype) vtype.style.display = type === 'ac3' ? '' : 'none';
-    if (pf) pf.style.display = type === 'dc' ? 'none' : '';
+    if (vtype) vtype.classList.toggle('is-hidden', type !== 'ac3');
+    if (pf) pf.classList.toggle('is-hidden', type === 'dc');
   }
 
   function validateInput(field) {
@@ -164,7 +164,7 @@
     if (!toast) {
       toast = document.createElement('div');
       toast.className = 'aw-toast';
-      toast.innerHTML = '<span class="aw-toast-icon">✓</span><span class="aw-toast-text"></span>';
+      toast.innerHTML = '<span class="aw-toast-icon">OK</span><span class="aw-toast-text"></span>';
       document.body.appendChild(toast);
     }
     toast.querySelector('.aw-toast-text').textContent = message;
@@ -256,7 +256,7 @@
     const historyList = document.getElementById('calc-history-list');
     if (!historyPanel || !historyList) return;
 
-    historyPanel.style.display = '';
+    historyPanel.classList.remove('is-hidden');
 
     const item = document.createElement('div');
     item.className = 'calc-history-item';

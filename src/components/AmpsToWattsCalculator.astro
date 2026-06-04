@@ -40,7 +40,7 @@ const defaultPhase = tool?.defaultPhase ?? 'ac1';
         </select>
       </div>
 
-      <div class="lx-field" id="lx-vtype-container" style="display: none;">
+      <div class="lx-field is-hidden" id="lx-vtype-container">
         <label>Voltage Type</label>
         <div class="lx-toggle-group">
           <input type="hidden" id="lx-vtype" value="vll" />
@@ -125,7 +125,7 @@ const defaultPhase = tool?.defaultPhase ?? 'ac1';
       </button>
     </div>
 
-    <div class="calc-history" id="calc-history" style="display: none;">
+    <div class="calc-history is-hidden" id="calc-history">
       <span class="calc-history-title">Recent calculations</span>
       <div class="calc-history-list" id="calc-history-list"></div>
     </div>

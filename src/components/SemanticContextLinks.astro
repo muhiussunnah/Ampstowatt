@@ -80,16 +80,16 @@ const sectionTitle = titles[currentSiloKey];
       <h2>{sectionTitle}</h2>
       <div class="line" aria-hidden="true"></div>
     </div>
-    <div class="semantic-link-map-grid" style="grid-template-columns: 1fr;">
-      <section class="semantic-link-cluster" style="padding:0; border:none; background:transparent;">
+    <div class="semantic-link-map-grid semantic-link-map-grid--single">
+      <section class="semantic-link-cluster semantic-link-cluster--plain">
         <nav class="semantic-link-list" aria-label="Related tools">
           {relatedLinks.map(link => (
             <a href={link.href}>
-              <span style="display: flex; align-items: center; gap: 0.6rem;">
-                <span style="display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 8px; background: rgba(22, 217, 244, 0.08); border: 1px solid rgba(22, 217, 244, 0.15); font-size: 1rem; flex-shrink: 0;">{link.icon}</span>
+              <span class="semantic-link-title">
+                <span class="semantic-link-badge">{link.icon}</span>
                 <strong>{link.title}</strong>
               </span>
-              <span style="padding-left: 2.6rem;">{link.desc}</span>
+              <span class="semantic-link-desc">{link.desc}</span>
             </a>
           ))}
         </nav>

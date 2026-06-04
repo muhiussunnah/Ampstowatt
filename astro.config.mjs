@@ -2,6 +2,8 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 const aliasPaths = new Set([
+  '/amps-to-watts-calculator/',
+  '/calculators/',
   '/12v-calculator/',
   '/120v-calculator/',
   '/220v-calculator/',
