@@ -1,5 +1,6 @@
 ---
 import type { Tool } from '@/data/tools';
+import { getFaqQuestions } from '@/lib/faq';
 
 type Props = {
   tool?: Tool;
@@ -8,64 +9,9 @@ type Props = {
 
 const { tool, title = 'Frequently Asked Questions' } = Astro.props;
 const name = tool?.shortTitle ?? title;
-const formula = tool?.formula ?? 'W = A x V x PF';
-const mode = tool?.defaultPhase === 'dc' ? 'DC' : tool?.defaultPhase === 'ac3' ? 'three-phase' : 'AC/DC';
 const heading = tool ? `${name} FAQ` : title;
 const ariaLabel = heading.toLowerCase().endsWith('faq') ? heading : `${heading} FAQ`;
-const questions = tool
-  ? [
-      {
-        q: `How does the ${name} calculator work?`,
-        a: `Enter the known electrical values, then the calculator applies ${formula} to return a planning result instantly.`,
-        icon: 'W'
-      },
-      {
-        q: `What inputs do I need for the ${name} calculator?`,
-        a: `Most calculations need current, voltage, and the correct circuit type. ${mode !== 'DC' ? 'For AC systems, use a realistic power factor from the equipment nameplate when available.' : 'For DC systems, power factor is not required.'}`,
-        icon: 'IN'
-      },
-      {
-        q: `Can I use this result for real wiring or breaker sizing?`,
-        a: 'Use the result for planning and comparison. Final wiring, breaker, conductor, voltage-drop, derating, and code decisions should be verified by a qualified electrician or engineer.',
-        icon: 'SA'
-      },
-      {
-        q: 'Why do AC and three-phase results differ from DC?',
-        a: 'DC uses a direct volts x amps relationship. AC can include power factor, and three-phase systems use a phase multiplier or line-to-neutral formula.',
-        icon: 'AC'
-      }
-    ]
-  : [
-      {
-        q: 'Which calculator should I use first?',
-        a: 'Use Amps to Watts when you know current and voltage. Use Watts to Amps when you know load power and need current draw.',
-        icon: 'A'
-      },
-      {
-        q: 'Do the calculators support AC, DC, and three-phase systems?',
-        a: 'Yes. The suite includes DC, single-phase AC, three-phase AC, power factor, battery energy, wire gauge, and voltage-drop workflows.',
-        icon: 'AC'
-      },
-      {
-        q: 'Are the calculators suitable for safety-critical electrical design?',
-        a: 'They are educational planning tools. Verify final electrical work with equipment data, applicable code, and a licensed professional.',
-        icon: 'SA'
-      }
-    ];
-
-/* FAQ structured data for SEO */
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: questions.map((item) => ({
-    '@type': 'Question',
-    name: item.q,
-    acceptedAnswer: {
-      '@type': 'Answer',
-      text: item.a
-    }
-  }))
-};
+const questions = getFaqQuestions(tool);
 ---
 
 <section class="premium-faq-section" id="faq" aria-label={ariaLabel}>
@@ -88,4 +34,4 @@ const faqSchema = {
     ))}
   </div>
 </section>
-<script type="application/ld+json" nonce="aw-jsonld" set:html={JSON.stringify(faqSchema)} />
+

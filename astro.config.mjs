@@ -27,7 +27,11 @@ export default defineConfig({
   prefetch: true,
   integrations: [
     sitemap({
-      filter: (page) => !aliasPaths.has(new URL(page).pathname)
+      filter: (page) => !aliasPaths.has(new URL(page).pathname),
+      serialize: (item) => ({
+        ...item,
+        lastmod: new Date().toISOString().split('T')[0]
+      })
     })
   ],
   trailingSlash: 'always',

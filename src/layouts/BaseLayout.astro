@@ -5,6 +5,8 @@ import type { Tool } from '@/data/tools';
 import PremiumFAQ from '@/components/PremiumFAQ.astro';
 import AmpsToWattsCalculator from '@/components/AmpsToWattsCalculator.astro';
 import HomepageLanguageSwitcher from '@/components/HomepageLanguageSwitcher.astro';
+import { getFaqQuestions } from '@/lib/faq';
+import type { FaqItem } from '@/lib/faq';
 
 type Props = {
   title: string;
@@ -30,6 +32,8 @@ const {
   h1Title = title.replace(' | Amps To Watts Calculator', '')
 } = Astro.props;
 
+const faqQuestions = getFaqQuestions(tool);
+
 const canonical = new URL(canonicalPath, 'https://ampstowatt.com').toString();
 const image = new URL('/og-image.jpg', 'https://ampstowatt.com').toString();
 
@@ -52,9 +56,16 @@ const schema = {
       '@id': 'https://ampstowatt.com/#organization',
       name: 'Amps To Watts Calculator',
       url: 'https://ampstowatt.com/',
+      description: 'Free premium electrical calculators for current, voltage, watts, kW, VA, battery energy, wire sizing, and voltage drop. Educational resource for electrical planning.',
+      foundingDate: '2024',
       logo: {
         '@type': 'ImageObject',
         url: new URL('/favicon.svg', 'https://ampstowatt.com').toString()
+      },
+      contactPoint: {
+        '@type': 'ContactPoint',
+        contactType: 'customer support',
+        url: 'https://ampstowatt.com/contact-us/'
       }
     },
     {
@@ -84,17 +95,30 @@ const schema = {
       ]
     }] : []),
     {
-      '@type': 'WebApplication',
+      '@type': 'SoftwareApplication',
       '@id': `${canonical}#application`,
       name: title,
       url: canonical,
-      applicationCategory: 'EngineeringApplication',
+      applicationCategory: 'UtilitiesApplication',
+      applicationSubCategory: 'Calculator',
       operatingSystem: 'All',
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
       description,
       isAccessibleForFree: true,
       publisher: { '@id': 'https://ampstowatt.com/#organization' }
-    }
+    },
+    ...(faqQuestions.length > 0 ? [{
+      '@type': 'FAQPage',
+      '@id': `${canonical}#faq`,
+      mainEntity: faqQuestions.map((item: FaqItem) => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.a
+        }
+      }))
+    }] : [])
   ]
 };
 ---
