@@ -65,6 +65,8 @@
     const modeBtn = toolField(tool, 'lx-mode-btn');
     const powerLabel = toolField(tool, 'lbl-power');
     const unit = toolField(tool, 'lx-power-unit');
+    const resOneInput = toolField(tool, 'res-kw');
+    const resTwoInput = toolField(tool, 'res-watts');
     const resOneLabel = toolField(tool, 'lbl-res1');
     const resTwoLabel = toolField(tool, 'lbl-res2');
     const resOneUnit = toolField(tool, 'lbl-unit1');
@@ -82,7 +84,7 @@
     if (modeBtn) {
       modeBtn.dataset.i18n = isAmpsToWatts ? 'calc.switch.toWta' : 'calc.switch.toAtw';
       modeBtn.textContent = isAmpsToWatts ? 'Switch to Watts to Amps' : 'Switch to Amps to Watts';
-      modeBtn.setAttribute('aria-checked', isAmpsToWatts ? 'true' : 'false');
+      modeBtn.setAttribute('aria-pressed', isAmpsToWatts ? 'false' : 'true');
     }
     if (powerLabel) {
       powerLabel.dataset.i18n = isAmpsToWatts ? 'calc.current' : 'calc.power';
@@ -99,9 +101,16 @@
     if (firstUnit) firstUnit.textContent = isAmpsToWatts ? 'kW' : 'A';
     if (secondUnit) secondUnit.textContent = isAmpsToWatts ? 'W' : 'mA';
     if (unit) {
+      unit.setAttribute('aria-label', isAmpsToWatts ? 'Current unit' : 'Power unit');
       setSelectOptions(unit, isAmpsToWatts
         ? [['a', 'A'], ['ma', 'mA']]
         : [['kw', 'kW'], ['w', 'W']]);
+    }
+    if (resOneInput) {
+      resOneInput.setAttribute('aria-label', isAmpsToWatts ? 'Power in kilowatts' : 'Current in amps');
+    }
+    if (resTwoInput) {
+      resTwoInput.setAttribute('aria-label', isAmpsToWatts ? 'Power in watts' : 'Current in milliamps');
     }
     tool.dataset.mode = mode;
     window.dispatchEvent(new CustomEvent('aw:calculator-mode-change'));

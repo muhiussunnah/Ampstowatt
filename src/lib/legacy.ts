@@ -13,6 +13,7 @@ const duplicateHeroPattern = /<section\b[^>]*class="[^"]*(?:brand-header|pro-her
 const visualClassPattern = /\b(?:premium-visual-section|premium-visual-grid|premium-visual-card|technical-visual-card|content-visual-grid|unit-visual-grid|formula-visual-grid|pf-visual-grid|seo-guideline-circuit|mini-svg-diagram|mini-circuit|topic-mini-diagram|section-flow-visual|seo-chart-visual|tool-page-visual|circuit-visual-panel|visual-panel|sub-calculator-section|sub-calculator-grid|tool-page-grid|lx-tool)\b/;
 const emptyContentPattern = /<(div|section|figure|article)\b[^>]*>\s*<\/\1>\s*/gi;
 const inlineStylePattern = /\sstyle="[^"]*"/gi;
+const tableHeaderPattern = /<th(?![^>]*\bscope=)([^>]*)>/gi;
 
 function findTagClose(html: string, openEnd: number, tag: string) {
   const tagPattern = new RegExp(`<\\/?${tag}\\b[^>]*>`, 'gi');
@@ -63,6 +64,7 @@ export function prepareLegacyBody(page: LegacyPage) {
     .replace(duplicateHeroPattern, '')
     .replace(svgPattern, '')
     .replace(inlineStylePattern, '')
+    .replace(tableHeaderPattern, '<th scope="col"$1>')
     .replace(emptyContentPattern, '');
 }
 

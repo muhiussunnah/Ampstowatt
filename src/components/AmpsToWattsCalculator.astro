@@ -34,7 +34,7 @@ const defaultPhase = tool?.defaultPhase ?? 'ac1';
   <div class="lx-calculator-body">
     <div class="lx-header-row">
       <h2 class="lx-card-title" data-i18n="calc.title">Conversion calculator</h2>
-      <button type="button" class="lx-mode-btn lx-toggle-btn active" id="lx-mode-btn" role="switch" aria-checked="true" data-i18n="calc.switch">Switch to Watts to Amps</button>
+      <button type="button" class="lx-mode-btn lx-toggle-btn active" id="lx-mode-btn" aria-pressed="false" data-i18n="calc.switch">Switch to Watts to Amps</button>
     </div>
 
     <div class="lx-grid">
@@ -60,7 +60,8 @@ const defaultPhase = tool?.defaultPhase ?? 'ac1';
         <label id="lbl-power" for="lx-power" data-i18n="calc.current">Current</label>
         <div class="lx-input-group">
           <input type="number" id="lx-power" value="10" min="0" step="any" class="premium-input" />
-          <select id="lx-power-unit" class="lx-unit-select premium-input">
+          <label class="sr-only" for="lx-power-unit">Current unit</label>
+          <select id="lx-power-unit" class="lx-unit-select premium-input" aria-label="Current unit">
             <option value="a">A</option>
             <option value="ma">mA</option>
           </select>
@@ -75,7 +76,8 @@ const defaultPhase = tool?.defaultPhase ?? 'ac1';
       <div class="lx-field lx-span-2" id="lx-pf-container">
         <label for="lx-pf-input" data-i18n="calc.pf">Power Factor (PF)</label>
         <div class="lx-slider-group">
-          <input type="range" id="lx-pf-slider" min="0.01" max="1" step="0.01" value="1" />
+          <label class="sr-only" for="lx-pf-slider">Power factor slider</label>
+          <input type="range" id="lx-pf-slider" min="0.01" max="1" step="0.01" value="1" aria-label="Power factor slider" />
           <input type="number" id="lx-pf-input" min="0.01" max="1" step="0.01" value="1" class="premium-input" />
         </div>
       </div>
@@ -83,16 +85,16 @@ const defaultPhase = tool?.defaultPhase ?? 'ac1';
 
     <div class="premium-results-grid" aria-live="polite" aria-atomic="true">
       <div class="lx-field" id="res-amps-box">
-        <label id="lbl-res1" data-i18n="calc.kw">Power (kW)</label>
+        <label id="lbl-res1" for="res-kw" data-i18n="calc.kw">Power (kW)</label>
         <div class="lx-input-group">
-          <input type="text" id="res-kw" readonly class="premium-input result-input" />
+          <input type="text" id="res-kw" readonly class="premium-input result-input" aria-label="Power in kilowatts" />
           <span class="lx-unit-label" id="lbl-unit1">kW</span>
         </div>
       </div>
       <div class="lx-field" id="res-ma-box">
-        <label id="lbl-res2" data-i18n="calc.watts">Power (W)</label>
+        <label id="lbl-res2" for="res-watts" data-i18n="calc.watts">Power (W)</label>
         <div class="lx-input-group">
-          <input type="text" id="res-watts" readonly class="premium-input result-input" />
+          <input type="text" id="res-watts" readonly class="premium-input result-input" aria-label="Power in watts" />
           <span class="lx-unit-label" id="lbl-unit2">W</span>
         </div>
       </div>
