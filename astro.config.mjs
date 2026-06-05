@@ -30,10 +30,6 @@ export default defineConfig({
       filter: (page) => !aliasPaths.has(new URL(page).pathname)
     })
   ],
-  redirects: {
-    '/amps-to-watts-calculator/': '/',
-    '/calculators/': '/'
-  },
   trailingSlash: 'always',
   vite: {
     build: {

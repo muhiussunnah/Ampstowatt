@@ -70,9 +70,9 @@ const faqSchema = {
 
 <section class="premium-faq-section" id="faq" aria-label={ariaLabel}>
   <div class="premium-faq-heading">
-    <p class="premium-kicker">FAQ</p>
-    <h2>{heading}</h2>
-    <p>Fast answers before you use the calculator or compare formulas.</p>
+    <p class="premium-kicker" data-i18n={!tool ? 'faq.kicker' : undefined}>FAQ</p>
+    <h2 data-i18n={!tool ? 'faq.title' : undefined}>{heading}</h2>
+    <p data-i18n={!tool ? 'faq.desc' : undefined}>Fast answers before you use the calculator or compare formulas.</p>
   </div>
   <div class="premium-faq-list">
     {questions.map((item, index) => (

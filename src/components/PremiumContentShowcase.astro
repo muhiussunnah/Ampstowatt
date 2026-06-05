@@ -1,0 +1,51 @@
+---
+import type { Tool } from '@/data/tools';
+
+type Props = {
+  tool?: Tool;
+  title: string;
+  description: string;
+};
+
+const { tool, title, description } = Astro.props;
+const displayTitle = tool?.shortTitle ?? title.replace(' | Amps To Watts Calculator', '').replace(' - Amps To Watts Calculator', '');
+const formula = tool?.formula ?? 'Watts = Amps x Volts x Power Factor';
+const voltage = tool?.defaultVoltage ? `${tool.defaultVoltage}V` : 'AC/DC';
+const phase = tool?.defaultPhase === 'ac3' ? '3-phase' : tool?.defaultPhase === 'dc' ? 'DC' : 'single-phase';
+---
+
+<section class="premium-content-showcase" aria-label={`${displayTitle} visual summary`}>
+  <div class="content-showcase-copy">
+    <p class="premium-kicker" data-i18n={!tool ? 'showcase.kicker' : undefined}>Premium guide layout</p>
+    <h2>{displayTitle}</h2>
+    <p>{description}</p>
+    <div class="content-showcase-tags" aria-label="Content highlights">
+      <span>{voltage}</span>
+      <span>{phase}</span>
+      <span data-i18n={!tool ? 'showcase.tag' : undefined}>formula-first</span>
+    </div>
+  </div>
+
+  <div class="content-showcase-visual" aria-hidden="true">
+    <div class="lux-meter lux-meter--wide">
+      <span></span>
+      <i></i>
+      <b></b>
+    </div>
+    <div class="lux-flow">
+      <span>A</span>
+      <i></i>
+      <span>V</span>
+      <i></i>
+      <span>W</span>
+    </div>
+    <div class="lux-formula-card">
+      <small data-i18n={!tool ? 'showcase.formula' : undefined}>working formula</small>
+      <strong>{formula}</strong>
+    </div>
+    <div class="lux-signal-grid">
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+</section>

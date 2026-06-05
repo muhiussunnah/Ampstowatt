@@ -4,6 +4,7 @@ import { tools } from '@/data/tools';
 import type { Tool } from '@/data/tools';
 import PremiumFAQ from '@/components/PremiumFAQ.astro';
 import AmpsToWattsCalculator from '@/components/AmpsToWattsCalculator.astro';
+import HomepageLanguageSwitcher from '@/components/HomepageLanguageSwitcher.astro';
 
 type Props = {
   title: string;
@@ -116,11 +117,6 @@ const schema = {
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="theme-color" content="#05070d" />
-    <!-- Google Fonts - Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet" /></noscript>
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
@@ -148,19 +144,19 @@ const schema = {
         <span class="brand-mark">AW</span>
         <span>
           <strong>Amps To Watts</strong>
-          <small>Premium electrical calculators</small>
+          <small data-i18n="brand.small">Premium electrical calculators</small>
         </span>
       </a>
       <button class="nav-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Toggle navigation">
         <span></span><span></span><span></span>
       </button>
       <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
-        <a href="/">Home</a>
-        <a href="/#voltage-circuits">Voltage Circuits</a>
-        <a href="/#ac-dc-power">AC/DC Power</a>
-        <a href="/#component-calculators">Components</a>
-        <a href="/power-factor/">Power Factor</a>
-        <a href="/contact-us/">Contact</a>
+        <a href="/" data-i18n="nav.home">Home</a>
+        <a href="/#voltage-circuits" data-i18n="nav.voltage">Voltage Circuits</a>
+        <a href="/#ac-dc-power" data-i18n="nav.acdc">AC/DC Power</a>
+        <a href="/#component-calculators" data-i18n="nav.components">Components</a>
+        <a href="/power-factor/" data-i18n="nav.powerfactor">Power Factor</a>
+        <a href="/contact-us/" data-i18n="nav.contact">Contact</a>
       </nav>
     </header>
 
@@ -182,10 +178,10 @@ const schema = {
         {showCalculator && (
           <section class="premium-unified-hero">
             <div class="premium-hero-copy">
-              <p class="premium-kicker">{kicker}</p>
-              <h1>{h1Title}</h1>
+              <p class="premium-kicker" data-i18n={isHome ? 'hero.kicker' : undefined}>{kicker}</p>
+              <h1 data-i18n={isHome ? 'hero.title' : undefined}>{h1Title}</h1>
               {tool && <div class="premium-formula-pill">{tool.formula}</div>}
-              <p>{description}</p>
+              <p data-i18n={isHome ? 'hero.description' : undefined}>{description}</p>
             </div>
             <AmpsToWattsCalculator tool={tool} />
           </section>
@@ -205,12 +201,13 @@ const schema = {
     <!-- ===== FOOTER ===== -->
     <div class="footer-wrapper">
       <footer class="site-footer">
+        {isHome && <HomepageLanguageSwitcher placement="footer" />}
         <div>
           <a class="footer-brand" href="/">Amps To Watts Calculator</a>
           <p>Premium electrical calculators for current, voltage, watts, kW, VA, battery energy, wire sizing, and voltage drop. Educational use only; verify safety-critical work with a licensed professional.</p>
         </div>
         <div>
-          <p class="footer-col-title">Theory & Principles</p>
+          <p class="footer-col-title" data-i18n="footer.theory">Theory & Principles</p>
           <nav aria-label="Electrical theory">
             <a href="/ac-amps-to-watts-calculator/">AC Power Dynamics</a>
             <a href="/dc-amps-to-watts-calculator/">DC Systems</a>
@@ -220,16 +217,16 @@ const schema = {
           </nav>
         </div>
         <div>
-          <p class="footer-col-title">Circuit Standards</p>
+          <p class="footer-col-title" data-i18n="footer.standards">Circuit Standards</p>
           <nav aria-label="Circuit standards">
             <a href="/12v-amps-to-watts-calculator/">Low Voltage (12V)</a>
             <a href="/120v-amps-to-watts-calculator/">US Mains (120V)</a>
             <a href="/240v-amps-to-watts-calculator/">US Split-Phase (240V)</a>
-            <a href="/amps-to-watts-230v-calculator/">UK/EU Mains (230V)</a>
+            <a href="/230v-calculator/">UK/EU Mains (230V)</a>
           </nav>
         </div>
         <div>
-          <p class="footer-col-title">Resources</p>
+          <p class="footer-col-title" data-i18n="footer.resources">Resources</p>
           <nav aria-label="Resource links">
             <a href="/about-us/">About</a>
             <a href="/privacy-policy/">Privacy</a>
@@ -245,6 +242,6 @@ const schema = {
     <!-- Back to top -->
     <button class="back-to-top" type="button" aria-label="Back to top" title="Back to top">Top</button>
 
-    <script src="/app.js" defer></script>
+    <script src="../scripts/app.js"></script>
   </body>
 </html>

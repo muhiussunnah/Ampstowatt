@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import PremiumContentShowcase from '@/components/PremiumContentShowcase.astro';
 import { getLegacyPage } from '@/lib/legacy';
 import { tools } from '@/data/tools';
 
@@ -38,23 +39,23 @@ const toolLabels: Record<string, string> = {
   <section class="premium-trust-section" aria-label="Why choose Amps To Watts Calculator">
     <div class="premium-trust-item">
       <span class="premium-trust-number">{tools.length}</span>
-      <span class="premium-trust-label">Calculators</span>
-      <span class="premium-trust-desc">Covering every common electrical conversion</span>
+      <span class="premium-trust-label" data-i18n="trust.calculators">Calculators</span>
+      <span class="premium-trust-desc" data-i18n="trust.calculatorsDesc">Covering every common electrical conversion</span>
     </div>
     <div class="premium-trust-item">
       <span class="premium-trust-number">AC/DC</span>
-      <span class="premium-trust-label">Phase Modes</span>
-      <span class="premium-trust-desc">DC, single-phase, and three-phase support</span>
+      <span class="premium-trust-label" data-i18n="trust.phase">Phase Modes</span>
+      <span class="premium-trust-desc" data-i18n="trust.phaseDesc">DC, single-phase, and three-phase support</span>
     </div>
     <div class="premium-trust-item">
       <span class="premium-trust-number">Free</span>
-      <span class="premium-trust-label">No Signup</span>
-      <span class="premium-trust-desc">Every tool is free with no account required</span>
+      <span class="premium-trust-label" data-i18n="trust.free">No Signup</span>
+      <span class="premium-trust-desc" data-i18n="trust.freeDesc">Every tool is free with no account required</span>
     </div>
     <div class="premium-trust-item">
       <span class="premium-trust-number">Fast</span>
-      <span class="premium-trust-label">Live Results</span>
-      <span class="premium-trust-desc">Instant calculations without page reloads</span>
+      <span class="premium-trust-label" data-i18n="trust.fast">Live Results</span>
+      <span class="premium-trust-desc" data-i18n="trust.fastDesc">Instant calculations without page reloads</span>
     </div>
   </section>
 
@@ -62,21 +63,21 @@ const toolLabels: Record<string, string> = {
     <section class="premium-directory-group" id="voltage-circuits" aria-labelledby="hub-voltage">
       <div class="group-header">
         <div class="group-icon">V</div>
-        <h2 id="hub-voltage" class="group-title">Voltage Circuits</h2>
+        <h2 id="hub-voltage" class="group-title" data-i18n="dir.voltage">Voltage Circuits</h2>
       </div>
       <div class="group-links">
         <a href="/12v-amps-to-watts-calculator/">12V Low Voltage</a>
         <a href="/120v-amps-to-watts-calculator/">120V US Mains</a>
         <a href="/220v-amps-to-watts-calculator/">220V Appliances</a>
         <a href="/240v-amps-to-watts-calculator/">240V US Split-Phase</a>
-        <a href="/amps-to-watts-230v-calculator/">230V UK/EU Mains</a>
+        <a href="/230v-calculator/">230V UK/EU Mains</a>
       </div>
     </section>
 
     <section class="premium-directory-group" id="ac-dc-power" aria-labelledby="hub-acdc">
       <div class="group-header">
         <div class="group-icon">AC</div>
-        <h2 id="hub-acdc" class="group-title">AC/DC Power Systems</h2>
+        <h2 id="hub-acdc" class="group-title" data-i18n="dir.acdc">AC/DC Power Systems</h2>
       </div>
       <div class="group-links">
         <a href="/ac-amps-to-watts-calculator/">AC Power Dynamics</a>
@@ -90,7 +91,7 @@ const toolLabels: Record<string, string> = {
     <section class="premium-directory-group" id="component-calculators" aria-labelledby="hub-components">
       <div class="group-header">
         <div class="group-icon">PF</div>
-        <h2 id="hub-components" class="group-title">Specialized Components</h2>
+        <h2 id="hub-components" class="group-title" data-i18n="dir.components">Specialized Components</h2>
       </div>
       <div class="group-links">
         <a href="/solar-watts-to-amps-calculator/">Solar and PV Systems</a>
@@ -101,6 +102,8 @@ const toolLabels: Record<string, string> = {
       </div>
     </section>
   </div>
+
+  <PremiumContentShowcase title={page.title} description={page.description} />
 
   <div set:html={page.body} />
 </BaseLayout>

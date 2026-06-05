@@ -18,6 +18,15 @@
       maximumFractionDigits: Math.max(0, Math.min(8, decimals))
     });
   };
+  const setSelectOptions = (select, options) => {
+    if (!select) return;
+    select.replaceChildren(...options.map(([value, label]) => {
+      const option = document.createElement('option');
+      option.value = value;
+      option.textContent = label;
+      return option;
+    }));
+  };
 
   /* ----------------------------------------------------------------
      CALCULATOR ENGINE
@@ -51,6 +60,7 @@
   }
 
   function setMode(tool, mode) {
+    const isAmpsToWatts = mode === 'amps-to-watts';
     const modeText = toolField(tool, 'lx-mode-text');
     const modeBtn = toolField(tool, 'lx-mode-btn');
     const powerLabel = toolField(tool, 'lbl-power');
@@ -65,22 +75,36 @@
     const secondLabel = resTwoLabel || resTwoBox?.querySelector('label');
     const firstUnit = resOneUnit || resOneBox?.querySelector('.lx-unit-label');
     const secondUnit = resTwoUnit || resTwoBox?.querySelector('.lx-unit-label');
-    if (modeText) modeText.textContent = mode === 'amps-to-watts' ? 'AMPS TO WATTS' : 'WATTS TO AMPS';
-    if (modeBtn) {
-      modeBtn.textContent = mode === 'amps-to-watts' ? 'Switch to Watts to Amps' : 'Switch to Amps to Watts';
-      modeBtn.setAttribute('aria-checked', mode === 'amps-to-watts' ? 'true' : 'false');
+    if (modeText) {
+      modeText.dataset.i18n = isAmpsToWatts ? 'calc.mode.atw' : 'calc.mode.wta';
+      modeText.textContent = isAmpsToWatts ? 'AMPS TO WATTS' : 'WATTS TO AMPS';
     }
-    if (powerLabel) powerLabel.textContent = mode === 'amps-to-watts' ? 'Current' : 'Power';
-    if (firstLabel) firstLabel.textContent = mode === 'amps-to-watts' ? 'Power (kW)' : 'Current (amps)';
-    if (secondLabel) secondLabel.textContent = mode === 'amps-to-watts' ? 'Power (W)' : 'Current (milliamps)';
-    if (firstUnit) firstUnit.textContent = mode === 'amps-to-watts' ? 'kW' : 'A';
-    if (secondUnit) secondUnit.textContent = mode === 'amps-to-watts' ? 'W' : 'mA';
+    if (modeBtn) {
+      modeBtn.dataset.i18n = isAmpsToWatts ? 'calc.switch.toWta' : 'calc.switch.toAtw';
+      modeBtn.textContent = isAmpsToWatts ? 'Switch to Watts to Amps' : 'Switch to Amps to Watts';
+      modeBtn.setAttribute('aria-checked', isAmpsToWatts ? 'true' : 'false');
+    }
+    if (powerLabel) {
+      powerLabel.dataset.i18n = isAmpsToWatts ? 'calc.current' : 'calc.power';
+      powerLabel.textContent = isAmpsToWatts ? 'Current' : 'Power';
+    }
+    if (firstLabel) {
+      firstLabel.dataset.i18n = isAmpsToWatts ? 'calc.kw' : 'calc.amps';
+      firstLabel.textContent = isAmpsToWatts ? 'Power (kW)' : 'Current (amps)';
+    }
+    if (secondLabel) {
+      secondLabel.dataset.i18n = isAmpsToWatts ? 'calc.watts' : 'calc.milliamps';
+      secondLabel.textContent = isAmpsToWatts ? 'Power (W)' : 'Current (milliamps)';
+    }
+    if (firstUnit) firstUnit.textContent = isAmpsToWatts ? 'kW' : 'A';
+    if (secondUnit) secondUnit.textContent = isAmpsToWatts ? 'W' : 'mA';
     if (unit) {
-      unit.innerHTML = mode === 'amps-to-watts'
-        ? '<option value="a">A</option><option value="ma">mA</option>'
-        : '<option value="kw">kW</option><option value="w">W</option>';
+      setSelectOptions(unit, isAmpsToWatts
+        ? [['a', 'A'], ['ma', 'mA']]
+        : [['kw', 'kW'], ['w', 'W']]);
     }
     tool.dataset.mode = mode;
+    window.dispatchEvent(new CustomEvent('aw:calculator-mode-change'));
   }
 
   function updateVisibility(tool) {
@@ -164,7 +188,12 @@
     if (!toast) {
       toast = document.createElement('div');
       toast.className = 'aw-toast';
-      toast.innerHTML = '<span class="aw-toast-icon">OK</span><span class="aw-toast-text"></span>';
+      const icon = document.createElement('span');
+      icon.className = 'aw-toast-icon';
+      icon.textContent = 'OK';
+      const text = document.createElement('span');
+      text.className = 'aw-toast-text';
+      toast.append(icon, text);
       document.body.appendChild(toast);
     }
     toast.querySelector('.aw-toast-text').textContent = message;
@@ -262,7 +291,16 @@
     item.className = 'calc-history-item';
     const now = new Date();
     const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    item.innerHTML = `<span class="hist-result">${result.split(' (')[0]}</span><span class="hist-input">${input}</span><span class="hist-time">${timeStr}</span>`;
+    const resultEl = document.createElement('span');
+    resultEl.className = 'hist-result';
+    resultEl.textContent = result.split(' (')[0];
+    const inputEl = document.createElement('span');
+    inputEl.className = 'hist-input';
+    inputEl.textContent = input;
+    const timeEl = document.createElement('span');
+    timeEl.className = 'hist-time';
+    timeEl.textContent = timeStr;
+    item.append(resultEl, inputEl, timeEl);
 
     historyList.insertBefore(item, historyList.firstChild);
 
@@ -372,12 +410,23 @@
         button.addEventListener('click', () => {
           const power = toolField(tool, 'lx-power');
           const volts = toolField(tool, 'lx-volts');
+          const type = toolField(tool, 'lx-type');
           const pf = toolField(tool, 'lx-pf-input');
           const slider = toolField(tool, 'lx-pf-slider');
+          const voltageType = toolField(tool, 'lx-vtype');
+          const defaultMode = tool.dataset.defaultMode || 'amps-to-watts';
+          const defaultVoltage = tool.dataset.defaultVoltage || '120';
+          const defaultPhase = tool.dataset.defaultPhase || 'ac1';
+          setMode(tool, defaultMode);
           if (power) power.value = '10';
-          if (volts) volts.value = '120';
+          if (volts) volts.value = defaultVoltage;
+          if (type) type.value = defaultPhase;
           if (pf) pf.value = '1';
           if (slider) slider.value = '1';
+          if (voltageType) voltageType.value = 'vll';
+          $$('[id^="btn-vll"], [id^="btn-vln"]', tool).forEach((btn) => {
+            btn.classList.toggle('active', btn.id.includes('vll'));
+          });
           /* Clear validation */
           $$('.has-error', tool).forEach(el => el.classList.remove('has-error'));
           updateCalculator(tool);
@@ -416,23 +465,6 @@
       $$('.site-nav details[open]').forEach((d) => {
         if (!d.contains(e.target)) d.removeAttribute('open');
       });
-    });
-  }
-
-  /* ----------------------------------------------------------------
-     COOKIE BANNER
-     ---------------------------------------------------------------- */
-  function initCookieBar() {
-    const existing = $('[class*="cookie"], #cookie-banner');
-    if (existing) return;
-    const bar = document.createElement('div');
-    bar.className = 'cookie-banner';
-    bar.setAttribute('role', 'dialog');
-    bar.setAttribute('aria-label', 'Cookie consent');
-    bar.innerHTML = '<p>We use cookies for analytics and personalized ads. By clicking Accept, you agree to our use of cookies and our Privacy Policy.</p><div><button type="button" data-cookie-ok>Accept</button><button type="button" data-cookie-no>Decline</button></div>';
-    document.body.appendChild(bar);
-    bar.addEventListener('click', (event) => {
-      if (event.target.closest('[data-cookie-ok], [data-cookie-no]')) bar.remove();
     });
   }
 
@@ -518,7 +550,6 @@
      ---------------------------------------------------------------- */
   function init() {
     initNavigation();
-    initCookieBar();
     initBackToTop();
     initScrollProgress();
     // Keep the site fast: no scroll reveal or animated counter work.

@@ -1,11 +1,12 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import PremiumContentShowcase from '@/components/PremiumContentShowcase.astro';
 import SemanticContextLinks from '@/components/SemanticContextLinks.astro';
-import { allRouteSlugs, getPageBySlug, getToolBySlug, tools } from '@/data/tools';
+import { aliases, allRouteSlugs, getPageBySlug, getToolBySlug } from '@/data/tools';
 import { getLegacyPage } from '@/lib/legacy';
 
 export function getStaticPaths() {
-  const redirectOnlySlugs = new Set(['amps-to-watts-calculator', 'calculators']);
+  const redirectOnlySlugs = new Set(['amps-to-watts-calculator', 'calculators', ...Object.keys(aliases)]);
   return allRouteSlugs
     .filter((slug) => !redirectOnlySlugs.has(slug))
     .map((slug) => ({ params: { slug } }));
@@ -40,6 +41,7 @@ const kicker = tool?.eyebrow ?? (legacy ? "Amps To Watts resource" : "Amps To Wa
 >
   {legacy ? (
     <>
+      {tool && <PremiumContentShowcase tool={tool} title={title} description={description} />}
       <div set:html={legacy.body} />
       <SemanticContextLinks slug={slug} />
     </>

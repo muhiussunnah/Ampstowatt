@@ -10,11 +10,18 @@ const defaultVoltage = tool?.defaultVoltage ?? 120;
 const defaultPhase = tool?.defaultPhase ?? 'ac1';
 ---
 
-<div class="lx-tool premium-calculator" data-mode="amps-to-watts" id="amps-to-watts-tool">
+<div
+  class="lx-tool premium-calculator"
+  data-mode="amps-to-watts"
+  data-default-voltage={defaultVoltage}
+  data-default-phase={defaultPhase}
+  data-default-mode="amps-to-watts"
+  id="amps-to-watts-tool"
+>
   <div class="premium-result-panel" aria-live="polite" aria-atomic="true">
-    <span class="result-panel-label">Live result</span>
+    <span class="result-panel-label" data-i18n="calc.live">Live result</span>
     <strong id="lx-mirror-val">0 W</strong>
-    <small class="lx-mode-text">Amps to watts</small>
+    <small class="lx-mode-text" data-i18n="calc.mode">Amps to watts</small>
     <div class="result-panel-rule" aria-hidden="true">
       <span>A</span>
       <i></i>
@@ -26,31 +33,31 @@ const defaultPhase = tool?.defaultPhase ?? 'ac1';
 
   <div class="lx-calculator-body">
     <div class="lx-header-row">
-      <h3 class="lx-card-title">Conversion calculator</h3>
-      <button type="button" class="lx-mode-btn lx-toggle-btn active" id="lx-mode-btn" role="switch" aria-checked="true">Switch to Watts to Amps</button>
+      <h2 class="lx-card-title" data-i18n="calc.title">Conversion calculator</h2>
+      <button type="button" class="lx-mode-btn lx-toggle-btn active" id="lx-mode-btn" role="switch" aria-checked="true" data-i18n="calc.switch">Switch to Watts to Amps</button>
     </div>
 
     <div class="lx-grid">
       <div class="lx-field">
-        <label for="lx-type">Circuit Type</label>
+        <label for="lx-type" data-i18n="calc.circuit">Circuit Type</label>
         <select id="lx-type" class="premium-input">
-          <option value="dc" selected={defaultPhase === 'dc'}>DC (Direct Current)</option>
-          <option value="ac1" selected={defaultPhase === 'ac1'}>AC Single-Phase</option>
-          <option value="ac3" selected={defaultPhase === 'ac3'}>AC Three-Phase</option>
+          <option value="dc" selected={defaultPhase === 'dc'} data-i18n="calc.dc">DC (Direct Current)</option>
+          <option value="ac1" selected={defaultPhase === 'ac1'} data-i18n="calc.ac1">AC Single-Phase</option>
+          <option value="ac3" selected={defaultPhase === 'ac3'} data-i18n="calc.ac3">AC Three-Phase</option>
         </select>
       </div>
 
       <div class="lx-field is-hidden" id="lx-vtype-container">
-        <label>Voltage Type</label>
+        <label data-i18n="calc.voltageType">Voltage Type</label>
         <div class="lx-toggle-group">
           <input type="hidden" id="lx-vtype" value="vll" />
-          <button type="button" class="lx-btn active" id="btn-vll">Line-to-Line</button>
-          <button type="button" class="lx-btn" id="btn-vln">Line-to-Neutral</button>
+          <button type="button" class="lx-btn active" id="btn-vll" data-i18n="calc.vll">Line-to-Line</button>
+          <button type="button" class="lx-btn" id="btn-vln" data-i18n="calc.vln">Line-to-Neutral</button>
         </div>
       </div>
 
       <div class="lx-field">
-        <label id="lbl-power" for="lx-power">Current</label>
+        <label id="lbl-power" for="lx-power" data-i18n="calc.current">Current</label>
         <div class="lx-input-group">
           <input type="number" id="lx-power" value="10" min="0" step="any" class="premium-input" />
           <select id="lx-power-unit" class="lx-unit-select premium-input">
@@ -61,12 +68,12 @@ const defaultPhase = tool?.defaultPhase ?? 'ac1';
       </div>
 
       <div class="lx-field">
-        <label for="lx-volts">Voltage (V)</label>
+        <label for="lx-volts" data-i18n="calc.voltage">Voltage (V)</label>
         <input type="number" id="lx-volts" value={defaultVoltage} min="0" step="any" class="premium-input" />
       </div>
 
       <div class="lx-field lx-span-2" id="lx-pf-container">
-        <label for="lx-pf-input">Power Factor (PF)</label>
+        <label for="lx-pf-input" data-i18n="calc.pf">Power Factor (PF)</label>
         <div class="lx-slider-group">
           <input type="range" id="lx-pf-slider" min="0.01" max="1" step="0.01" value="1" />
           <input type="number" id="lx-pf-input" min="0.01" max="1" step="0.01" value="1" class="premium-input" />
@@ -76,14 +83,14 @@ const defaultPhase = tool?.defaultPhase ?? 'ac1';
 
     <div class="premium-results-grid" aria-live="polite" aria-atomic="true">
       <div class="lx-field" id="res-amps-box">
-        <label id="lbl-res1">Power (kW)</label>
+        <label id="lbl-res1" data-i18n="calc.kw">Power (kW)</label>
         <div class="lx-input-group">
           <input type="text" id="res-kw" readonly class="premium-input result-input" />
           <span class="lx-unit-label" id="lbl-unit1">kW</span>
         </div>
       </div>
       <div class="lx-field" id="res-ma-box">
-        <label id="lbl-res2">Power (W)</label>
+        <label id="lbl-res2" data-i18n="calc.watts">Power (W)</label>
         <div class="lx-input-group">
           <input type="text" id="res-watts" readonly class="premium-input result-input" />
           <span class="lx-unit-label" id="lbl-unit2">W</span>
@@ -94,11 +101,11 @@ const defaultPhase = tool?.defaultPhase ?? 'ac1';
     <input type="hidden" id="lx-dec" value="4" />
 
     <div class="lx-actions">
-      <button type="button" class="btn-ghost lx-btn-reset">Reset</button>
+      <button type="button" class="btn-ghost lx-btn-reset" data-i18n="calc.reset">Reset</button>
     </div>
 
     <div class="preset-panel" id="device-presets">
-      <span class="preset-panel-title">Common load presets</span>
+      <span class="preset-panel-title" data-i18n="calc.presets">Common load presets</span>
       <button type="button" class="preset-btn" data-preset-watts="60" data-preset-volts="120">
         <span>Light Bulb</span>
         <span class="preset-watts">60W</span>
@@ -126,7 +133,7 @@ const defaultPhase = tool?.defaultPhase ?? 'ac1';
     </div>
 
     <div class="calc-history is-hidden" id="calc-history">
-      <span class="calc-history-title">Recent calculations</span>
+      <span class="calc-history-title" data-i18n="calc.history">Recent calculations</span>
       <div class="calc-history-list" id="calc-history-list"></div>
     </div>
   </div>
