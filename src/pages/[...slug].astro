@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PremiumContentShowcase from '@/components/PremiumContentShowcase.astro';
 import SemanticContextLinks from '@/components/SemanticContextLinks.astro';
+import ToolPremiumGuide from '@/components/ToolPremiumGuide.astro';
 import { aliases, allRouteSlugs, getPageBySlug, getToolBySlug } from '@/data/tools';
 import { getLegacyPage } from '@/lib/legacy';
 
@@ -42,6 +43,7 @@ const kicker = tool?.eyebrow ?? (legacy ? "Amps To Watts resource" : "Amps To Wa
   {legacy ? (
     <>
       {tool && <PremiumContentShowcase tool={tool} title={title} description={description} />}
+      {tool && <ToolPremiumGuide tool={tool} />}
       <div set:html={legacy.body} />
       <SemanticContextLinks slug={slug} />
     </>

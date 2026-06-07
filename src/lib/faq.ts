@@ -41,18 +41,23 @@ export function getFaqQuestions(tool?: Tool): FaqItem[] {
 
   return [
     {
-      q: 'Which calculator should I use first?',
-      a: 'Use Amps to Watts when you know current and voltage. Use Watts to Amps when you know load power and need current draw.',
-      icon: 'A'
+      q: 'How do I convert amps to watts?',
+      a: 'Multiply amps by volts. For example, 10 amps at 120 volts equals 1,200 watts. For AC inductive loads, multiply by power factor too.',
+      icon: 'W'
     },
     {
-      q: 'Do the calculators support AC, DC, and three-phase systems?',
-      a: 'Yes. The suite includes DC, single-phase AC, three-phase AC, power factor, battery energy, wire gauge, and voltage-drop workflows.',
+      q: 'What is the amps to watts formula?',
+      a: 'For DC and resistive loads, Watts = Amps x Volts. For single-phase AC, Watts = Amps x Volts x Power Factor. For three-phase AC, Watts = 1.732 x Amps x Volts x Power Factor when using line-to-line voltage.',
       icon: 'AC'
     },
     {
-      q: 'Are the calculators suitable for safety-critical electrical design?',
-      a: 'They are educational planning tools. Verify final electrical work with equipment data, applicable code, and a licensed professional.',
+      q: 'How many watts is 1 amp?',
+      a: 'One amp equals 12 watts at 12 volts, 120 watts at 120 volts, and 240 watts at 240 volts when power factor is 1.00.',
+      icon: '1A'
+    },
+    {
+      q: 'Can I use amps to watts for breaker sizing?',
+      a: 'Use the result for planning only. Breaker sizing, continuous-load limits, wire gauge, voltage drop, and local code decisions should be verified by a qualified electrician or engineer.',
       icon: 'SA'
     }
   ];

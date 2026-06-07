@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import PremiumContentShowcase from '@/components/PremiumContentShowcase.astro';
+import AuthorityMethodology from '@/components/AuthorityMethodology.astro';
 import { getLegacyPage } from '@/lib/legacy';
 import { tools } from '@/data/tools';
 
@@ -15,17 +15,196 @@ const toolLabels: Record<string, string> = {
   '240v-amps-to-watts-calculator': '240V',
   'ac-amps-to-watts-calculator': 'AC',
 };
+
+const conversionRows = [
+  { amps: '1 A', watts12: '12 W', watts120: '120 W', watts240: '240 W' },
+  { amps: '2 A', watts12: '24 W', watts120: '240 W', watts240: '480 W' },
+  { amps: '3 A', watts12: '36 W', watts120: '360 W', watts240: '720 W' },
+  { amps: '5 A', watts12: '60 W', watts120: '600 W', watts240: '1,200 W' },
+  { amps: '10 A', watts12: '120 W', watts120: '1,200 W', watts240: '2,400 W' },
+  { amps: '12 A', watts12: '144 W', watts120: '1,440 W', watts240: '2,880 W' },
+  { amps: '15 A', watts12: '180 W', watts120: '1,800 W', watts240: '3,600 W' },
+  { amps: '20 A', watts12: '240 W', watts120: '2,400 W', watts240: '4,800 W' },
+  { amps: '30 A', watts12: '360 W', watts120: '3,600 W', watts240: '7,200 W' },
+];
+
+const safetyRows = [
+  { circuit: '15 A breaker', max: '1,800 W at 120 V', continuous: '1,440 W continuous load' },
+  { circuit: '20 A breaker', max: '2,400 W at 120 V', continuous: '1,920 W continuous load' },
+  { circuit: '30 A breaker', max: '3,600 W at 120 V', continuous: '2,880 W continuous load' },
+  { circuit: '40 A breaker', max: '9,600 W at 240 V', continuous: '7,680 W continuous load' },
+];
 ---
 
 <BaseLayout
-  title="Amps To Watts Calculator — Convert Amps to Watts for DC, AC & 3-Phase"
-  description={page.description}
+  title="Amps to Watts Calculator | Convert A to W for AC, DC & 3 Phase"
+  description="Free amps to watts calculator with the formula Watts = Amps x Volts. Convert DC, single-phase AC, and three-phase current with power factor, tables, and breaker safety checks."
   keywords={page.keywords}
   legacyMode
   showCalculator={true}
-  kicker="Premium electrical calculator suite"
-  h1Title="Amps To Watts Calculator — Free Online Converter"
+  kicker="Free electrical power conversion tool"
+  h1Title="Amps to Watts Calculator"
 >
+  <section class="content-section home-answer-stack" aria-labelledby="quick-answer">
+    <article class="content-card home-answer-card">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">W</div>
+        <h2 id="quick-answer">Quick Answer: How to Convert Amps to Watts</h2>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+      <p class="content-lead"><strong>To convert amps to watts, multiply amps by volts.</strong> For AC motor, compressor, HVAC, and other inductive loads, multiply by power factor too.</p>
+      <div class="home-formula-grid" aria-label="Amps to watts formulas">
+        <div class="home-formula-card">
+          <span>DC and resistive loads</span>
+          <strong>Watts = Amps x Volts</strong>
+          <p>Use this for batteries, solar DC systems, heaters, lamps, and simple resistive loads.</p>
+        </div>
+        <div class="home-formula-card">
+          <span>Single-phase AC</span>
+          <strong>Watts = Amps x Volts x PF</strong>
+          <p>Use this for household AC circuits when the load has a known power factor.</p>
+        </div>
+        <div class="home-formula-card">
+          <span>Three-phase AC</span>
+          <strong>Watts = 1.732 x Amps x Volts x PF</strong>
+          <p>Use line-to-line voltage for balanced commercial or industrial three-phase systems.</p>
+        </div>
+      </div>
+      <nav class="home-jump-links" aria-label="Homepage conversion sections">
+        <a href="#amps-to-watts-table">Conversion table</a>
+        <a href="#breaker-safety">Breaker safety</a>
+        <a href="#worked-examples">Worked examples</a>
+        <a href="#related-calculators">Related calculators</a>
+      </nav>
+    </article>
+
+    <article class="content-card" id="amps-to-watts-table">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">120</div>
+        <h2>Amps to Watts Conversion Table</h2>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+      <p>Use this table for quick reference at common DC battery and North American AC voltages. Results assume power factor 1.00.</p>
+      <div class="table-wrap">
+        <table class="reference-table">
+          <thead>
+            <tr>
+              <th scope="col">Current</th>
+              <th scope="col">At 12 V</th>
+              <th scope="col">At 120 V</th>
+              <th scope="col">At 240 V</th>
+            </tr>
+          </thead>
+          <tbody>
+            {conversionRows.map((row) => (
+              <tr>
+                <td>{row.amps}</td>
+                <td>{row.watts12}</td>
+                <td>{row.watts120}</td>
+                <td>{row.watts240}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <article class="content-card home-safety-card" id="breaker-safety">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">SAFE</div>
+        <h2>Circuit Breaker Safety Check</h2>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+      <p>Watts are useful for appliance load planning, but breakers are rated in amps. For continuous loads, a common planning rule is to keep the load at or below 80% of the breaker rating unless the equipment and installation are specifically rated otherwise.</p>
+      <div class="table-wrap">
+        <table class="reference-table">
+          <thead>
+            <tr>
+              <th scope="col">Circuit</th>
+              <th scope="col">Theoretical watts</th>
+              <th scope="col">80% planning limit</th>
+            </tr>
+          </thead>
+          <tbody>
+            {safetyRows.map((row) => (
+              <tr>
+                <td>{row.circuit}</td>
+                <td>{row.max}</td>
+                <td>{row.continuous}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="home-note">Calculator results are educational estimates. Verify final wiring, breaker sizing, derating, and code decisions with a licensed electrician or qualified engineer.</p>
+    </article>
+
+    <article class="content-card" id="worked-examples">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">EX</div>
+        <h2>Worked Amps to Watts Examples</h2>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+      <div class="home-example-grid">
+        <div>
+          <h3>10 amps to watts</h3>
+          <p>At 120 V, 10 amps equals <strong>1,200 watts</strong>. Formula: 10 A x 120 V = 1,200 W.</p>
+        </div>
+        <div>
+          <h3>15 amps to watts</h3>
+          <p>At 120 V, 15 amps equals <strong>1,800 watts</strong>. For continuous load planning, use about 1,440 W.</p>
+        </div>
+        <div>
+          <h3>20 amps to watts</h3>
+          <p>At 120 V, 20 amps equals <strong>2,400 watts</strong>. At 240 V, it equals 4,800 W.</p>
+        </div>
+        <div>
+          <h3>12V amps to watts</h3>
+          <p>For a 12 V battery circuit, multiply amps by 12. A 5 A DC load equals <strong>60 watts</strong>.</p>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <AuthorityMethodology />
+
+  <section class="content-section home-premium-difference" aria-labelledby="premium-difference">
+    <article class="content-card">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">PRO</div>
+        <h2 id="premium-difference">What Makes This Amps to Watts Calculator Different</h2>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+      <div class="home-example-grid">
+        <div>
+          <h3>Formula-first answers</h3>
+          <p>The result is backed by the exact DC, AC single-phase, and AC three-phase formulas instead of a one-size-fits-all conversion.</p>
+        </div>
+        <div>
+          <h3>Power factor support</h3>
+          <p>Motors, compressors, generators, HVAC equipment, and other AC loads can use a realistic power factor for a better planning estimate.</p>
+        </div>
+        <div>
+          <h3>Safety context</h3>
+          <p>The breaker planning table helps convert watts into practical circuit limits without pretending a calculator replaces code review.</p>
+        </div>
+        <div>
+          <h3>Fast reference tables</h3>
+          <p>Common 12V, 120V, and 240V conversions are shown near the top so visitors can answer simple questions without extra clicks.</p>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <div set:html={page.body} />
+
+  <section class="content-section" id="related-calculators" aria-labelledby="related-calculators-heading">
+    <div class="section-divider">
+      <div class="icon-circle" aria-hidden="true">TOOLS</div>
+      <h2 id="related-calculators-heading">Related Amps to Watts Calculators</h2>
+      <div class="line" aria-hidden="true"></div>
+    </div>
+
   <section class="premium-feature-strip" aria-label="Featured electrical calculators">
     {featuredTools.map((tool) => (
       <a href={`/${tool.slug}/`}>
@@ -102,8 +281,5 @@ const toolLabels: Record<string, string> = {
       </div>
     </section>
   </div>
-
-  <PremiumContentShowcase title={page.title} description={page.description} />
-
-  <div set:html={page.body} />
+  </section>
 </BaseLayout>

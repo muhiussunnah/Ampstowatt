@@ -12,13 +12,16 @@ const name = tool?.shortTitle ?? title;
 const heading = tool ? `${name} FAQ` : title;
 const ariaLabel = heading.toLowerCase().endsWith('faq') ? heading : `${heading} FAQ`;
 const questions = getFaqQuestions(tool);
+const description = tool
+  ? 'Fast answers before you use the calculator or compare formulas.'
+  : 'Fast answers for the amps to watts formula, common conversions, and safe planning limits.';
 ---
 
 <section class="premium-faq-section" id="faq" aria-label={ariaLabel}>
   <div class="premium-faq-heading">
     <p class="premium-kicker" data-i18n={!tool ? 'faq.kicker' : undefined}>FAQ</p>
     <h2 data-i18n={!tool ? 'faq.title' : undefined}>{heading}</h2>
-    <p data-i18n={!tool ? 'faq.desc' : undefined}>Fast answers before you use the calculator or compare formulas.</p>
+    <p data-i18n={!tool ? 'faq.desc' : undefined}>{description}</p>
   </div>
   <div class="premium-faq-list">
     {questions.map((item, index) => (
@@ -34,4 +37,3 @@ const questions = getFaqQuestions(tool);
     ))}
   </div>
 </section>
-

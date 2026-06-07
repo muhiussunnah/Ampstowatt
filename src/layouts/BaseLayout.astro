@@ -36,6 +36,12 @@ const faqQuestions = getFaqQuestions(tool);
 
 const canonical = new URL(canonicalPath, 'https://ampstowatt.com').toString();
 const image = new URL('/og-image.jpg', 'https://ampstowatt.com').toString();
+const dateModified = '2026-06-07';
+const referenceSources = [
+  'https://www.nist.gov/pml/weights-and-measures/si-units-ampere',
+  'https://www.cdc.gov/niosh/electrical-safety/index.html',
+  'https://www.osha.gov/etools/subpart-s'
+];
 
 /* Breadcrumb */
 const isHome = canonicalPath === '/';
@@ -75,8 +81,13 @@ const schema = {
       name: title,
       description,
       isPartOf: { '@id': 'https://ampstowatt.com/#website' },
+      author: { '@id': 'https://ampstowatt.com/#organization' },
+      publisher: { '@id': 'https://ampstowatt.com/#organization' },
       about: { '@id': `${canonical}#application` },
       inLanguage: 'en-US',
+      dateModified,
+      reviewedBy: { '@id': 'https://ampstowatt.com/#organization' },
+      citation: isHome ? referenceSources : undefined,
       primaryImageOfPage: { '@id': `${canonical}#primaryimage` }
     },
     {
@@ -104,6 +115,12 @@ const schema = {
       operatingSystem: 'All',
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
       description,
+      featureList: [
+        'Amps to watts conversion',
+        'DC, single-phase AC, and three-phase AC formulas',
+        'Power factor support',
+        'Conversion table and breaker-safety planning notes'
+      ],
       isAccessibleForFree: true,
       publisher: { '@id': 'https://ampstowatt.com/#organization' }
     },
@@ -164,7 +181,7 @@ const schema = {
 
     <!-- ===== HEADER ===== -->
     <header class="site-header">
-      <a class="brand" href="/" aria-label="Amps To Watts Calculator home">
+      <a class="brand" href="/">
         <span class="brand-mark">AW</span>
         <span>
           <strong>Amps To Watts</strong>

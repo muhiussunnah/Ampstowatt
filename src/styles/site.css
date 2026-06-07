@@ -388,7 +388,7 @@ p {
 
 .premium-result-panel {
   display: grid;
-  align-content: center;
+  align-content: start;
   gap: 0.55rem;
   min-height: 100%;
   border: 1px solid rgba(45, 212, 232, 0.18);
@@ -872,6 +872,253 @@ input[type="range"] {
 .guide-section,
 .home-calculator-explainer {
   margin: 2rem 0;
+}
+
+.home-answer-stack {
+  display: grid;
+  gap: 1rem;
+  margin-top: 0;
+}
+
+.home-answer-card {
+  border-color: rgba(45, 212, 232, 0.25);
+  background:
+    linear-gradient(135deg, rgba(45, 212, 232, 0.08), rgba(217, 187, 114, 0.05)),
+    #081121;
+}
+
+.content-lead {
+  max-width: var(--measure);
+  color: var(--soft);
+  font-size: 1.04rem;
+}
+
+.home-formula-grid,
+.home-example-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin-top: 1rem;
+}
+
+.home-formula-card,
+.home-example-grid > div {
+  border: 1px solid rgba(42, 56, 82, 0.84);
+  border-radius: var(--radius);
+  background: #070d18;
+  padding: 1rem;
+}
+
+.home-formula-card {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.home-formula-card span {
+  color: var(--gold);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.home-formula-card strong {
+  color: var(--cyan-2);
+  font-family: var(--mono);
+  font-size: clamp(0.92rem, 1.4vw, 1.08rem);
+  line-height: 1.35;
+}
+
+.home-formula-card p,
+.home-example-grid p,
+.home-note {
+  color: var(--muted);
+  margin: 0;
+}
+
+.home-jump-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.home-jump-links a {
+  border: 1px solid rgba(45, 212, 232, 0.24);
+  border-radius: var(--radius);
+  background: #091321;
+  color: var(--soft);
+  font-size: 0.88rem;
+  font-weight: 850;
+  padding: 0.55rem 0.75rem;
+}
+
+.home-jump-links a:hover {
+  border-color: rgba(217, 187, 114, 0.42);
+  background: #101827;
+  color: var(--text);
+}
+
+.home-safety-card {
+  border-color: rgba(103, 232, 165, 0.22);
+}
+
+.home-note {
+  margin-top: 0.9rem;
+  border-left: 3px solid rgba(103, 232, 165, 0.55);
+  padding-left: 0.9rem;
+}
+
+.home-example-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.home-example-grid h3 {
+  margin: 0 0 0.4rem;
+  color: var(--cyan);
+  font-size: 1rem;
+}
+
+.authority-card {
+  border-color: rgba(217, 187, 114, 0.28);
+}
+
+.authority-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.authority-panel,
+.semantic-hub-callout {
+  border: 1px solid rgba(42, 56, 82, 0.84);
+  border-radius: var(--radius);
+  background: #070d18;
+  padding: 1rem;
+}
+
+.authority-panel h3 {
+  margin: 0 0 0.45rem;
+  color: var(--cyan);
+  font-size: 1rem;
+}
+
+.authority-panel p,
+.semantic-hub-callout p {
+  color: var(--muted);
+  margin: 0 0 0.65rem;
+}
+
+.authority-panel p:last-child,
+.semantic-hub-callout p:last-child {
+  margin-bottom: 0;
+}
+
+.authority-panel ul {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--soft);
+}
+
+.authority-panel a,
+.semantic-hub-callout a {
+  color: var(--cyan-2);
+  font-weight: 850;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+.semantic-hub-callout {
+  margin-bottom: 0.75rem;
+  border-color: rgba(45, 212, 232, 0.2);
+}
+
+.semantic-hub-callout strong {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--text);
+}
+
+.tool-guide-card {
+  border-color: rgba(45, 212, 232, 0.24);
+}
+
+.tool-guide-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.tool-guide-panel {
+  border: 1px solid rgba(42, 56, 82, 0.84);
+  border-radius: var(--radius);
+  background: #070d18;
+  padding: 1rem;
+}
+
+.tool-guide-panel--answer {
+  border-color: rgba(217, 187, 114, 0.28);
+  background:
+    linear-gradient(135deg, rgba(217, 187, 114, 0.07), rgba(45, 212, 232, 0.04)),
+    #070d18;
+}
+
+.tool-guide-panel h3 {
+  margin: 0 0 0.55rem;
+  color: var(--text);
+  font-size: 1.05rem;
+}
+
+.tool-guide-panel p,
+.tool-guide-safety p {
+  color: var(--muted);
+  margin: 0;
+}
+
+.tool-guide-panel ul {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--soft);
+}
+
+.tool-guide-formula {
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 0.85rem;
+  border: 1px solid rgba(45, 212, 232, 0.24);
+  border-radius: var(--radius);
+  background: #091321;
+  color: var(--cyan-2);
+  font-family: var(--mono);
+  font-weight: 900;
+  line-height: 1.45;
+  padding: 0.62rem 0.78rem;
+}
+
+.tool-guide-safety {
+  margin-top: 0.9rem;
+  border: 1px solid rgba(103, 232, 165, 0.22);
+  border-radius: var(--radius);
+  background: #07101b;
+  padding: 1rem;
+}
+
+.tool-guide-safety strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--success);
+}
+
+.tool-guide-safety a {
+  color: var(--cyan-2);
+  font-weight: 850;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
 }
 
 .premium-content-showcase {
@@ -1684,7 +1931,11 @@ input[type="range"] {
   .premium-trust-section,
   .premium-directory-grid,
   .premium-tool-grid,
-  .home-calculator-explainer .explainer-grid {
+  .home-calculator-explainer .explainer-grid,
+  .home-formula-grid,
+  .home-example-grid,
+  .authority-grid,
+  .tool-guide-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1730,6 +1981,25 @@ input[type="range"] {
 
   .premium-unified-hero {
     padding-top: 1rem;
+    overflow: hidden;
+  }
+
+  .premium-hero-copy {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .premium-hero-copy h1 {
+    width: min(100%, 11ch);
+    max-width: 11ch;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  .premium-hero-copy > p:last-child {
+    width: min(100%, 31ch);
+    max-width: 31ch;
+    overflow-wrap: anywhere;
   }
 
   .premium-content-showcase {
@@ -1764,6 +2034,10 @@ input[type="range"] {
   .premium-directory-grid,
   .premium-tool-grid,
   .home-calculator-explainer .explainer-grid,
+  .home-formula-grid,
+  .home-example-grid,
+  .authority-grid,
+  .tool-guide-grid,
   .lx-grid,
   .premium-results-grid,
   .preset-panel,
@@ -1783,6 +2057,15 @@ input[type="range"] {
 
   .premium-result-panel {
     min-height: auto;
+  }
+
+  .premium-calculator,
+  .legacy-content .lx-tool {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    padding: 0.85rem;
   }
 
   .lx-slider-group,

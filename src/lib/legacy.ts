@@ -14,6 +14,16 @@ const visualClassPattern = /\b(?:premium-visual-section|premium-visual-grid|prem
 const emptyContentPattern = /<(div|section|figure|article)\b[^>]*>\s*<\/\1>\s*/gi;
 const inlineStylePattern = /\sstyle="[^"]*"/gi;
 const tableHeaderPattern = /<th(?![^>]*\bscope=)([^>]*)>/gi;
+const deviceGridCardPattern = /<div class="device-grid-card"(?![^>]*\brole=)/gi;
+
+function decodeMetadata(value: string) {
+  return value
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>');
+}
 
 function findTagClose(html: string, openEnd: number, tag: string) {
   const tagPattern = new RegExp(`<\\/?${tag}\\b[^>]*>`, 'gi');
@@ -65,6 +75,7 @@ export function prepareLegacyBody(page: LegacyPage) {
     .replace(svgPattern, '')
     .replace(inlineStylePattern, '')
     .replace(tableHeaderPattern, '<th scope="col"$1>')
+    .replace(deviceGridCardPattern, '<div class="device-grid-card" role="listitem"')
     .replace(emptyContentPattern, '');
 }
 
@@ -73,6 +84,9 @@ export function getLegacyPage(slug = ''): LegacyPage | null {
   if (!page) return null;
   return {
     ...page,
+    title: decodeMetadata(page.title),
+    description: decodeMetadata(page.description),
+    keywords: decodeMetadata(page.keywords),
     body: prepareLegacyBody(page)
   };
 }
