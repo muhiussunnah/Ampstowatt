@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import AuthorityMethodology from '@/components/AuthorityMethodology.astro';
+import ElectricalVisualSystem from '@/components/ElectricalVisualSystem.astro';
 import { getLegacyPage } from '@/lib/legacy';
 import { tools } from '@/data/tools';
 
@@ -77,6 +78,8 @@ const safetyRows = [
         <a href="#related-calculators">Related calculators</a>
       </nav>
     </article>
+
+    <ElectricalVisualSystem variant="home" />
 
     <article class="content-card" id="amps-to-watts-table">
       <div class="section-divider">

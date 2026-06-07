@@ -1183,7 +1183,10 @@ input[type="range"] {
   min-height: 18rem;
   padding: 1.25rem;
   border-left: 1px solid rgba(217, 187, 114, 0.15);
-  background: #07101f;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(217, 187, 114, 0.16), transparent 30%),
+    radial-gradient(circle at 82% 74%, rgba(45, 212, 232, 0.14), transparent 34%),
+    #07101f;
   overflow: hidden;
 }
 
@@ -1199,39 +1202,49 @@ input[type="range"] {
   pointer-events: none;
 }
 
-.lux-meter,
 .lux-flow,
 .lux-formula-card,
-.lux-signal-grid {
+.showcase-system-rail,
+.showcase-check-grid {
   position: relative;
   z-index: 1;
 }
 
-.lux-meter {
+.showcase-system-rail {
   display: grid;
-  grid-template-columns: 0.7fr 1.1fr 0.45fr;
-  gap: 0.55rem;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.7rem;
+  align-items: center;
+  border: 1px solid rgba(217, 187, 114, 0.28);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(90deg, rgba(217, 187, 114, 0.12), rgba(45, 212, 232, 0.07)),
+    rgba(5, 9, 19, 0.72);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  padding: 0.82rem 0.9rem;
 }
 
-.lux-meter span,
-.lux-meter i,
-.lux-meter b {
-  display: block;
-  height: 0.7rem;
-  border-radius: 999px;
-  background: var(--line);
+.showcase-system-rail span {
+  color: var(--soft);
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  font-weight: 900;
+  overflow-wrap: anywhere;
 }
 
-.lux-meter span {
-  background: linear-gradient(90deg, var(--gold), #f4df9d);
+.showcase-system-rail strong {
+  color: var(--gold);
+  font-family: var(--mono);
+  font-size: clamp(0.98rem, 1.8vw, 1.35rem);
+  line-height: 1.15;
+  text-align: right;
+  overflow-wrap: anywhere;
 }
 
-.lux-meter i {
-  background: linear-gradient(90deg, var(--cyan), var(--success));
-}
-
-.lux-meter b {
-  background: #263249;
+.content-showcase-visual--solar .showcase-system-rail strong,
+.content-showcase-visual--led .showcase-system-rail strong,
+.content-showcase-visual--wire .showcase-system-rail strong {
+  color: var(--success);
 }
 
 .lux-flow {
@@ -1254,9 +1267,42 @@ input[type="range"] {
   font-weight: 900;
 }
 
+.showcase-flow {
+  isolation: isolate;
+}
+
+.showcase-flow span {
+  position: relative;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 10px 22px rgba(0, 0, 0, 0.24);
+}
+
+.showcase-flow span::after {
+  content: "";
+  position: absolute;
+  inset: 0.42rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: calc(var(--radius) - 2px);
+  pointer-events: none;
+}
+
 .lux-flow i {
   height: 2px;
   background: linear-gradient(90deg, rgba(217, 187, 114, 0.7), rgba(45, 212, 232, 0.72));
+}
+
+.content-showcase-visual--three .lux-flow i {
+  background: linear-gradient(90deg, #d9bb72, #2dd4e8, #67e8a5);
+}
+
+.content-showcase-visual--dc .lux-flow i,
+.content-showcase-visual--battery .lux-flow i {
+  background: linear-gradient(90deg, #d9bb72, #67e8a5);
+}
+
+.content-showcase-visual--triangle .lux-flow i {
+  background: linear-gradient(90deg, #9aeef7, #d9bb72);
 }
 
 .lux-formula-card {
@@ -1283,24 +1329,59 @@ input[type="range"] {
   line-height: 1.45;
 }
 
-.lux-signal-grid {
+.lux-formula-card em {
+  color: #aeb8c9;
+  font-style: normal;
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
+.showcase-check-grid {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  gap: 0.45rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.5rem;
 }
 
-.lux-signal-grid span {
-  height: 2.6rem;
-  border: 1px solid rgba(42, 56, 82, 0.86);
+.showcase-check-grid span {
+  display: grid;
+  align-content: center;
+  min-height: 3.05rem;
+  border: 1px solid rgba(42, 56, 82, 0.9);
   border-radius: var(--radius);
-  background: linear-gradient(180deg, #111927, #080d16);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)),
+    #08101d;
+  color: #d8e2ef;
+  font-size: 0.76rem;
+  font-weight: 850;
+  line-height: 1.25;
+  padding: 0.62rem;
 }
 
-.lux-signal-grid span:nth-child(2),
-.lux-signal-grid span:nth-child(5),
-.lux-signal-grid span:nth-child(7) {
-  border-color: rgba(217, 187, 114, 0.42);
-  background: linear-gradient(180deg, rgba(217, 187, 114, 0.24), #080d16);
+.showcase-check-grid span:first-child,
+.showcase-check-grid span:nth-child(3) {
+  border-color: rgba(217, 187, 114, 0.34);
+  background:
+    linear-gradient(180deg, rgba(217, 187, 114, 0.18), rgba(217, 187, 114, 0.04)),
+    #080d16;
+}
+
+.content-showcase-visual--solar .showcase-check-grid span,
+.content-showcase-visual--led .showcase-check-grid span,
+.content-showcase-visual--wire .showcase-check-grid span {
+  border-color: rgba(103, 232, 165, 0.2);
+}
+
+.content-showcase-visual--three .showcase-flow span:nth-of-type(1) {
+  color: var(--gold);
+}
+
+.content-showcase-visual--three .showcase-flow span:nth-of-type(2) {
+  color: var(--cyan-2);
+}
+
+.content-showcase-visual--three .showcase-flow span:nth-of-type(3) {
+  color: var(--success);
 }
 
 .section-divider {
@@ -1685,6 +1766,269 @@ input[type="range"] {
   display: none !important;
 }
 
+.electric-visual-section {
+  margin: clamp(1rem, 2vw, 1.35rem) 0;
+}
+
+.tool-guide-card > .electric-visual-section {
+  margin: 0.95rem 0 1.15rem;
+}
+
+.electric-visual-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+  gap: clamp(1rem, 2.4vw, 1.55rem);
+  align-items: stretch;
+  border: 1px solid rgba(217, 187, 114, 0.24);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(135deg, rgba(217, 187, 114, 0.08), rgba(45, 212, 232, 0.035) 45%, rgba(5, 7, 13, 0.86)),
+    #070b13;
+  box-shadow: var(--shadow-soft);
+  padding: clamp(0.9rem, 2vw, 1.15rem);
+}
+
+.electric-visual-copy {
+  display: grid;
+  align-content: center;
+  gap: 0.72rem;
+  min-width: 0;
+  border: 1px solid rgba(42, 56, 82, 0.78);
+  border-radius: var(--radius);
+  background: #070d17;
+  padding: clamp(0.95rem, 2vw, 1.25rem);
+}
+
+.electric-visual-copy h2 {
+  max-width: 18ch;
+  font-size: clamp(1.28rem, 2vw, 1.85rem);
+}
+
+.electric-visual-copy p {
+  color: #b9c5d6;
+  line-height: 1.72;
+}
+
+.electric-formula-bar {
+  display: grid;
+  gap: 0.2rem;
+  margin-top: 0.15rem;
+  border: 1px solid rgba(217, 187, 114, 0.3);
+  border-radius: var(--radius);
+  background: #0b1220;
+  padding: 0.75rem;
+}
+
+.electric-formula-bar span {
+  color: var(--gold);
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.electric-formula-bar strong {
+  color: var(--cyan-2);
+  font-family: var(--mono);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.electric-diagram {
+  display: grid;
+  gap: 0.65rem;
+  min-width: 0;
+  margin: 0;
+  border: 1px solid rgba(45, 212, 232, 0.18);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(circle at 26% 18%, rgba(45, 212, 232, 0.13), transparent 30%),
+    radial-gradient(circle at 78% 72%, rgba(217, 187, 114, 0.12), transparent 28%),
+    #050913;
+  padding: 0.72rem;
+  overflow: hidden;
+}
+
+.electric-diagram svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 240px;
+  border-radius: calc(var(--radius) - 1px);
+}
+
+.electric-diagram figcaption {
+  display: grid;
+  gap: 0.16rem;
+  border-top: 1px solid rgba(42, 56, 82, 0.76);
+  padding-top: 0.65rem;
+}
+
+.electric-diagram figcaption strong {
+  color: var(--text);
+  font-size: 0.88rem;
+  line-height: 1.25;
+}
+
+.electric-diagram figcaption span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.ev-board {
+  fill: #070d17;
+  stroke: rgba(217, 187, 114, 0.26);
+  stroke-width: 1.5;
+}
+
+.ev-grid-line {
+  fill: none;
+  stroke: rgba(158, 170, 189, 0.1);
+  stroke-width: 1;
+}
+
+.ev-node,
+.ev-panel,
+.ev-battery,
+.ev-meter,
+.ev-speaker {
+  filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.26));
+  stroke-width: 1.6;
+}
+
+.ev-node {
+  fill: #0b1321;
+  stroke: rgba(217, 187, 114, 0.34);
+}
+
+.ev-node--gold,
+.ev-panel,
+.ev-battery {
+  fill: rgba(217, 187, 114, 0.12);
+  stroke: rgba(217, 187, 114, 0.62);
+}
+
+.ev-node--cyan {
+  fill: rgba(45, 212, 232, 0.12);
+  stroke: rgba(154, 238, 247, 0.64);
+}
+
+.ev-node--success {
+  fill: rgba(103, 232, 165, 0.1);
+  stroke: rgba(103, 232, 165, 0.58);
+}
+
+.ev-panel-grid,
+.ev-wire,
+.ev-wave,
+.ev-conductor,
+.ev-phase {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ev-panel-grid {
+  stroke: rgba(217, 187, 114, 0.38);
+  stroke-width: 1.25;
+}
+
+.ev-wire {
+  stroke: rgba(154, 238, 247, 0.62);
+  stroke-width: 3;
+}
+
+.ev-wire--hot,
+.ev-phase--a {
+  stroke: #d9bb72;
+  stroke-width: 4;
+  filter: drop-shadow(0 0 6px rgba(217, 187, 114, 0.28));
+}
+
+.ev-wire--cyan,
+.ev-phase--b {
+  stroke: #2dd4e8;
+  stroke-width: 4;
+  filter: drop-shadow(0 0 6px rgba(45, 212, 232, 0.24));
+}
+
+.ev-phase--c {
+  stroke: #67e8a5;
+  stroke-width: 4;
+  filter: drop-shadow(0 0 6px rgba(103, 232, 165, 0.22));
+}
+
+.ev-wave {
+  stroke: #9aeef7;
+  stroke-width: 4;
+}
+
+.ev-conductor {
+  stroke: #9aeef7;
+  stroke-width: 5;
+}
+
+.ev-conductor--top {
+  stroke: #d9bb72;
+}
+
+.ev-meter {
+  fill: rgba(10, 15, 25, 0.94);
+  stroke: rgba(154, 238, 247, 0.45);
+}
+
+.ev-speaker {
+  fill: rgba(45, 212, 232, 0.1);
+  stroke: rgba(154, 238, 247, 0.62);
+}
+
+.ev-led {
+  fill: rgba(103, 232, 165, 0.16);
+  stroke: rgba(103, 232, 165, 0.62);
+  stroke-width: 1.4;
+}
+
+.ev-battery--large {
+  fill: rgba(217, 187, 114, 0.1);
+}
+
+.ev-triangle {
+  fill: rgba(45, 212, 232, 0.045);
+  stroke: rgba(217, 187, 114, 0.28);
+  stroke-width: 1.4;
+}
+
+.ev-label,
+.ev-title,
+.ev-muted {
+  font-family: var(--mono);
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+.ev-label {
+  fill: #f7f9fd;
+  font-size: 19px;
+}
+
+.ev-title {
+  fill: #d9bb72;
+  font-size: 20px;
+}
+
+.ev-muted {
+  fill: #9eaabd;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.electric-diagram:hover {
+  border-color: rgba(217, 187, 114, 0.32);
+  transform: translateY(-2px);
+  transition: border-color 520ms cubic-bezier(0.32, 0.72, 0, 1), transform 520ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
 .premium-faq-section,
 .semantic-link-map {
   margin-top: 1.7rem;
@@ -2025,8 +2369,13 @@ input[type="range"] {
     height: 2.55rem;
   }
 
-  .lux-signal-grid {
-    grid-template-columns: repeat(4, 1fr);
+  .showcase-system-rail,
+  .showcase-check-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .showcase-system-rail strong {
+    text-align: left;
   }
 
   .premium-feature-strip,
