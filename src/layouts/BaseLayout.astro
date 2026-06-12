@@ -29,14 +29,15 @@ const {
   tool,
   showCalculator = false,
   kicker = 'Premium electrical calculator suite',
-  h1Title = title.replace(' | Amps To Watts Calculator', '')
+  h1Title = title.replace(' | Amps To Watts Calculator', '').replace(' — Convert Amps to Watts Instantly', '')
 } = Astro.props;
 
 const faqQuestions = getFaqQuestions(tool);
 
 const canonical = new URL(canonicalPath, 'https://ampstowatt.com').toString();
 const image = new URL('/og-image.jpg', 'https://ampstowatt.com').toString();
-const dateModified = '2026-06-07';
+const datePublished = '2024-06-15';
+const dateModified = '2026-06-12';
 const referenceSources = [
   'https://www.nist.gov/pml/weights-and-measures/si-units-ampere',
   'https://www.cdc.gov/niosh/electrical-safety/index.html',
@@ -85,10 +86,15 @@ const schema = {
       publisher: { '@id': 'https://ampstowatt.com/#organization' },
       about: { '@id': `${canonical}#application` },
       inLanguage: 'en-US',
+      datePublished,
       dateModified,
       reviewedBy: { '@id': 'https://ampstowatt.com/#organization' },
       citation: isHome ? referenceSources : undefined,
-      primaryImageOfPage: { '@id': `${canonical}#primaryimage` }
+      primaryImageOfPage: { '@id': `${canonical}#primaryimage` },
+      speakable: {
+        '@type': 'SpeakableSpecification',
+        cssSelector: ['.content-lead', '.home-formula-card strong', '#quick-answer']
+      }
     },
     {
       '@type': 'ImageObject',
@@ -135,6 +141,63 @@ const schema = {
           text: item.a
         }
       }))
+    }] : []),
+    ...(isHome ? [{
+      '@type': 'HowTo',
+      '@id': `${canonical}#howto`,
+      name: 'How to Convert Amps to Watts',
+      description: 'Convert electrical current in amps to power in watts using the correct formula for DC, single-phase AC, or three-phase AC circuits.',
+      totalTime: 'PT1M',
+      tool: [{ '@type': 'HowToTool', name: 'Amps to Watts Calculator' }],
+      step: [
+        {
+          '@type': 'HowToStep',
+          position: 1,
+          name: 'Find the current in amps',
+          text: 'Read the current draw from the equipment nameplate, a clamp meter, or the circuit breaker rating. If the reading is in milliamps (mA), divide by 1,000.'
+        },
+        {
+          '@type': 'HowToStep',
+          position: 2,
+          name: 'Find the voltage',
+          text: 'Identify the supply voltage. Common values are 12V (batteries), 120V (US outlets), 220V–240V (international), or 400V–480V (three-phase industrial).'
+        },
+        {
+          '@type': 'HowToStep',
+          position: 3,
+          name: 'Determine the circuit type',
+          text: 'Determine if the circuit is DC (battery, solar) or AC (wall outlet, motor). For AC, identify single-phase or three-phase.'
+        },
+        {
+          '@type': 'HowToStep',
+          position: 4,
+          name: 'Find the power factor (AC only)',
+          text: 'Check the equipment nameplate for PF or cos(φ). Resistive loads have PF ≈ 1.0. Motors typically range from 0.70 to 0.95. Use 0.85 if unknown.'
+        },
+        {
+          '@type': 'HowToStep',
+          position: 5,
+          name: 'Multiply using the correct formula',
+          text: 'For DC: Watts = Amps × Volts. For AC single-phase: Watts = Amps × Volts × PF. For AC three-phase: Watts = 1.732 × Amps × Volts × PF.'
+        }
+      ]
+    }] : []),
+    ...(tool ? [{
+      '@type': 'TechArticle',
+      '@id': `${canonical}#article`,
+      headline: title,
+      description,
+      author: { '@id': 'https://ampstowatt.com/#organization' },
+      publisher: { '@id': 'https://ampstowatt.com/#organization' },
+      datePublished,
+      dateModified,
+      mainEntityOfPage: { '@id': `${canonical}#webpage` },
+      inLanguage: 'en-US',
+      about: {
+        '@type': 'Thing',
+        name: tool.shortTitle,
+        description: tool.description
+      }
     }] : [])
   ]
 };

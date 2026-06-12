@@ -40,21 +40,30 @@ const siloMapping: Record<string, keyof typeof silos> = {
   'dc-amps-to-watts-calculator': 'lowVoltage',
   '120v-amps-to-watts-calculator': 'mainsVoltage',
   '220v-amps-to-watts-calculator': 'mainsVoltage',
-  '230v-amps-to-watts-calculator': 'mainsVoltage',
+  '230v-calculator': 'mainsVoltage',
   '240v-amps-to-watts-calculator': 'mainsVoltage',
   'amps-to-watts-120v-calculator': 'mainsVoltage',
   'amps-to-watts-220v-calculator': 'mainsVoltage',
   'amps-to-watts-230v-calculator': 'mainsVoltage',
   'amps-to-watts-240v-calculator': 'mainsVoltage',
   'single-phase-amps-to-watts-calculator': 'mainsVoltage',
+  'voltage-amps-watts-calculator': 'mainsVoltage',
+  'other-voltages-calculator': 'mainsVoltage',
   '3-phase-amps-to-watts-calculator': 'industrial',
   'amps-to-watts-3-phase-calculator': 'industrial',
   'megawatts-to-amps-calculator': 'industrial',
   'kva-to-watts-calculator': 'industrial',
   'ac-amps-to-watts-calculator': 'industrial',
   'amps-to-watts-ac-calculator': 'industrial',
-  'speaker-amp-power-calculator': 'audio',
-  'amp-power-consumption-calculator': 'audio'
+  'amps-to-watts-dc-calculator': 'lowVoltage',
+  'power-factor': 'industrial',
+  'amps-to-volt-amps': 'industrial',
+  'amps-to-kw-calculator': 'industrial',
+  'amp-hours-to-watt-hours': 'lowVoltage',
+  'amp-power-consumption-calculator': 'lowVoltage',
+  'voltage-drop-calculator': 'mainsVoltage',
+  'wire-gauge-calculator': 'mainsVoltage',
+  'speaker-amp-power-calculator': 'audio'
 };
 
 // Default to mainsVoltage if unmapped

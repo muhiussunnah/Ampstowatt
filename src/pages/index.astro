@@ -2,10 +2,8 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import AuthorityMethodology from '@/components/AuthorityMethodology.astro';
 import ElectricalVisualSystem from '@/components/ElectricalVisualSystem.astro';
-import { getLegacyPage } from '@/lib/legacy';
 import { tools } from '@/data/tools';
 
-const page = getLegacyPage('')!;
 const featuredTools = tools.slice(0, 6);
 
 const toolLabels: Record<string, string> = {
@@ -27,6 +25,7 @@ const conversionRows = [
   { amps: '15 A', watts12: '180 W', watts120: '1,800 W', watts240: '3,600 W' },
   { amps: '20 A', watts12: '240 W', watts120: '2,400 W', watts240: '4,800 W' },
   { amps: '30 A', watts12: '360 W', watts120: '3,600 W', watts240: '7,200 W' },
+  { amps: '50 A', watts12: '600 W', watts120: '6,000 W', watts240: '12,000 W' },
 ];
 
 const safetyRows = [
@@ -34,68 +33,104 @@ const safetyRows = [
   { circuit: '20 A breaker', max: '2,400 W at 120 V', continuous: '1,920 W continuous load' },
   { circuit: '30 A breaker', max: '3,600 W at 120 V', continuous: '2,880 W continuous load' },
   { circuit: '40 A breaker', max: '9,600 W at 240 V', continuous: '7,680 W continuous load' },
+  { circuit: '50 A breaker', max: '12,000 W at 240 V', continuous: '9,600 W continuous load' },
+];
+
+const pfRows = [
+  { device: 'Resistive heater / incandescent lamp', pf: '1.00', notes: 'Pure resistive load, no reactive component' },
+  { device: 'LED lighting (with driver)', pf: '0.90 – 0.99', notes: 'High-quality LED drivers correct to near unity' },
+  { device: 'Fluorescent lamp (with ballast)', pf: '0.85 – 0.95', notes: 'Electronic ballasts are higher than magnetic' },
+  { device: 'Computer / monitor (SMPS)', pf: '0.55 – 0.75', notes: 'Without active PFC; with PFC can reach 0.95+' },
+  { device: 'Induction motor (full load)', pf: '0.80 – 0.90', notes: 'Drops significantly at partial load' },
+  { device: 'Induction motor (no load)', pf: '0.15 – 0.35', notes: 'Very low PF when running without mechanical load' },
+  { device: 'Air conditioner / heat pump', pf: '0.80 – 0.95', notes: 'Compressor motor with capacitor start' },
+  { device: 'Welding machine (transformer)', pf: '0.50 – 0.70', notes: 'Highly inductive during arc operation' },
+  { device: 'Synchronous motor', pf: '0.90 – 1.00', notes: 'Can be adjusted to lead, lag, or unity' },
+  { device: 'Variable frequency drive (VFD)', pf: '0.95 – 0.98', notes: 'VFD input stage presents near-unity PF to supply' },
+];
+
+const applianceRows = [
+  { appliance: 'LED light bulb', amps: '0.08 A', volts: '120 V', watts: '10 W' },
+  { appliance: 'Ceiling fan', amps: '0.5 A', volts: '120 V', watts: '60 W' },
+  { appliance: 'Laptop charger', amps: '0.5 A', volts: '120 V', watts: '60 W' },
+  { appliance: 'Television (55-inch LED)', amps: '0.8 A', volts: '120 V', watts: '95 W' },
+  { appliance: 'Refrigerator (running)', amps: '1.5 A', volts: '120 V', watts: '180 W' },
+  { appliance: 'Window air conditioner', amps: '5 A', volts: '120 V', watts: '600 W' },
+  { appliance: 'Microwave oven', amps: '8.3 A', volts: '120 V', watts: '1,000 W' },
+  { appliance: 'Hair dryer', amps: '12.5 A', volts: '120 V', watts: '1,500 W' },
+  { appliance: 'Space heater', amps: '12.5 A', volts: '120 V', watts: '1,500 W' },
+  { appliance: 'Electric clothes dryer', amps: '23 A', volts: '240 V', watts: '5,500 W' },
+  { appliance: 'EV charger (Level 2)', amps: '32 A', volts: '240 V', watts: '7,680 W' },
+  { appliance: 'Central A/C (3 ton)', amps: '15 A', volts: '240 V', watts: '3,600 W' },
 ];
 ---
 
 <BaseLayout
-  title="Amps to Watts Calculator | Convert A to W for AC, DC & 3 Phase"
-  description="Free amps to watts calculator with the formula Watts = Amps x Volts. Convert DC, single-phase AC, and three-phase current with power factor, tables, and breaker safety checks."
-  keywords={page.keywords}
+  title="Amps to Watts Calculator — Convert Amps to Watts Instantly"
+  description="Free amps to watts calculator. Enter amps and volts to get watts instantly. Covers DC, single-phase AC, and three-phase AC with power factor. Includes formulas, conversion tables, and worked examples."
   legacyMode
   showCalculator={true}
   kicker="Free electrical power conversion tool"
   h1Title="Amps to Watts Calculator"
 >
+  <!-- ===== QUICK ANSWER (Targets Featured Snippet) ===== -->
   <section class="content-section home-answer-stack" aria-labelledby="quick-answer">
     <article class="content-card home-answer-card">
       <div class="section-divider">
         <div class="icon-circle" aria-hidden="true">W</div>
-        <h2 id="quick-answer">Quick Answer: How to Convert Amps to Watts</h2>
+        <h2 id="quick-answer">How to Convert Amps to Watts</h2>
         <div class="line" aria-hidden="true"></div>
       </div>
-      <p class="content-lead"><strong>To convert amps to watts, multiply amps by volts.</strong> For AC motor, compressor, HVAC, and other inductive loads, multiply by power factor too.</p>
+      <p class="content-lead"><strong>To convert amps to watts, multiply amps by volts.</strong> This is the core electrical power formula derived from Watt's Law. For AC circuits with motors, compressors, or other inductive loads, multiply the result by the power factor (PF) as well.</p>
       <div class="home-formula-grid" aria-label="Amps to watts formulas">
         <div class="home-formula-card">
           <span>DC and resistive loads</span>
-          <strong>Watts = Amps x Volts</strong>
-          <p>Use this for batteries, solar DC systems, heaters, lamps, and simple resistive loads.</p>
+          <strong>Watts = Amps × Volts</strong>
+          <p>Use this formula for batteries (12V, 24V, 48V), solar DC systems, incandescent lamps, resistive heaters, and any load where current and voltage are in phase.</p>
         </div>
         <div class="home-formula-card">
           <span>Single-phase AC</span>
-          <strong>Watts = Amps x Volts x PF</strong>
-          <p>Use this for household AC circuits when the load has a known power factor.</p>
+          <strong>Watts = Amps × Volts × PF</strong>
+          <p>Use this for 120V or 240V household circuits when the load is a motor, compressor, or other inductive equipment with a known power factor from the nameplate.</p>
         </div>
         <div class="home-formula-card">
           <span>Three-phase AC</span>
-          <strong>Watts = 1.732 x Amps x Volts x PF</strong>
-          <p>Use line-to-line voltage for balanced commercial or industrial three-phase systems.</p>
+          <strong>Watts = √3 × Amps × Volts × PF</strong>
+          <p>Use line-to-line voltage (208V, 400V, 480V) for balanced commercial or industrial three-phase systems. The √3 factor equals approximately 1.732.</p>
         </div>
       </div>
       <nav class="home-jump-links" aria-label="Homepage conversion sections">
         <a href="#amps-to-watts-table">Conversion table</a>
+        <a href="#amps-to-watts-formula">Formula deep dive</a>
+        <a href="#step-by-step">Step-by-step guide</a>
+        <a href="#power-factor-table">Power factor values</a>
+        <a href="#appliance-chart">Appliance chart</a>
         <a href="#breaker-safety">Breaker safety</a>
         <a href="#worked-examples">Worked examples</a>
+        <a href="#dc-vs-ac">DC vs AC</a>
+        <a href="#watts-to-amps">Reverse conversion</a>
         <a href="#related-calculators">Related calculators</a>
       </nav>
     </article>
 
     <ElectricalVisualSystem variant="home" />
 
+    <!-- ===== AMPS TO WATTS CONVERSION TABLE ===== -->
     <article class="content-card" id="amps-to-watts-table">
       <div class="section-divider">
         <div class="icon-circle" aria-hidden="true">120</div>
         <h2>Amps to Watts Conversion Table</h2>
         <div class="line" aria-hidden="true"></div>
       </div>
-      <p>Use this table for quick reference at common DC battery and North American AC voltages. Results assume power factor 1.00.</p>
+      <p>The following table converts common amperage values into watts at three standard voltages. All values assume a power factor of 1.00 (pure resistive load). For AC inductive loads, multiply each watt value by the equipment's power factor.</p>
       <div class="table-wrap">
         <table class="reference-table">
           <thead>
             <tr>
-              <th scope="col">Current</th>
-              <th scope="col">At 12 V</th>
-              <th scope="col">At 120 V</th>
-              <th scope="col">At 240 V</th>
+              <th scope="col">Current (Amps)</th>
+              <th scope="col">Power at 12 V</th>
+              <th scope="col">Power at 120 V</th>
+              <th scope="col">Power at 240 V</th>
             </tr>
           </thead>
           <tbody>
@@ -110,22 +145,181 @@ const safetyRows = [
           </tbody>
         </table>
       </div>
+      <p>For voltages not shown above — such as 220V, 230V, or 480V — use the calculator at the top of this page or visit the dedicated <a href="/220v-amps-to-watts-calculator/">220V</a>, <a href="/230v-calculator/">230V</a>, or <a href="/3-phase-amps-to-watts-calculator/">three-phase</a> calculator pages.</p>
     </article>
 
+    <!-- ===== FORMULA DEEP DIVE ===== -->
+    <article class="content-card" id="amps-to-watts-formula">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">f(x)</div>
+        <h2>Amps to Watts Formula — Explained in Full</h2>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+
+      <h3>What Is an Amp (Ampere)?</h3>
+      <p>An <strong>ampere</strong> (symbol: <strong>A</strong>) is the SI base unit of electric current. It measures the rate at which electric charge flows through a conductor. One ampere equals one coulomb of charge passing a point in one second. In practical terms, amps tell you <em>how much</em> electricity is flowing — think of it as the volume of water moving through a pipe.</p>
+      <p>The ampere is defined by the International Bureau of Weights and Measures (BIPM) based on the fixed value of the elementary charge. The U.S. National Institute of Standards and Technology (NIST) maintains the reference standard for electrical current measurements.</p>
+
+      <h3>What Is a Watt?</h3>
+      <p>A <strong>watt</strong> (symbol: <strong>W</strong>) is the SI unit of power. It measures the rate of energy transfer or conversion. One watt equals one joule of energy per second. While amps tell you how much current flows, <strong>watts tell you how much work that current actually does</strong> — how much heat a heater produces, how much light a bulb emits, or how much force a motor delivers.</p>
+      <p>Named after Scottish inventor James Watt, the unit connects electrical measurements to mechanical and thermal energy. A 100-watt light bulb consumes energy at the rate of 100 joules every second.</p>
+
+      <h3>The Relationship Between Amps, Volts, and Watts</h3>
+      <p>Amps, volts, and watts are connected by <strong>Watt's Law</strong> (also called the power equation):</p>
+      <div class="home-formula-grid">
+        <div class="home-formula-card">
+          <span>Watt's Law</span>
+          <strong>P = I × V</strong>
+          <p>Power (watts) equals current (amps) multiplied by voltage (volts). This is the foundation of every amps-to-watts conversion.</p>
+        </div>
+        <div class="home-formula-card">
+          <span>Ohm's Law (related)</span>
+          <strong>V = I × R</strong>
+          <p>Voltage equals current times resistance. Combined with Watt's Law, this lets you derive watts from amps and resistance: <strong>P = I² × R</strong>.</p>
+        </div>
+      </div>
+      <p>To visualize the relationship, imagine a garden hose: <strong>voltage</strong> is the water pressure, <strong>amps</strong> is the flow rate, and <strong>watts</strong> is the total work the water can do (like spinning a turbine). Higher pressure or higher flow both increase the power output.</p>
+
+      <h3>DC Amps to Watts Formula</h3>
+      <p>For direct current circuits — batteries, solar panels, automotive systems, LED strips, and electronic power supplies — the conversion is straightforward:</p>
+      <div class="home-formula-card" style="max-width:480px">
+        <span>DC formula</span>
+        <strong>P<sub>(W)</sub> = I<sub>(A)</sub> × V<sub>(V)</sub></strong>
+        <p>No power factor is needed because DC current and voltage are always in phase.</p>
+      </div>
+      <p><strong>Example:</strong> A 12V car battery supplying 10 amps to a winch delivers 10 A × 12 V = <strong>120 watts</strong> of power.</p>
+
+      <h3>AC Single-Phase Amps to Watts Formula</h3>
+      <p>For single-phase alternating current circuits — household outlets (120V in North America, 230V in the UK/EU), appliances, tools — the formula includes power factor:</p>
+      <div class="home-formula-card" style="max-width:480px">
+        <span>AC single-phase formula</span>
+        <strong>P<sub>(W)</sub> = I<sub>(A)</sub> × V<sub>(V)</sub> × PF</strong>
+        <p>Power factor accounts for the phase difference between current and voltage in inductive or capacitive loads.</p>
+      </div>
+      <p><strong>Example:</strong> A 120V air conditioner drawing 5 amps with a power factor of 0.85 consumes 5 A × 120 V × 0.85 = <strong>510 watts</strong> of real power.</p>
+
+      <h3>AC Three-Phase Amps to Watts Formula</h3>
+      <p>For three-phase industrial systems — commercial HVAC, large motors, data centers, manufacturing equipment — use the line-to-line voltage formula:</p>
+      <div class="home-formula-card" style="max-width:480px">
+        <span>AC three-phase formula (line-to-line)</span>
+        <strong>P<sub>(W)</sub> = √3 × I<sub>(A)</sub> × V<sub>L-L(V)</sub> × PF</strong>
+        <p>√3 ≈ 1.732. Use line-to-line voltage (e.g., 208V, 400V, 480V). For line-to-neutral voltage, replace √3 with 3.</p>
+      </div>
+      <p><strong>Example:</strong> A 480V three-phase motor drawing 20 amps per phase with PF 0.88 consumes 1.732 × 20 A × 480 V × 0.88 = <strong>14,633 watts (14.6 kW)</strong>.</p>
+    </article>
+
+    <!-- ===== STEP-BY-STEP GUIDE ===== -->
+    <article class="content-card" id="step-by-step">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">1-5</div>
+        <h2>How to Convert Amps to Watts — Step by Step</h2>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+      <p>Follow these five steps to convert any amperage reading into watts accurately:</p>
+
+      <div class="home-example-grid">
+        <div>
+          <h3>Step 1 — Find the current in amps</h3>
+          <p>Read the current draw from the equipment nameplate, a clamp meter, or the circuit breaker rating. This is your value in amps (A). If the reading is in milliamps (mA), divide by 1,000 to get amps.</p>
+        </div>
+        <div>
+          <h3>Step 2 — Find the voltage</h3>
+          <p>Identify the supply voltage. Common values are 12V (batteries), 120V (US outlets), 220V–240V (US split-phase/international), or 400V–480V (three-phase industrial). Use a multimeter to measure if uncertain.</p>
+        </div>
+        <div>
+          <h3>Step 3 — Determine the circuit type</h3>
+          <p>Is the circuit DC (battery, solar panel, electronics) or AC (wall outlet, motor, HVAC)? For AC, determine if it's single-phase (home) or three-phase (commercial/industrial). This determines which formula to use.</p>
+        </div>
+        <div>
+          <h3>Step 4 — Find the power factor (AC only)</h3>
+          <p>Check the equipment nameplate for PF or cos(φ). Resistive loads (heaters, lamps) have PF ≈ 1.0. Motors and compressors typically range from 0.70 to 0.95. If unknown, use 0.85 as a conservative planning estimate for motor loads.</p>
+        </div>
+        <div>
+          <h3>Step 5 — Multiply using the formula</h3>
+          <p>Apply the correct formula: <strong>Watts = Amps × Volts</strong> for DC, <strong>Watts = Amps × Volts × PF</strong> for AC single-phase, or <strong>Watts = 1.732 × Amps × Volts × PF</strong> for AC three-phase. The result is the real power in watts.</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- ===== POWER FACTOR TABLE ===== -->
+    <article class="content-card" id="power-factor-table">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">PF</div>
+        <h2>Power Factor Values by Device Type</h2>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+      <p>Power factor is the ratio of real power (watts) to apparent power (volt-amps). It ranges from 0 to 1.00, where 1.00 means all the current drawn is doing useful work. Inductive loads like motors draw extra current that does not produce useful watts, resulting in a lower power factor. The table below lists typical power factor ranges for common electrical equipment.</p>
+      <div class="table-wrap">
+        <table class="reference-table">
+          <thead>
+            <tr>
+              <th scope="col">Device / Load Type</th>
+              <th scope="col">Typical PF</th>
+              <th scope="col">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            {pfRows.map((row) => (
+              <tr>
+                <td>{row.device}</td>
+                <td>{row.pf}</td>
+                <td>{row.notes}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p>For detailed power factor calculations, capacitor sizing, and kVAR correction, visit the dedicated <a href="/power-factor/">Power Factor Calculator</a>. To convert apparent power (kVA) to real power (watts), use the <a href="/kva-to-watts-calculator/">kVA to Watts Calculator</a>.</p>
+    </article>
+
+    <!-- ===== COMMON APPLIANCE CHART ===== -->
+    <article class="content-card" id="appliance-chart">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">APP</div>
+        <h2>Common Appliance Amps and Watts Chart</h2>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+      <p>The following chart shows typical amperage draw and wattage for common household and commercial appliances. These values represent average running conditions — startup (inrush) current can be 3× to 6× higher for motor-driven equipment. Always check the equipment nameplate for exact ratings.</p>
+      <div class="table-wrap">
+        <table class="reference-table">
+          <thead>
+            <tr>
+              <th scope="col">Appliance</th>
+              <th scope="col">Typical Amps</th>
+              <th scope="col">Voltage</th>
+              <th scope="col">Watts</th>
+            </tr>
+          </thead>
+          <tbody>
+            {applianceRows.map((row) => (
+              <tr>
+                <td>{row.appliance}</td>
+                <td>{row.amps}</td>
+                <td>{row.volts}</td>
+                <td>{row.watts}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p>To calculate how many amps your specific appliance draws, divide its wattage by the supply voltage. For example, a 1,500W space heater on a 120V circuit draws 1,500 ÷ 120 = <strong>12.5 amps</strong>. To plan your total circuit load, add up all appliance wattages and compare with the <a href="#breaker-safety">breaker safety limits</a> below.</p>
+    </article>
+
+    <!-- ===== BREAKER SAFETY CHECK ===== -->
     <article class="content-card home-safety-card" id="breaker-safety">
       <div class="section-divider">
         <div class="icon-circle" aria-hidden="true">SAFE</div>
         <h2>Circuit Breaker Safety Check</h2>
         <div class="line" aria-hidden="true"></div>
       </div>
-      <p>Watts are useful for appliance load planning, but breakers are rated in amps. For continuous loads, a common planning rule is to keep the load at or below 80% of the breaker rating unless the equipment and installation are specifically rated otherwise.</p>
+      <p>Once you convert amps to watts, the next step is checking whether the load is safe for the circuit. Breakers are rated in amps, but planning is easier in watts. The National Electrical Code (NEC) Article 210.20 requires that continuous loads (running 3+ hours) must not exceed <strong>80% of the breaker rating</strong> unless the breaker and panelboard are specifically listed for 100% continuous duty.</p>
       <div class="table-wrap">
         <table class="reference-table">
           <thead>
             <tr>
-              <th scope="col">Circuit</th>
-              <th scope="col">Theoretical watts</th>
-              <th scope="col">80% planning limit</th>
+              <th scope="col">Circuit Breaker</th>
+              <th scope="col">Maximum Watts (PF 1.00)</th>
+              <th scope="col">80% Continuous Planning Limit</th>
             </tr>
           </thead>
           <tbody>
@@ -139,38 +333,131 @@ const safetyRows = [
           </tbody>
         </table>
       </div>
-      <p class="home-note">Calculator results are educational estimates. Verify final wiring, breaker sizing, derating, and code decisions with a licensed electrician or qualified engineer.</p>
+      <p><strong>Practical rule:</strong> A 20A breaker on a 120V circuit can handle a maximum of 2,400W, but for continuous loads like a space heater, keep below 1,920W to meet the 80% rule. If your amps-to-watts calculation exceeds these limits, you need a higher-rated circuit, a dedicated branch circuit, or a load redistribution.</p>
+      <p class="home-note">Calculator results are educational estimates. Verify final wiring, breaker sizing, conductor derating, voltage-drop limits, and code compliance with a licensed electrician or qualified engineer. Electrical work must comply with local building codes and the applicable edition of the NEC, IEC, or regional wiring regulations.</p>
     </article>
 
+    <!-- ===== WORKED EXAMPLES ===== -->
     <article class="content-card" id="worked-examples">
       <div class="section-divider">
         <div class="icon-circle" aria-hidden="true">EX</div>
-        <h2>Worked Amps to Watts Examples</h2>
+        <h2>Amps to Watts Worked Examples</h2>
         <div class="line" aria-hidden="true"></div>
       </div>
       <div class="home-example-grid">
         <div>
-          <h3>10 amps to watts</h3>
-          <p>At 120 V, 10 amps equals <strong>1,200 watts</strong>. Formula: 10 A x 120 V = 1,200 W.</p>
+          <h3>10 amps to watts at 120V</h3>
+          <p>At 120V, 10 amps equals <strong>1,200 watts</strong>. Formula: 10 A × 120 V = 1,200 W. This is equivalent to running ten 120W incandescent bulbs simultaneously, or a standard toaster oven.</p>
         </div>
         <div>
-          <h3>15 amps to watts</h3>
-          <p>At 120 V, 15 amps equals <strong>1,800 watts</strong>. For continuous load planning, use about 1,440 W.</p>
+          <h3>15 amps to watts at 120V</h3>
+          <p>At 120V, 15 amps equals <strong>1,800 watts</strong>. This is the maximum capacity of a standard 15A household circuit. For continuous loads (3+ hours), use the 80% rule: 1,800 × 0.80 = <strong>1,440 watts</strong> planning limit.</p>
         </div>
         <div>
-          <h3>20 amps to watts</h3>
-          <p>At 120 V, 20 amps equals <strong>2,400 watts</strong>. At 240 V, it equals 4,800 W.</p>
+          <h3>20 amps to watts at 240V</h3>
+          <p>At 240V, 20 amps equals <strong>4,800 watts</strong>. At 120V, the same 20 amps would be only 2,400W. This demonstrates why 240V circuits are used for high-power appliances — they deliver double the wattage at the same amperage.</p>
         </div>
         <div>
-          <h3>12V amps to watts</h3>
-          <p>For a 12 V battery circuit, multiply amps by 12. A 5 A DC load equals <strong>60 watts</strong>.</p>
+          <h3>30 amps to watts at 240V</h3>
+          <p>At 240V, 30 amps equals <strong>7,200 watts</strong>. This is a typical electric dryer or small EV charger circuit. The 80% continuous limit is 5,760W.</p>
+        </div>
+        <div>
+          <h3>5 amps to watts at 12V (DC)</h3>
+          <p>At 12V DC, 5 amps equals <strong>60 watts</strong>. Formula: 5 A × 12 V = 60 W. This covers common automotive accessories, LED strip lights, and small solar loads.</p>
+        </div>
+        <div>
+          <h3>AC motor: 8 amps at 240V with PF 0.85</h3>
+          <p>For an AC motor with power factor 0.85: 8 A × 240 V × 0.85 = <strong>1,632 watts</strong> real power. Without the power factor, you would overestimate at 1,920W — a 15% error that matters for generator and UPS sizing.</p>
         </div>
       </div>
+    </article>
+
+    <!-- ===== DC vs AC COMPARISON ===== -->
+    <article class="content-card" id="dc-vs-ac">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">DC/AC</div>
+        <h2>DC vs AC: When to Use Each Formula</h2>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+      <p>The key difference between DC and AC amps-to-watts conversion is <strong>power factor</strong>. DC circuits have no reactive power component, so the conversion is a simple multiplication. AC circuits can have reactive power due to inductance (motors, transformers) or capacitance (electronic power supplies), which means the apparent power (VA) is higher than the real power (watts).</p>
+      <div class="table-wrap">
+        <table class="reference-table">
+          <thead>
+            <tr>
+              <th scope="col">Factor</th>
+              <th scope="col">DC Circuits</th>
+              <th scope="col">AC Circuits</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Formula</td>
+              <td>W = A × V</td>
+              <td>W = A × V × PF (single-phase)</td>
+            </tr>
+            <tr>
+              <td>Power factor</td>
+              <td>Not applicable (always 1.00)</td>
+              <td>Required for inductive/capacitive loads</td>
+            </tr>
+            <tr>
+              <td>Typical use</td>
+              <td>Batteries, solar panels, electronics, automotive</td>
+              <td>Household outlets, motors, HVAC, industrial</td>
+            </tr>
+            <tr>
+              <td>Voltage type</td>
+              <td>Steady DC voltage</td>
+              <td>RMS voltage (peak ÷ √2)</td>
+            </tr>
+            <tr>
+              <td>Current type</td>
+              <td>Steady DC current</td>
+              <td>RMS current (alternating)</td>
+            </tr>
+            <tr>
+              <td>Three-phase</td>
+              <td>Not applicable</td>
+              <td>Multiply by √3 for line-to-line voltage</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>For dedicated DC conversions, use the <a href="/dc-amps-to-watts-calculator/">DC Amps to Watts Calculator</a>. For AC with power factor support, use the <a href="/ac-amps-to-watts-calculator/">AC Amps to Watts Calculator</a>.</p>
+    </article>
+
+    <!-- ===== WATTS TO AMPS (REVERSE) ===== -->
+    <article class="content-card" id="watts-to-amps">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">⇄</div>
+        <h2>Watts to Amps: The Reverse Conversion</h2>
+        <div class="line" aria-hidden="true"></div>
+      </div>
+      <p>To convert watts to amps, divide watts by volts. This is useful when you know an appliance's wattage from its label and need to determine how much current it draws from the circuit:</p>
+      <div class="home-formula-grid">
+        <div class="home-formula-card">
+          <span>DC</span>
+          <strong>Amps = Watts ÷ Volts</strong>
+          <p>Example: A 60W LED driver on 12V draws 60 ÷ 12 = <strong>5 amps</strong>.</p>
+        </div>
+        <div class="home-formula-card">
+          <span>AC single-phase</span>
+          <strong>Amps = Watts ÷ (Volts × PF)</strong>
+          <p>Example: A 1,500W heater on 120V at PF 1.0 draws 1,500 ÷ 120 = <strong>12.5 amps</strong>.</p>
+        </div>
+        <div class="home-formula-card">
+          <span>AC three-phase</span>
+          <strong>Amps = Watts ÷ (√3 × Volts × PF)</strong>
+          <p>Example: A 10 kW motor on 480V at PF 0.85 draws 10,000 ÷ (1.732 × 480 × 0.85) = <strong>14.1 amps</strong>.</p>
+        </div>
+      </div>
+      <p>For solar-specific reverse conversions, see the <a href="/solar-watts-to-amps-calculator/">Solar Watts to Amps Calculator</a>. For LED driver sizing, use the <a href="/led-watts-to-amps-calculator/">LED Watts to Amps Calculator</a>.</p>
     </article>
   </section>
 
   <AuthorityMethodology />
 
+  <!-- ===== WHAT MAKES THIS DIFFERENT ===== -->
   <section class="content-section home-premium-difference" aria-labelledby="premium-difference">
     <article class="content-card">
       <div class="section-divider">
@@ -181,26 +468,25 @@ const safetyRows = [
       <div class="home-example-grid">
         <div>
           <h3>Formula-first answers</h3>
-          <p>The result is backed by the exact DC, AC single-phase, and AC three-phase formulas instead of a one-size-fits-all conversion.</p>
+          <p>Every result shows the exact formula used — DC, AC single-phase, or AC three-phase — so you understand the calculation, not just the number. The working formula and all inputs are displayed alongside the result.</p>
         </div>
         <div>
-          <h3>Power factor support</h3>
-          <p>Motors, compressors, generators, HVAC equipment, and other AC loads can use a realistic power factor for a better planning estimate.</p>
+          <h3>Real power factor support</h3>
+          <p>Unlike basic calculators that ignore power factor, this tool lets you enter PF from 0.01 to 1.00 for motors, compressors, HVAC equipment, and other inductive loads. This gives you <em>real power</em> in watts instead of inflated apparent power.</p>
         </div>
         <div>
-          <h3>Safety context</h3>
-          <p>The breaker planning table helps convert watts into practical circuit limits without pretending a calculator replaces code review.</p>
+          <h3>Breaker and safety context</h3>
+          <p>Results include a breaker planning reference with the NEC 80% continuous load rule. You get watts, kilowatts, and a practical safety check in one step — not just a bare number.</p>
         </div>
         <div>
-          <h3>Fast reference tables</h3>
-          <p>Common 12V, 120V, and 240V conversions are shown near the top so visitors can answer simple questions without extra clicks.</p>
+          <h3>Voltage-specific sub-calculators</h3>
+          <p>Dedicated pages for <a href="/12v-amps-to-watts-calculator/">12V</a>, <a href="/120v-amps-to-watts-calculator/">120V</a>, <a href="/220v-amps-to-watts-calculator/">220V</a>, <a href="/230v-calculator/">230V</a>, and <a href="/240v-amps-to-watts-calculator/">240V</a> circuits with pre-set defaults and voltage-specific guidance — no need to re-enter voltage each time.</p>
         </div>
       </div>
     </article>
   </section>
 
-  <div set:html={page.body} />
-
+  <!-- ===== RELATED CALCULATORS DIRECTORY ===== -->
   <section class="content-section" id="related-calculators" aria-labelledby="related-calculators-heading">
     <div class="section-divider">
       <div class="icon-circle" aria-hidden="true">TOOLS</div>
@@ -245,44 +531,45 @@ const safetyRows = [
     <section class="premium-directory-group" id="voltage-circuits" aria-labelledby="hub-voltage">
       <div class="group-header">
         <div class="group-icon">V</div>
-        <h2 id="hub-voltage" class="group-title" data-i18n="dir.voltage">Voltage Circuits</h2>
+        <h2 id="hub-voltage" class="group-title" data-i18n="dir.voltage">Voltage-Specific Calculators</h2>
       </div>
       <div class="group-links">
-        <a href="/12v-amps-to-watts-calculator/">12V Low Voltage</a>
-        <a href="/120v-amps-to-watts-calculator/">120V US Mains</a>
-        <a href="/220v-amps-to-watts-calculator/">220V Appliances</a>
-        <a href="/240v-amps-to-watts-calculator/">240V US Split-Phase</a>
-        <a href="/230v-calculator/">230V UK/EU Mains</a>
+        <a href="/12v-amps-to-watts-calculator/">12V DC Battery & Automotive</a>
+        <a href="/120v-amps-to-watts-calculator/">120V US Household Outlets</a>
+        <a href="/220v-amps-to-watts-calculator/">220V International Appliances</a>
+        <a href="/240v-amps-to-watts-calculator/">240V US Split-Phase & Dryers</a>
+        <a href="/230v-calculator/">230V UK/EU Mains Circuits</a>
       </div>
     </section>
 
     <section class="premium-directory-group" id="ac-dc-power" aria-labelledby="hub-acdc">
       <div class="group-header">
         <div class="group-icon">AC</div>
-        <h2 id="hub-acdc" class="group-title" data-i18n="dir.acdc">AC/DC Power Systems</h2>
+        <h2 id="hub-acdc" class="group-title" data-i18n="dir.acdc">AC/DC Power Calculators</h2>
       </div>
       <div class="group-links">
-        <a href="/ac-amps-to-watts-calculator/">AC Power Dynamics</a>
-        <a href="/dc-amps-to-watts-calculator/">DC Systems</a>
-        <a href="/3-phase-amps-to-watts-calculator/">3-Phase Industrial</a>
-        <a href="/single-phase-amps-to-watts-calculator/">Single Phase AC</a>
-        <a href="/power-factor/">Power Factor Guide</a>
+        <a href="/ac-amps-to-watts-calculator/">AC Power with Power Factor</a>
+        <a href="/dc-amps-to-watts-calculator/">DC Battery & Solar Systems</a>
+        <a href="/3-phase-amps-to-watts-calculator/">3-Phase Industrial Power</a>
+        <a href="/single-phase-amps-to-watts-calculator/">Single Phase AC Circuits</a>
+        <a href="/power-factor/">Power Factor Calculator & Guide</a>
       </div>
     </section>
 
     <section class="premium-directory-group" id="component-calculators" aria-labelledby="hub-components">
       <div class="group-header">
         <div class="group-icon">PF</div>
-        <h2 id="hub-components" class="group-title" data-i18n="dir.components">Specialized Components</h2>
+        <h2 id="hub-components" class="group-title" data-i18n="dir.components">Specialized Electrical Calculators</h2>
       </div>
       <div class="group-links">
-        <a href="/solar-watts-to-amps-calculator/">Solar and PV Systems</a>
-        <a href="/led-watts-to-amps-calculator/">LED and Lighting</a>
-        <a href="/speaker-amp-power-calculator/">Audio Amplification</a>
-        <a href="/kva-to-watts-calculator/">kVA Apparent Power</a>
-        <a href="/megawatts-to-amps-calculator/">Megawatt Systems</a>
+        <a href="/solar-watts-to-amps-calculator/">Solar Panel Watts to Amps</a>
+        <a href="/led-watts-to-amps-calculator/">LED Driver & Lighting Current</a>
+        <a href="/speaker-amp-power-calculator/">Speaker Amplifier Power Draw</a>
+        <a href="/kva-to-watts-calculator/">kVA to Watts (Apparent Power)</a>
+        <a href="/megawatts-to-amps-calculator/">Megawatt to Amps Conversion</a>
       </div>
     </section>
   </div>
   </section>
+
 </BaseLayout>
