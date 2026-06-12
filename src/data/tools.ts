@@ -74,8 +74,19 @@ export const pages = [
   { slug: 'disclaimer', title: 'Disclaimer', description: 'Important safety and educational-use disclaimer for electrical calculations.' },
   { slug: 'cookie-policy', title: 'Cookie Policy', description: 'Cookie information for Amps To Watts Calculator.' },
   { slug: 'cookie-preferences', title: 'Cookie Preferences', description: 'Manage cookie preferences for Amps To Watts Calculator.' },
-  { slug: 'site-map', title: 'Site Map', description: 'A complete map of calculators and resources on Amps To Watts Calculator.' }
+  { slug: 'site-map', title: 'Site Map', description: 'A complete map of calculators and resources on Amps To Watts Calculator.' },
+  { slug: 'what-are-amps', title: 'What Are Amps? — Amperes Explained Simply', description: 'Learn what amps (amperes) are, how electric current works, SI definition, real-world examples, and how amps relate to volts, watts, and ohms.' },
+  { slug: 'what-are-watts', title: 'What Are Watts? — Electrical Power Explained', description: 'Learn what watts are, how electrical power is measured, the watt formula, real-world examples, and how watts connect to amps, volts, and energy.' },
+  { slug: 'ohms-law-explained', title: "Ohm's Law Explained — Formula, Examples, Calculator", description: "Understand Ohm's Law (V = I × R), how voltage, current, and resistance relate, the power wheel, worked examples, and when Ohm's Law does not apply." },
+  { slug: 'understanding-power-factor', title: 'Understanding Power Factor — PF Explained for AC', description: 'Learn what power factor is, why it matters for AC circuits, the power triangle, typical PF values, correction methods, and how PF affects your electricity bill.' },
 ];
+
+export const educationalSlugs = new Set([
+  'what-are-amps',
+  'what-are-watts',
+  'ohms-law-explained',
+  'understanding-power-factor',
+]);
 
 export const allRouteSlugs = [...tools.map((tool) => tool.slug), ...Object.keys(aliases), ...pages.map((page) => page.slug)];
 
@@ -86,5 +97,9 @@ export function getToolBySlug(slug: string) {
 
 export function getPageBySlug(slug: string) {
   return pages.find((page) => page.slug === slug);
+}
+
+export function isEducationalPage(slug: string) {
+  return educationalSlugs.has(slug);
 }
 
