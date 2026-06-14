@@ -1,5 +1,8 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import { copyFile } from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const aliasPaths = new Set([
   '/amps-to-watts-calculator/',
@@ -32,7 +35,22 @@ export default defineConfig({
         ...item,
         lastmod: new Date().toISOString().split('T')[0]
       })
-    })
+    }),
+    {
+      name: 'sitemap-xml-alias',
+      hooks: {
+        'astro:build:done': async ({ dir, logger }) => {
+          const outDir = fileURLToPath(dir);
+
+          await copyFile(
+            path.join(outDir, 'sitemap-index.xml'),
+            path.join(outDir, 'sitemap.xml')
+          );
+
+          logger.info('`sitemap.xml` created as an alias of `sitemap-index.xml`');
+        }
+      }
+    }
   ],
   trailingSlash: 'always',
   vite: {
