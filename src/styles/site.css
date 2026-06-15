@@ -233,6 +233,76 @@ svg {
   color: var(--text);
 }
 
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown summary {
+  list-style: none;
+  cursor: pointer;
+  border-radius: var(--radius);
+  padding: 0.52rem 0.68rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 700;
+  color: var(--soft);
+}
+
+.nav-dropdown summary::-webkit-details-marker {
+  display: none;
+}
+
+.nav-dropdown summary::after {
+  content: "";
+  display: inline-block;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+.nav-dropdown[open] summary::after {
+  transform: translateY(2px) rotate(225deg);
+}
+
+.nav-dropdown summary:hover,
+.nav-dropdown[open] summary {
+  background: #111827;
+  color: var(--text);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 0.25rem);
+  left: 0;
+  min-width: 14rem;
+  background: #090e18;
+  border: 1px solid rgba(217, 187, 114, 0.18);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  z-index: 1000;
+}
+
+.dropdown-menu a {
+  padding: 0.5rem 0.75rem;
+  border-radius: calc(var(--radius) - 2px);
+  font-weight: 600;
+  font-size: 0.85rem;
+  display: block;
+  white-space: nowrap;
+}
+
+.dropdown-menu a:hover {
+  background: #151f31;
+}
+
 .nav-toggle {
   display: none;
   width: 2.6rem;
@@ -2312,11 +2382,29 @@ input[type="range"] {
   }
 
   .site-nav.is-open {
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
   }
 
-  .site-nav a {
+  .site-nav a,
+  .nav-dropdown summary {
     padding: 0.75rem;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .dropdown-menu {
+    position: static;
+    min-width: 0;
+    box-shadow: none;
+    background: transparent;
+    border: none;
+    border-left: 2px solid var(--line);
+    margin-left: 1rem;
+    border-radius: 0;
+    padding: 0;
+    margin-top: 0.25rem;
   }
 
   .brand small {
