@@ -18,6 +18,7 @@ type Props = {
   showCalculator?: boolean;
   kicker?: string;
   h1Title?: string;
+  noindex?: boolean;
 };
 
 const { 
@@ -29,7 +30,8 @@ const {
   tool,
   showCalculator = false,
   kicker = 'Premium electrical calculator suite',
-  h1Title = title.replace(' | Amps To Watts Calculator', '').replace(' — Convert Amps to Watts Instantly', '')
+  h1Title = title.replace(' | Amps To Watts Calculator', '').replace(' — Convert Amps to Watts Instantly', ''),
+  noindex = false
 } = Astro.props;
 
 const faqQuestions = getFaqQuestions(tool);
@@ -211,7 +213,11 @@ const schema = {
     <title>{title}</title>
     <meta name="description" content={description} />
     {keywords && <meta name="keywords" content={keywords} />}
-    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    {noindex ? (
+      <meta name="robots" content="noindex, nofollow" />
+    ) : (
+      <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    )}
     <meta name="author" content="Amps To Watts Calculator" />
     <meta name="generator" content={Astro.generator} />
     <link rel="canonical" href={canonical} />

@@ -27,6 +27,17 @@ if (!tool && !page && !legacy) {
 
 const isToolPage = Boolean(tool);
 const kicker = tool?.eyebrow ?? (legacy ? "Electrical conversion resource" : "Amps To Watts Calculator");
+
+const utilityPages = new Set([
+  'about-us',
+  'contact-us',
+  'privacy-policy',
+  'terms-conditions',
+  'disclaimer',
+  'cookie-policy',
+  'cookie-preferences'
+]);
+const noindex = utilityPages.has(slug);
 ---
 
 <BaseLayout
@@ -38,7 +49,8 @@ const kicker = tool?.eyebrow ?? (legacy ? "Electrical conversion resource" : "Am
   tool={tool}
   showCalculator={isToolPage}
   kicker={kicker}
-  h1Title={page?.title ?? tool?.title ?? title}
+  h1Title={legacy?.h1Title ?? tool?.h1Title ?? (page as any)?.h1Title ?? page?.title ?? tool?.title ?? title}
+  noindex={noindex}
 >
   {legacy ? (
     <>
@@ -47,10 +59,16 @@ const kicker = tool?.eyebrow ?? (legacy ? "Electrical conversion resource" : "Am
       <div set:html={legacy.body} />
       <SemanticContextLinks slug={slug} />
     </>
+  ) : tool ? (
+    <>
+      <PremiumContentShowcase tool={tool} title={title} description={description} />
+      <ToolPremiumGuide tool={tool} />
+      <SemanticContextLinks slug={slug} />
+    </>
   ) : (
     <>
       <section class="card">
-        <h1>{page!.title}</h1>
+        <h1>{page?.title}</h1>
         <p>Amps To Watts Calculator is an independent educational resource for electrical planning. The calculators are designed to make formulas clear, reduce manual mistakes, and help visitors compare current, voltage, power, energy, and conductor requirements.</p>
         <p>For safety-critical electrical work, always verify results with equipment nameplate data, applicable electrical code, and a licensed electrician or qualified engineer.</p>
         <p>Questions, corrections, and content suggestions can be sent through the contact page.</p>

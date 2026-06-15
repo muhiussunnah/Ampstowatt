@@ -16,7 +16,8 @@ const inlineStylePattern = /\sstyle="[^"]*"/gi;
 const tableHeaderPattern = /<th(?![^>]*\bscope=)([^>]*)>/gi;
 const deviceGridCardPattern = /<div class="device-grid-card"(?![^>]*\brole=)/gi;
 
-function decodeMetadata(value: string) {
+function decodeMetadata(value: string | undefined) {
+  if (!value) return '';
   return value
     .replace(/&amp;/g, '&')
     .replace(/&quot;/g, '"')

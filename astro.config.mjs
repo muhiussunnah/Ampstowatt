@@ -25,6 +25,26 @@ const aliasPaths = new Set([
 ]);
 
 export default defineConfig({
+  redirects: {
+    '/12v-calculator/': '/12v-amps-to-watts-calculator/',
+    '/120v-calculator/': '/120v-amps-to-watts-calculator/',
+    '/220v-calculator/': '/220v-amps-to-watts-calculator/',
+    '/230v-calculator/': '/230v-amps-to-watts-calculator/',
+    '/240v-calculator/': '/240v-amps-to-watts-calculator/',
+    '/ac-calculator/': '/ac-amps-to-watts-calculator/',
+    '/dc-calculator/': '/dc-amps-to-watts-calculator/',
+    '/single-phase-calculator/': '/single-phase-amps-to-watts-calculator/',
+    '/3-phase-calculator/': '/3-phase-amps-to-watts-calculator/',
+    '/amps-to-watts-120v-calculator/': '/120v-amps-to-watts-calculator/',
+    '/amps-to-watts-220v-calculator/': '/220v-amps-to-watts-calculator/',
+    '/amps-to-watts-230v-calculator/': '/230v-amps-to-watts-calculator/',
+    '/amps-to-watts-240v-calculator/': '/240v-amps-to-watts-calculator/',
+    '/amps-to-watts-ac-calculator/': '/ac-amps-to-watts-calculator/',
+    '/amps-to-watts-dc-calculator/': '/dc-amps-to-watts-calculator/',
+    '/amps-to-watts-3-phase-calculator/': '/3-phase-amps-to-watts-calculator/',
+    '/amps-to-watts-calculator/': '/',
+    '/calculators/': '/'
+  },
   site: 'https://ampstowatt.com',
   output: 'static',
   prefetch: true,
