@@ -1,8 +1,10 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
+import BaseLayout from "@/layouts/BaseLayout.astro";
 
-const title = "Circuit Breaker Safety Guide: Sizing and the 80% Rule | Ampstowatt";
-const description = "Learn how to safely size your circuit breakers, convert amps to watts, and why you can only use 80% of a breaker's capacity for continuous loads.";
+const title =
+  "Circuit Breaker Safety Guide: Sizing and the 80% Rule | Ampstowatt";
+const description =
+  "Learn how to safely size your circuit breakers, convert amps to watts, and why you can only use 80% of a breaker's capacity for continuous loads.";
 const h1Title = "Circuit Breaker Safety Guide: Sizing and the 80% Rule";
 ---
 
@@ -15,7 +17,7 @@ const h1Title = "Circuit Breaker Safety Guide: Sizing and the 80% Rule";
 >
   <article class="article-content">
     <h1>{h1Title}</h1>
-    
+
     <div class="article-header-meta">
       <span>By AmpsToWatt Engineering</span>
       <span>•</span>
@@ -24,32 +26,68 @@ const h1Title = "Circuit Breaker Safety Guide: Sizing and the 80% Rule";
       <span>10 min read</span>
     </div>
 
-    <p>When planning electrical loads for your home, understanding how circuit breakers work is critical for safety. Circuit breakers are the frontline defense designed to protect your home's wiring from overheating and causing fires. They do this by cutting off the power if the current (amps) exceeds safe limits for the wire gauge installed.</p>
+    <p>
+      When planning electrical loads for your home, understanding how circuit
+      breakers work is critical for safety. Circuit breakers are the frontline
+      defense designed to protect your home's wiring from overheating and
+      causing fires. They do this by cutting off the power if the current (amps)
+      exceeds safe limits for the wire gauge installed.
+    </p>
 
     <h2>The Relationship Between Amps, Watts, and Circuit Breakers</h2>
-    <p>Most consumer appliances are rated in <strong>watts</strong> (power consumption), but circuit breakers and electrical panels are rated in <strong>amps</strong> (current flow). To determine if your circuit can handle an appliance without tripping, you must convert watts to amps (or vice versa).</p>
-    
+    <p>
+      Most consumer appliances are rated in <strong>watts</strong> (power consumption),
+      but circuit breakers and electrical panels are rated in <strong
+        >amps</strong
+      > (current flow). To determine if your circuit can handle an appliance without
+      tripping, you must convert watts to amps (or vice versa).
+    </p>
+
     <p>The basic formula for a standard 120V US household circuit is simple:</p>
-    
-    <div class="formula-box">
-      Watts = Amps × Volts
-    </div>
-    
-    <p>For example, a 15-amp circuit breaker at 120V can theoretically handle up to 1,800 watts (15 × 120 = 1,800). But there's a crucial caveat that catches many DIYers and homeowners by surprise: <strong>the 80% rule.</strong></p>
+
+    <div class="formula-box">Watts = Amps × Volts</div>
+
+    <p>
+      For example, a 15-amp circuit breaker at 120V can theoretically handle up
+      to 1,800 watts (15 × 120 = 1,800). But there's a crucial caveat that
+      catches many DIYers and homeowners by surprise: <strong
+        >the 80% rule.</strong>
+    </p>
 
     <h2>What is the 80% Continuous Load Rule?</h2>
-    <p>The National Electrical Code (NEC) specifies that a circuit breaker should only be loaded to <strong>80% of its maximum capacity</strong> for continuous loads. A "continuous load" is defined as any device that runs for three hours or more consecutively.</p>
-    
+    <p>
+      The National Electrical Code (NEC) specifies that a circuit breaker should
+      only be loaded to <strong>80% of its maximum capacity</strong> for continuous
+      loads. A "continuous load" is defined as any device that runs for three hours
+      or more consecutively.
+    </p>
+
     <ul>
-      <li><strong>Continuous Loads:</strong> Space heaters, EV chargers, air conditioners, crypto mining rigs, grow lights.</li>
-      <li><strong>Non-Continuous Loads:</strong> Toasters, microwaves, hair dryers, blenders.</li>
+      <li>
+        <strong>Continuous Loads:</strong> Space heaters, EV chargers, air conditioners,
+        crypto mining rigs, grow lights.
+      </li>
+      <li>
+        <strong>Non-Continuous Loads:</strong> Toasters, microwaves, hair dryers,
+        blenders.
+      </li>
     </ul>
 
     <h3>Why the 80% Limit Exists</h3>
-    <p>Circuit breakers use thermal-magnetic mechanics to trip. When current flows through the breaker, it generates heat. If you run a breaker at 100% of its rated capacity continuously, the heat builds up inside the breaker panel. This thermal saturation can cause the breaker to trip prematurely (nuisance tripping), or worse, degrade the wire insulation over time, increasing the risk of an arc fault.</p>
+    <p>
+      Circuit breakers use thermal-magnetic mechanics to trip. When current
+      flows through the breaker, it generates heat. If you run a breaker at 100%
+      of its rated capacity continuously, the heat builds up inside the breaker
+      panel. This thermal saturation can cause the breaker to trip prematurely
+      (nuisance tripping), or worse, degrade the wire insulation over time,
+      increasing the risk of an arc fault.
+    </p>
 
     <h2>Common Breaker Sizes and Their True Limits</h2>
-    <p>Here is a breakdown of standard residential breakers and the absolute maximum wattage you should plan for if the load is continuous.</p>
+    <p>
+      Here is a breakdown of standard residential breakers and the absolute
+      maximum wattage you should plan for if the load is continuous.
+    </p>
 
     <table>
       <thead>
@@ -89,13 +127,29 @@ const h1Title = "Circuit Breaker Safety Guide: Sizing and the 80% Rule";
     </table>
 
     <h2>Real-World Example: The Space Heater Problem</h2>
-    <p>A standard high-output space heater draws exactly 1,500 watts. If you plug it into a standard 15-amp bedroom circuit (which has a continuous safe limit of 1,440 watts), and leave it running overnight, you are exceeding the safe continuous threshold by 60 watts.</p>
-    
-    <p>While it might not trip the breaker immediately—since 1,500W is below the 1,800W theoretical maximum—it creates a dangerous heat buildup over several hours. This is why space heater plugs often feel extremely hot to the touch, and why they are a leading cause of electrical fires.</p>
+    <p>
+      A standard high-output space heater draws exactly 1,500 watts. If you plug
+      it into a standard 15-amp bedroom circuit (which has a continuous safe
+      limit of 1,440 watts), and leave it running overnight, you are exceeding
+      the safe continuous threshold by 60 watts.
+    </p>
+
+    <p>
+      While it might not trip the breaker immediately—since 1,500W is below the
+      1,800W theoretical maximum—it creates a dangerous heat buildup over
+      several hours. This is why space heater plugs often feel extremely hot to
+      the touch, and why they are a leading cause of electrical fires.
+    </p>
 
     <div class="pro-tip">
       <strong>Engineering Tip:</strong>
-      <p>Never rely on a circuit breaker as an on/off switch or assume that because it hasn't tripped, the circuit is safe. Use our <a href="/120v-amps-to-watts/">120V Amps to Watts Calculator</a> to proactively check the loads on your household circuits before plugging in multiple high-draw appliances.</p>
+      <p>
+        Never rely on a circuit breaker as an on/off switch or assume that
+        because it hasn't tripped, the circuit is safe. Use our <a
+          href="/120v-amps-to-watts/">120V Amps to Watts Calculator</a
+        > to proactively check the loads on your household circuits before plugging
+        in multiple high-draw appliances.
+      </p>
     </div>
   </article>
 </BaseLayout>

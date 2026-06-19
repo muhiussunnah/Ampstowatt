@@ -1,5 +1,5 @@
 ---
-import type { Tool } from '@/data/tools';
+import type { Tool } from "@/data/tools";
 
 type Props = {
   tool?: Tool;
@@ -8,145 +8,202 @@ type Props = {
 };
 
 const { tool, title, description } = Astro.props;
-const displayTitle = tool?.shortTitle ?? title.replace(' | Amps To Watts Calculator', '').replace(' - Amps To Watts Calculator', '');
-const formula = tool?.formula ?? 'Watts = Amps x Volts x Power Factor';
-const voltage = tool?.defaultVoltage ? `${tool.defaultVoltage}V` : 'AC/DC';
-const phase = tool?.defaultPhase === 'ac3' ? '3-phase' : tool?.defaultPhase === 'dc' ? 'DC' : 'single-phase';
+const displayTitle =
+  tool?.shortTitle ??
+  title
+    .replace(" | Amps To Watts Calculator", "")
+    .replace(" - Amps To Watts Calculator", "");
+const formula = tool?.formula ?? "Watts = Amps x Volts x Power Factor";
+const voltage = tool?.defaultVoltage ? `${tool.defaultVoltage}V` : "AC/DC";
+const phase =
+  tool?.defaultPhase === "ac3"
+    ? "3-phase"
+    : tool?.defaultPhase === "dc"
+      ? "DC"
+      : "single-phase";
 
 function showcaseFor(tool?: Tool) {
   if (!tool) {
     return {
-      mode: 'home',
-      headline: 'Formula-backed power conversion',
-      subline: 'A clean path from current and voltage to practical watts.',
-      nodes: ['A', 'V', 'W'],
-      metric: '10 A at 120 V',
-      result: '1,200 W',
-      checkpoints: ['DC', 'AC PF', '3-phase', 'Breaker limit'],
-      scenario: 'Core amps to watts workflow'
+      mode: "home",
+      headline: "Formula-backed power conversion",
+      subline: "A clean path from current and voltage to practical watts.",
+      nodes: ["A", "V", "W"],
+      metric: "10 A at 120 V",
+      result: "1,200 W",
+      checkpoints: ["DC", "AC PF", "3-phase", "Breaker limit"],
+      scenario: "Core amps to watts workflow",
     };
   }
 
-  if (tool.slug.includes('solar')) {
+  if (tool.slug.includes("solar")) {
     return {
-      mode: 'solar',
-      headline: 'Solar panel current map',
-      subline: 'Panel watts, system voltage, controller loss, and charging amps in one visual.',
-      nodes: ['PV', 'MPPT', 'BAT'],
+      mode: "solar",
+      headline: "Solar panel current map",
+      subline:
+        "Panel watts, system voltage, controller loss, and charging amps in one visual.",
+      nodes: ["PV", "MPPT", "BAT"],
       metric: `400 W at ${tool.defaultVoltage ?? 12} V`,
       result: `${(400 / (tool.defaultVoltage ?? 12)).toFixed(2)} A`,
-      checkpoints: ['Panel side', 'Battery side', 'Controller loss', 'Fuse sizing'],
-      scenario: 'Solar watts to amps'
+      checkpoints: [
+        "Panel side",
+        "Battery side",
+        "Controller loss",
+        "Fuse sizing",
+      ],
+      scenario: "Solar watts to amps",
     };
   }
 
-  if (tool.slug.includes('led')) {
+  if (tool.slug.includes("led")) {
     return {
-      mode: 'led',
-      headline: 'LED driver load path',
-      subline: 'Driver wattage, strip voltage, current draw, and voltage-drop awareness.',
-      nodes: ['DRV', 'V', 'LED'],
-      metric: '120 W at 12 V',
-      result: '10 A',
-      checkpoints: ['Driver rating', 'Strip length', 'Wire drop', 'Heat margin'],
-      scenario: 'Low-voltage LED planning'
+      mode: "led",
+      headline: "LED driver load path",
+      subline:
+        "Driver wattage, strip voltage, current draw, and voltage-drop awareness.",
+      nodes: ["DRV", "V", "LED"],
+      metric: "120 W at 12 V",
+      result: "10 A",
+      checkpoints: [
+        "Driver rating",
+        "Strip length",
+        "Wire drop",
+        "Heat margin",
+      ],
+      scenario: "Low-voltage LED planning",
     };
   }
 
-  if (tool.slug.includes('speaker')) {
+  if (tool.slug.includes("speaker")) {
     return {
-      mode: 'speaker',
-      headline: 'Amplifier supply current',
-      subline: 'Audio output watts translated into DC supply current with efficiency context.',
-      nodes: ['AMP', 'EFF', 'FUSE'],
-      metric: '500 W at 12 V',
-      result: '49 A',
-      checkpoints: ['RMS watts', 'Efficiency', 'Impedance', 'Fuse margin'],
-      scenario: 'Speaker amp power'
+      mode: "speaker",
+      headline: "Amplifier supply current",
+      subline:
+        "Audio output watts translated into DC supply current with efficiency context.",
+      nodes: ["AMP", "EFF", "FUSE"],
+      metric: "500 W at 12 V",
+      result: "49 A",
+      checkpoints: ["RMS watts", "Efficiency", "Impedance", "Fuse margin"],
+      scenario: "Speaker amp power",
     };
   }
 
-  if (tool.kind === 'voltage-drop' || tool.kind === 'wire-gauge') {
+  if (tool.kind === "voltage-drop" || tool.kind === "wire-gauge") {
     return {
-      mode: 'wire',
-      headline: 'Conductor run visual',
-      subline: 'Current, distance, material, wire size, and acceptable voltage drop.',
-      nodes: ['SRC', 'AWG', 'LOAD'],
-      metric: 'Long run check',
-      result: '% drop',
-      checkpoints: ['Copper/Aluminum', 'One-way distance', 'Ampacity', 'Code review'],
-      scenario: 'Wire and voltage drop planning'
+      mode: "wire",
+      headline: "Conductor run visual",
+      subline:
+        "Current, distance, material, wire size, and acceptable voltage drop.",
+      nodes: ["SRC", "AWG", "LOAD"],
+      metric: "Long run check",
+      result: "% drop",
+      checkpoints: [
+        "Copper/Aluminum",
+        "One-way distance",
+        "Ampacity",
+        "Code review",
+      ],
+      scenario: "Wire and voltage drop planning",
     };
   }
 
-  if (tool.kind === 'amp-hours') {
+  if (tool.kind === "amp-hours") {
     return {
-      mode: 'battery',
-      headline: 'Battery energy model',
-      subline: 'Amp-hours converted into watt-hours, kWh, and realistic runtime.',
-      nodes: ['Ah', 'V', 'Wh'],
+      mode: "battery",
+      headline: "Battery energy model",
+      subline:
+        "Amp-hours converted into watt-hours, kWh, and realistic runtime.",
+      nodes: ["Ah", "V", "Wh"],
       metric: `100 Ah at ${tool.defaultVoltage ?? 12} V`,
       result: `${(100 * (tool.defaultVoltage ?? 12)).toLocaleString()} Wh`,
-      checkpoints: ['Usable capacity', 'Efficiency', 'Runtime', 'Depth of discharge'],
-      scenario: 'Battery capacity planning'
+      checkpoints: [
+        "Usable capacity",
+        "Efficiency",
+        "Runtime",
+        "Depth of discharge",
+      ],
+      scenario: "Battery capacity planning",
     };
   }
 
-  if (tool.kind === 'power-factor' || tool.kind === 'kva-to-watts' || tool.kind === 'volt-amps') {
+  if (
+    tool.kind === "power-factor" ||
+    tool.kind === "kva-to-watts" ||
+    tool.kind === "volt-amps"
+  ) {
     return {
-      mode: 'triangle',
-      headline: 'Power triangle clarity',
-      subline: 'Real watts separated from VA, kVA, and power factor for AC equipment.',
-      nodes: ['VA', 'PF', 'W'],
-      metric: '5 kVA at PF 0.80',
-      result: '4,000 W',
-      checkpoints: ['Real power', 'Apparent power', 'PF', 'Surge load'],
-      scenario: 'AC power quality'
+      mode: "triangle",
+      headline: "Power triangle clarity",
+      subline:
+        "Real watts separated from VA, kVA, and power factor for AC equipment.",
+      nodes: ["VA", "PF", "W"],
+      metric: "5 kVA at PF 0.80",
+      result: "4,000 W",
+      checkpoints: ["Real power", "Apparent power", "PF", "Surge load"],
+      scenario: "AC power quality",
     };
   }
 
-  if (tool.defaultPhase === 'ac3' || tool.slug.includes('3-phase') || tool.slug.includes('megawatts')) {
+  if (
+    tool.defaultPhase === "ac3" ||
+    tool.slug.includes("3-phase") ||
+    tool.slug.includes("megawatts")
+  ) {
     return {
-      mode: 'three',
-      headline: 'Three-phase line-to-line model',
-      subline: 'Balanced L1/L2/L3 power using the 1.732 multiplier and power factor.',
-      nodes: ['L1', 'L2', 'L3'],
+      mode: "three",
+      headline: "Three-phase line-to-line model",
+      subline:
+        "Balanced L1/L2/L3 power using the 1.732 multiplier and power factor.",
+      nodes: ["L1", "L2", "L3"],
       metric: `${tool.defaultVoltage ?? 400} V L-L`,
-      result: '1.732 x A x V x PF',
-      checkpoints: ['Line-to-line V', 'Balanced load', 'Motor PF', 'kW output'],
-      scenario: 'Three-phase amps to watts'
+      result: "1.732 x A x V x PF",
+      checkpoints: ["Line-to-line V", "Balanced load", "Motor PF", "kW output"],
+      scenario: "Three-phase amps to watts",
     };
   }
 
-  if (tool.defaultPhase === 'dc' || tool.slug.includes('12v') || tool.slug.includes('dc')) {
+  if (
+    tool.defaultPhase === "dc" ||
+    tool.slug.includes("12v") ||
+    tool.slug.includes("dc")
+  ) {
     return {
-      mode: 'dc',
-      headline: 'Direct-current circuit loop',
-      subline: 'Battery voltage and current converted directly into watts without PF.',
-      nodes: ['BAT', 'A', 'LOAD'],
+      mode: "dc",
+      headline: "Direct-current circuit loop",
+      subline:
+        "Battery voltage and current converted directly into watts without PF.",
+      nodes: ["BAT", "A", "LOAD"],
       metric: `10 A at ${tool.defaultVoltage ?? 12} V`,
       result: `${(10 * (tool.defaultVoltage ?? 12)).toLocaleString()} W`,
-      checkpoints: ['Battery V', 'Fuse', 'Wire gauge', 'Runtime'],
-      scenario: 'DC amps to watts'
+      checkpoints: ["Battery V", "Fuse", "Wire gauge", "Runtime"],
+      scenario: "DC amps to watts",
     };
   }
 
   return {
-    mode: 'ac',
-    headline: 'Single-phase AC load path',
-    subline: 'Voltage, current, and power factor converted into real watts.',
-    nodes: ['A', 'PF', 'W'],
+    mode: "ac",
+    headline: "Single-phase AC load path",
+    subline: "Voltage, current, and power factor converted into real watts.",
+    nodes: ["A", "PF", "W"],
     metric: `10 A at ${tool.defaultVoltage ?? 120} V`,
     result: `${Math.round(10 * (tool.defaultVoltage ?? 120) * 0.9).toLocaleString()} W at PF 0.90`,
-    checkpoints: ['Outlet voltage', 'Current draw', 'Power factor', '80% load check'],
-    scenario: 'AC amps to watts'
+    checkpoints: [
+      "Outlet voltage",
+      "Current draw",
+      "Power factor",
+      "80% load check",
+    ],
+    scenario: "AC amps to watts",
   };
 }
 
 const visual = showcaseFor(tool);
 ---
 
-<section class="premium-content-showcase" aria-label={`${displayTitle} visual summary`}>
+<section
+  class="premium-content-showcase"
+  aria-label={`${displayTitle} visual summary`}
+>
   <div class="content-showcase-copy">
     <p class="premium-kicker">{visual.scenario}</p>
     <h2>{visual.headline}</h2>
@@ -159,7 +216,10 @@ const visual = showcaseFor(tool);
     </div>
   </div>
 
-  <div class={`content-showcase-visual content-showcase-visual--${visual.mode}`} aria-hidden="true">
+  <div
+    class={`content-showcase-visual content-showcase-visual--${visual.mode}`}
+    aria-hidden="true"
+  >
     <div class="showcase-system-rail">
       <span>{visual.metric}</span>
       <strong>{visual.result}</strong>

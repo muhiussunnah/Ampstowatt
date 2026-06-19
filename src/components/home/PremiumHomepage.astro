@@ -1,206 +1,234 @@
 ---
-import PremiumToolCalculator from '@/components/calculators/PremiumToolCalculator.astro';
-import { getCalculatorConfig } from '@/data/calculatorConfigs';
+import PremiumToolCalculator from "@/components/calculators/PremiumToolCalculator.astro";
+import { getCalculatorConfig } from "@/data/calculatorConfigs";
 
 const formulaCards = [
   {
-    tone: 'orange',
-    badge: 'DC',
-    title: 'Direct Current',
-    formula: 'W = A x V',
-    description: 'Power equals current times voltage.',
-    example: 'Example: 12V system x 5A = 60 watts'
+    tone: "orange",
+    badge: "DC",
+    title: "Direct Current",
+    formula: "W = A x V",
+    description: "Power equals current times voltage.",
+    example: "Example: 12V system x 5A = 60 watts",
   },
   {
-    tone: 'blue',
-    badge: '1P',
-    title: 'Single-Phase AC',
-    formula: 'W = A x V x PF',
-    description: 'Include power factor for AC systems.',
-    example: 'Example: 120V x 8A x 0.9 = 864 watts'
+    tone: "blue",
+    badge: "1P",
+    title: "Single-Phase AC",
+    formula: "W = A x V x PF",
+    description: "Include power factor for AC systems.",
+    example: "Example: 120V x 8A x 0.9 = 864 watts",
   },
   {
-    tone: 'purple',
-    badge: '3P',
-    title: 'Three-Phase AC',
-    formula: 'W = sqrt(3) x A x V x PF',
-    description: 'Three-phase systems use the 1.732 factor.',
-    example: 'Example: 480V x 10A x 0.9 x 1.732 = 7,478 W'
-  }
+    tone: "purple",
+    badge: "3P",
+    title: "Three-Phase AC",
+    formula: "W = sqrt(3) x A x V x PF",
+    description: "Three-phase systems use the 1.732 factor.",
+    example: "Example: 480V x 10A x 0.9 x 1.732 = 7,478 W",
+  },
 ];
 
 const categoryCards = [
   {
-    tone: 'orange',
-    icon: 'bolt',
-    title: 'Popular Calculators',
-    subtitle: 'Power & Current',
-    footer: 'View all popular tools',
-    footerUrl: '/site-map/',
+    tone: "orange",
+    icon: "bolt",
+    title: "Popular Calculators",
+    subtitle: "Power & Current",
+    footer: "View all popular tools",
+    footerUrl: "/site-map/",
     links: [
-      { label: 'Watts to Amps', url: '/watts-to-amps-calculator/' },
-      { label: 'Amps to kW', url: '/amps-to-kw-calculator/' },
-      { label: 'kVA to Watts', url: '/kva-to-watts-calculator/' },
-      { label: 'Voltage Drop', url: '/voltage-drop-calculator/' },
-      { label: 'Wire Gauge Calculator', url: '/wire-gauge-calculator/' }
-    ]
+      { label: "Watts to Amps", url: "/watts-to-amps-calculator/" },
+      { label: "Amps to kW", url: "/amps-to-kw-calculator/" },
+      { label: "kVA to Watts", url: "/kva-to-watts-calculator/" },
+      { label: "Voltage Drop", url: "/voltage-drop-calculator/" },
+      { label: "Wire Gauge Calculator", url: "/wire-gauge-calculator/" },
+    ],
   },
   {
-    tone: 'blue',
-    icon: 'battery',
-    title: 'Energy Calculators',
-    subtitle: 'Storage & Cost',
-    footer: 'Explore energy tools',
-    footerUrl: '/amp-hours-to-watt-hours/',
+    tone: "blue",
+    icon: "battery",
+    title: "Energy Calculators",
+    subtitle: "Storage & Cost",
+    footer: "Explore energy tools",
+    footerUrl: "/amp-hours-to-watt-hours/",
     links: [
-      { label: 'Amp Hours to Watt Hours', url: '/amp-hours-to-watt-hours/' },
-      { label: 'Amp Power Consumption', url: '/amp-power-consumption-calculator/' },
-      { label: 'Watts to Amps', url: '/watts-to-amps-calculator/' },
-      { label: 'Solar Watts to Amps', url: '/solar-watts-to-amps-calculator/' },
-      { label: 'kW to Amps', url: '/kw-to-amps-calculator/' }
-    ]
+      { label: "Amp Hours to Watt Hours", url: "/amp-hours-to-watt-hours/" },
+      {
+        label: "Amp Power Consumption",
+        url: "/amp-power-consumption-calculator/",
+      },
+      { label: "Watts to Amps", url: "/watts-to-amps-calculator/" },
+      { label: "Solar Watts to Amps", url: "/solar-watts-to-amps-calculator/" },
+      { label: "kW to Amps", url: "/kw-to-amps-calculator/" },
+    ],
   },
   {
-    tone: 'gold',
-    icon: 'sun',
-    title: 'Solar Calculators',
-    subtitle: 'Renewable Power',
-    footer: 'Explore solar tools',
-    footerUrl: '/solar-watts-to-amps-calculator/',
+    tone: "gold",
+    icon: "sun",
+    title: "Solar Calculators",
+    subtitle: "Renewable Power",
+    footer: "Explore solar tools",
+    footerUrl: "/solar-watts-to-amps-calculator/",
     links: [
-      { label: 'Solar Watts to Amps', url: '/solar-watts-to-amps-calculator/' },
-      { label: '12V Amps to Watts', url: '/12v-amps-to-watts/' },
-      { label: '24V Amps to Watts', url: '/24v-amps-to-watts/' },
-      { label: 'Amp Hours to Watt Hours', url: '/amp-hours-to-watt-hours/' },
-      { label: 'Wire Gauge Calculator', url: '/wire-gauge-calculator/' }
-    ]
-  }
+      { label: "Solar Watts to Amps", url: "/solar-watts-to-amps-calculator/" },
+      { label: "12V Amps to Watts", url: "/12v-amps-to-watts/" },
+      { label: "24V Amps to Watts", url: "/24v-amps-to-watts/" },
+      { label: "Amp Hours to Watt Hours", url: "/amp-hours-to-watt-hours/" },
+      { label: "Wire Gauge Calculator", url: "/wire-gauge-calculator/" },
+    ],
+  },
 ];
 
 const referenceRows = [
-  ['1A', '120 W', '240 W', 'LED bulbs, phone chargers', 'Safe'],
-  ['2A', '240 W', '480 W', 'Laptop, smart speaker', 'Safe'],
-  ['3A', '360 W', '720 W', 'Desktop computer', 'Safe'],
-  ['5A', '600 W', '1,200 W', 'Small appliances, TV', 'Safe'],
-  ['7A', '840 W', '1,680 W', 'Microwave (small)', 'Safe'],
-  ['10A', '1,200 W', '2,400 W', 'Hair dryer, toaster', 'Safe'],
-  ['12A', '1,440 W', '2,880 W', 'Space heater (low)', '80% Limit']
+  ["1A", "120 W", "240 W", "LED bulbs, phone chargers", "Safe"],
+  ["2A", "240 W", "480 W", "Laptop, smart speaker", "Safe"],
+  ["3A", "360 W", "720 W", "Desktop computer", "Safe"],
+  ["5A", "600 W", "1,200 W", "Small appliances, TV", "Safe"],
+  ["7A", "840 W", "1,680 W", "Microwave (small)", "Safe"],
+  ["10A", "1,200 W", "2,400 W", "Hair dryer, toaster", "Safe"],
+  ["12A", "1,440 W", "2,880 W", "Space heater (low)", "80% Limit"],
 ];
 
 const helpfulCalculators = [
-  { title: 'Watts to Amps', text: 'Convert W to A', url: '/watts-to-amps-calculator/', tone: 'green' },
-  { title: 'Amps to kW', text: 'Convert A to kW', url: '/amps-to-kw-calculator/', tone: 'orange' },
-  { title: 'kVA to Watts', text: 'Convert kVA to W', url: '/kva-to-watts-calculator/', tone: 'purple' },
-  { title: 'Voltage Drop', text: 'Calculate voltage loss', url: '/voltage-drop-calculator/', tone: 'blue' },
-  { title: 'Wire Gauge', text: 'Select wire size', url: '/wire-gauge-calculator/', tone: 'cyan' }
+  {
+    title: "Watts to Amps",
+    text: "Convert W to A",
+    url: "/watts-to-amps-calculator/",
+    tone: "green",
+  },
+  {
+    title: "Amps to kW",
+    text: "Convert A to kW",
+    url: "/amps-to-kw-calculator/",
+    tone: "orange",
+  },
+  {
+    title: "kVA to Watts",
+    text: "Convert kVA to W",
+    url: "/kva-to-watts-calculator/",
+    tone: "purple",
+  },
+  {
+    title: "Voltage Drop",
+    text: "Calculate voltage loss",
+    url: "/voltage-drop-calculator/",
+    tone: "blue",
+  },
+  {
+    title: "Wire Gauge",
+    text: "Select wire size",
+    url: "/wire-gauge-calculator/",
+    tone: "cyan",
+  },
 ];
 
 const guideCards = [
   {
-    title: 'What Are Amps?',
-    text: 'Understand electric current, how amperage works, and why it matters in your circuits.',
-    url: '/what-are-amps/',
-    icon: 'lamp'
+    title: "What Are Amps?",
+    text: "Understand electric current, how amperage works, and why it matters in your circuits.",
+    url: "/what-are-amps/",
+    icon: "lamp",
   },
   {
-    title: 'Power Factor Explained',
-    text: 'Learn how power factor affects system efficiency and power calculations.',
-    url: '/power-factor-explained/',
-    icon: 'wave'
+    title: "Power Factor Explained",
+    text: "Learn how power factor affects system efficiency and power calculations.",
+    url: "/power-factor-explained/",
+    icon: "wave",
   },
   {
-    title: 'Single vs Three Phase',
-    text: 'Compare single-phase and three-phase power systems and their applications.',
-    url: '/single-phase-amps-to-watts/',
-    icon: 'phase'
-  }
+    title: "Single vs Three Phase",
+    text: "Compare single-phase and three-phase power systems and their applications.",
+    url: "/single-phase-amps-to-watts/",
+    icon: "phase",
+  },
 ];
 
 const hubGroups = [
   {
-    id: 'topical-main-conversion',
-    title: 'Main Amps to Watts Calculators',
+    id: "topical-main-conversion",
+    title: "Main Amps to Watts Calculators",
     links: [
-      ['AC Amps to Watts', '/ac-amps-to-watts-calculator/'],
-      ['DC Amps to Watts', '/dc-amps-to-watts-calculator/'],
-      ['Single Phase Amps to Watts', '/single-phase-amps-to-watts/'],
-      ['3 Phase Amps to Watts', '/3-phase-amps-to-watts-calculator/'],
-      ['Amps to Watts Formula', '/amps-to-watts-formula/'],
-      ['Conversion Charts', '/conversion-charts/']
-    ]
+      ["AC Amps to Watts", "/ac-amps-to-watts-calculator/"],
+      ["DC Amps to Watts", "/dc-amps-to-watts-calculator/"],
+      ["Single Phase Amps to Watts", "/single-phase-amps-to-watts/"],
+      ["3 Phase Amps to Watts", "/3-phase-amps-to-watts-calculator/"],
+      ["Amps to Watts Formula", "/amps-to-watts-formula/"],
+      ["Conversion Charts", "/conversion-charts/"],
+    ],
   },
   {
-    id: 'topical-phase-calculators',
-    title: 'AC / DC / Phase Calculators',
+    id: "topical-phase-calculators",
+    title: "AC / DC / Phase Calculators",
     links: [
-      ['AC Power Calculator', '/ac-amps-to-watts-calculator/'],
-      ['DC Power Calculator', '/dc-amps-to-watts-calculator/'],
-      ['Power Factor Calculator', '/power-factor/'],
-      ['Voltage Drop Calculator', '/voltage-drop-calculator/']
-    ]
+      ["AC Power Calculator", "/ac-amps-to-watts-calculator/"],
+      ["DC Power Calculator", "/dc-amps-to-watts-calculator/"],
+      ["Power Factor Calculator", "/power-factor/"],
+      ["Voltage Drop Calculator", "/voltage-drop-calculator/"],
+    ],
   },
   {
-    id: 'topical-voltage-calculators',
-    title: 'Voltage-Specific Calculators',
+    id: "topical-voltage-calculators",
+    title: "Voltage-Specific Calculators",
     links: [
-      ['12V Amps to Watts', '/12v-amps-to-watts/'],
-      ['24V Amps to Watts', '/24v-amps-to-watts/'],
-      ['120V Amps to Watts', '/120v-amps-to-watts/'],
-      ['220V Amps to Watts', '/220v-amps-to-watts/'],
-      ['230V Amps to Watts', '/230v-amps-to-watts/'],
-      ['240V Amps to Watts', '/240v-amps-to-watts/'],
-      ['480V Amps to Watts', '/480v-amps-to-watts-calculator/']
-    ]
+      ["12V Amps to Watts", "/12v-amps-to-watts/"],
+      ["24V Amps to Watts", "/24v-amps-to-watts/"],
+      ["120V Amps to Watts", "/120v-amps-to-watts/"],
+      ["220V Amps to Watts", "/220v-amps-to-watts/"],
+      ["230V Amps to Watts", "/230v-amps-to-watts/"],
+      ["240V Amps to Watts", "/240v-amps-to-watts/"],
+      ["480V Amps to Watts", "/480v-amps-to-watts-calculator/"],
+    ],
   },
   {
-    id: 'topical-application-calculators',
-    title: 'Appliance & Equipment Calculators',
+    id: "topical-application-calculators",
+    title: "Appliance & Equipment Calculators",
     links: [
-      ['Air Conditioner', '/air-conditioner-amps-to-watts/'],
-      ['Generator', '/generator-amps-to-watts/'],
-      ['EV Charger', '/ev-charger-amps-to-watts/'],
-      ['Motor', '/motor-amps-to-watts/'],
-      ['Refrigerator', '/refrigerator-amps-to-watts/'],
-      ['Microwave', '/microwave-amps-to-watts/'],
-      ['Dryer', '/dryer-amps-to-watts/'],
-      ['Pool Pump', '/pool-pump-amps-to-watts/']
-    ]
+      ["Air Conditioner", "/air-conditioner-amps-to-watts/"],
+      ["Generator", "/generator-amps-to-watts/"],
+      ["EV Charger", "/ev-charger-amps-to-watts/"],
+      ["Motor", "/motor-amps-to-watts/"],
+      ["Refrigerator", "/refrigerator-amps-to-watts/"],
+      ["Microwave", "/microwave-amps-to-watts/"],
+      ["Dryer", "/dryer-amps-to-watts/"],
+      ["Pool Pump", "/pool-pump-amps-to-watts/"],
+    ],
   },
   {
-    id: 'topical-reverse-conversions',
-    title: 'Reverse & Related Conversions',
+    id: "topical-reverse-conversions",
+    title: "Reverse & Related Conversions",
     links: [
-      ['Watts to Amps', '/watts-to-amps-calculator/'],
-      ['Amps to kW', '/amps-to-kw-calculator/'],
-      ['kW to Amps', '/kw-to-amps-calculator/'],
-      ['Amps to Volt-Amps', '/amps-to-volt-amps/'],
-      ['kVA to Watts', '/kva-to-watts-calculator/'],
-      ['Amp Hours to Watt Hours', '/amp-hours-to-watt-hours/']
-    ]
+      ["Watts to Amps", "/watts-to-amps-calculator/"],
+      ["Amps to kW", "/amps-to-kw-calculator/"],
+      ["kW to Amps", "/kw-to-amps-calculator/"],
+      ["Amps to Volt-Amps", "/amps-to-volt-amps/"],
+      ["kVA to Watts", "/kva-to-watts-calculator/"],
+      ["Amp Hours to Watt Hours", "/amp-hours-to-watt-hours/"],
+    ],
   },
   {
-    id: 'topical-guides',
-    title: 'Electrical Learning Guides',
+    id: "topical-guides",
+    title: "Electrical Learning Guides",
     links: [
-      ['What Are Amps?', '/what-are-amps/'],
-      ['What Are Watts?', '/what-are-watts/'],
-      ['Amps vs Watts', '/amps-vs-watts/'],
-      ['Ohm\'s Law Explained', '/ohms-law-explained/'],
-      ['Watt\'s Law Explained', '/watts-law-explained/'],
-      ['Power Factor Explained', '/power-factor-explained/']
-    ]
+      ["What Are Amps?", "/what-are-amps/"],
+      ["What Are Watts?", "/what-are-watts/"],
+      ["Amps vs Watts", "/amps-vs-watts/"],
+      ["Ohm's Law Explained", "/ohms-law-explained/"],
+      ["Watt's Law Explained", "/watts-law-explained/"],
+      ["Power Factor Explained", "/power-factor-explained/"],
+    ],
   },
   {
-    id: 'topical-safety-tools',
-    title: 'Wire, Safety & Power Quality Tools',
+    id: "topical-safety-tools",
+    title: "Wire, Safety & Power Quality Tools",
     links: [
-      ['Wire Gauge Calculator', '/wire-gauge-calculator/'],
-      ['Voltage Drop Calculator', '/voltage-drop-calculator/'],
-      ['Power Factor Calculator', '/power-factor/'],
-      ['Generator Load Planning', '/generator-amps-to-watts/'],
-      ['EV Charger Circuit Planning', '/ev-charger-amps-to-watts/']
-    ]
-  }
+      ["Wire Gauge Calculator", "/wire-gauge-calculator/"],
+      ["Voltage Drop Calculator", "/voltage-drop-calculator/"],
+      ["Power Factor Calculator", "/power-factor/"],
+      ["Generator Load Planning", "/generator-amps-to-watts/"],
+      ["EV Charger Circuit Planning", "/ev-charger-amps-to-watts/"],
+    ],
+  },
 ];
 ---
 
@@ -209,25 +237,38 @@ const hubGroups = [
     <div class="home-hero__content">
       <p class="home-badge">FAST • ACCURATE • TRUSTED</p>
       <h1 id="home-title">Amps to Watts Calculator</h1>
-      <p class="home-hero__lead">Convert electrical current in amps to power in watts instantly. Use standard formulas for DC, single-phase AC, and three-phase AC systems.</p>
+      <p class="home-hero__lead">
+        Convert electrical current in amps to power in watts instantly. Use
+        standard formulas for DC, single-phase AC, and three-phase AC systems.
+      </p>
       <div class="home-trust-list" aria-label="Calculator benefits">
         <div>
           <span class="home-icon home-icon--blue" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M13 2 5 14h6l-1 8 9-13h-6l0-7Z" /></svg>
+            <svg viewBox="0 0 24 24"
+              ><path d="M13 2 5 14h6l-1 8 9-13h-6l0-7Z"></path></svg
+            >
           </span>
           <strong>Accurate Results</strong>
           <small>Industry-standard electrical formulas</small>
         </div>
         <div>
           <span class="home-icon home-icon--blue" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.4 2.9 8.5 7 10 4.1-1.5 7-5.6 7-10V6l-7-3Zm3.4 7.4-4.1 4.1-2-2 1.4-1.4.6.6 2.7-2.7 1.4 1.4Z" /></svg>
+            <svg viewBox="0 0 24 24"
+              ><path
+                d="M12 3 5 6v5c0 4.4 2.9 8.5 7 10 4.1-1.5 7-5.6 7-10V6l-7-3Zm3.4 7.4-4.1 4.1-2-2 1.4-1.4.6.6 2.7-2.7 1.4 1.4Z"
+              ></path></svg
+            >
           </span>
           <strong>Safe & Reliable</strong>
           <small>Helpful guidance for common circuits</small>
         </div>
         <div>
           <span class="home-icon home-icon--blue" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M12 4a8 8 0 1 0 8 8h-2a6 6 0 1 1-6-6V4Zm1 3h-2v6l5 3 1-1.7-4-2.3V7Z" /></svg>
+            <svg viewBox="0 0 24 24"
+              ><path
+                d="M12 4a8 8 0 1 0 8 8h-2a6 6 0 1 1-6-6V4Zm1 3h-2v6l5 3 1-1.7-4-2.3V7Z"
+              ></path></svg
+            >
           </span>
           <strong>Instant Calculations</strong>
           <small>Fast results with no signup required</small>
@@ -236,7 +277,7 @@ const hubGroups = [
     </div>
 
     <div class="home-calculator-wrapper">
-      <PremiumToolCalculator config={getCalculatorConfig('homepage')} />
+      <PremiumToolCalculator config={getCalculatorConfig("homepage")} />
     </div>
   </section>
 
@@ -247,47 +288,69 @@ const hubGroups = [
         <p>Power calculation formulas for different electrical systems.</p>
       </div>
       <div class="home-formula-grid">
-        {formulaCards.map((card) => (
-          <article class={`home-formula-card home-card-hover home-tone-${card.tone}`}>
-            <div class="home-formula-top">
-              <span>{card.badge}</span>
-              <strong>{card.title}</strong>
-            </div>
-            <p class="home-math">{card.formula}</p>
-            <p>{card.description}</p>
-            <small>{card.example}</small>
-          </article>
-        ))}
+        {
+          formulaCards.map((card) => (
+            <article
+              class={`home-formula-card home-card-hover home-tone-${card.tone}`}
+            >
+              <div class="home-formula-top">
+                <span>{card.badge}</span>
+                <strong>{card.title}</strong>
+              </div>
+              <p class="home-math">{card.formula}</p>
+              <p>{card.description}</p>
+              <small>{card.example}</small>
+            </article>
+          ))
+        }
       </div>
     </div>
   </section>
 
   <section class="home-section" aria-label="Calculator categories">
     <div class="home-category-grid">
-      {categoryCards.map((card) => (
-        <article class={`home-category-card home-card-hover home-tone-${card.tone}`}>
-          <div class="home-category-head">
-            <span class="home-icon" aria-hidden="true">
-              {card.icon === 'bolt' && <svg viewBox="0 0 24 24"><path d="M13 2 5 14h6l-1 8 9-13h-6l0-7Z" /></svg>}
-              {card.icon === 'battery' && <svg viewBox="0 0 24 24"><path d="M7 6h10v12H7V6Zm11 4h2v4h-2V10ZM9 8v8h6V8H9Z" /></svg>}
-              {card.icon === 'sun' && <svg viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0-5 1.4 3h-2.8L12 2Zm0 20-1.4-3h2.8L12 22ZM2 12l3-1.4v2.8L2 12Zm20 0-3 1.4v-2.8L22 12ZM4.2 4.2l3.1 1.1-2 2-1.1-3.1Zm15.6 15.6-3.1-1.1 2-2 1.1 3.1Zm0-15.6-1.1 3.1-2-2 3.1-1.1ZM4.2 19.8l1.1-3.1 2 2-3.1 1.1Z" /></svg>}
-            </span>
-            <div>
-              <h2>{card.title}</h2>
-              <p>{card.subtitle}</p>
+      {
+        categoryCards.map((card) => (
+          <article
+            class={`home-category-card home-card-hover home-tone-${card.tone}`}
+          >
+            <div class="home-category-head">
+              <span class="home-icon" aria-hidden="true">
+                {card.icon === "bolt" && (
+                  <svg viewBox="0 0 24 24">
+                    <path d="M13 2 5 14h6l-1 8 9-13h-6l0-7Z" />
+                  </svg>
+                )}
+                {card.icon === "battery" && (
+                  <svg viewBox="0 0 24 24">
+                    <path d="M7 6h10v12H7V6Zm11 4h2v4h-2V10ZM9 8v8h6V8H9Z" />
+                  </svg>
+                )}
+                {card.icon === "sun" && (
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0-5 1.4 3h-2.8L12 2Zm0 20-1.4-3h2.8L12 22ZM2 12l3-1.4v2.8L2 12Zm20 0-3 1.4v-2.8L22 12ZM4.2 4.2l3.1 1.1-2 2-1.1-3.1Zm15.6 15.6-3.1-1.1 2-2 1.1 3.1Zm0-15.6-1.1 3.1-2-2 3.1-1.1ZM4.2 19.8l1.1-3.1 2 2-3.1 1.1Z" />
+                  </svg>
+                )}
+              </span>
+              <div>
+                <h2>{card.title}</h2>
+                <p>{card.subtitle}</p>
+              </div>
             </div>
-          </div>
-          <div class="home-tool-list">
-            {card.links.map((link) => (
-              <a href={link.url}>
-                <span>{link.label}</span>
-                <b aria-hidden="true">-&gt;</b>
-              </a>
-            ))}
-          </div>
-          <a class="home-card-link" href={card.footerUrl}>{card.footer} -&gt;</a>
-        </article>
-      ))}
+            <div class="home-tool-list">
+              {card.links.map((link) => (
+                <a href={link.url}>
+                  <span>{link.label}</span>
+                  <b aria-hidden="true">-&gt;</b>
+                </a>
+              ))}
+            </div>
+            <a class="home-card-link" href={card.footerUrl}>
+              {card.footer} -&gt;
+            </a>
+          </article>
+        ))
+      }
     </div>
   </section>
 
@@ -309,81 +372,144 @@ const hubGroups = [
             </tr>
           </thead>
           <tbody>
-            {referenceRows.map((row) => (
-              <tr>
-                <td>{row[0]}</td>
-                <td>{row[1]}</td>
-                <td>{row[2]}</td>
-                <td>{row[3]}</td>
-                <td class={row[4] === 'Safe' ? 'is-safe' : 'is-warning'}>{row[4]}</td>
-              </tr>
-            ))}
+            {
+              referenceRows.map((row) => (
+                <tr>
+                  <td>{row[0]}</td>
+                  <td>{row[1]}</td>
+                  <td>{row[2]}</td>
+                  <td>{row[3]}</td>
+                  <td class={row[4] === "Safe" ? "is-safe" : "is-warning"}>
+                    {row[4]}
+                  </td>
+                </tr>
+              ))
+            }
           </tbody>
         </table>
       </div>
-      <p class="home-reference-note">Values are approximate. Always follow local electrical codes and equipment specifications.</p>
+      <p class="home-reference-note">
+        Values are approximate. Always follow local electrical codes and
+        equipment specifications.
+      </p>
     </article>
   </section>
 
   <section class="home-section" aria-labelledby="helpful-calculators">
-    <h2 id="helpful-calculators" class="home-left-heading">More Helpful Calculators</h2>
+    <h2 id="helpful-calculators" class="home-left-heading">
+      More Helpful Calculators
+    </h2>
     <div class="home-helpful-grid">
-      {helpfulCalculators.map((item) => (
-        <a class={`home-help-card home-card-hover home-tone-${item.tone}`} href={item.url}>
-          <span class="home-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M13 2 5 14h6l-1 8 9-13h-6l0-7Z" /></svg>
-          </span>
-          <span>
-            <strong>{item.title}</strong>
-            <small>{item.text}</small>
-          </span>
-          <b aria-hidden="true">-&gt;</b>
-        </a>
-      ))}
+      {
+        helpfulCalculators.map((item) => (
+          <a
+            class={`home-help-card home-card-hover home-tone-${item.tone}`}
+            href={item.url}
+          >
+            <span class="home-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M13 2 5 14h6l-1 8 9-13h-6l0-7Z" />
+              </svg>
+            </span>
+            <span>
+              <strong>{item.title}</strong>
+              <small>{item.text}</small>
+            </span>
+            <b aria-hidden="true">-&gt;</b>
+          </a>
+        ))
+      }
     </div>
   </section>
 
   <section class="home-section" aria-labelledby="learning-guides">
-    <h2 id="learning-guides" class="home-left-heading">Learn & Understand Electricity</h2>
+    <h2 id="learning-guides" class="home-left-heading">
+      Learn & Understand Electricity
+    </h2>
     <div class="home-guide-grid">
-      {guideCards.map((card) => (
-        <article class="home-guide-card home-card-hover">
-          <span class={`home-guide-illustration home-guide-${card.icon}`} aria-hidden="true">
-            {card.icon === 'lamp' && <svg viewBox="0 0 80 80"><circle cx="40" cy="34" r="23" /><path d="M31 58h18v6H31zM34 68h12" /><path d="M31 34c4 4 6 9 6 18M49 34c-4 4-6 9-6 18" /></svg>}
-            {card.icon === 'wave' && <svg viewBox="0 0 80 80"><path d="M10 42c8-26 16-26 24 0s16 26 24 0 10-16 12-16" /><path d="M10 52c8-16 16-16 24 0s16 16 24 0 10-10 12-10" /></svg>}
-            {card.icon === 'phase' && <svg viewBox="0 0 80 80"><path d="M18 22h44M18 40h44M18 58h44" /><circle cx="30" cy="22" r="4" /><circle cx="44" cy="40" r="4" /><circle cx="58" cy="58" r="4" /></svg>}
-          </span>
-          <div>
-            <h3>{card.title}</h3>
-            <p>{card.text}</p>
-            <a href={card.url}>Read guide -&gt;</a>
-          </div>
-        </article>
-      ))}
+      {
+        guideCards.map((card) => (
+          <article class="home-guide-card home-card-hover">
+            <span
+              class={`home-guide-illustration home-guide-${card.icon}`}
+              aria-hidden="true"
+            >
+              {card.icon === "lamp" && (
+                <svg viewBox="0 0 80 80">
+                  <circle cx="40" cy="34" r="23" />
+                  <path d="M31 58h18v6H31zM34 68h12" />
+                  <path d="M31 34c4 4 6 9 6 18M49 34c-4 4-6 9-6 18" />
+                </svg>
+              )}
+              {card.icon === "wave" && (
+                <svg viewBox="0 0 80 80">
+                  <path d="M10 42c8-26 16-26 24 0s16 26 24 0 10-16 12-16" />
+                  <path d="M10 52c8-16 16-16 24 0s16 16 24 0 10-10 12-10" />
+                </svg>
+              )}
+              {card.icon === "phase" && (
+                <svg viewBox="0 0 80 80">
+                  <path d="M18 22h44M18 40h44M18 58h44" />
+                  <circle cx="30" cy="22" r="4" />
+                  <circle cx="44" cy="40" r="4" />
+                  <circle cx="58" cy="58" r="4" />
+                </svg>
+              )}
+            </span>
+            <div>
+              <h3>{card.title}</h3>
+              <p>{card.text}</p>
+              <a href={card.url}>Read guide -&gt;</a>
+            </div>
+          </article>
+        ))
+      }
     </div>
   </section>
 
-  <section class="home-section home-hub" id="related-calculators" aria-labelledby="related-calculators-heading">
+  <section
+    class="home-section home-hub"
+    id="related-calculators"
+    aria-labelledby="related-calculators-heading"
+  >
     <div class="home-section-heading">
       <h2 id="related-calculators-heading">Amps to Watts Calculator Hub</h2>
-      <p>Explore the complete topical map of final, indexable calculator and guide URLs.</p>
+      <p>
+        Explore the complete topical map of final, indexable calculator and
+        guide URLs.
+      </p>
     </div>
     <div class="home-hub-grid">
-      {hubGroups.map((group) => (
-        <section class="home-hub-card home-card-hover" id={group.id} aria-labelledby={`${group.id}-heading`}>
-          <h3 id={`${group.id}-heading`}>{group.title}</h3>
-          <div>
-            {group.links.map(([label, url]) => <a href={url}>{label}</a>)}
-          </div>
-        </section>
-      ))}
+      {
+        hubGroups.map((group) => (
+          <section
+            class="home-hub-card home-card-hover"
+            id={group.id}
+            aria-labelledby={`${group.id}-heading`}
+          >
+            <h3 id={`${group.id}-heading`}>{group.title}</h3>
+            <div>
+              {group.links.map(([label, url]) => (
+                <a href={url}>{label}</a>
+              ))}
+            </div>
+          </section>
+        ))
+      }
     </div>
   </section>
 
-  <section class="home-section home-cta-section" aria-label="Explore all calculators">
+  <section
+    class="home-section home-cta-section"
+    aria-label="Explore all calculators"
+  >
     <div class="home-cta-band">
       <span class="home-cta-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.4 2.9 8.5 7 10 4.1-1.5 7-5.6 7-10V6l-7-3Zm3.4 7.4-4.1 4.1-2-2 1.4-1.4.6.6 2.7-2.7 1.4 1.4Z" /></svg>
+        <svg viewBox="0 0 24 24"
+          ><path
+            d="M12 3 5 6v5c0 4.4 2.9 8.5 7 10 4.1-1.5 7-5.6 7-10V6l-7-3Zm3.4 7.4-4.1 4.1-2-2 1.4-1.4.6.6 2.7-2.7 1.4 1.4Z"
+          ></path></svg
+        >
       </span>
       <div>
         <h2>Built for Accuracy. Designed for Electricians.</h2>

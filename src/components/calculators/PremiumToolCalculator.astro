@@ -1,5 +1,5 @@
 ---
-import type { CalculatorConfig } from '@/data/calculatorConfigs';
+import type { CalculatorConfig } from "@/data/calculatorConfigs";
 
 interface Props {
   config: CalculatorConfig;
@@ -8,8 +8,14 @@ interface Props {
 const { config } = Astro.props;
 const fixedVoltage = config.fixedValues?.voltage;
 const fixedPowerFactor = config.fixedValues?.powerFactor;
-const step2Label = (config.modes && config.modes.length > 1) ? '2. Enter Values' : '1. Enter Values';
-const step3Label = (config.modes && config.modes.length > 1) ? '3. Calculated Result' : '2. Calculated Result';
+const step2Label =
+  config.modes && config.modes.length > 1
+    ? "2. Enter Values"
+    : "1. Enter Values";
+const step3Label =
+  config.modes && config.modes.length > 1
+    ? "3. Calculated Result"
+    : "2. Calculated Result";
 ---
 
 <div
@@ -18,7 +24,7 @@ const step3Label = (config.modes && config.modes.length > 1) ? '3. Calculated Re
   data-tool-id={config.id}
   data-calc-type={config.calculatorType}
   data-calculator-config={config.slug}
-  data-calc-mode={config.defaultMode || 'ac1'}
+  data-calc-mode={config.defaultMode || "ac1"}
   data-fixed-voltage={fixedVoltage}
   data-fixed-power-factor={fixedPowerFactor}
   data-result-interpretation={config.resultInterpretation}
@@ -35,77 +41,150 @@ const step3Label = (config.modes && config.modes.length > 1) ? '3. Calculated Re
   </div>
 
   <!-- Step 1: Current Type (Only if modes > 1) -->
-  {config.modes && config.modes.length > 1 && (
-    <section class="calc-section">
-      <div class="calc-section-title">1. Choose Mode</div>
-      <div class="calc-mode-grid" role="tablist">
-        {config.modes.includes('dc') && (
-          <button class="calc-mode-btn" type="button" role="tab" aria-selected={config.defaultMode === 'dc' ? 'true' : 'false'} data-calc-phase="dc">
-            <span class="calc-mode-icon" aria-hidden="true">=</span>
-            <span class="calc-mode-label">DC</span>
-            <span class="calc-mode-desc">Batteries &amp; solar</span>
-          </button>
-        )}
-        {config.modes.includes('ac1') && (
-          <button class="calc-mode-btn" type="button" role="tab" aria-selected={config.defaultMode === 'ac1' ? 'true' : 'false'} data-calc-phase="ac1">
-            <span class="calc-mode-icon" aria-hidden="true">~</span>
-            <span class="calc-mode-label">Single-Phase AC</span>
-            <span class="calc-mode-desc">Homes &amp; outlets</span>
-          </button>
-        )}
-        {config.modes.includes('ac3') && (
-          <button class="calc-mode-btn" type="button" role="tab" aria-selected={config.defaultMode === 'ac3' ? 'true' : 'false'} data-calc-phase="ac3">
-            <span class="calc-mode-icon" aria-hidden="true">3~</span>
-            <span class="calc-mode-label">Three-Phase AC</span>
-            <span class="calc-mode-desc">Industrial systems</span>
-          </button>
-        )}
-      </div>
-      <select id="lx-type" class="sr-only" aria-label="System type">
-        {config.modes.includes('dc') && <option value="dc" selected={config.defaultMode === 'dc'}>DC</option>}
-        {config.modes.includes('ac1') && <option value="ac1" selected={config.defaultMode === 'ac1'}>AC Single-Phase</option>}
-        {config.modes.includes('ac3') && <option value="ac3" selected={config.defaultMode === 'ac3'}>AC Three-Phase</option>}
-      </select>
-    </section>
-  )}
+  {
+    config.modes && config.modes.length > 1 && (
+      <section class="calc-section">
+        <div class="calc-section-title">1. Choose Mode</div>
+        <div class="calc-mode-grid" role="tablist">
+          {config.modes.includes("dc") && (
+            <button
+              class="calc-mode-btn"
+              type="button"
+              role="tab"
+              aria-selected={config.defaultMode === "dc" ? "true" : "false"}
+              data-calc-phase="dc"
+            >
+              <span class="calc-mode-icon" aria-hidden="true">
+                =
+              </span>
+              <span class="calc-mode-label">DC</span>
+              <span class="calc-mode-desc">Batteries &amp; solar</span>
+            </button>
+          )}
+          {config.modes.includes("ac1") && (
+            <button
+              class="calc-mode-btn"
+              type="button"
+              role="tab"
+              aria-selected={config.defaultMode === "ac1" ? "true" : "false"}
+              data-calc-phase="ac1"
+            >
+              <span class="calc-mode-icon" aria-hidden="true">
+                ~
+              </span>
+              <span class="calc-mode-label">Single-Phase AC</span>
+              <span class="calc-mode-desc">Homes &amp; outlets</span>
+            </button>
+          )}
+          {config.modes.includes("ac3") && (
+            <button
+              class="calc-mode-btn"
+              type="button"
+              role="tab"
+              aria-selected={config.defaultMode === "ac3" ? "true" : "false"}
+              data-calc-phase="ac3"
+            >
+              <span class="calc-mode-icon" aria-hidden="true">
+                3~
+              </span>
+              <span class="calc-mode-label">Three-Phase AC</span>
+              <span class="calc-mode-desc">Industrial systems</span>
+            </button>
+          )}
+        </div>
+        <select id="lx-type" class="sr-only" aria-label="System type">
+          {config.modes.includes("dc") && (
+            <option value="dc" selected={config.defaultMode === "dc"}>
+              DC
+            </option>
+          )}
+          {config.modes.includes("ac1") && (
+            <option value="ac1" selected={config.defaultMode === "ac1"}>
+              AC Single-Phase
+            </option>
+          )}
+          {config.modes.includes("ac3") && (
+            <option value="ac3" selected={config.defaultMode === "ac3"}>
+              AC Three-Phase
+            </option>
+          )}
+        </select>
+      </section>
+    )
+  }
 
   <!-- Step 2: Input Fields -->
   <section class="calc-section">
     <div class="calc-section-title">{step2Label}</div>
-    
+
     <div class="calc-input-grid">
-      {config.inputs.map((input) => (
-        <label class={`calc-field input-${input.id}`} id={`container-${input.id}`}>
-          <span class="calc-label-row">
-            <span class="calc-label">{input.label}</span>
-          </span>
-          <span class="calc-input-wrap">
-            {input.options ? (
-              <select class="calc-input" id={`input-${input.id}`}>
-                {input.options.map(opt => <option value={opt.value} selected={opt.value === input.defaultValue}>{opt.label}</option>)}
-              </select>
-            ) : (
-              <input class="calc-input" type="number" id={`input-${input.id}`} value={input.defaultValue} min={input.min} max={input.max} step={input.step || 'any'} placeholder={input.placeholder} />
+      {
+        config.inputs.map((input) => (
+          <label
+            class={`calc-field input-${input.id}`}
+            id={`container-${input.id}`}
+          >
+            <span class="calc-label-row">
+              <span class="calc-label">{input.label}</span>
+            </span>
+            <span class="calc-input-wrap">
+              {input.options ? (
+                <select class="calc-input" id={`input-${input.id}`}>
+                  {input.options.map((opt) => (
+                    <option
+                      value={opt.value}
+                      selected={opt.value === input.defaultValue}
+                    >
+                      {opt.label}
+                    </option>
+                  ))}
+                </select>
+              ) : (
+                <input
+                  class="calc-input"
+                  type="number"
+                  id={`input-${input.id}`}
+                  value={input.defaultValue}
+                  min={input.min}
+                  max={input.max}
+                  step={input.step || "any"}
+                  placeholder={input.placeholder}
+                />
+              )}
+              {input.unit && <span class="calc-unit">{input.unit}</span>}
+            </span>
+            {input.helperText && (
+              <span class="calc-helper">{input.helperText}</span>
             )}
-            {input.unit && <span class="calc-unit">{input.unit}</span>}
-          </span>
-          {input.helperText && <span class="calc-helper">{input.helperText}</span>}
-          <span class="calc-error" id={`error-${input.id}`} aria-live="polite"></span>
-        </label>
-      ))}
-      
-      {fixedVoltage && (
-        <label class="calc-field input-fixed">
-          <span class="calc-label-row">
-            <span class="calc-label">System Voltage</span>
-          </span>
-          <span class="calc-input-wrap">
-            <input class="calc-input" type="number" value={fixedVoltage} disabled style="background: #f8fafc; color: #64748b; border-color: #e2e8f0; cursor: not-allowed;" />
-            <span class="calc-unit">V</span>
-          </span>
-          <span class="calc-helper">Fixed voltage for this calculator.</span>
-        </label>
-      )}
+            <span
+              class="calc-error"
+              id={`error-${input.id}`}
+              aria-live="polite"
+            />
+          </label>
+        ))
+      }
+
+      {
+        fixedVoltage && (
+          <label class="calc-field input-fixed">
+            <span class="calc-label-row">
+              <span class="calc-label">System Voltage</span>
+            </span>
+            <span class="calc-input-wrap">
+              <input
+                class="calc-input"
+                type="number"
+                value={fixedVoltage}
+                disabled
+                style="background: #f8fafc; color: #64748b; border-color: #e2e8f0; cursor: not-allowed;"
+              />
+              <span class="calc-unit">V</span>
+            </span>
+            <span class="calc-helper">Fixed voltage for this calculator.</span>
+          </label>
+        )
+      }
     </div>
   </section>
 
@@ -115,31 +194,46 @@ const step3Label = (config.modes && config.modes.length > 1) ? '3. Calculated Re
 
     <div class="calc-result-panel" aria-live="polite" aria-atomic="true">
       <div class="calc-result-main">
-        {config.outputs.length > 0 && (
-          <>
-            <span class="calc-result-label">{config.outputs[0].label}</span>
-            <span class="calc-result-value"><span id={`output-${config.outputs[0].id}`}>0</span> <span class="calc-result-unit">{config.outputs[0].unit}</span></span>
-            {config.outputs.length > 1 && (
-              <span class="calc-result-subvalue">
-                {config.outputs.slice(1).map((out, idx) => (
-                  <span>
-                    {idx > 0 && ' | '}
-                    <span id={`output-${out.id}`}>0</span> {out.unit}
-                  </span>
-                ))}
+        {
+          config.outputs.length > 0 && (
+            <>
+              <span class="calc-result-label">{config.outputs[0].label}</span>
+              <span class="calc-result-value">
+                <span id={`output-${config.outputs[0].id}`}>0</span>{" "}
+                <span class="calc-result-unit">{config.outputs[0].unit}</span>
               </span>
-            )}
-          </>
-        )}
+              {config.outputs.length > 1 && (
+                <span class="calc-result-subvalue">
+                  {config.outputs.slice(1).map((out, idx) => (
+                    <span>
+                      {idx > 0 && " | "}
+                      <span id={`output-${out.id}`}>0</span> {out.unit}
+                    </span>
+                  ))}
+                </span>
+              )}
+            </>
+          )
+        }
       </div>
-      
+
       <div class="calc-formula-box">
         <span class="calc-formula-label">Formula Used</span>
-        <span class="calc-formula-value" id="calc-formula-display" data-formulas={config.formulas ? JSON.stringify(config.formulas) : '{}'}>
+        <span
+          class="calc-formula-value"
+          id="calc-formula-display"
+          data-formulas={config.formulas
+            ? JSON.stringify(config.formulas)
+            : "{}"}
+        >
           {config.formulaLabel}
         </span>
-        <span class="calc-note" id="calc-result-helper" style="margin-top:4px">{config.resultInterpretation}</span>
-        <span class="calc-note" id="calc-example-helper" style="margin-top:4px">{config.example}</span>
+        <span class="calc-note" id="calc-result-helper" style="margin-top:4px"
+          >{config.resultInterpretation}</span
+        >
+        <span class="calc-note" id="calc-example-helper" style="margin-top:4px"
+          >{config.example}</span
+        >
       </div>
     </div>
 
@@ -149,9 +243,7 @@ const step3Label = (config.modes && config.modes.length > 1) ? '3. Calculated Re
         <button type="button" class="calc-btn lx-action-copy">
           Copy Result
         </button>
-        <button type="button" class="calc-btn lx-action-reset">
-          Reset
-        </button>
+        <button type="button" class="calc-btn lx-action-reset"> Reset </button>
       </div>
       <p class="calc-note">{config.safetyNote}</p>
     </div>

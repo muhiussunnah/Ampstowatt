@@ -1,58 +1,83 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import PremiumContentShowcase from '@/components/PremiumContentShowcase.astro';
-import SemanticContextLinks from '@/components/SemanticContextLinks.astro';
-import ToolPremiumGuide from '@/components/ToolPremiumGuide.astro';
-import { aliases, allRouteSlugs, getPageBySlug, getToolBySlug, type Tool } from '@/data/tools';
-import { getLegacyPage } from '@/lib/legacy';
-import { getCalculatorConfig } from '@/data/calculatorConfigs';
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PremiumContentShowcase from "@/components/PremiumContentShowcase.astro";
+import SemanticContextLinks from "@/components/SemanticContextLinks.astro";
+import ToolPremiumGuide from "@/components/ToolPremiumGuide.astro";
+import {
+  aliases,
+  allRouteSlugs,
+  getPageBySlug,
+  getToolBySlug,
+  type Tool,
+} from "@/data/tools";
+import { getLegacyPage } from "@/lib/legacy";
+import { getCalculatorConfig } from "@/data/calculatorConfigs";
 
 export function getStaticPaths() {
-  const redirectOnlySlugs = new Set(['amps-to-watts-calculator', 'calculators', ...Object.keys(aliases)]);
+  const redirectOnlySlugs = new Set([
+    "amps-to-watts-calculator",
+    "calculators",
+    ...Object.keys(aliases),
+  ]);
   return allRouteSlugs
     .filter((slug) => !redirectOnlySlugs.has(slug))
     .map((slug) => ({ params: { slug } }));
 }
 
-const slug = Astro.params.slug ?? '';
+const slug = Astro.params.slug ?? "";
 const tool = getToolBySlug(slug);
 const page = getPageBySlug(slug);
-const legacy = getLegacyPage(slug) ?? (slug === 'amps-to-watts-calculator' ? getLegacyPage('') : tool ? getLegacyPage(tool.slug) : undefined);
+const legacy =
+  getLegacyPage(slug) ??
+  (slug === "amps-to-watts-calculator"
+    ? getLegacyPage("")
+    : tool
+      ? getLegacyPage(tool.slug)
+      : undefined);
 const legacyTitle = legacy?.title?.trim();
 const legacyDescription = legacy?.description?.trim();
-const title = legacyTitle && legacyTitle !== 'Amps To Watts Calculator'
-  ? legacyTitle
-  : tool?.title ?? page?.title ?? legacyTitle ?? 'Amps To Watts Calculator';
-const description = legacyDescription && legacyDescription !== 'Premium amps to watts calculator and electrical conversion tools.'
-  ? legacyDescription
-  : tool?.description ?? page?.description ?? legacyDescription ?? 'Premium amps to watts calculator and electrical conversion tools.';
+const title =
+  legacyTitle && legacyTitle !== "Amps To Watts Calculator"
+    ? legacyTitle
+    : (tool?.title ?? page?.title ?? legacyTitle ?? "Amps To Watts Calculator");
+const description =
+  legacyDescription &&
+  legacyDescription !==
+    "Premium amps to watts calculator and electrical conversion tools."
+    ? legacyDescription
+    : (tool?.description ??
+      page?.description ??
+      legacyDescription ??
+      "Premium amps to watts calculator and electrical conversion tools.");
 const canonicalSlug = tool?.slug ?? page?.slug ?? slug;
 
 if (!tool && !page && !legacy) {
-  return Astro.redirect('/');
+  return Astro.redirect("/");
 }
 
 const isToolPage = Boolean(tool);
-const kicker = tool?.eyebrow ?? (legacy ? "Electrical conversion resource" : "Amps To Watts Calculator");
+const kicker =
+  tool?.eyebrow ??
+  (legacy ? "Electrical conversion resource" : "Amps To Watts Calculator");
 
 const ampValuePages = [
-  '1-amp-to-watts',
-  '5-amps-to-watts',
-  '10-amps-to-watts',
-  '15-amps-to-watts',
-  '20-amps-to-watts',
-  '30-amps-to-watts',
-  '40-amps-to-watts',
-  '50-amps-to-watts',
-  '60-amps-to-watts',
-  '100-amps-to-watts'
+  "1-amp-to-watts",
+  "5-amps-to-watts",
+  "10-amps-to-watts",
+  "15-amps-to-watts",
+  "20-amps-to-watts",
+  "30-amps-to-watts",
+  "40-amps-to-watts",
+  "50-amps-to-watts",
+  "60-amps-to-watts",
+  "100-amps-to-watts",
 ];
 
 const noindex = ampValuePages.includes(slug);
 
 const noindexLinkPattern = new RegExp(
-  `<a\\s+href="/(?:${ampValuePages.join('|')})/"[^>]*>(.*?)</a>`,
-  'g'
+  `<a\\s+href="/(?:${ampValuePages.join("|")})/"[^>]*>(.*?)</a>`,
+  "g",
 );
 const canonicalHrefReplacements: Record<string, string> = {
   'href="/amps-to-watts-calculator/"': 'href="/"',
@@ -61,10 +86,14 @@ const canonicalHrefReplacements: Record<string, string> = {
   'href="/220v-amps-to-watts-calculator/"': 'href="/220v-amps-to-watts/"',
   'href="/230v-amps-to-watts-calculator/"': 'href="/230v-amps-to-watts/"',
   'href="/240v-amps-to-watts-calculator/"': 'href="/240v-amps-to-watts/"',
-  'href="/single-phase-amps-to-watts-calculator/"': 'href="/single-phase-amps-to-watts/"',
-  'href="/amps-to-watts-ac-calculator/"': 'href="/ac-amps-to-watts-calculator/"',
-  'href="/amps-to-watts-dc-calculator/"': 'href="/dc-amps-to-watts-calculator/"',
-  'href="/amps-to-watts-3-phase-calculator/"': 'href="/3-phase-amps-to-watts-calculator/"',
+  'href="/single-phase-amps-to-watts-calculator/"':
+    'href="/single-phase-amps-to-watts/"',
+  'href="/amps-to-watts-ac-calculator/"':
+    'href="/ac-amps-to-watts-calculator/"',
+  'href="/amps-to-watts-dc-calculator/"':
+    'href="/dc-amps-to-watts-calculator/"',
+  'href="/amps-to-watts-3-phase-calculator/"':
+    'href="/3-phase-amps-to-watts-calculator/"',
   'href="/voltage-amps-watts-calculator/"': 'href="/watts-to-amps-calculator/"',
   'href="/amps-to-watts-120v-calculator/"': 'href="/120v-amps-to-watts/"',
   'href="/amps-to-watts-220v-calculator/"': 'href="/220v-amps-to-watts/"',
@@ -78,159 +107,221 @@ const canonicalHrefReplacements: Record<string, string> = {
   'href="/ac-calculator/"': 'href="/ac-amps-to-watts-calculator/"',
   'href="/dc-calculator/"': 'href="/dc-amps-to-watts-calculator/"',
   'href="/single-phase-calculator/"': 'href="/single-phase-amps-to-watts/"',
-  'href="/3-phase-calculator/"': 'href="/3-phase-amps-to-watts-calculator/"'
+  'href="/3-phase-calculator/"': 'href="/3-phase-amps-to-watts-calculator/"',
 };
-const legacyBody = legacy?.body
-  .replace(noindexLinkPattern, '$1');
+const legacyBody = legacy?.body.replace(noindexLinkPattern, "$1");
 const canonicalLegacyBody = legacyBody
-  ? Object.entries(canonicalHrefReplacements).reduce((body, [from, to]) => body.replaceAll(from, to), legacyBody)
+  ? Object.entries(canonicalHrefReplacements).reduce(
+      (body, [from, to]) => body.replaceAll(from, to),
+      legacyBody,
+    )
   : undefined;
-const legacyBodyHasH1 = canonicalLegacyBody ? /<h1[\s>]/i.test(canonicalLegacyBody) : false;
-const pageH1 = legacy?.h1Title ?? tool?.h1Title ?? (page as any)?.h1Title ?? page?.title ?? tool?.title ?? title;
+const legacyBodyHasH1 = canonicalLegacyBody
+  ? /<h1[\s>]/i.test(canonicalLegacyBody)
+  : false;
+const pageH1 =
+  legacy?.h1Title ??
+  tool?.h1Title ??
+  (page as any)?.h1Title ??
+  page?.title ??
+  tool?.title ??
+  title;
 
 type CalculatorPageDefaults = {
-  kind?: Tool['kind'];
+  kind?: Tool["kind"];
   voltage?: number;
-  phase?: Tool['defaultPhase'];
-  mode?: Tool['defaultMode'];
+  phase?: Tool["defaultPhase"];
+  mode?: Tool["defaultMode"];
   input?: number;
-  unit?: Tool['defaultUnit'];
+  unit?: Tool["defaultUnit"];
   eyebrow?: string;
   formula?: string;
   highlights?: string[];
 };
 
 const calculatorPageDefaults: Record<string, CalculatorPageDefaults> = {
-  '24v-amps-to-watts': {
+  "24v-amps-to-watts": {
     voltage: 24,
-    phase: 'dc',
-    eyebrow: '24V DC systems',
-    formula: 'Watts = Amps x 24V',
-    highlights: ['24V battery banks', 'Truck and inverter loads', 'Solar DC planning']
+    phase: "dc",
+    eyebrow: "24V DC systems",
+    formula: "Watts = Amps x 24V",
+    highlights: [
+      "24V battery banks",
+      "Truck and inverter loads",
+      "Solar DC planning",
+    ],
   },
-  'air-conditioner-amps-to-watts': {
+  "air-conditioner-amps-to-watts": {
     voltage: 240,
-    phase: 'ac1',
-    eyebrow: 'HVAC load planning',
-    formula: 'Watts = Amps x Volts x PF',
-    highlights: ['Window AC and central HVAC', 'Compressor power factor', '240V circuit planning']
+    phase: "ac1",
+    eyebrow: "HVAC load planning",
+    formula: "Watts = Amps x Volts x PF",
+    highlights: [
+      "Window AC and central HVAC",
+      "Compressor power factor",
+      "240V circuit planning",
+    ],
   },
-  'generator-amps-to-watts': {
+  "generator-amps-to-watts": {
     voltage: 240,
-    phase: 'ac1',
-    eyebrow: 'Generator output planning',
-    formula: 'Watts = Amps x Volts x PF',
-    highlights: ['120V and 240V outlets', 'Running watts context', 'Generator load checks']
+    phase: "ac1",
+    eyebrow: "Generator output planning",
+    formula: "Watts = Amps x Volts x PF",
+    highlights: [
+      "120V and 240V outlets",
+      "Running watts context",
+      "Generator load checks",
+    ],
   },
-  'ev-charger-amps-to-watts': {
+  "ev-charger-amps-to-watts": {
     voltage: 240,
-    phase: 'ac1',
+    phase: "ac1",
     input: 32,
-    eyebrow: 'EV charger circuits',
-    formula: 'Watts = Charger Amps x Volts x PF',
-    highlights: ['Level 2 charger planning', 'Continuous load context', '240V and 480V support']
+    eyebrow: "EV charger circuits",
+    formula: "Watts = Charger Amps x Volts x PF",
+    highlights: [
+      "Level 2 charger planning",
+      "Continuous load context",
+      "240V and 480V support",
+    ],
   },
-  'motor-amps-to-watts': {
+  "motor-amps-to-watts": {
     voltage: 240,
-    phase: 'ac1',
-    eyebrow: 'Motor load planning',
-    formula: 'Watts = Amps x Volts x PF',
-    highlights: ['Motor power factor', 'Single and three-phase context', 'kW output included']
+    phase: "ac1",
+    eyebrow: "Motor load planning",
+    formula: "Watts = Amps x Volts x PF",
+    highlights: [
+      "Motor power factor",
+      "Single and three-phase context",
+      "kW output included",
+    ],
   },
-  'electric-motor-amps-to-watts': {
+  "electric-motor-amps-to-watts": {
     voltage: 240,
-    phase: 'ac1',
-    eyebrow: 'Electric motor power',
-    formula: 'Watts = Amps x Volts x PF',
-    highlights: ['Horsepower context', 'PF-aware results', 'Motor circuit planning']
+    phase: "ac1",
+    eyebrow: "Electric motor power",
+    formula: "Watts = Amps x Volts x PF",
+    highlights: [
+      "Horsepower context",
+      "PF-aware results",
+      "Motor circuit planning",
+    ],
   },
-  'refrigerator-amps-to-watts': {
+  "refrigerator-amps-to-watts": {
     voltage: 120,
-    phase: 'ac1',
+    phase: "ac1",
     input: 2,
-    eyebrow: 'Refrigerator load planning',
-    formula: 'Watts = Amps x Volts x PF',
-    highlights: ['Running watts', 'Startup surge context', '120V and 230V appliances']
+    eyebrow: "Refrigerator load planning",
+    formula: "Watts = Amps x Volts x PF",
+    highlights: [
+      "Running watts",
+      "Startup surge context",
+      "120V and 230V appliances",
+    ],
   },
-  'microwave-amps-to-watts': {
+  "microwave-amps-to-watts": {
     voltage: 120,
-    phase: 'ac1',
+    phase: "ac1",
     input: 10,
-    eyebrow: 'Kitchen appliance loads',
-    formula: 'Watts = Amps x Volts x PF',
-    highlights: ['Countertop microwave loads', 'Outlet planning', 'Nameplate current checks']
+    eyebrow: "Kitchen appliance loads",
+    formula: "Watts = Amps x Volts x PF",
+    highlights: [
+      "Countertop microwave loads",
+      "Outlet planning",
+      "Nameplate current checks",
+    ],
   },
-  'dryer-amps-to-watts': {
+  "dryer-amps-to-watts": {
     voltage: 240,
-    phase: 'ac1',
+    phase: "ac1",
     input: 24,
-    eyebrow: 'Dryer circuit planning',
-    formula: 'Watts = Amps x 240V x PF',
-    highlights: ['Electric dryer loads', '240V split-phase circuits', 'Continuous load checks']
+    eyebrow: "Dryer circuit planning",
+    formula: "Watts = Amps x 240V x PF",
+    highlights: [
+      "Electric dryer loads",
+      "240V split-phase circuits",
+      "Continuous load checks",
+    ],
   },
-  'pool-pump-amps-to-watts': {
+  "pool-pump-amps-to-watts": {
     voltage: 240,
-    phase: 'ac1',
+    phase: "ac1",
     input: 8,
-    eyebrow: 'Pool pump power',
-    formula: 'Watts = Amps x Volts x PF',
-    highlights: ['Pump motor loads', 'Variable-speed planning', 'Power factor support']
+    eyebrow: "Pool pump power",
+    formula: "Watts = Amps x Volts x PF",
+    highlights: [
+      "Pump motor loads",
+      "Variable-speed planning",
+      "Power factor support",
+    ],
   },
-  'kw-to-amps-calculator': {
-    kind: 'watts-to-amps',
+  "kw-to-amps-calculator": {
+    kind: "watts-to-amps",
     voltage: 240,
-    phase: 'ac1',
-    mode: 'watts-to-amps',
+    phase: "ac1",
+    mode: "watts-to-amps",
     input: 1,
-    unit: 'kw',
-    eyebrow: 'Kilowatts to current',
-    formula: 'Amps = kW x 1000 / (Volts x PF)',
-    highlights: ['kW to amps live conversion', 'AC and DC support', 'Three-phase option']
+    unit: "kw",
+    eyebrow: "Kilowatts to current",
+    formula: "Amps = kW x 1000 / (Volts x PF)",
+    highlights: [
+      "kW to amps live conversion",
+      "AC and DC support",
+      "Three-phase option",
+    ],
   },
-  'watts-to-amps-12v': {
-    kind: 'watts-to-amps',
+  "watts-to-amps-12v": {
+    kind: "watts-to-amps",
     voltage: 12,
-    phase: 'dc',
-    mode: 'watts-to-amps',
+    phase: "dc",
+    mode: "watts-to-amps",
     input: 120,
-    unit: 'w',
-    eyebrow: '12V watts to amps',
-    formula: 'Amps = Watts / 12V',
-    highlights: ['Battery current', 'DC loads', 'Fuse and wire planning']
+    unit: "w",
+    eyebrow: "12V watts to amps",
+    formula: "Amps = Watts / 12V",
+    highlights: ["Battery current", "DC loads", "Fuse and wire planning"],
   },
-  'watts-to-amps-120v': {
-    kind: 'watts-to-amps',
+  "watts-to-amps-120v": {
+    kind: "watts-to-amps",
     voltage: 120,
-    phase: 'ac1',
-    mode: 'watts-to-amps',
+    phase: "ac1",
+    mode: "watts-to-amps",
     input: 1200,
-    unit: 'w',
-    eyebrow: '120V watts to amps',
-    formula: 'Amps = Watts / (120V x PF)',
-    highlights: ['US outlets', 'Appliance current', 'Breaker planning']
+    unit: "w",
+    eyebrow: "120V watts to amps",
+    formula: "Amps = Watts / (120V x PF)",
+    highlights: ["US outlets", "Appliance current", "Breaker planning"],
   },
-  'watts-to-amps-240v': {
-    kind: 'watts-to-amps',
+  "watts-to-amps-240v": {
+    kind: "watts-to-amps",
     voltage: 240,
-    phase: 'ac1',
-    mode: 'watts-to-amps',
+    phase: "ac1",
+    mode: "watts-to-amps",
     input: 2400,
-    unit: 'w',
-    eyebrow: '240V watts to amps',
-    formula: 'Amps = Watts / (240V x PF)',
-    highlights: ['Dryers and EV chargers', 'High-power circuits', 'PF-aware current']
-  }
+    unit: "w",
+    eyebrow: "240V watts to amps",
+    formula: "Amps = Watts / (240V x PF)",
+    highlights: [
+      "Dryers and EV chargers",
+      "High-power circuits",
+      "PF-aware current",
+    ],
+  },
 };
 
 for (const ampValuePage of ampValuePages) {
   const ampValue = Number(ampValuePage.match(/^\d+/)?.[0] ?? 10);
   calculatorPageDefaults[ampValuePage] = {
     voltage: 120,
-    phase: 'ac1',
+    phase: "ac1",
     input: ampValue,
     eyebrow: `${ampValue}A conversion`,
     formula: `Watts = ${ampValue}A x Volts x PF`,
-    highlights: [`${ampValue} amp preset`, '120V and 240V planning', 'AC power factor support']
+    highlights: [
+      `${ampValue} amp preset`,
+      "120V and 240V planning",
+      "AC power factor support",
+    ],
   };
 }
 
@@ -243,24 +334,31 @@ function buildPageTool(): Tool | undefined {
     slug,
     title,
     h1Title: pageH1,
-    shortTitle: pageH1.replace(/\s+Calculator.*$/i, '').slice(0, 34),
+    shortTitle: pageH1.replace(/\s+Calculator.*$/i, "").slice(0, 34),
     description,
-    kind: defaults.kind ?? 'amps-to-watts',
+    kind: defaults.kind ?? "amps-to-watts",
     defaultVoltage: defaults.voltage ?? 120,
-    defaultPhase: defaults.phase ?? 'ac1',
-    defaultMode: defaults.mode ?? 'amps-to-watts',
+    defaultPhase: defaults.phase ?? "ac1",
+    defaultMode: defaults.mode ?? "amps-to-watts",
     defaultInput: defaults.input ?? 10,
-    defaultUnit: defaults.unit ?? (defaults.mode === 'watts-to-amps' ? 'w' : 'a'),
-    eyebrow: defaults.eyebrow ?? 'Live electrical calculator',
-    formula: defaults.formula ?? 'Watts = Amps x Volts x PF',
-    highlights: defaults.highlights ?? ['Live calculation', 'Formula-backed result', 'Copy and export actions']
+    defaultUnit:
+      defaults.unit ?? (defaults.mode === "watts-to-amps" ? "w" : "a"),
+    eyebrow: defaults.eyebrow ?? "Live electrical calculator",
+    formula: defaults.formula ?? "Watts = Amps x Volts x PF",
+    highlights: defaults.highlights ?? [
+      "Live calculation",
+      "Formula-backed result",
+      "Copy and export actions",
+    ],
   };
 }
 
 const pageTool = buildPageTool();
 const displayTool = tool ?? pageTool;
 const showPremiumCalculator = Boolean(displayTool);
-const calculatorConfig = showPremiumCalculator ? getCalculatorConfig(slug) : undefined;
+const calculatorConfig = showPremiumCalculator
+  ? getCalculatorConfig(slug)
+  : undefined;
 ---
 
 <BaseLayout
@@ -276,33 +374,57 @@ const calculatorConfig = showPremiumCalculator ? getCalculatorConfig(slug) : und
   h1Title={pageH1}
   noindex={noindex}
 >
-  {legacy ? (
-    <>
-      {displayTool && <PremiumContentShowcase tool={displayTool} title={title} description={description} />}
-      {displayTool && <ToolPremiumGuide tool={displayTool} />}
-      {!displayTool && !legacyBodyHasH1 && (
+  {
+    legacy ? (
+      <>
+        {displayTool && (
+          <PremiumContentShowcase
+            tool={displayTool}
+            title={title}
+            description={description}
+          />
+        )}
+        {displayTool && <ToolPremiumGuide tool={displayTool} />}
+        {!displayTool && !legacyBodyHasH1 && (
+          <section class="card">
+            <h1>{pageH1}</h1>
+          </section>
+        )}
+        <div set:html={canonicalLegacyBody} />
+        {!noindex && <SemanticContextLinks slug={slug} />}
+      </>
+    ) : displayTool ? (
+      <>
+        <PremiumContentShowcase
+          tool={displayTool}
+          title={title}
+          description={description}
+        />
+        <ToolPremiumGuide tool={displayTool} />
+        {!noindex && <SemanticContextLinks slug={slug} />}
+      </>
+    ) : (
+      <>
         <section class="card">
-          <h1>{pageH1}</h1>
+          <h1>{page?.title}</h1>
+          <p>
+            Amps To Watts Calculator is an independent educational resource for
+            electrical planning. The calculators are designed to make formulas
+            clear, reduce manual mistakes, and help visitors compare current,
+            voltage, power, energy, and conductor requirements.
+          </p>
+          <p>
+            For safety-critical electrical work, always verify results with
+            equipment nameplate data, applicable electrical code, and a licensed
+            electrician or qualified engineer.
+          </p>
+          <p>
+            Questions, corrections, and content suggestions can be sent through
+            the contact page.
+          </p>
         </section>
-      )}
-      <div set:html={canonicalLegacyBody} />
-      {!noindex && <SemanticContextLinks slug={slug} />}
-    </>
-  ) : displayTool ? (
-    <>
-      <PremiumContentShowcase tool={displayTool} title={title} description={description} />
-      <ToolPremiumGuide tool={displayTool} />
-      {!noindex && <SemanticContextLinks slug={slug} />}
-    </>
-  ) : (
-    <>
-      <section class="card">
-        <h1>{page?.title}</h1>
-        <p>Amps To Watts Calculator is an independent educational resource for electrical planning. The calculators are designed to make formulas clear, reduce manual mistakes, and help visitors compare current, voltage, power, energy, and conductor requirements.</p>
-        <p>For safety-critical electrical work, always verify results with equipment nameplate data, applicable electrical code, and a licensed electrician or qualified engineer.</p>
-        <p>Questions, corrections, and content suggestions can be sent through the contact page.</p>
-      </section>
-      {!noindex && <SemanticContextLinks slug={slug} />}
-    </>
-  )}
+        {!noindex && <SemanticContextLinks slug={slug} />}
+      </>
+    )
+  }
 </BaseLayout>

@@ -1,5 +1,5 @@
 ---
-import type { Tool } from '@/data/tools';
+import type { Tool } from "@/data/tools";
 
 interface Props {
   tool: Tool;
@@ -7,15 +7,20 @@ interface Props {
 
 const { tool } = Astro.props;
 const v = tool.defaultVoltage ?? 120;
-const phase = tool.defaultPhase ?? 'ac1';
-const phaseLabel = phase === 'ac3' ? 'three-phase AC' : phase === 'dc' ? 'DC' : 'single-phase AC';
+const phase = tool.defaultPhase ?? "ac1";
+const phaseLabel =
+  phase === "ac3"
+    ? "three-phase AC"
+    : phase === "dc"
+      ? "DC"
+      : "single-phase AC";
 
 /* Conversion table rows generated per tool voltage */
 function convRows(voltage: number) {
-  return [1, 2, 3, 5, 8, 10, 15, 20, 25, 30, 40, 50].map(a => ({
+  return [1, 2, 3, 5, 8, 10, 15, 20, 25, 30, 40, 50].map((a) => ({
     amps: `${a} A`,
     watts: `${(a * voltage).toLocaleString()} W`,
-    kw: `${(a * voltage / 1000).toFixed(a * voltage >= 1000 ? 1 : 3)} kW`,
+    kw: `${((a * voltage) / 1000).toFixed(a * voltage >= 1000 ? 1 : 3)} kW`,
   }));
 }
 
@@ -23,58 +28,120 @@ const rows = convRows(v);
 
 /* Common appliances per voltage tier */
 function appliances(slug: string, voltage: number, ph: string) {
-  if (slug.includes('solar') || (slug.includes('led'))) return [
-    { name: 'Single LED strip (5m)', amps: '2–6 A', watts: '24–72 W' },
-    { name: 'LED floodlight', amps: '4–8 A', watts: '50–100 W' },
-    { name: 'Solar panel (100W)', amps: '5.5 A at Vmp', watts: '100 W' },
-    { name: 'Solar panel (400W)', amps: '10–11 A at Vmp', watts: '400 W' },
-    { name: '12V water pump', amps: '3–10 A', watts: '36–120 W' },
-    { name: '12V fridge (camping)', amps: '3–5 A', watts: '36–60 W' },
-  ];
-  if (slug.includes('speaker')) return [
-    { name: 'Head unit (stock)', amps: '2–5 A', watts: '25–60 W' },
-    { name: 'Class D mono amp (500W)', amps: '35–45 A', watts: '420–540 W' },
-    { name: 'Class AB 4-ch amp (400W)', amps: '50–65 A', watts: '600–780 W' },
-    { name: 'Powered subwoofer (250W)', amps: '20–30 A', watts: '240–360 W' },
-    { name: 'Full car audio system', amps: '80–150 A', watts: '960–1,800 W' },
-  ];
-  if (slug.includes('megawatts')) return [
-    { name: 'Wind turbine (utility)', amps: '~150 A/phase at 4.16kV', watts: '2 MW' },
-    { name: 'Solar farm (1 MW)', amps: '~58 A/phase at 11kV', watts: '1 MW' },
-    { name: 'Industrial motor (500 HP)', amps: '~520 A at 480V', watts: '373 kW' },
-    { name: 'Data center rack', amps: '30–50 A at 208V', watts: '6–10 kW' },
-  ];
-  if (ph === 'ac3' || slug.includes('3-phase')) return [
-    { name: 'Commercial HVAC chiller', amps: '20–60 A', watts: `${(20*voltage*0.85*1.732/1000).toFixed(0)}–${(60*voltage*0.85*1.732/1000).toFixed(0)} kW` },
-    { name: 'CNC machine', amps: '15–40 A', watts: `${(15*voltage*0.85*1.732/1000).toFixed(0)}–${(40*voltage*0.85*1.732/1000).toFixed(0)} kW` },
-    { name: 'Industrial pump (25 HP)', amps: '~34 A at 480V', watts: '18.7 kW' },
-    { name: 'Elevator motor', amps: '20–80 A', watts: `${(20*voltage*0.85*1.732/1000).toFixed(0)}–${(80*voltage*0.85*1.732/1000).toFixed(0)} kW` },
-    { name: 'Welding machine (industrial)', amps: '30–100 A', watts: `${(30*voltage*0.7*1.732/1000).toFixed(0)}–${(100*voltage*0.7*1.732/1000).toFixed(0)} kW` },
-  ];
-  if (voltage <= 24) return [
-    { name: 'Automotive headlight (halogen)', amps: '4.5 A', watts: '55 W' },
-    { name: 'Car stereo (aftermarket)', amps: '5–10 A', watts: '60–120 W' },
-    { name: 'Electric winch (small)', amps: '50–80 A', watts: '600–960 W' },
-    { name: 'Trolling motor', amps: '20–50 A', watts: '240–600 W' },
-    { name: 'RV water heater', amps: '10–15 A', watts: '120–180 W' },
-    { name: 'Inverter (1,000W)', amps: '~90 A at 12V', watts: '1,000 W output' },
-  ];
-  if (voltage >= 200 && voltage <= 250) return [
-    { name: 'Electric clothes dryer', amps: '23 A', watts: `${(23*voltage).toLocaleString()} W` },
-    { name: 'EV charger (Level 2, 32A)', amps: '32 A', watts: `${(32*voltage).toLocaleString()} W` },
-    { name: 'Central air conditioner', amps: '15–25 A', watts: `${(15*voltage).toLocaleString()}–${(25*voltage).toLocaleString()} W` },
-    { name: 'Electric range/oven', amps: '20–40 A', watts: `${(20*voltage).toLocaleString()}–${(40*voltage).toLocaleString()} W` },
-    { name: 'Water heater (tank)', amps: '18–21 A', watts: `${(18*voltage).toLocaleString()}–${(21*voltage).toLocaleString()} W` },
-    { name: 'Welder (hobby, 240V)', amps: '20–50 A', watts: `${(20*voltage).toLocaleString()}–${(50*voltage).toLocaleString()} W` },
-  ];
+  if (slug.includes("solar") || slug.includes("led"))
+    return [
+      { name: "Single LED strip (5m)", amps: "2–6 A", watts: "24–72 W" },
+      { name: "LED floodlight", amps: "4–8 A", watts: "50–100 W" },
+      { name: "Solar panel (100W)", amps: "5.5 A at Vmp", watts: "100 W" },
+      { name: "Solar panel (400W)", amps: "10–11 A at Vmp", watts: "400 W" },
+      { name: "12V water pump", amps: "3–10 A", watts: "36–120 W" },
+      { name: "12V fridge (camping)", amps: "3–5 A", watts: "36–60 W" },
+    ];
+  if (slug.includes("speaker"))
+    return [
+      { name: "Head unit (stock)", amps: "2–5 A", watts: "25–60 W" },
+      { name: "Class D mono amp (500W)", amps: "35–45 A", watts: "420–540 W" },
+      { name: "Class AB 4-ch amp (400W)", amps: "50–65 A", watts: "600–780 W" },
+      { name: "Powered subwoofer (250W)", amps: "20–30 A", watts: "240–360 W" },
+      { name: "Full car audio system", amps: "80–150 A", watts: "960–1,800 W" },
+    ];
+  if (slug.includes("megawatts"))
+    return [
+      {
+        name: "Wind turbine (utility)",
+        amps: "~150 A/phase at 4.16kV",
+        watts: "2 MW",
+      },
+      { name: "Solar farm (1 MW)", amps: "~58 A/phase at 11kV", watts: "1 MW" },
+      {
+        name: "Industrial motor (500 HP)",
+        amps: "~520 A at 480V",
+        watts: "373 kW",
+      },
+      { name: "Data center rack", amps: "30–50 A at 208V", watts: "6–10 kW" },
+    ];
+  if (ph === "ac3" || slug.includes("3-phase"))
+    return [
+      {
+        name: "Commercial HVAC chiller",
+        amps: "20–60 A",
+        watts: `${((20 * voltage * 0.85 * 1.732) / 1000).toFixed(0)}–${((60 * voltage * 0.85 * 1.732) / 1000).toFixed(0)} kW`,
+      },
+      {
+        name: "CNC machine",
+        amps: "15–40 A",
+        watts: `${((15 * voltage * 0.85 * 1.732) / 1000).toFixed(0)}–${((40 * voltage * 0.85 * 1.732) / 1000).toFixed(0)} kW`,
+      },
+      {
+        name: "Industrial pump (25 HP)",
+        amps: "~34 A at 480V",
+        watts: "18.7 kW",
+      },
+      {
+        name: "Elevator motor",
+        amps: "20–80 A",
+        watts: `${((20 * voltage * 0.85 * 1.732) / 1000).toFixed(0)}–${((80 * voltage * 0.85 * 1.732) / 1000).toFixed(0)} kW`,
+      },
+      {
+        name: "Welding machine (industrial)",
+        amps: "30–100 A",
+        watts: `${((30 * voltage * 0.7 * 1.732) / 1000).toFixed(0)}–${((100 * voltage * 0.7 * 1.732) / 1000).toFixed(0)} kW`,
+      },
+    ];
+  if (voltage <= 24)
+    return [
+      { name: "Automotive headlight (halogen)", amps: "4.5 A", watts: "55 W" },
+      { name: "Car stereo (aftermarket)", amps: "5–10 A", watts: "60–120 W" },
+      { name: "Electric winch (small)", amps: "50–80 A", watts: "600–960 W" },
+      { name: "Trolling motor", amps: "20–50 A", watts: "240–600 W" },
+      { name: "RV water heater", amps: "10–15 A", watts: "120–180 W" },
+      {
+        name: "Inverter (1,000W)",
+        amps: "~90 A at 12V",
+        watts: "1,000 W output",
+      },
+    ];
+  if (voltage >= 200 && voltage <= 250)
+    return [
+      {
+        name: "Electric clothes dryer",
+        amps: "23 A",
+        watts: `${(23 * voltage).toLocaleString()} W`,
+      },
+      {
+        name: "EV charger (Level 2, 32A)",
+        amps: "32 A",
+        watts: `${(32 * voltage).toLocaleString()} W`,
+      },
+      {
+        name: "Central air conditioner",
+        amps: "15–25 A",
+        watts: `${(15 * voltage).toLocaleString()}–${(25 * voltage).toLocaleString()} W`,
+      },
+      {
+        name: "Electric range/oven",
+        amps: "20–40 A",
+        watts: `${(20 * voltage).toLocaleString()}–${(40 * voltage).toLocaleString()} W`,
+      },
+      {
+        name: "Water heater (tank)",
+        amps: "18–21 A",
+        watts: `${(18 * voltage).toLocaleString()}–${(21 * voltage).toLocaleString()} W`,
+      },
+      {
+        name: "Welder (hobby, 240V)",
+        amps: "20–50 A",
+        watts: `${(20 * voltage).toLocaleString()}–${(50 * voltage).toLocaleString()} W`,
+      },
+    ];
   /* 120V default */
   return [
-    { name: 'LED light bulb', amps: '0.08 A', watts: '10 W' },
-    { name: 'Refrigerator (running)', amps: '1.5 A', watts: '180 W' },
-    { name: 'Window A/C (small)', amps: '5 A', watts: '600 W' },
-    { name: 'Microwave oven', amps: '8 A', watts: '960 W' },
-    { name: 'Hair dryer (high)', amps: '12.5 A', watts: '1,500 W' },
-    { name: 'Space heater', amps: '12.5 A', watts: '1,500 W' },
+    { name: "LED light bulb", amps: "0.08 A", watts: "10 W" },
+    { name: "Refrigerator (running)", amps: "1.5 A", watts: "180 W" },
+    { name: "Window A/C (small)", amps: "5 A", watts: "600 W" },
+    { name: "Microwave oven", amps: "8 A", watts: "960 W" },
+    { name: "Hair dryer (high)", amps: "12.5 A", watts: "1,500 W" },
+    { name: "Space heater", amps: "12.5 A", watts: "1,500 W" },
   ];
 }
 
@@ -82,25 +149,35 @@ const appRows = appliances(tool.slug, v, phase);
 
 /* Contextual content per tool kind */
 function tipTitle(tool: Tool) {
-  if (tool.kind === 'voltage-drop') return `Voltage Drop Across ${v}V Conductors`;
-  if (tool.kind === 'wire-gauge') return `Wire Gauge Selection for ${v}V Circuits`;
-  if (tool.kind === 'amp-hours') return 'Battery Capacity and Runtime Planning';
-  if (tool.kind === 'power-factor') return 'Power Factor and Power Quality Analysis';
-  if (tool.kind === 'kva-to-watts') return 'Apparent Power to Real Power Conversion';
-  if (tool.kind === 'volt-amps') return 'Apparent Power (VA) Calculations';
-  if (tool.kind === 'amps-to-kw') return `Converting ${v}V Amps to Kilowatts`;
-  if (tool.kind === 'watts-to-amps') return `Watts to Amps at ${v}V`;
+  if (tool.kind === "voltage-drop")
+    return `Voltage Drop Across ${v}V Conductors`;
+  if (tool.kind === "wire-gauge")
+    return `Wire Gauge Selection for ${v}V Circuits`;
+  if (tool.kind === "amp-hours") return "Battery Capacity and Runtime Planning";
+  if (tool.kind === "power-factor")
+    return "Power Factor and Power Quality Analysis";
+  if (tool.kind === "kva-to-watts")
+    return "Apparent Power to Real Power Conversion";
+  if (tool.kind === "volt-amps") return "Apparent Power (VA) Calculations";
+  if (tool.kind === "amps-to-kw") return `Converting ${v}V Amps to Kilowatts`;
+  if (tool.kind === "watts-to-amps") return `Watts to Amps at ${v}V`;
   return `${v}V Amps to Watts Conversion`;
 }
 
 function safetyContext(tool: Tool): string {
-  if (tool.kind === 'voltage-drop') return 'excessive voltage drop can cause equipment malfunction, dimming, overheating, and motor damage. Always verify that voltage drop stays within 3% for branch circuits and 5% total per NEC guidelines.';
-  if (tool.kind === 'wire-gauge') return 'undersized wire is a fire hazard. Wire gauge must satisfy both ampacity (heat) and voltage drop (performance) requirements. Always verify against NEC Table 310.16 and local code.';
-  if (tool.kind === 'amp-hours') return 'over-discharging batteries damages cells and shortens lifespan. Never exceed the manufacturer depth-of-discharge limits. Lead-acid: 50% max. LiFePO4: 80–90% max.';
-  if (tool.defaultPhase === 'ac3') return 'three-phase equipment operates at lethal voltage levels. All installation, maintenance, and troubleshooting must be performed by qualified personnel with proper lockout/tagout procedures.';
-  if ((tool.defaultVoltage ?? 0) >= 200) return `${v}V circuits can deliver fatal current. All wiring, breaker sizing, and connections must comply with NEC or local electrical code and be inspected by a qualified electrician.`;
-  if (tool.defaultPhase === 'dc' && (tool.defaultVoltage ?? 0) <= 48) return `while ${v}V DC is generally low-risk for shock, short circuits can produce extreme current, arcing, and fire — especially with lithium batteries. Always use appropriate fusing and disconnect switches.`;
-  return 'all calculator results are planning estimates. Final wiring, breaker sizing, conductor selection, and code compliance must be verified by a licensed electrician or qualified engineer.';
+  if (tool.kind === "voltage-drop")
+    return "excessive voltage drop can cause equipment malfunction, dimming, overheating, and motor damage. Always verify that voltage drop stays within 3% for branch circuits and 5% total per NEC guidelines.";
+  if (tool.kind === "wire-gauge")
+    return "undersized wire is a fire hazard. Wire gauge must satisfy both ampacity (heat) and voltage drop (performance) requirements. Always verify against NEC Table 310.16 and local code.";
+  if (tool.kind === "amp-hours")
+    return "over-discharging batteries damages cells and shortens lifespan. Never exceed the manufacturer depth-of-discharge limits. Lead-acid: 50% max. LiFePO4: 80–90% max.";
+  if (tool.defaultPhase === "ac3")
+    return "three-phase equipment operates at lethal voltage levels. All installation, maintenance, and troubleshooting must be performed by qualified personnel with proper lockout/tagout procedures.";
+  if ((tool.defaultVoltage ?? 0) >= 200)
+    return `${v}V circuits can deliver fatal current. All wiring, breaker sizing, and connections must comply with NEC or local electrical code and be inspected by a qualified electrician.`;
+  if (tool.defaultPhase === "dc" && (tool.defaultVoltage ?? 0) <= 48)
+    return `while ${v}V DC is generally low-risk for shock, short circuits can produce extreme current, arcing, and fire — especially with lithium batteries. Always use appropriate fusing and disconnect switches.`;
+  return "all calculator results are planning estimates. Final wiring, breaker sizing, conductor selection, and code compliance must be verified by a licensed electrician or qualified engineer.";
 }
 ---
 
@@ -114,8 +191,34 @@ function safetyContext(tool: Tool): string {
 
     <!-- Section 1: What this tool does -->
     <h3>What This Calculator Does</h3>
-    <p>This {tool.shortTitle} converts {tool.kind === 'watts-to-amps' ? 'watts to amps' : tool.kind === 'voltage-drop' ? 'circuit parameters to voltage drop' : tool.kind === 'wire-gauge' ? 'load requirements to recommended wire gauge' : tool.kind === 'amp-hours' ? 'amp-hours to watt-hours and energy' : tool.kind === 'power-factor' ? 'real and apparent power to power factor' : tool.kind === 'kva-to-watts' ? 'apparent power (kVA) to real power (watts)' : tool.kind === 'volt-amps' ? 'current and voltage to apparent power (VA)' : tool.kind === 'amps-to-kw' ? 'amps to kilowatts' : 'amps to watts'} for <strong>{phaseLabel}</strong> circuits{v ? ` at ${v} volts` : ''}. Enter the known values, and the calculator applies the formula <strong>{tool.formula}</strong> to return an instant planning result.</p>
-    <p>{tool.description} The result includes watts, kilowatts, and a formula breakdown so you can verify the calculation and understand each step.</p>
+    <p>
+      This {tool.shortTitle} converts {
+        tool.kind === "watts-to-amps"
+          ? "watts to amps"
+          : tool.kind === "voltage-drop"
+            ? "circuit parameters to voltage drop"
+            : tool.kind === "wire-gauge"
+              ? "load requirements to recommended wire gauge"
+              : tool.kind === "amp-hours"
+                ? "amp-hours to watt-hours and energy"
+                : tool.kind === "power-factor"
+                  ? "real and apparent power to power factor"
+                  : tool.kind === "kva-to-watts"
+                    ? "apparent power (kVA) to real power (watts)"
+                    : tool.kind === "volt-amps"
+                      ? "current and voltage to apparent power (VA)"
+                      : tool.kind === "amps-to-kw"
+                        ? "amps to kilowatts"
+                        : "amps to watts"
+      } for <strong>{phaseLabel}</strong> circuits{v ? ` at ${v} volts` : ""}.
+      Enter the known values, and the calculator applies the formula <strong
+        >{tool.formula}</strong
+      > to return an instant planning result.
+    </p>
+    <p>
+      {tool.description} The result includes watts, kilowatts, and a formula breakdown
+      so you can verify the calculation and understand each step.
+    </p>
 
     <!-- Section 2: The formula -->
     <h3>Formula Used</h3>
@@ -123,18 +226,45 @@ function safetyContext(tool: Tool): string {
       <span>{phaseLabel}</span>
       <strong>{tool.formula}</strong>
       <p>
-        {phase === 'dc' && 'No power factor is needed for DC circuits because current and voltage are always in phase. The conversion is a direct multiplication.'}
-        {phase === 'ac1' && 'Power factor (PF) accounts for the phase difference between current and voltage in AC inductive or capacitive loads. For pure resistive loads, PF = 1.00 and the formula simplifies to Watts = Amps × Volts.'}
-        {phase === 'ac3' && 'The √3 (1.732) factor accounts for the 120° phase offset between three-phase conductors when using line-to-line voltage. Power factor accounts for the reactive component of the load.'}
+        {
+          phase === "dc" &&
+            "No power factor is needed for DC circuits because current and voltage are always in phase. The conversion is a direct multiplication."
+        }
+        {
+          phase === "ac1" &&
+            "Power factor (PF) accounts for the phase difference between current and voltage in AC inductive or capacitive loads. For pure resistive loads, PF = 1.00 and the formula simplifies to Watts = Amps × Volts."
+        }
+        {
+          phase === "ac3" &&
+            "The √3 (1.732) factor accounts for the 120° phase offset between three-phase conductors when using line-to-line voltage. Power factor accounts for the reactive component of the load."
+        }
       </p>
     </div>
-    {phase !== 'dc' && (
-      <p>If the equipment nameplate does not list a power factor, use these guidelines: resistive loads (heaters, lamps) = 1.00, motor loads = 0.80–0.90, compressors = 0.80–0.95, electronic equipment = 0.60–0.95 depending on power factor correction. For detailed PF analysis, use the <a href="/power-factor/">Power Factor Calculator</a>.</p>
-    )}
+    {
+      phase !== "dc" && (
+        <p>
+          If the equipment nameplate does not list a power factor, use these
+          guidelines: resistive loads (heaters, lamps) = 1.00, motor loads =
+          0.80–0.90, compressors = 0.80–0.95, electronic equipment = 0.60–0.95
+          depending on power factor correction. For detailed PF analysis, use
+          the <a href="/power-factor/">Power Factor Calculator</a>.
+        </p>
+      )
+    }
 
     <!-- Section 3: Conversion table -->
-    <h3>Amps to {tool.kind === 'watts-to-amps' ? 'Watts' : 'Watts'} Conversion Table at {v}V</h3>
-    <p>Quick reference for common amperage values at {v} volts. All values assume power factor 1.00{phase !== 'dc' ? '. For AC loads with lower PF, multiply each watt value by the power factor' : ''}.</p>
+    <h3>
+      Amps to {tool.kind === "watts-to-amps" ? "Watts" : "Watts"} Conversion Table
+      at {v}V
+    </h3>
+    <p>
+      Quick reference for common amperage values at {v} volts. All values assume power
+      factor 1.00{
+        phase !== "dc"
+          ? ". For AC loads with lower PF, multiply each watt value by the power factor"
+          : ""
+      }.
+    </p>
     <div class="table-wrap">
       <table class="reference-table">
         <thead>
@@ -145,20 +275,28 @@ function safetyContext(tool: Tool): string {
           </tr>
         </thead>
         <tbody>
-          {rows.map(r => (
-            <tr>
-              <td>{r.amps}</td>
-              <td>{r.watts}</td>
-              <td>{r.kw}</td>
-            </tr>
-          ))}
+          {
+            rows.map((r) => (
+              <tr>
+                <td>{r.amps}</td>
+                <td>{r.watts}</td>
+                <td>{r.kw}</td>
+              </tr>
+            ))
+          }
         </tbody>
       </table>
     </div>
 
     <!-- Section 4: Real-world applications -->
-    <h3>Common {v}V {phaseLabel === 'DC' ? 'DC' : phaseLabel} Loads and Their Wattage</h3>
-    <p>The following table shows typical current draw and wattage for equipment commonly found on {v}V {phaseLabel} circuits. Actual values depend on the specific model, operating conditions, and — for AC loads — power factor.</p>
+    <h3>
+      Common {v}V {phaseLabel === "DC" ? "DC" : phaseLabel} Loads and Their Wattage
+    </h3>
+    <p>
+      The following table shows typical current draw and wattage for equipment
+      commonly found on {v}V {phaseLabel} circuits. Actual values depend on the specific
+      model, operating conditions, and — for AC loads — power factor.
+    </p>
     <div class="table-wrap">
       <table class="reference-table">
         <thead>
@@ -169,13 +307,15 @@ function safetyContext(tool: Tool): string {
           </tr>
         </thead>
         <tbody>
-          {appRows.map(r => (
-            <tr>
-              <td>{r.name}</td>
-              <td>{r.amps}</td>
-              <td>{r.watts}</td>
-            </tr>
-          ))}
+          {
+            appRows.map((r) => (
+              <tr>
+                <td>{r.name}</td>
+                <td>{r.amps}</td>
+                <td>{r.watts}</td>
+              </tr>
+            ))
+          }
         </tbody>
       </table>
     </div>
@@ -185,26 +325,79 @@ function safetyContext(tool: Tool): string {
     <div class="home-example-grid">
       <div>
         <h4>Example 1: Basic conversion</h4>
-        <p>A {phase === 'dc' ? 'DC load' : 'resistive load'} draws 10 amps at {v}V. {phase === 'ac3' ? `Watts = 1.732 × 10 × ${v} × 1.00 = ${Math.round(1.732 * 10 * v).toLocaleString()} W` : `Watts = 10 × ${v}${phase !== 'dc' ? ' × 1.00' : ''} = ${(10 * v).toLocaleString()} W`} = <strong>{phase === 'ac3' ? (1.732 * 10 * v / 1000).toFixed(2) : (10 * v / 1000).toFixed(2)} kW</strong>.</p>
+        <p>
+          A {phase === "dc" ? "DC load" : "resistive load"} draws 10 amps at {
+            v
+          }V. {
+            phase === "ac3"
+              ? `Watts = 1.732 × 10 × ${v} × 1.00 = ${Math.round(1.732 * 10 * v).toLocaleString()} W`
+              : `Watts = 10 × ${v}${phase !== "dc" ? " × 1.00" : ""} = ${(10 * v).toLocaleString()} W`
+          } = <strong
+            >{
+              phase === "ac3"
+                ? ((1.732 * 10 * v) / 1000).toFixed(2)
+                : ((10 * v) / 1000).toFixed(2)
+            } kW</strong
+          >.
+        </p>
       </div>
       <div>
-        <h4>Example 2: {phase === 'dc' ? 'Battery load' : 'Motor with power factor'}</h4>
-        {phase === 'dc' ? (
-          <p>A {v}V battery powers a 25A load for 4 hours. Power: 25 × {v} = {(25 * v).toLocaleString()} W. Energy: {(25 * v).toLocaleString()} W × 4h = {(25 * v * 4).toLocaleString()} Wh = <strong>{(25 * v * 4 / 1000).toFixed(2)} kWh</strong>.</p>
-        ) : (
-          <p>A motor draws 15 amps at {v}V with power factor 0.85. {phase === 'ac3' ? `Watts = 1.732 × 15 × ${v} × 0.85 = ${Math.round(1.732 * 15 * v * 0.85).toLocaleString()} W` : `Watts = 15 × ${v} × 0.85 = ${Math.round(15 * v * 0.85).toLocaleString()} W`} = <strong>{phase === 'ac3' ? (1.732 * 15 * v * 0.85 / 1000).toFixed(2) : (15 * v * 0.85 / 1000).toFixed(2)} kW</strong> real power.</p>
-        )}
+        <h4>
+          Example 2: {
+            phase === "dc" ? "Battery load" : "Motor with power factor"
+          }
+        </h4>
+        {
+          phase === "dc" ? (
+            <p>
+              A {v}V battery powers a 25A load for 4 hours. Power: 25 × {v} ={" "}
+              {(25 * v).toLocaleString()} W. Energy: {(25 * v).toLocaleString()}{" "}
+              W × 4h = {(25 * v * 4).toLocaleString()} Wh ={" "}
+              <strong>{((25 * v * 4) / 1000).toFixed(2)} kWh</strong>.
+            </p>
+          ) : (
+            <p>
+              A motor draws 15 amps at {v}V with power factor 0.85.{" "}
+              {phase === "ac3"
+                ? `Watts = 1.732 × 15 × ${v} × 0.85 = ${Math.round(1.732 * 15 * v * 0.85).toLocaleString()} W`
+                : `Watts = 15 × ${v} × 0.85 = ${Math.round(15 * v * 0.85).toLocaleString()} W`}{" "}
+              ={" "}
+              <strong>
+                {phase === "ac3"
+                  ? ((1.732 * 15 * v * 0.85) / 1000).toFixed(2)
+                  : ((15 * v * 0.85) / 1000).toFixed(2)}{" "}
+                kW
+              </strong>{" "}
+              real power.
+            </p>
+          )
+        }
       </div>
       <div>
         <h4>Example 3: Finding amps from watts</h4>
-        <p>A {(v * 20).toLocaleString()}W appliance on {v}V: Amps = {(v * 20).toLocaleString()} ÷ {v}{phase === 'ac3' ? ` ÷ 1.732` : ''} = <strong>{phase === 'ac3' ? (20 / 1.732).toFixed(1) : '20'} amps</strong>{phase !== 'dc' ? ' at PF 1.00' : ''}. This reverse calculation helps verify breaker and wire sizing.</p>
+        <p>
+          A {(v * 20).toLocaleString()}W appliance on {v}V: Amps = {
+            (v * 20).toLocaleString()
+          } ÷ {v}{phase === "ac3" ? ` ÷ 1.732` : ""} = <strong
+            >{phase === "ac3" ? (20 / 1.732).toFixed(1) : "20"} amps</strong
+          >{phase !== "dc" ? " at PF 1.00" : ""}. This reverse calculation helps
+          verify breaker and wire sizing.
+        </p>
       </div>
-      {v >= 100 && v <= 250 && phase !== 'ac3' && (
-        <div>
-          <h4>Example 4: Breaker check (80% rule)</h4>
-          <p>A 20A breaker on {v}V handles {(20 * v).toLocaleString()}W max. For continuous loads: {(20 * v).toLocaleString()} × 0.80 = <strong>{(20 * v * 0.8).toLocaleString()}W planning limit</strong>. If your load exceeds this, you need a higher-rated circuit or a dedicated branch.</p>
-        </div>
-      )}
+      {
+        v >= 100 && v <= 250 && phase !== "ac3" && (
+          <div>
+            <h4>Example 4: Breaker check (80% rule)</h4>
+            <p>
+              A 20A breaker on {v}V handles {(20 * v).toLocaleString()}W max.
+              For continuous loads: {(20 * v).toLocaleString()} × 0.80 ={" "}
+              <strong>{(20 * v * 0.8).toLocaleString()}W planning limit</strong>
+              . If your load exceeds this, you need a higher-rated circuit or a
+              dedicated branch.
+            </p>
+          </div>
+        )
+      }
     </div>
 
     <!-- Section 5.5: When to use this calculator vs others -->
@@ -223,8 +416,37 @@ function safetyContext(tool: Tool): string {
             <td>✅ Yes — this page</td>
           </tr>
           <tr>
-            <td>Different voltage ({v === 120 ? '240V' : v === 240 ? '120V' : v === 12 ? '120V or 240V' : '12V or 120V'})</td>
-            <td>Use the <a href={v === 120 ? '/240v-amps-to-watts/' : v === 240 ? '/120v-amps-to-watts/' : v === 12 ? '/120v-amps-to-watts/' : '/12v-amps-to-watts/'}>{v === 120 ? '240V' : v === 240 ? '120V' : v === 12 ? '120V' : '12V'} calculator</a></td>
+            <td
+              >Different voltage ({
+                v === 120
+                  ? "240V"
+                  : v === 240
+                    ? "120V"
+                    : v === 12
+                      ? "120V or 240V"
+                      : "12V or 120V"
+              })</td
+            >
+            <td
+              >Use the <a
+                href={v === 120
+                  ? "/240v-amps-to-watts/"
+                  : v === 240
+                    ? "/120v-amps-to-watts/"
+                    : v === 12
+                      ? "/120v-amps-to-watts/"
+                      : "/12v-amps-to-watts/"}
+                >{
+                  v === 120
+                    ? "240V"
+                    : v === 240
+                      ? "120V"
+                      : v === 12
+                        ? "120V"
+                        : "12V"
+                } calculator</a
+              ></td
+            >
           </tr>
           <tr>
             <td>General conversion at any voltage</td>
@@ -232,15 +454,27 @@ function safetyContext(tool: Tool): string {
           </tr>
           <tr>
             <td>Battery runtime from amp-hours</td>
-            <td>Use the <a href="/amp-hours-to-watt-hours/">Ah to Wh calculator</a></td>
+            <td
+              >Use the <a href="/amp-hours-to-watt-hours/"
+                >Ah to Wh calculator</a
+              ></td
+            >
           </tr>
           <tr>
             <td>Checking wire size for a run</td>
-            <td>Use the <a href="/wire-gauge-calculator/">Wire Gauge Calculator</a></td>
+            <td
+              >Use the <a href="/wire-gauge-calculator/"
+                >Wire Gauge Calculator</a
+              ></td
+            >
           </tr>
           <tr>
             <td>Understanding power factor</td>
-            <td>Read <a href="/understanding-power-factor/">Understanding Power Factor</a></td>
+            <td
+              >Read <a href="/understanding-power-factor/"
+                >Understanding Power Factor</a
+              ></td
+            >
           </tr>
         </tbody>
       </table>
@@ -249,6 +483,12 @@ function safetyContext(tool: Tool): string {
     <!-- Section 6: Safety -->
     <h3>Safety and Accuracy Notice</h3>
     <p><strong>Important:</strong> {safetyContext(tool)}</p>
-    <p>Calculator results are educational planning estimates. They are not a substitute for professional engineering, NEC/IEC code review, or licensed electrical inspection. For more on the underlying formulas, see <a href="/ohms-law-explained/">Ohm's Law Explained</a> and <a href="/what-are-watts/">What Are Watts</a>.</p>
+    <p>
+      Calculator results are educational planning estimates. They are not a
+      substitute for professional engineering, NEC/IEC code review, or licensed
+      electrical inspection. For more on the underlying formulas, see <a
+        href="/ohms-law-explained/">Ohm's Law Explained</a
+      > and <a href="/what-are-watts/">What Are Watts</a>.
+    </p>
   </article>
 </section>

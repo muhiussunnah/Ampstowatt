@@ -1,19 +1,28 @@
 ---
-const updatedDate = 'June 7, 2026';
+const updatedDate = "June 7, 2026";
 ---
 
-<section class="content-section authority-methodology" aria-labelledby="authority-methodology-title">
+<section
+  class="content-section authority-methodology"
+  aria-labelledby="authority-methodology-title"
+>
   <article class="content-card authority-card">
     <div class="section-divider">
       <div class="icon-circle" aria-hidden="true">REF</div>
-      <h2 id="authority-methodology-title">Methodology, Review Notes, and Sources</h2>
+      <h2 id="authority-methodology-title">
+        Methodology, Review Notes, and Sources
+      </h2>
       <div class="line" aria-hidden="true"></div>
     </div>
 
     <div class="authority-grid">
       <section class="authority-panel" aria-labelledby="methodology-title">
         <h3 id="methodology-title">How this calculator works</h3>
-        <p>The calculator applies Watt's law for DC and resistive loads, then adds power factor for AC loads and the 1.732 multiplier for balanced three-phase line-to-line calculations.</p>
+        <p>
+          The calculator applies Watt's law for DC and resistive loads, then
+          adds power factor for AC loads and the 1.732 multiplier for balanced
+          three-phase line-to-line calculations.
+        </p>
         <ul>
           <li>DC and resistive loads: <strong>W = A x V</strong></li>
           <li>Single-phase AC: <strong>W = A x V x PF</strong></li>
@@ -23,16 +32,34 @@ const updatedDate = 'June 7, 2026';
 
       <section class="authority-panel" aria-labelledby="review-title">
         <h3 id="review-title">Editorial review</h3>
-        <p><strong>Last reviewed:</strong> {updatedDate}. This page is maintained by the Ampstowatt editorial team and checked for formula consistency, unit labels, calculator behavior, and safety wording.</p>
-        <p>The page is an educational planning reference, not a licensed electrical design or inspection service.</p>
+        <p>
+          <strong>Last reviewed:</strong>
+          {updatedDate}. This page is maintained by the Ampstowatt editorial
+          team and checked for formula consistency, unit labels, calculator
+          behavior, and safety wording.
+        </p>
+        <p>
+          The page is an educational planning reference, not a licensed
+          electrical design or inspection service.
+        </p>
       </section>
 
       <section class="authority-panel" aria-labelledby="sources-title">
         <h3 id="sources-title">Reference sources</h3>
         <ul>
-          <li><a href="https://www.nist.gov/pml/weights-and-measures/si-units-ampere">NIST SI unit guidance for ampere, volt, and watt symbols</a></li>
-          <li><a href="https://www.cdc.gov/niosh/electrical-safety/index.html">CDC/NIOSH electrical safety guidance</a></li>
-          <li><a href="https://www.osha.gov/etools/subpart-s">OSHA electrical standards and qualified-person context</a></li>
+          <li>
+            <a
+              href="https://www.nist.gov/pml/weights-and-measures/si-units-ampere"
+              >NIST SI unit guidance for ampere, volt, and watt symbols</a>
+          </li>
+          <li>
+            <a href="https://www.cdc.gov/niosh/electrical-safety/index.html"
+              >CDC/NIOSH electrical safety guidance</a>
+          </li>
+          <li>
+            <a href="https://www.osha.gov/etools/subpart-s"
+              >OSHA electrical standards and qualified-person context</a>
+          </li>
         </ul>
       </section>
     </div>

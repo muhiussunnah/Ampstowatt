@@ -1,5 +1,5 @@
 ---
-import type { Tool } from '@/data/tools';
+import type { Tool } from "@/data/tools";
 
 interface Props {
   tool?: Tool;
@@ -7,13 +7,20 @@ interface Props {
 
 const { tool } = Astro.props;
 const defaultVoltage = tool?.defaultVoltage ?? 120;
-const defaultPhase = tool?.defaultPhase ?? 'ac1';
-const defaultMode = tool?.defaultMode ?? (tool?.kind === 'watts-to-amps' ? 'watts-to-amps' : 'amps-to-watts');
-const defaultInput = tool?.defaultInput ?? (defaultMode === 'watts-to-amps' ? 1000 : 10);
-const defaultUnit = tool?.defaultUnit ?? (defaultMode === 'watts-to-amps' ? 'w' : 'a');
-const toolKind = tool?.kind ?? 'amps-to-watts';
-const inputPlaceholder = defaultMode === 'watts-to-amps' ? 'Example: 1500' : 'Example: 10';
-const voltagePlaceholder = defaultVoltage ? `Example: ${defaultVoltage}` : 'Example: 120';
+const defaultPhase = tool?.defaultPhase ?? "ac1";
+const defaultMode =
+  tool?.defaultMode ??
+  (tool?.kind === "watts-to-amps" ? "watts-to-amps" : "amps-to-watts");
+const defaultInput =
+  tool?.defaultInput ?? (defaultMode === "watts-to-amps" ? 1000 : 10);
+const defaultUnit =
+  tool?.defaultUnit ?? (defaultMode === "watts-to-amps" ? "w" : "a");
+const toolKind = tool?.kind ?? "amps-to-watts";
+const inputPlaceholder =
+  defaultMode === "watts-to-amps" ? "Example: 1500" : "Example: 10";
+const voltagePlaceholder = defaultVoltage
+  ? `Example: ${defaultVoltage}`
+  : "Example: 120";
 ---
 
 <div
@@ -31,7 +38,10 @@ const voltagePlaceholder = defaultVoltage ? `Example: ${defaultVoltage}` : 'Exam
   <div class="calc-header">
     <div>
       <h2 class="calc-title">Amps to Watts Calculator</h2>
-      <p class="calc-subtitle">Enter current, voltage, and power factor to calculate electrical power instantly.</p>
+      <p class="calc-subtitle">
+        Enter current, voltage, and power factor to calculate electrical power
+        instantly.
+      </p>
     </div>
     <span class="calc-badge">⚡ Live Result</span>
   </div>
@@ -41,17 +51,35 @@ const voltagePlaceholder = defaultVoltage ? `Example: ${defaultVoltage}` : 'Exam
     <div class="calc-section-title">1. Choose Current Type</div>
 
     <div class="calc-mode-grid" role="tablist" aria-label="Current type">
-      <button class="calc-mode-btn" type="button" role="tab" aria-selected={defaultPhase === 'dc' ? 'true' : 'false'} data-calc-phase="dc">
+      <button
+        class="calc-mode-btn"
+        type="button"
+        role="tab"
+        aria-selected={defaultPhase === "dc" ? "true" : "false"}
+        data-calc-phase="dc"
+      >
         <span class="calc-mode-icon" aria-hidden="true">=</span>
         <span class="calc-mode-label">DC</span>
         <span class="calc-mode-desc">Batteries &amp; solar</span>
       </button>
-      <button class="calc-mode-btn" type="button" role="tab" aria-selected={defaultPhase === 'ac1' ? 'true' : 'false'} data-calc-phase="ac1">
+      <button
+        class="calc-mode-btn"
+        type="button"
+        role="tab"
+        aria-selected={defaultPhase === "ac1" ? "true" : "false"}
+        data-calc-phase="ac1"
+      >
         <span class="calc-mode-icon" aria-hidden="true">~</span>
         <span class="calc-mode-label">Single-Phase AC</span>
         <span class="calc-mode-desc">Homes &amp; outlets</span>
       </button>
-      <button class="calc-mode-btn" type="button" role="tab" aria-selected={defaultPhase === 'ac3' ? 'true' : 'false'} data-calc-phase="ac3">
+      <button
+        class="calc-mode-btn"
+        type="button"
+        role="tab"
+        aria-selected={defaultPhase === "ac3" ? "true" : "false"}
+        data-calc-phase="ac3"
+      >
         <span class="calc-mode-icon" aria-hidden="true">3~</span>
         <span class="calc-mode-label">Three-Phase AC</span>
         <span class="calc-mode-desc">Industrial systems</span>
@@ -60,9 +88,13 @@ const voltagePlaceholder = defaultVoltage ? `Example: ${defaultVoltage}` : 'Exam
 
     <!-- Hidden select for JS engine compatibility -->
     <select id="lx-type" class="sr-only" aria-label="System type">
-      <option value="dc" selected={defaultPhase === 'dc'}>DC</option>
-      <option value="ac1" selected={defaultPhase === 'ac1'}>AC Single-Phase</option>
-      <option value="ac3" selected={defaultPhase === 'ac3'}>AC Three-Phase</option>
+      <option value="dc" selected={defaultPhase === "dc"}>DC</option>
+      <option value="ac1" selected={defaultPhase === "ac1"}
+        >AC Single-Phase</option
+      >
+      <option value="ac3" selected={defaultPhase === "ac3"}
+        >AC Three-Phase</option
+      >
     </select>
   </section>
 
@@ -77,16 +109,31 @@ const voltagePlaceholder = defaultVoltage ? `Example: ${defaultVoltage}` : 'Exam
           <span class="calc-label" id="lbl-power">Current (Amps)</span>
         </span>
         <span class="calc-input-wrap">
-          <input class="calc-input" type="number" id="lx-power" value={defaultInput} min="0" step="any" placeholder={inputPlaceholder} aria-describedby="lx-power-help lx-power-error" />
+          <input
+            class="calc-input"
+            type="number"
+            id="lx-power"
+            value={defaultInput}
+            min="0"
+            step="any"
+            placeholder={inputPlaceholder}
+            aria-describedby="lx-power-help lx-power-error"
+          />
           <span class="calc-unit-wrap">
             <label class="sr-only" for="lx-power-unit">Current unit</label>
-            <select id="lx-power-unit" class="calc-unit-select" aria-label="Current unit">
+            <select
+              id="lx-power-unit"
+              class="calc-unit-select"
+              aria-label="Current unit"
+            >
               <option value="a">A</option>
               <option value="ma">mA</option>
             </select>
           </span>
         </span>
-        <span class="calc-helper" id="lx-power-help">Enter the electrical current in amperes.</span>
+        <span class="calc-helper" id="lx-power-help"
+          >Enter the electrical current in amperes.</span
+        >
         <span class="calc-error" id="lx-power-error" aria-live="polite"></span>
       </label>
 
@@ -96,10 +143,21 @@ const voltagePlaceholder = defaultVoltage ? `Example: ${defaultVoltage}` : 'Exam
           <span class="calc-label">Voltage (Volts)</span>
         </span>
         <span class="calc-input-wrap">
-          <input class="calc-input" type="number" id="lx-volts" value={defaultVoltage} min="0" step="any" placeholder={voltagePlaceholder} aria-describedby="lx-volts-help lx-volts-error" />
+          <input
+            class="calc-input"
+            type="number"
+            id="lx-volts"
+            value={defaultVoltage}
+            min="0"
+            step="any"
+            placeholder={voltagePlaceholder}
+            aria-describedby="lx-volts-help lx-volts-error"
+          />
           <span class="calc-unit">V</span>
         </span>
-        <span class="calc-helper" id="lx-volts-help">Enter the circuit voltage.</span>
+        <span class="calc-helper" id="lx-volts-help"
+          >Enter the circuit voltage.</span
+        >
         <span class="calc-error" id="lx-volts-error" aria-live="polite"></span>
       </label>
 
@@ -109,11 +167,32 @@ const voltagePlaceholder = defaultVoltage ? `Example: ${defaultVoltage}` : 'Exam
           <span class="calc-label">Power Factor (PF)</span>
         </span>
         <span class="calc-input-wrap">
-          <input class="calc-input" type="number" id="lx-pf-input" min="0.01" max="1" step="0.01" value="1.00" aria-describedby="lx-pf-help lx-pf-input-error" />
+          <input
+            class="calc-input"
+            type="number"
+            id="lx-pf-input"
+            min="0.01"
+            max="1"
+            step="0.01"
+            value="1.00"
+            aria-describedby="lx-pf-help lx-pf-input-error"
+          />
         </span>
-        <input type="range" id="lx-pf-slider" class="sr-only" min="0.01" max="1" step="0.01" value="1" aria-label="Power factor slider" />
-        <span class="calc-helper" id="lx-pf-help">Use 1.0 for DC/resistive loads. AC motors often use 0.8–0.95.</span>
-        <span class="calc-error" id="lx-pf-input-error" aria-live="polite"></span>
+        <input
+          type="range"
+          id="lx-pf-slider"
+          class="sr-only"
+          min="0.01"
+          max="1"
+          step="0.01"
+          value="1"
+          aria-label="Power factor slider"
+        />
+        <span class="calc-helper" id="lx-pf-help"
+          >Use 1.0 for DC/resistive loads. AC motors often use 0.8–0.95.</span
+        >
+        <span class="calc-error" id="lx-pf-input-error" aria-live="polite"
+        ></span>
       </label>
 
       <!-- Frequency -->
@@ -125,7 +204,8 @@ const voltagePlaceholder = defaultVoltage ? `Example: ${defaultVoltage}` : 'Exam
           <input class="calc-input" type="number" min="0" step="1" value="60" />
           <span class="calc-unit">Hz</span>
         </span>
-        <span class="calc-helper">Usually 50 or 60 Hz. Informational only.</span>
+        <span class="calc-helper">Usually 50 or 60 Hz. Informational only.</span
+        >
       </label>
     </div>
   </section>
@@ -135,10 +215,16 @@ const voltagePlaceholder = defaultVoltage ? `Example: ${defaultVoltage}` : 'Exam
     <div class="calc-voltage-type-title">Voltage Type</div>
     <input type="hidden" id="lx-vtype" value="vll" />
     <div class="calc-voltage-type-grid">
-      <button class="calc-voltage-btn is-active" type="button" id="btn-vll">Line-to-Line</button>
-      <button class="calc-voltage-btn" type="button" id="btn-vln">Line-to-Neutral</button>
+      <button class="calc-voltage-btn is-active" type="button" id="btn-vll"
+        >Line-to-Line</button
+      >
+      <button class="calc-voltage-btn" type="button" id="btn-vln"
+        >Line-to-Neutral</button
+      >
     </div>
-    <p class="calc-helper" style="margin-top:10px">Use line-to-line voltage for most three-phase calculations.</p>
+    <p class="calc-helper" style="margin-top:10px">
+      Use line-to-line voltage for most three-phase calculations.
+    </p>
   </section>
 
   <!-- Step 3: Result -->
@@ -153,8 +239,12 @@ const voltagePlaceholder = defaultVoltage ? `Example: ${defaultVoltage}` : 'Exam
       </div>
       <div class="calc-formula-box">
         <span class="calc-formula-label">Formula Used</span>
-        <span class="calc-formula-value" id="calc-formula-display">W = A × V</span>
-        <span class="calc-helper" id="calc-result-helper">Enter values to calculate power.</span>
+        <span class="calc-formula-value" id="calc-formula-display"
+          >W = A × V</span
+        >
+        <span class="calc-helper" id="calc-result-helper"
+          >Enter values to calculate power.</span
+        >
       </div>
     </div>
 
@@ -171,40 +261,79 @@ const voltagePlaceholder = defaultVoltage ? `Example: ${defaultVoltage}` : 'Exam
     <div class="calc-action-row">
       <div class="calc-actions">
         <button class="calc-btn lx-btn-reset" type="button">Reset</button>
-        <button class="calc-btn calc-btn-primary lx-action-copy" type="button">Copy Result</button>
+        <button class="calc-btn calc-btn-primary lx-action-copy" type="button"
+          >Copy Result</button
+        >
       </div>
-      <p class="calc-note">Always verify electrical work with local code and device specifications.</p>
+      <p class="calc-note">
+        Always verify electrical work with local code and device specifications.
+      </p>
     </div>
   </section>
 
   <!-- Mode switch (hidden, for JS engine compat) -->
-  <button type="button" class="sr-only lx-mode-btn" id="lx-mode-btn" aria-pressed="false">Switch to Watts to Amps</button>
+  <button
+    type="button"
+    class="sr-only lx-mode-btn"
+    id="lx-mode-btn"
+    aria-pressed="false">Switch to Watts to Amps</button
+  >
 
   <!-- Presets -->
   <div class="calc-presets" id="device-presets">
     <span class="calc-presets-title">Common Load Presets</span>
     <div class="calc-presets-grid">
-      <button type="button" class="calc-preset-btn" data-preset-watts="60" data-preset-volts="120">
+      <button
+        type="button"
+        class="calc-preset-btn"
+        data-preset-watts="60"
+        data-preset-volts="120"
+      >
         <span>Light Bulb</span>
         <strong>60W</strong>
       </button>
-      <button type="button" class="calc-preset-btn" data-preset-watts="1000" data-preset-volts="120">
+      <button
+        type="button"
+        class="calc-preset-btn"
+        data-preset-watts="1000"
+        data-preset-volts="120"
+      >
         <span>Microwave</span>
         <strong>1,000W</strong>
       </button>
-      <button type="button" class="calc-preset-btn" data-preset-watts="1800" data-preset-volts="120">
+      <button
+        type="button"
+        class="calc-preset-btn"
+        data-preset-watts="1800"
+        data-preset-volts="120"
+      >
         <span>Hair Dryer</span>
         <strong>1,800W</strong>
       </button>
-      <button type="button" class="calc-preset-btn" data-preset-watts="5000" data-preset-volts="240">
+      <button
+        type="button"
+        class="calc-preset-btn"
+        data-preset-watts="5000"
+        data-preset-volts="240"
+      >
         <span>EV Charger</span>
         <strong>5,000W</strong>
       </button>
-      <button type="button" class="calc-preset-btn" data-preset-watts="3500" data-preset-volts="240">
+      <button
+        type="button"
+        class="calc-preset-btn"
+        data-preset-watts="3500"
+        data-preset-volts="240"
+      >
         <span>Dryer</span>
         <strong>3,500W</strong>
       </button>
-      <button type="button" class="calc-preset-btn" data-preset-watts="1500" data-preset-volts="120">
+      <button
+        type="button"
+        class="calc-preset-btn"
+        data-preset-watts="1500"
+        data-preset-volts="120"
+      >
         <span>Space Heater</span>
         <strong>1,500W</strong>
       </button>

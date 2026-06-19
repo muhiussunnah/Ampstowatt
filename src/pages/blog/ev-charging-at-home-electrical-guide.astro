@@ -1,8 +1,10 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
+import BaseLayout from "@/layouts/BaseLayout.astro";
 
-const title = "EV Charging at Home: Full Electrical Planning Guide | Ampstowatt";
-const description = "Planning to install a Level 2 EV charger? Find out exactly what wire gauge, breaker size, and power capacity you need for 240V charging.";
+const title =
+  "EV Charging at Home: Full Electrical Planning Guide | Ampstowatt";
+const description =
+  "Planning to install a Level 2 EV charger? Find out exactly what wire gauge, breaker size, and power capacity you need for 240V charging.";
 const h1Title = "EV Charging at Home: Full Electrical Planning Guide";
 ---
 
@@ -24,36 +26,68 @@ const h1Title = "EV Charging at Home: Full Electrical Planning Guide";
       <span>15 min read</span>
     </div>
 
-    <p>Installing an Electric Vehicle (EV) charger at home is one of the most demanding electrical loads a residential panel will ever see. Unlike an electric dryer or oven that cycles its heating elements on and off, an EV charger draws maximum power continuously for many hours.</p>
-    
-    <p>Proper electrical planning is not just about avoiding nuisance breaker trips—it is a critical fire safety requirement.</p>
+    <p>
+      Installing an Electric Vehicle (EV) charger at home is one of the most
+      demanding electrical loads a residential panel will ever see. Unlike an
+      electric dryer or oven that cycles its heating elements on and off, an EV
+      charger draws maximum power continuously for many hours.
+    </p>
+
+    <p>
+      Proper electrical planning is not just about avoiding nuisance breaker
+      trips—it is a critical fire safety requirement.
+    </p>
 
     <h2>Level 1 vs. Level 2 Charging</h2>
-    <p>Understanding the difference between the two main types of home charging is the first step in planning your electrical needs and calculating your load.</p>
+    <p>
+      Understanding the difference between the two main types of home charging
+      is the first step in planning your electrical needs and calculating your
+      load.
+    </p>
 
     <h3>Level 1 Charging (120V)</h3>
-    <p>This is the "trickle charge" you get by plugging your car's mobile connector into a standard wall outlet. It is slow but requires no electrical upgrades.</p>
+    <p>
+      This is the "trickle charge" you get by plugging your car's mobile
+      connector into a standard wall outlet. It is slow but requires no
+      electrical upgrades.
+    </p>
     <ul>
       <li><strong>Voltage:</strong> 120V (Standard US Outlet)</li>
-      <li><strong>Amps:</strong> Usually limited to 12A (on a standard 15A circuit)</li>
+      <li>
+        <strong>Amps:</strong> Usually limited to 12A (on a standard 15A circuit)
+      </li>
       <li><strong>Power Output:</strong> 1,440 Watts (1.44 kW)</li>
       <li><strong>Charge Rate:</strong> About 3-5 miles of range per hour</li>
     </ul>
 
     <h3>Level 2 Charging (240V)</h3>
-    <p>Level 2 chargers require a dedicated 240V circuit, similar to the circuit used for an electric stove or central AC. This is the standard for modern, overnight home EV charging.</p>
+    <p>
+      Level 2 chargers require a dedicated 240V circuit, similar to the circuit
+      used for an electric stove or central AC. This is the standard for modern,
+      overnight home EV charging.
+    </p>
     <ul>
       <li><strong>Voltage:</strong> 240V (Split-Phase)</li>
-      <li><strong>Amps:</strong> Ranging from 16A to 48A (or up to 80A for early dual-charger models)</li>
+      <li>
+        <strong>Amps:</strong> Ranging from 16A to 48A (or up to 80A for early dual-charger
+        models)
+      </li>
       <li><strong>Power Output:</strong> 3.8 kW to 11.5 kW</li>
       <li><strong>Charge Rate:</strong> About 15-45 miles of range per hour</li>
     </ul>
 
     <h2>Sizing Your Breaker and Wire (The 80% Rule)</h2>
-    <p>Because EV charging takes several hours, the National Electrical Code (NEC) classifies it as a <strong>continuous load</strong>. This means your charger can only operate at 80% of the circuit breaker's rated capacity.</p>
-    
-    <p>Conversely, your breaker must be sized to 125% of your charger's maximum output.</p>
-    
+    <p>
+      Because EV charging takes several hours, the National Electrical Code
+      (NEC) classifies it as a <strong>continuous load</strong>. This means your
+      charger can only operate at 80% of the circuit breaker's rated capacity.
+    </p>
+
+    <p>
+      Conversely, your breaker must be sized to 125% of your charger's maximum
+      output.
+    </p>
+
     <table>
       <thead>
         <tr>
@@ -98,16 +132,42 @@ const h1Title = "EV Charging at Home: Full Electrical Planning Guide";
     </table>
 
     <h2>Plug-in vs. Hardwired Chargers</h2>
-    <p>Many homeowners prefer a plug-in Level 2 charger because it seems easier to install or replace. A plug-in charger usually requires a NEMA 14-50 receptacle.</p>
-    
-    <p>However, recent updates to the NEC require GFCI protection for all 240V receptacles in garages. The problem? Most EV chargers already have built-in ground fault protection. Pairing a GFCI charger with a GFCI breaker frequently causes "nuisance tripping." Furthermore, standard hardware store NEMA 14-50 receptacles are known to melt under the sustained 40A load of an EV charger; industrial-grade receptacles ($50-$100) are required.</p>
-    
+    <p>
+      Many homeowners prefer a plug-in Level 2 charger because it seems easier
+      to install or replace. A plug-in charger usually requires a NEMA 14-50
+      receptacle.
+    </p>
+
+    <p>
+      However, recent updates to the NEC require GFCI protection for all 240V
+      receptacles in garages. The problem? Most EV chargers already have
+      built-in ground fault protection. Pairing a GFCI charger with a GFCI
+      breaker frequently causes "nuisance tripping." Furthermore, standard
+      hardware store NEMA 14-50 receptacles are known to melt under the
+      sustained 40A load of an EV charger; industrial-grade receptacles
+      ($50-$100) are required.
+    </p>
+
     <h3>The Hardwired Advantage</h3>
-    <p><strong>The Solution:</strong> Hardwiring the charger directly to the panel avoids the need for an expensive GFCI breaker and a heavy-duty receptacle. It provides a more robust, weather-tight connection, and it is the <em>only</em> way to charge at 48 amps (since standard residential plugs max out at a 50A breaker / 40A charging).</p>
+    <p>
+      <strong>The Solution:</strong> Hardwiring the charger directly to the panel
+      avoids the need for an expensive GFCI breaker and a heavy-duty receptacle. It
+      provides a more robust, weather-tight connection, and it is the <em
+        >only</em
+      > way to charge at 48 amps (since standard residential plugs max out at a 50A
+      breaker / 40A charging).
+    </p>
 
     <div class="pro-tip">
       <strong>Panel Capacity Warning:</strong>
-      <p>Before buying an EV charger, ensure your main electrical panel has the capacity for the extra load. Use our <a href="/ev-charger-amps-to-watts/">EV Charger Amps to Watts Calculator</a> to determine exactly how much power your charger will draw, and run a formal residential load calculation to verify you do not need a service upgrade.</p>
+      <p>
+        Before buying an EV charger, ensure your main electrical panel has the
+        capacity for the extra load. Use our <a
+          href="/ev-charger-amps-to-watts/"
+          >EV Charger Amps to Watts Calculator</a
+        > to determine exactly how much power your charger will draw, and run a formal
+        residential load calculation to verify you do not need a service upgrade.
+      </p>
     </div>
   </article>
 </BaseLayout>

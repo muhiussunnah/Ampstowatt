@@ -1,39 +1,45 @@
 ---
-import type { Tool } from '@/data/tools';
-import { getFaqQuestions } from '@/lib/faq';
+import type { Tool } from "@/data/tools";
+import { getFaqQuestions } from "@/lib/faq";
 
 type Props = {
   tool?: Tool;
   title?: string;
 };
 
-const { tool, title = 'Frequently Asked Questions' } = Astro.props;
+const { tool, title = "Frequently Asked Questions" } = Astro.props;
 const name = tool?.shortTitle ?? title;
 const heading = tool ? `${name} FAQ` : title;
-const ariaLabel = heading.toLowerCase().endsWith('faq') ? heading : `${heading} FAQ`;
+const ariaLabel = heading.toLowerCase().endsWith("faq")
+  ? heading
+  : `${heading} FAQ`;
 const questions = getFaqQuestions(tool);
 const description = tool
-  ? 'Fast answers before you use the calculator or compare formulas.'
-  : 'Fast answers for the amps to watts formula, common conversions, and safe planning limits.';
+  ? "Fast answers before you use the calculator or compare formulas."
+  : "Fast answers for the amps to watts formula, common conversions, and safe planning limits.";
 ---
 
 <section class="premium-faq-section" id="faq" aria-label={ariaLabel}>
   <div class="premium-faq-heading">
-    <p class="premium-kicker" data-i18n={!tool ? 'faq.kicker' : undefined}>FAQ</p>
-    <h2 data-i18n={!tool ? 'faq.title' : undefined}>{heading}</h2>
-    <p data-i18n={!tool ? 'faq.desc' : undefined}>{description}</p>
+    <p class="premium-kicker" data-i18n={!tool ? "faq.kicker" : undefined}>
+      FAQ
+    </p>
+    <h2 data-i18n={!tool ? "faq.title" : undefined}>{heading}</h2>
+    <p data-i18n={!tool ? "faq.desc" : undefined}>{description}</p>
   </div>
   <div class="premium-faq-list">
-    {questions.map((item, index) => (
-      <details open={index === 0}>
-        <summary>
-          <span class="faq-summary-inner">
-            <span class="faq-badge">{item.icon}</span>
-            {item.q}
-          </span>
-        </summary>
-        <p>{item.a}</p>
-      </details>
-    ))}
+    {
+      questions.map((item, index) => (
+        <details open={index === 0}>
+          <summary>
+            <span class="faq-summary-inner">
+              <span class="faq-badge">{item.icon}</span>
+              {item.q}
+            </span>
+          </summary>
+          <p>{item.a}</p>
+        </details>
+      ))
+    }
   </div>
 </section>

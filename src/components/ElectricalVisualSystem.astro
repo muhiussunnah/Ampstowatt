@@ -1,313 +1,704 @@
 ---
-import type { Tool } from '@/data/tools';
+import type { Tool } from "@/data/tools";
 
 interface Props {
   tool?: Tool;
-  variant?: 'home';
+  variant?: "home";
 }
 
 const { tool, variant } = Astro.props;
 const voltage = tool?.defaultVoltage ?? 120;
-const title = tool?.title ?? 'Amps to Watts Calculator';
-const formula = tool?.formula ?? 'Watts = Amps x Volts';
+const title = tool?.title ?? "Amps to Watts Calculator";
+const formula = tool?.formula ?? "Watts = Amps x Volts";
 
 function visualFor() {
-  if (variant === 'home' || !tool) {
+  if (variant === "home" || !tool) {
     return {
-      id: 'home-amps-to-watts-visual',
-      eyebrow: 'Premium technical visual',
-      heading: 'Amps, volts, watts, and circuit limits in one view',
-      note: 'Use the diagram as a fast visual map: choose the circuit type, enter measured amps and volts, then compare the watt result with practical circuit limits.',
-      mode: 'home',
-      labels: ['10 A', '120 V', '1,200 W', '15 A breaker', '1,440 W continuous']
+      id: "home-amps-to-watts-visual",
+      eyebrow: "Premium technical visual",
+      heading: "Amps, volts, watts, and circuit limits in one view",
+      note: "Use the diagram as a fast visual map: choose the circuit type, enter measured amps and volts, then compare the watt result with practical circuit limits.",
+      mode: "home",
+      labels: [
+        "10 A",
+        "120 V",
+        "1,200 W",
+        "15 A breaker",
+        "1,440 W continuous",
+      ],
     };
   }
 
-  if (tool.slug.includes('solar')) {
+  if (tool.slug.includes("solar")) {
     return {
       id: `${tool.slug}-solar-visual`,
-      eyebrow: 'Solar current path',
-      heading: 'Panel watts converted into battery-side charging amps',
-      note: 'Solar pages need separate panel-side and battery-side thinking, so this visual shows panel power moving through the controller before the amp result.',
-      mode: 'solar',
-      labels: ['400 W panel', `${voltage} V bank`, `${(400 / voltage).toFixed(2)} A`, 'MPPT/PWM', 'Fuse + wire check']
+      eyebrow: "Solar current path",
+      heading: "Panel watts converted into battery-side charging amps",
+      note: "Solar pages need separate panel-side and battery-side thinking, so this visual shows panel power moving through the controller before the amp result.",
+      mode: "solar",
+      labels: [
+        "400 W panel",
+        `${voltage} V bank`,
+        `${(400 / voltage).toFixed(2)} A`,
+        "MPPT/PWM",
+        "Fuse + wire check",
+      ],
     };
   }
 
-  if (tool.slug.includes('led')) {
+  if (tool.slug.includes("led")) {
     return {
       id: `${tool.slug}-led-visual`,
-      eyebrow: 'LED driver path',
-      heading: 'Driver watts divided by low-voltage DC supply',
-      note: 'LED loads are usually low-voltage DC, so the useful visual is a driver feeding a strip with current, voltage, and wire checks shown together.',
-      mode: 'led',
-      labels: ['LED driver', '12 V / 24 V', 'A = W / V', 'Strip load', 'Voltage drop']
+      eyebrow: "LED driver path",
+      heading: "Driver watts divided by low-voltage DC supply",
+      note: "LED loads are usually low-voltage DC, so the useful visual is a driver feeding a strip with current, voltage, and wire checks shown together.",
+      mode: "led",
+      labels: [
+        "LED driver",
+        "12 V / 24 V",
+        "A = W / V",
+        "Strip load",
+        "Voltage drop",
+      ],
     };
   }
 
-  if (tool.slug.includes('speaker')) {
+  if (tool.slug.includes("speaker")) {
     return {
       id: `${tool.slug}-speaker-visual`,
-      eyebrow: 'Amplifier supply path',
-      heading: 'Audio output watts translated into DC supply current',
-      note: 'Amplifier pages need efficiency and fuse context, because speaker watts and supply current are not the same measurement.',
-      mode: 'speaker',
-      labels: ['Amplifier', '500 W RMS', '12 V supply', '85% eff.', '49 A draw']
+      eyebrow: "Amplifier supply path",
+      heading: "Audio output watts translated into DC supply current",
+      note: "Amplifier pages need efficiency and fuse context, because speaker watts and supply current are not the same measurement.",
+      mode: "speaker",
+      labels: [
+        "Amplifier",
+        "500 W RMS",
+        "12 V supply",
+        "85% eff.",
+        "49 A draw",
+      ],
     };
   }
 
-  if (tool.kind === 'voltage-drop' || tool.kind === 'wire-gauge') {
+  if (tool.kind === "voltage-drop" || tool.kind === "wire-gauge") {
     return {
       id: `${tool.slug}-wire-visual`,
-      eyebrow: 'Conductor planning map',
-      heading: 'Current, distance, conductor material, and voltage drop',
-      note: 'Wire and voltage-drop pages rank better when the content shows the physical run: source, conductor length, voltage loss, and load.',
-      mode: 'wire',
-      labels: ['Source', 'Current', 'One-way distance', 'Copper / aluminum', '% voltage drop']
+      eyebrow: "Conductor planning map",
+      heading: "Current, distance, conductor material, and voltage drop",
+      note: "Wire and voltage-drop pages rank better when the content shows the physical run: source, conductor length, voltage loss, and load.",
+      mode: "wire",
+      labels: [
+        "Source",
+        "Current",
+        "One-way distance",
+        "Copper / aluminum",
+        "% voltage drop",
+      ],
     };
   }
 
-  if (tool.kind === 'amp-hours') {
+  if (tool.kind === "amp-hours") {
     return {
       id: `${tool.slug}-battery-visual`,
-      eyebrow: 'Battery energy model',
-      heading: 'Amp-hours converted into watt-hours and runtime',
-      note: 'Battery pages need energy context, so this panel connects Ah, voltage, efficiency, Wh, and practical runtime.',
-      mode: 'battery',
-      labels: ['100 Ah', `${voltage} V`, `${(100 * voltage).toLocaleString()} Wh`, 'Efficiency', 'Runtime load']
+      eyebrow: "Battery energy model",
+      heading: "Amp-hours converted into watt-hours and runtime",
+      note: "Battery pages need energy context, so this panel connects Ah, voltage, efficiency, Wh, and practical runtime.",
+      mode: "battery",
+      labels: [
+        "100 Ah",
+        `${voltage} V`,
+        `${(100 * voltage).toLocaleString()} Wh`,
+        "Efficiency",
+        "Runtime load",
+      ],
     };
   }
 
-  if (tool.kind === 'power-factor' || tool.kind === 'kva-to-watts' || tool.kind === 'volt-amps') {
+  if (
+    tool.kind === "power-factor" ||
+    tool.kind === "kva-to-watts" ||
+    tool.kind === "volt-amps"
+  ) {
     return {
       id: `${tool.slug}-power-triangle-visual`,
-      eyebrow: 'Real vs apparent power',
-      heading: 'Watts, VA, kVA, and power factor shown as one relationship',
-      note: 'These conversions depend on the difference between real and apparent power, so the power triangle makes the formula easier to trust.',
-      mode: 'triangle',
-      labels: ['kVA / VA', 'Watts', 'Reactive load', 'PF = W / VA', 'Generator sizing']
+      eyebrow: "Real vs apparent power",
+      heading: "Watts, VA, kVA, and power factor shown as one relationship",
+      note: "These conversions depend on the difference between real and apparent power, so the power triangle makes the formula easier to trust.",
+      mode: "triangle",
+      labels: [
+        "kVA / VA",
+        "Watts",
+        "Reactive load",
+        "PF = W / VA",
+        "Generator sizing",
+      ],
     };
   }
 
-  if (tool.defaultPhase === 'ac3' || tool.slug.includes('3-phase') || tool.slug.includes('megawatts')) {
+  if (
+    tool.defaultPhase === "ac3" ||
+    tool.slug.includes("3-phase") ||
+    tool.slug.includes("megawatts")
+  ) {
     return {
       id: `${tool.slug}-three-phase-visual`,
-      eyebrow: 'Three-phase power path',
-      heading: 'Balanced line-to-line power using the 1.732 multiplier',
-      note: 'Three-phase pages need line-to-line voltage clarity, so the diagram shows L1, L2, L3 feeding a balanced load.',
-      mode: 'three',
-      labels: ['L1', 'L2', 'L3', `${voltage} V L-L`, '1.732 x A x V x PF']
+      eyebrow: "Three-phase power path",
+      heading: "Balanced line-to-line power using the 1.732 multiplier",
+      note: "Three-phase pages need line-to-line voltage clarity, so the diagram shows L1, L2, L3 feeding a balanced load.",
+      mode: "three",
+      labels: ["L1", "L2", "L3", `${voltage} V L-L`, "1.732 x A x V x PF"],
     };
   }
 
-  if (tool.defaultPhase === 'dc' || tool.slug.includes('12v') || tool.slug.includes('dc')) {
+  if (
+    tool.defaultPhase === "dc" ||
+    tool.slug.includes("12v") ||
+    tool.slug.includes("dc")
+  ) {
     return {
       id: `${tool.slug}-dc-visual`,
-      eyebrow: 'DC circuit loop',
-      heading: 'Battery voltage and current converted directly into watts',
-      note: 'DC pages need a clean loop: battery, load, current direction, and watts without power factor.',
-      mode: 'dc',
-      labels: [`${voltage} V battery`, '10 A', `${10 * voltage} W`, 'Fuse', 'Load']
+      eyebrow: "DC circuit loop",
+      heading: "Battery voltage and current converted directly into watts",
+      note: "DC pages need a clean loop: battery, load, current direction, and watts without power factor.",
+      mode: "dc",
+      labels: [
+        `${voltage} V battery`,
+        "10 A",
+        `${10 * voltage} W`,
+        "Fuse",
+        "Load",
+      ],
     };
   }
 
   return {
     id: `${tool.slug}-ac-visual`,
-    eyebrow: 'Single-phase AC path',
-    heading: 'Current, voltage, and power factor feeding a real watt result',
-    note: 'AC pages need power factor context, so the visual connects outlet voltage, current draw, PF, and breaker planning.',
-    mode: 'ac',
-    labels: ['AC source', `${voltage} V`, '10 A', 'PF 0.90', `${Math.round(10 * voltage * 0.9).toLocaleString()} W`]
+    eyebrow: "Single-phase AC path",
+    heading: "Current, voltage, and power factor feeding a real watt result",
+    note: "AC pages need power factor context, so the visual connects outlet voltage, current draw, PF, and breaker planning.",
+    mode: "ac",
+    labels: [
+      "AC source",
+      `${voltage} V`,
+      "10 A",
+      "PF 0.90",
+      `${Math.round(10 * voltage * 0.9).toLocaleString()} W`,
+    ],
   };
 }
 
 const visual = visualFor();
 ---
 
-<section class="electric-visual-section" aria-labelledby={`${visual.id}-heading`}>
+<section
+  class="electric-visual-section"
+  aria-labelledby={`${visual.id}-heading`}
+>
   <article class="electric-visual-shell">
     <div class="electric-visual-copy">
       <p class="premium-kicker">{visual.eyebrow}</p>
       <h2 id={`${visual.id}-heading`}>{visual.heading}</h2>
       <p>{visual.note}</p>
-      <div class="electric-formula-bar" aria-label="Formula used in this visual">
+      <div
+        class="electric-formula-bar"
+        aria-label="Formula used in this visual"
+      >
         <span>Formula</span>
         <strong>{formula}</strong>
       </div>
     </div>
 
     <figure class={`electric-diagram electric-diagram--${visual.mode}`}>
-      <svg viewBox="0 0 760 390" role="img" aria-labelledby={`${visual.id}-svg-title ${visual.id}-svg-desc`}>
-        <title id={`${visual.id}-svg-title`}>{title} technical circuit diagram</title>
-        <desc id={`${visual.id}-svg-desc`}>A premium electrical diagram showing the main values and conversion flow for {title}.</desc>
+      <svg
+        viewBox="0 0 760 390"
+        role="img"
+        aria-labelledby={`${visual.id}-svg-title ${visual.id}-svg-desc`}
+      >
+        <title id={`${visual.id}-svg-title`}>
+          {title} technical circuit diagram
+        </title>
+        <desc id={`${visual.id}-svg-desc`}
+          >A premium electrical diagram showing the main values and conversion
+          flow for {title}.</desc
+        >
 
-        <rect class="ev-board" x="18" y="18" width="724" height="354" rx="18" />
-        <path class="ev-grid-line" d="M70 70 H690 M70 125 H690 M70 180 H690 M70 235 H690 M70 290 H690 M115 48 V338 M215 48 V338 M315 48 V338 M415 48 V338 M515 48 V338 M615 48 V338" />
+        <rect class="ev-board" x="18" y="18" width="724" height="354" rx="18"
+        ></rect>
+        <path
+          class="ev-grid-line"
+          d="M70 70 H690 M70 125 H690 M70 180 H690 M70 235 H690 M70 290 H690 M115 48 V338 M215 48 V338 M315 48 V338 M415 48 V338 M515 48 V338 M615 48 V338"
+        ></path>
 
-        {visual.mode === 'home' && (
-          <>
-            <rect class="ev-node ev-node--gold" x="58" y="88" width="132" height="82" rx="14" />
-            <rect class="ev-node ev-node--cyan" x="288" y="72" width="176" height="114" rx="18" />
-            <rect class="ev-node ev-node--success" x="560" y="88" width="132" height="82" rx="14" />
-            <path class="ev-wire ev-wire--hot" d="M190 129 H288" />
-            <path class="ev-wire ev-wire--hot" d="M464 129 H560" />
-            <path class="ev-wire" d="M124 170 C124 266 626 266 626 170" />
-            <circle class="ev-meter" cx="382" cy="265" r="48" />
-            <text class="ev-label" x="124" y="119" text-anchor="middle">{visual.labels[0]}</text>
-            <text class="ev-muted" x="124" y="145" text-anchor="middle">{visual.labels[1]}</text>
-            <text class="ev-title" x="376" y="112" text-anchor="middle">A x V = W</text>
-            <text class="ev-muted" x="376" y="144" text-anchor="middle">DC / AC / 3-phase</text>
-            <text class="ev-label" x="626" y="119" text-anchor="middle">{visual.labels[2]}</text>
-            <text class="ev-muted" x="626" y="145" text-anchor="middle">{visual.labels[3]}</text>
-            <text class="ev-title" x="382" y="272" text-anchor="middle">{visual.labels[4]}</text>
-          </>
-        )}
+        {
+          visual.mode === "home" && (
+            <>
+              <rect
+                class="ev-node ev-node--gold"
+                x="58"
+                y="88"
+                width="132"
+                height="82"
+                rx="14"
+              />
+              <rect
+                class="ev-node ev-node--cyan"
+                x="288"
+                y="72"
+                width="176"
+                height="114"
+                rx="18"
+              />
+              <rect
+                class="ev-node ev-node--success"
+                x="560"
+                y="88"
+                width="132"
+                height="82"
+                rx="14"
+              />
+              <path class="ev-wire ev-wire--hot" d="M190 129 H288" />
+              <path class="ev-wire ev-wire--hot" d="M464 129 H560" />
+              <path class="ev-wire" d="M124 170 C124 266 626 266 626 170" />
+              <circle class="ev-meter" cx="382" cy="265" r="48" />
+              <text class="ev-label" x="124" y="119" text-anchor="middle">
+                {visual.labels[0]}
+              </text>
+              <text class="ev-muted" x="124" y="145" text-anchor="middle">
+                {visual.labels[1]}
+              </text>
+              <text class="ev-title" x="376" y="112" text-anchor="middle">
+                A x V = W
+              </text>
+              <text class="ev-muted" x="376" y="144" text-anchor="middle">
+                DC / AC / 3-phase
+              </text>
+              <text class="ev-label" x="626" y="119" text-anchor="middle">
+                {visual.labels[2]}
+              </text>
+              <text class="ev-muted" x="626" y="145" text-anchor="middle">
+                {visual.labels[3]}
+              </text>
+              <text class="ev-title" x="382" y="272" text-anchor="middle">
+                {visual.labels[4]}
+              </text>
+            </>
+          )
+        }
 
-        {visual.mode === 'solar' && (
-          <>
-            <rect class="ev-panel" x="54" y="72" width="150" height="118" rx="14" />
-            <path class="ev-panel-grid" d="M84 72 V190 M114 72 V190 M144 72 V190 M174 72 V190 M54 111 H204 M54 151 H204" />
-            <rect class="ev-node ev-node--cyan" x="316" y="82" width="142" height="98" rx="16" />
-            <rect class="ev-battery" x="590" y="86" width="118" height="92" rx="14" />
-            <path class="ev-wire ev-wire--hot" d="M204 131 H316" />
-            <path class="ev-wire ev-wire--hot" d="M458 131 H590" />
-            <path class="ev-wire" d="M105 222 H654" />
-            <circle class="ev-meter" cx="380" cy="262" r="44" />
-            <text class="ev-label" x="129" y="128" text-anchor="middle">{visual.labels[0]}</text>
-            <text class="ev-title" x="387" y="121" text-anchor="middle">{visual.labels[3]}</text>
-            <text class="ev-muted" x="387" y="148" text-anchor="middle">{visual.labels[2]}</text>
-            <text class="ev-label" x="649" y="124" text-anchor="middle">{visual.labels[1]}</text>
-            <text class="ev-title" x="380" y="269" text-anchor="middle">{visual.labels[4]}</text>
-          </>
-        )}
+        {
+          visual.mode === "solar" && (
+            <>
+              <rect
+                class="ev-panel"
+                x="54"
+                y="72"
+                width="150"
+                height="118"
+                rx="14"
+              />
+              <path
+                class="ev-panel-grid"
+                d="M84 72 V190 M114 72 V190 M144 72 V190 M174 72 V190 M54 111 H204 M54 151 H204"
+              />
+              <rect
+                class="ev-node ev-node--cyan"
+                x="316"
+                y="82"
+                width="142"
+                height="98"
+                rx="16"
+              />
+              <rect
+                class="ev-battery"
+                x="590"
+                y="86"
+                width="118"
+                height="92"
+                rx="14"
+              />
+              <path class="ev-wire ev-wire--hot" d="M204 131 H316" />
+              <path class="ev-wire ev-wire--hot" d="M458 131 H590" />
+              <path class="ev-wire" d="M105 222 H654" />
+              <circle class="ev-meter" cx="380" cy="262" r="44" />
+              <text class="ev-label" x="129" y="128" text-anchor="middle">
+                {visual.labels[0]}
+              </text>
+              <text class="ev-title" x="387" y="121" text-anchor="middle">
+                {visual.labels[3]}
+              </text>
+              <text class="ev-muted" x="387" y="148" text-anchor="middle">
+                {visual.labels[2]}
+              </text>
+              <text class="ev-label" x="649" y="124" text-anchor="middle">
+                {visual.labels[1]}
+              </text>
+              <text class="ev-title" x="380" y="269" text-anchor="middle">
+                {visual.labels[4]}
+              </text>
+            </>
+          )
+        }
 
-        {visual.mode === 'led' && (
-          <>
-            <rect class="ev-node ev-node--gold" x="64" y="90" width="150" height="92" rx="14" />
-            <rect class="ev-node ev-node--cyan" x="318" y="90" width="128" height="92" rx="14" />
-            <g>
-              <rect class="ev-led" x="560" y="82" width="34" height="112" rx="8" />
-              <rect class="ev-led" x="610" y="82" width="34" height="112" rx="8" />
-              <rect class="ev-led" x="660" y="82" width="34" height="112" rx="8" />
-            </g>
-            <path class="ev-wire ev-wire--hot" d="M214 136 H318" />
-            <path class="ev-wire ev-wire--hot" d="M446 136 H560" />
-            <path class="ev-wire" d="M138 218 H677" />
-            <circle class="ev-meter" cx="382" cy="264" r="42" />
-            <text class="ev-label" x="139" y="126" text-anchor="middle">{visual.labels[0]}</text>
-            <text class="ev-muted" x="139" y="153" text-anchor="middle">{visual.labels[1]}</text>
-            <text class="ev-title" x="382" y="128" text-anchor="middle">{visual.labels[2]}</text>
-            <text class="ev-label" x="644" y="221" text-anchor="middle">{visual.labels[3]}</text>
-            <text class="ev-title" x="382" y="271" text-anchor="middle">{visual.labels[4]}</text>
-          </>
-        )}
+        {
+          visual.mode === "led" && (
+            <>
+              <rect
+                class="ev-node ev-node--gold"
+                x="64"
+                y="90"
+                width="150"
+                height="92"
+                rx="14"
+              />
+              <rect
+                class="ev-node ev-node--cyan"
+                x="318"
+                y="90"
+                width="128"
+                height="92"
+                rx="14"
+              />
+              <g>
+                <rect
+                  class="ev-led"
+                  x="560"
+                  y="82"
+                  width="34"
+                  height="112"
+                  rx="8"
+                />
+                <rect
+                  class="ev-led"
+                  x="610"
+                  y="82"
+                  width="34"
+                  height="112"
+                  rx="8"
+                />
+                <rect
+                  class="ev-led"
+                  x="660"
+                  y="82"
+                  width="34"
+                  height="112"
+                  rx="8"
+                />
+              </g>
+              <path class="ev-wire ev-wire--hot" d="M214 136 H318" />
+              <path class="ev-wire ev-wire--hot" d="M446 136 H560" />
+              <path class="ev-wire" d="M138 218 H677" />
+              <circle class="ev-meter" cx="382" cy="264" r="42" />
+              <text class="ev-label" x="139" y="126" text-anchor="middle">
+                {visual.labels[0]}
+              </text>
+              <text class="ev-muted" x="139" y="153" text-anchor="middle">
+                {visual.labels[1]}
+              </text>
+              <text class="ev-title" x="382" y="128" text-anchor="middle">
+                {visual.labels[2]}
+              </text>
+              <text class="ev-label" x="644" y="221" text-anchor="middle">
+                {visual.labels[3]}
+              </text>
+              <text class="ev-title" x="382" y="271" text-anchor="middle">
+                {visual.labels[4]}
+              </text>
+            </>
+          )
+        }
 
-        {visual.mode === 'speaker' && (
-          <>
-            <rect class="ev-node ev-node--gold" x="62" y="93" width="132" height="92" rx="14" />
-            <rect class="ev-node ev-node--cyan" x="316" y="78" width="150" height="122" rx="18" />
-            <circle class="ev-speaker" cx="618" cy="118" r="44" />
-            <circle class="ev-speaker" cx="666" cy="190" r="34" />
-            <path class="ev-wire ev-wire--hot" d="M194 139 H316" />
-            <path class="ev-wire ev-wire--hot" d="M466 139 H576" />
-            <path class="ev-wire" d="M128 222 H646" />
-            <text class="ev-label" x="128" y="130" text-anchor="middle">{visual.labels[2]}</text>
-            <text class="ev-muted" x="128" y="157" text-anchor="middle">{visual.labels[4]}</text>
-            <text class="ev-title" x="391" y="122" text-anchor="middle">{visual.labels[0]}</text>
-            <text class="ev-muted" x="391" y="150" text-anchor="middle">{visual.labels[1]} / {visual.labels[3]}</text>
-            <text class="ev-label" x="635" y="278" text-anchor="middle">Speaker load</text>
-          </>
-        )}
+        {
+          visual.mode === "speaker" && (
+            <>
+              <rect
+                class="ev-node ev-node--gold"
+                x="62"
+                y="93"
+                width="132"
+                height="92"
+                rx="14"
+              />
+              <rect
+                class="ev-node ev-node--cyan"
+                x="316"
+                y="78"
+                width="150"
+                height="122"
+                rx="18"
+              />
+              <circle class="ev-speaker" cx="618" cy="118" r="44" />
+              <circle class="ev-speaker" cx="666" cy="190" r="34" />
+              <path class="ev-wire ev-wire--hot" d="M194 139 H316" />
+              <path class="ev-wire ev-wire--hot" d="M466 139 H576" />
+              <path class="ev-wire" d="M128 222 H646" />
+              <text class="ev-label" x="128" y="130" text-anchor="middle">
+                {visual.labels[2]}
+              </text>
+              <text class="ev-muted" x="128" y="157" text-anchor="middle">
+                {visual.labels[4]}
+              </text>
+              <text class="ev-title" x="391" y="122" text-anchor="middle">
+                {visual.labels[0]}
+              </text>
+              <text class="ev-muted" x="391" y="150" text-anchor="middle">
+                {visual.labels[1]} / {visual.labels[3]}
+              </text>
+              <text class="ev-label" x="635" y="278" text-anchor="middle">
+                Speaker load
+              </text>
+            </>
+          )
+        }
 
-        {visual.mode === 'wire' && (
-          <>
-            <rect class="ev-node ev-node--gold" x="54" y="92" width="124" height="90" rx="14" />
-            <rect class="ev-node ev-node--success" x="586" y="92" width="124" height="90" rx="14" />
-            <path class="ev-conductor ev-conductor--top" d="M178 118 C290 78 428 78 586 118" />
-            <path class="ev-conductor" d="M178 158 C290 210 428 210 586 158" />
-            <rect class="ev-node ev-node--cyan" x="306" y="226" width="158" height="68" rx="14" />
-            <path class="ev-wire" d="M385 190 V226" />
-            <text class="ev-label" x="116" y="130" text-anchor="middle">{visual.labels[0]}</text>
-            <text class="ev-muted" x="116" y="157" text-anchor="middle">{visual.labels[1]}</text>
-            <text class="ev-title" x="386" y="103" text-anchor="middle">{visual.labels[2]}</text>
-            <text class="ev-muted" x="386" y="184" text-anchor="middle">{visual.labels[3]}</text>
-            <text class="ev-label" x="648" y="140" text-anchor="middle">Load</text>
-            <text class="ev-title" x="385" y="268" text-anchor="middle">{visual.labels[4]}</text>
-          </>
-        )}
+        {
+          visual.mode === "wire" && (
+            <>
+              <rect
+                class="ev-node ev-node--gold"
+                x="54"
+                y="92"
+                width="124"
+                height="90"
+                rx="14"
+              />
+              <rect
+                class="ev-node ev-node--success"
+                x="586"
+                y="92"
+                width="124"
+                height="90"
+                rx="14"
+              />
+              <path
+                class="ev-conductor ev-conductor--top"
+                d="M178 118 C290 78 428 78 586 118"
+              />
+              <path
+                class="ev-conductor"
+                d="M178 158 C290 210 428 210 586 158"
+              />
+              <rect
+                class="ev-node ev-node--cyan"
+                x="306"
+                y="226"
+                width="158"
+                height="68"
+                rx="14"
+              />
+              <path class="ev-wire" d="M385 190 V226" />
+              <text class="ev-label" x="116" y="130" text-anchor="middle">
+                {visual.labels[0]}
+              </text>
+              <text class="ev-muted" x="116" y="157" text-anchor="middle">
+                {visual.labels[1]}
+              </text>
+              <text class="ev-title" x="386" y="103" text-anchor="middle">
+                {visual.labels[2]}
+              </text>
+              <text class="ev-muted" x="386" y="184" text-anchor="middle">
+                {visual.labels[3]}
+              </text>
+              <text class="ev-label" x="648" y="140" text-anchor="middle">
+                Load
+              </text>
+              <text class="ev-title" x="385" y="268" text-anchor="middle">
+                {visual.labels[4]}
+              </text>
+            </>
+          )
+        }
 
-        {visual.mode === 'battery' && (
-          <>
-            <rect class="ev-battery ev-battery--large" x="68" y="82" width="168" height="118" rx="16" />
-            <rect class="ev-node ev-node--cyan" x="328" y="80" width="150" height="122" rx="18" />
-            <rect class="ev-node ev-node--success" x="588" y="90" width="128" height="102" rx="14" />
-            <path class="ev-wire ev-wire--hot" d="M236 140 H328" />
-            <path class="ev-wire ev-wire--hot" d="M478 140 H588" />
-            <circle class="ev-meter" cx="404" cy="274" r="45" />
-            <path class="ev-wire" d="M152 222 H650" />
-            <text class="ev-label" x="152" y="128" text-anchor="middle">{visual.labels[0]}</text>
-            <text class="ev-muted" x="152" y="156" text-anchor="middle">{visual.labels[1]}</text>
-            <text class="ev-title" x="403" y="125" text-anchor="middle">Ah x V</text>
-            <text class="ev-muted" x="403" y="153" text-anchor="middle">{visual.labels[2]}</text>
-            <text class="ev-label" x="652" y="130" text-anchor="middle">{visual.labels[4]}</text>
-            <text class="ev-title" x="404" y="281" text-anchor="middle">{visual.labels[3]}</text>
-          </>
-        )}
+        {
+          visual.mode === "battery" && (
+            <>
+              <rect
+                class="ev-battery ev-battery--large"
+                x="68"
+                y="82"
+                width="168"
+                height="118"
+                rx="16"
+              />
+              <rect
+                class="ev-node ev-node--cyan"
+                x="328"
+                y="80"
+                width="150"
+                height="122"
+                rx="18"
+              />
+              <rect
+                class="ev-node ev-node--success"
+                x="588"
+                y="90"
+                width="128"
+                height="102"
+                rx="14"
+              />
+              <path class="ev-wire ev-wire--hot" d="M236 140 H328" />
+              <path class="ev-wire ev-wire--hot" d="M478 140 H588" />
+              <circle class="ev-meter" cx="404" cy="274" r="45" />
+              <path class="ev-wire" d="M152 222 H650" />
+              <text class="ev-label" x="152" y="128" text-anchor="middle">
+                {visual.labels[0]}
+              </text>
+              <text class="ev-muted" x="152" y="156" text-anchor="middle">
+                {visual.labels[1]}
+              </text>
+              <text class="ev-title" x="403" y="125" text-anchor="middle">
+                Ah x V
+              </text>
+              <text class="ev-muted" x="403" y="153" text-anchor="middle">
+                {visual.labels[2]}
+              </text>
+              <text class="ev-label" x="652" y="130" text-anchor="middle">
+                {visual.labels[4]}
+              </text>
+              <text class="ev-title" x="404" y="281" text-anchor="middle">
+                {visual.labels[3]}
+              </text>
+            </>
+          )
+        }
 
-        {visual.mode === 'triangle' && (
-          <>
-            <path class="ev-triangle" d="M168 282 L592 282 L592 78 Z" />
-            <path class="ev-wire ev-wire--hot" d="M168 282 H592" />
-            <path class="ev-wire ev-wire--cyan" d="M592 282 V78" />
-            <path class="ev-wire" d="M168 282 L592 78" />
-            <circle class="ev-meter" cx="402" cy="206" r="48" />
-            <text class="ev-title" x="380" y="310" text-anchor="middle">{visual.labels[1]}</text>
-            <text class="ev-title" x="624" y="184" text-anchor="middle">{visual.labels[2]}</text>
-            <text class="ev-title" x="414" y="120" text-anchor="middle">{visual.labels[0]}</text>
-            <text class="ev-label" x="402" y="214" text-anchor="middle">{visual.labels[3]}</text>
-            <text class="ev-muted" x="402" y="250" text-anchor="middle">{visual.labels[4]}</text>
-          </>
-        )}
+        {
+          visual.mode === "triangle" && (
+            <>
+              <path class="ev-triangle" d="M168 282 L592 282 L592 78 Z" />
+              <path class="ev-wire ev-wire--hot" d="M168 282 H592" />
+              <path class="ev-wire ev-wire--cyan" d="M592 282 V78" />
+              <path class="ev-wire" d="M168 282 L592 78" />
+              <circle class="ev-meter" cx="402" cy="206" r="48" />
+              <text class="ev-title" x="380" y="310" text-anchor="middle">
+                {visual.labels[1]}
+              </text>
+              <text class="ev-title" x="624" y="184" text-anchor="middle">
+                {visual.labels[2]}
+              </text>
+              <text class="ev-title" x="414" y="120" text-anchor="middle">
+                {visual.labels[0]}
+              </text>
+              <text class="ev-label" x="402" y="214" text-anchor="middle">
+                {visual.labels[3]}
+              </text>
+              <text class="ev-muted" x="402" y="250" text-anchor="middle">
+                {visual.labels[4]}
+              </text>
+            </>
+          )
+        }
 
-        {visual.mode === 'three' && (
-          <>
-            <rect class="ev-node ev-node--gold" x="72" y="72" width="118" height="232" rx="18" />
-            <rect class="ev-node ev-node--cyan" x="558" y="88" width="142" height="200" rx="18" />
-            <path class="ev-phase ev-phase--a" d="M190 114 H558" />
-            <path class="ev-phase ev-phase--b" d="M190 184 H558" />
-            <path class="ev-phase ev-phase--c" d="M190 254 H558" />
-            <circle class="ev-meter" cx="382" cy="184" r="54" />
-            <text class="ev-label" x="131" y="116" text-anchor="middle">{visual.labels[0]}</text>
-            <text class="ev-label" x="131" y="187" text-anchor="middle">{visual.labels[1]}</text>
-            <text class="ev-label" x="131" y="258" text-anchor="middle">{visual.labels[2]}</text>
-            <text class="ev-title" x="382" y="174" text-anchor="middle">{visual.labels[3]}</text>
-            <text class="ev-muted" x="382" y="204" text-anchor="middle">{visual.labels[4]}</text>
-            <text class="ev-label" x="629" y="184" text-anchor="middle">Balanced load</text>
-          </>
-        )}
+        {
+          visual.mode === "three" && (
+            <>
+              <rect
+                class="ev-node ev-node--gold"
+                x="72"
+                y="72"
+                width="118"
+                height="232"
+                rx="18"
+              />
+              <rect
+                class="ev-node ev-node--cyan"
+                x="558"
+                y="88"
+                width="142"
+                height="200"
+                rx="18"
+              />
+              <path class="ev-phase ev-phase--a" d="M190 114 H558" />
+              <path class="ev-phase ev-phase--b" d="M190 184 H558" />
+              <path class="ev-phase ev-phase--c" d="M190 254 H558" />
+              <circle class="ev-meter" cx="382" cy="184" r="54" />
+              <text class="ev-label" x="131" y="116" text-anchor="middle">
+                {visual.labels[0]}
+              </text>
+              <text class="ev-label" x="131" y="187" text-anchor="middle">
+                {visual.labels[1]}
+              </text>
+              <text class="ev-label" x="131" y="258" text-anchor="middle">
+                {visual.labels[2]}
+              </text>
+              <text class="ev-title" x="382" y="174" text-anchor="middle">
+                {visual.labels[3]}
+              </text>
+              <text class="ev-muted" x="382" y="204" text-anchor="middle">
+                {visual.labels[4]}
+              </text>
+              <text class="ev-label" x="629" y="184" text-anchor="middle">
+                Balanced load
+              </text>
+            </>
+          )
+        }
 
-        {(visual.mode === 'dc' || visual.mode === 'ac') && (
-          <>
-            <rect class="ev-node ev-node--gold" x="62" y="92" width="144" height="96" rx="14" />
-            <rect class="ev-node ev-node--cyan" x="316" y="82" width="148" height="118" rx="18" />
-            <rect class="ev-node ev-node--success" x="592" y="92" width="120" height="96" rx="14" />
-            <path class="ev-wire ev-wire--hot" d="M206 140 H316" />
-            <path class="ev-wire ev-wire--hot" d="M464 140 H592" />
-            <path class={visual.mode === 'ac' ? 'ev-wave' : 'ev-wire'} d={visual.mode === 'ac' ? 'M92 240 C132 198 172 282 212 240 S292 198 332 240 S412 282 452 240 S532 198 572 240 S652 282 692 240' : 'M102 240 H682'} />
-            <circle class="ev-meter" cx="390" cy="270" r="43" />
-            <text class="ev-label" x="134" y="126" text-anchor="middle">{visual.labels[0]}</text>
-            <text class="ev-muted" x="134" y="154" text-anchor="middle">{visual.labels[1]}</text>
-            <text class="ev-title" x="390" y="125" text-anchor="middle">{visual.labels[2]}</text>
-            <text class="ev-muted" x="390" y="153" text-anchor="middle">{visual.labels[3]}</text>
-            <text class="ev-label" x="652" y="139" text-anchor="middle">Load</text>
-            <text class="ev-title" x="390" y="277" text-anchor="middle">{visual.labels[4]}</text>
-          </>
-        )}
+        {
+          (visual.mode === "dc" || visual.mode === "ac") && (
+            <>
+              <rect
+                class="ev-node ev-node--gold"
+                x="62"
+                y="92"
+                width="144"
+                height="96"
+                rx="14"
+              />
+              <rect
+                class="ev-node ev-node--cyan"
+                x="316"
+                y="82"
+                width="148"
+                height="118"
+                rx="18"
+              />
+              <rect
+                class="ev-node ev-node--success"
+                x="592"
+                y="92"
+                width="120"
+                height="96"
+                rx="14"
+              />
+              <path class="ev-wire ev-wire--hot" d="M206 140 H316" />
+              <path class="ev-wire ev-wire--hot" d="M464 140 H592" />
+              <path
+                class={visual.mode === "ac" ? "ev-wave" : "ev-wire"}
+                d={
+                  visual.mode === "ac"
+                    ? "M92 240 C132 198 172 282 212 240 S292 198 332 240 S412 282 452 240 S532 198 572 240 S652 282 692 240"
+                    : "M102 240 H682"
+                }
+              />
+              <circle class="ev-meter" cx="390" cy="270" r="43" />
+              <text class="ev-label" x="134" y="126" text-anchor="middle">
+                {visual.labels[0]}
+              </text>
+              <text class="ev-muted" x="134" y="154" text-anchor="middle">
+                {visual.labels[1]}
+              </text>
+              <text class="ev-title" x="390" y="125" text-anchor="middle">
+                {visual.labels[2]}
+              </text>
+              <text class="ev-muted" x="390" y="153" text-anchor="middle">
+                {visual.labels[3]}
+              </text>
+              <text class="ev-label" x="652" y="139" text-anchor="middle">
+                Load
+              </text>
+              <text class="ev-title" x="390" y="277" text-anchor="middle">
+                {visual.labels[4]}
+              </text>
+            </>
+          )
+        }
       </svg>
 
       <figcaption>
         <strong>{title}</strong>
-        <span>{visual.eyebrow} with real formula values and planning checkpoints.</span>
+        <span
+          >{visual.eyebrow} with real formula values and planning checkpoints.</span
+        >
       </figcaption>
     </figure>
   </article>

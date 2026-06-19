@@ -1,20 +1,29 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import { tools } from '@/data/tools';
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { tools } from "@/data/tools";
 
 const popularTools = tools.slice(0, 6);
 ---
 
-<BaseLayout title="Page Not Found | Amps To Watts Calculator" description="The requested page could not be found.">
+<BaseLayout
+  title="Page Not Found | Amps To Watts Calculator"
+  description="The requested page could not be found."
+>
   <div class="page-404">
     <div class="page-404-code" aria-hidden="true">404</div>
     <h1>Page not found</h1>
-    <p>The calculator or page you're looking for may have been moved or no longer exists. Try one of our popular tools below, or browse the full calculator library.</p>
+    <p>
+      The calculator or page you're looking for may have been moved or no longer
+      exists. Try one of our popular tools below, or browse the full calculator
+      library.
+    </p>
     <div class="page-404-links">
       <a href="/">Return home</a>
-      {popularTools.slice(0, 3).map((tool) => (
-        <a href={`/${tool.slug}/`}>{tool.shortTitle}</a>
-      ))}
+      {
+        popularTools
+          .slice(0, 3)
+          .map((tool) => <a href={`/${tool.slug}/`}>{tool.shortTitle}</a>)
+      }
     </div>
   </div>
 </BaseLayout>
