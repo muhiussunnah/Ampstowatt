@@ -5,6 +5,7 @@ import SemanticContextLinks from '@/components/SemanticContextLinks.astro';
 import ToolPremiumGuide from '@/components/ToolPremiumGuide.astro';
 import { aliases, allRouteSlugs, getPageBySlug, getToolBySlug, type Tool } from '@/data/tools';
 import { getLegacyPage } from '@/lib/legacy';
+import { getCalculatorConfig } from '@/data/calculatorConfigs';
 
 export function getStaticPaths() {
   const redirectOnlySlugs = new Set(['amps-to-watts-calculator', 'calculators', ...Object.keys(aliases)]);
@@ -259,6 +260,7 @@ function buildPageTool(): Tool | undefined {
 const pageTool = buildPageTool();
 const displayTool = tool ?? pageTool;
 const showPremiumCalculator = Boolean(displayTool);
+const calculatorConfig = showPremiumCalculator ? getCalculatorConfig(slug) : undefined;
 ---
 
 <BaseLayout
@@ -269,6 +271,7 @@ const showPremiumCalculator = Boolean(displayTool);
   canonicalPath={`/${canonicalSlug}/`}
   tool={displayTool}
   showCalculator={showPremiumCalculator}
+  calculatorConfig={calculatorConfig}
   kicker={displayTool?.eyebrow ?? kicker}
   h1Title={pageH1}
   noindex={noindex}

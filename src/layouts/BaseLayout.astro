@@ -4,6 +4,8 @@ import { tools } from '@/data/tools';
 import type { Tool } from '@/data/tools';
 import PremiumFAQ from '@/components/PremiumFAQ.astro';
 import AmpsToWattsCalculator from '@/components/AmpsToWattsCalculator.astro';
+import PremiumToolCalculator from '@/components/calculators/PremiumToolCalculator.astro';
+import type { CalculatorConfig } from '@/data/calculatorConfigs';
 
 import { getFaqQuestions } from '@/lib/faq';
 import type { FaqItem } from '@/lib/faq';
@@ -15,6 +17,7 @@ type Props = {
   keywords?: string;
   legacyMode?: boolean;
   tool?: Tool;
+  calculatorConfig?: CalculatorConfig;
   showCalculator?: boolean;
   kicker?: string;
   h1Title?: string;
@@ -30,6 +33,7 @@ const {
   keywords = '', 
   legacyMode = false,
   tool,
+  calculatorConfig,
   showCalculator = false,
   kicker = 'Premium electrical calculator suite',
   h1Title = title.replace(' | Amps To Watts Calculator', '').replace(' — Convert Amps to Watts Instantly', ''),
@@ -39,7 +43,9 @@ const {
 } = Astro.props;
 
 const siteUrl = 'https://www.ampstowatt.com';
+const siteBrand = 'AmpsTo⚡Watt.com';
 const faqQuestions = getFaqQuestions(tool);
+const heroFormula = calculatorConfig?.formulaLabel ?? tool?.formula;
 
 const canonical = new URL(canonicalPath, siteUrl).toString();
 const image = new URL('/og-image.jpg', siteUrl).toString();
@@ -179,14 +185,14 @@ const schema = {
     {
       '@type': 'WebSite',
       '@id': `${siteUrl}/#website`,
-      name: 'Amps To Watts Calculator',
+      name: siteBrand,
       url: `${siteUrl}/`,
       publisher: { '@id': `${siteUrl}/#organization` }
     },
     {
       '@type': 'Organization',
       '@id': `${siteUrl}/#organization`,
-      name: 'Amps To Watts Calculator',
+      name: siteBrand,
       url: `${siteUrl}/`,
       description: 'Free premium electrical calculators for current, voltage, watts, kW, VA, battery energy, wire sizing, and voltage drop. Educational resource for electrical planning.',
       foundingDate: '2024',
@@ -338,7 +344,7 @@ const schema = {
     ) : (
       <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
     )}
-    <meta name="author" content="Amps To Watts Calculator" />
+    <meta name="author" content={siteBrand} />
     <meta name="generator" content={Astro.generator} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -353,7 +359,7 @@ const schema = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:site_name" content="Amps To Watts Calculator" />
+    <meta property="og:site_name" content={siteBrand} />
     <meta property="og:image" content={image} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -371,9 +377,9 @@ const schema = {
 
     <!-- ===== HEADER ===== -->
     <header class="site-header">
-      <a class="brand" href="/" aria-label="AmpsToWatt.com home">
+      <a class="brand" href="/" aria-label="AmpsTo⚡Watt.com home">
         <span class="brand-logo-text" aria-hidden="true">
-          <span class="brand-logo-dark">AmpsTo</span><span class="brand-logo-accent">Watt</span><span class="brand-logo-dot">.com</span>
+          <span class="brand-logo-dark">AmpsTo</span><span class="brand-logo-accent">⚡Watt</span><span class="brand-logo-dot">.com</span>
         </span>
       </a>
       <button class="nav-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -474,10 +480,10 @@ const schema = {
             <div class="premium-hero-copy">
               <p class="premium-kicker" data-i18n={isHome ? 'hero.kicker' : undefined}>{kicker}</p>
               <h1 data-i18n={isHome ? 'hero.title' : undefined}>{h1Title}</h1>
-              {tool && <div class="premium-formula-pill">{tool.formula}</div>}
+              {heroFormula && <div class="premium-formula-pill">{heroFormula}</div>}
               <p data-i18n={isHome ? 'hero.description' : undefined}>{description}</p>
             </div>
-            <AmpsToWattsCalculator tool={tool} />
+            {calculatorConfig ? <PremiumToolCalculator config={calculatorConfig} /> : <AmpsToWattsCalculator tool={tool} />}
           </section>
         )}
         
@@ -498,7 +504,7 @@ const schema = {
     <div class="footer-wrapper">
       <footer class="site-footer">
         <div>
-          <a class="footer-brand" href="/">AmpsToWatt.com</a>
+          <a class="footer-brand" href="/">AmpsTo⚡Watt.com</a>
           <p>Premium electrical calculators for current, voltage, watts, kW, VA, battery energy, wire sizing, and voltage drop. Educational use only; verify safety-critical work with a licensed professional.</p>
         </div>
         <div>
@@ -546,7 +552,7 @@ const schema = {
           </nav>
         </div>
         <div class="copyright">
-          <span>© 2026 AmpsToWatt.com. All rights reserved.</span>
+          <span>© 2026 AmpsTo⚡Watt.com. All rights reserved.</span>
           <span>
             <a href="/about-us/">About</a> · <a href="/privacy-policy/">Privacy</a> · <a href="/terms-conditions/">Terms</a> · <a href="/disclaimer/">Disclaimer</a> · <a href="/contact-us/">Contact</a> · <a href="/site-map/">Sitemap</a>
           </span>

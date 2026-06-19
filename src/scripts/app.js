@@ -392,6 +392,301 @@
     tool.dataset.lastInput = `${raw} ${unit.toUpperCase()} @ ${format(volts, 1)}V, PF=${format(pf, 2)}, ${type.toUpperCase()}`;
   }
 
+  const AWG_TABLE = [
+    { awg: '14', value: 14, copperOhms: 2.525, aluminumOhms: 4.17, ampacity: 15 },
+    { awg: '12', value: 12, copperOhms: 1.588, aluminumOhms: 2.62, ampacity: 20 },
+    { awg: '10', value: 10, copperOhms: 0.999, aluminumOhms: 1.64, ampacity: 30 },
+    { awg: '8', value: 8, copperOhms: 0.6282, aluminumOhms: 1.03, ampacity: 40 },
+    { awg: '6', value: 6, copperOhms: 0.3951, aluminumOhms: 0.65, ampacity: 55 },
+    { awg: '4', value: 4, copperOhms: 0.2485, aluminumOhms: 0.41, ampacity: 70 },
+    { awg: '2', value: 2, copperOhms: 0.1563, aluminumOhms: 0.26, ampacity: 95 },
+    { awg: '1', value: 1, copperOhms: 0.1239, aluminumOhms: 0.20, ampacity: 110 },
+    { awg: '1/0', value: 0, copperOhms: 0.0983, aluminumOhms: 0.16, ampacity: 125 },
+    { awg: '2/0', value: -1, copperOhms: 0.0779, aluminumOhms: 0.13, ampacity: 145 },
+    { awg: '3/0', value: -2, copperOhms: 0.0618, aluminumOhms: 0.10, ampacity: 165 },
+    { awg: '4/0', value: -3, copperOhms: 0.049, aluminumOhms: 0.08, ampacity: 195 }
+  ];
+
+  function configInput(tool, id) {
+    return tool.querySelector(`#input-${id}`);
+  }
+
+  function configValue(tool, id, fallback = 0) {
+    const field = configInput(tool, id);
+    if (!field) return fallback;
+    if (field.tagName === 'SELECT') return field.value || fallback;
+    return number(field, fallback);
+  }
+
+  function validateConfigInputs(tool) {
+    let valid = true;
+    tool.querySelectorAll('[id^="input-"]').forEach((field) => {
+      const error = tool.querySelector(`#error-${field.id.replace(/^input-/, '')}`);
+      if (field.tagName === 'SELECT') {
+        field.classList.remove('has-error');
+        if (error) error.textContent = '';
+        return;
+      }
+
+      const value = Number(field.value);
+      const min = field.min === '' ? -Infinity : Number(field.min);
+      const max = field.max === '' ? Infinity : Number(field.max);
+      const required = field.closest('.calc-field')?.querySelector('.calc-label') && field.hasAttribute('value');
+      const invalid = (required && field.value === '') ||
+        (field.value !== '' && (!Number.isFinite(value) || value < min || value > max));
+
+      field.classList.toggle('has-error', invalid);
+      if (error) {
+        if (invalid && Number.isFinite(min) && Number.isFinite(max)) {
+          error.textContent = `Enter a value from ${min} to ${max}.`;
+        } else if (invalid && Number.isFinite(min)) {
+          error.textContent = `Enter a value of ${min} or greater.`;
+        } else {
+          error.textContent = '';
+        }
+      }
+      valid = valid && !invalid;
+    });
+    return valid;
+  }
+
+  function setConfigOutput(tool, id, value, decimals = 2) {
+    const output = tool.querySelector(`#output-${id}`);
+    if (!output) return;
+    output.textContent = typeof value === 'string' ? value : format(value, decimals);
+  }
+
+  function getConfigPhase(tool) {
+    return toolField(tool, 'lx-type')?.value || tool.dataset.calcMode || 'ac1';
+  }
+
+  function getConfigVoltageType(tool) {
+    return String(configValue(tool, 'voltageType', 'vll'));
+  }
+
+  function configPhaseFactor(tool, phase, pf) {
+    if (phase === 'ac3') return (getConfigVoltageType(tool) === 'vln' ? 3 : 1.7320508075688772) * pf;
+    if (phase === 'ac1') return pf;
+    return 1;
+  }
+
+  function getConfigFormula(tool, phase) {
+    const formulaEl = tool.querySelector('#calc-formula-display');
+    if (!formulaEl) return '';
+    let formulas = {};
+    try {
+      formulas = JSON.parse(formulaEl.dataset.formulas || '{}');
+    } catch {
+      formulas = {};
+    }
+    const voltageType = getConfigVoltageType(tool);
+    const key = phase === 'ac3' ? `${phase}-${voltageType}` : phase;
+    return formulas[key] || formulaEl.textContent.trim();
+  }
+
+  function setConfigFormula(tool, phase) {
+    const formulaEl = tool.querySelector('#calc-formula-display');
+    if (!formulaEl) return;
+    formulaEl.textContent = getConfigFormula(tool, phase);
+  }
+
+  function resistanceForGauge(material, wireSize) {
+    const selected = AWG_TABLE.find((row) => String(row.value) === String(wireSize)) || AWG_TABLE[1];
+    return material === 'aluminum' ? selected.aluminumOhms : selected.copperOhms;
+  }
+
+  function voltageDropValue(current, length, phase, material, wireSize) {
+    const multiplier = phase === 'ac3' ? 1.7320508075688772 : 2;
+    return multiplier * length * current * resistanceForGauge(material, wireSize) / 1000;
+  }
+
+  function updateConfigCalculator(tool) {
+    validateConfigInputs(tool);
+    const type = tool.dataset.calcType;
+    const phase = getConfigPhase(tool);
+    const current = Math.max(0, configValue(tool, 'current', 0));
+    const fixedVoltage = number({ value: tool.dataset.fixedVoltage }, 0);
+    const voltage = Math.max(0.000001, fixedVoltage || configValue(tool, 'voltage', 0));
+    const rawPf = tool.dataset.fixedPowerFactor
+      ? Number(tool.dataset.fixedPowerFactor)
+      : configValue(tool, 'powerFactor', 1);
+    const pf = phase === 'dc' && type !== 'kva-to-watts' ? 1 : Math.max(0.01, Math.min(1, Number(rawPf) || 1));
+    const factor = configPhaseFactor(tool, phase, pf);
+    const hours = Math.max(0, configValue(tool, 'hours', 0));
+    const cost = Math.max(0, configValue(tool, 'cost', 0));
+    const efficiency = Math.max(0, Math.min(100, configValue(tool, 'efficiency', 100))) / 100;
+    const decimals = 2;
+    let watts = 0;
+    let amps = 0;
+    let primaryCopy = '';
+    let interpretation = '';
+
+    tool.querySelectorAll('.calc-mode-btn').forEach((btn) => {
+      const active = btn.dataset.calcPhase === phase;
+      btn.classList.toggle('is-active', active);
+      btn.setAttribute('aria-selected', String(active));
+    });
+
+    const voltageTypeContainer = tool.querySelector('#container-voltageType');
+    if (voltageTypeContainer && toolField(tool, 'lx-type')) {
+      voltageTypeContainer.classList.toggle('is-hidden', phase !== 'ac3');
+    }
+
+    setConfigFormula(tool, phase);
+
+    if (type === 'watts-to-amps' || type === 'fixed-voltage-watts-to-amps') {
+      watts = Math.max(0, configValue(tool, 'power', 0));
+      amps = watts / Math.max(0.000001, voltage * factor);
+      setConfigOutput(tool, 'amps', amps, 4);
+      setConfigOutput(tool, 'milliamps', amps * 1000, 2);
+      primaryCopy = `${format(amps, 4)} A`;
+      interpretation = `At ${format(voltage, 2)}V, ${format(watts, 2)}W draws ${format(amps, 4)} amps.`;
+    } else if (type === 'kw-to-amps') {
+      watts = Math.max(0, configValue(tool, 'kilowatts', 0)) * 1000;
+      amps = watts / Math.max(0.000001, voltage * factor);
+      setConfigOutput(tool, 'amps', amps, 4);
+      primaryCopy = `${format(amps, 4)} A`;
+      interpretation = `${format(watts / 1000, 4)} kW equals ${format(amps, 4)} amps with the selected system type.`;
+    } else if (type === 'mw-to-amps') {
+      watts = Math.max(0, configValue(tool, 'megawatts', 0)) * 1000000;
+      amps = watts / Math.max(0.000001, voltage * factor);
+      setConfigOutput(tool, 'amps', amps, 2);
+      primaryCopy = `${format(amps, 2)} A`;
+      interpretation = `${format(watts, 0)} watts converts to ${format(amps, 2)} amps.`;
+    } else if (type === 'amps-to-kw') {
+      watts = current * voltage * factor;
+      setConfigOutput(tool, 'kilowatts', watts / 1000, 4);
+      setConfigOutput(tool, 'watts', watts, 2);
+      primaryCopy = `${format(watts / 1000, 4)} kW`;
+      interpretation = `${format(current, 2)}A produces ${format(watts / 1000, 4)} kW at the selected settings.`;
+    } else if (type === 'amps-to-va') {
+      const va = current * voltage;
+      setConfigOutput(tool, 'va', va, 2);
+      setConfigOutput(tool, 'kva', va / 1000, 4);
+      primaryCopy = `${format(va, 2)} VA`;
+      interpretation = `${format(current, 2)}A at ${format(voltage, 2)}V is ${format(va, 2)} VA apparent power.`;
+    } else if (type === 'kva-to-watts') {
+      watts = Math.max(0, configValue(tool, 'kva', 0)) * 1000 * pf;
+      setConfigOutput(tool, 'watts', watts, 2);
+      setConfigOutput(tool, 'kilowatts', watts / 1000, 4);
+      primaryCopy = `${format(watts, 2)} W`;
+      interpretation = `With PF ${format(pf, 2)}, the real power is ${format(watts, 2)} watts.`;
+    } else if (type === 'power-factor') {
+      watts = Math.max(0, configValue(tool, 'power', 0));
+      const apparentPower = Math.max(0, configValue(tool, 'apparentPower', 0));
+      const calculatedPf = apparentPower > 0 ? Math.min(1, watts / apparentPower) : 0;
+      setConfigOutput(tool, 'powerFactor', calculatedPf, 4);
+      setConfigOutput(tool, 'percent', calculatedPf * 100, 2);
+      primaryCopy = `${format(calculatedPf, 4)} PF`;
+      interpretation = `${format(calculatedPf * 100, 2)}% of apparent power is real power.`;
+    } else if (type === 'ah-to-wh') {
+      const wh = Math.max(0, configValue(tool, 'ampHours', 0)) * voltage;
+      setConfigOutput(tool, 'wh', wh, 2);
+      setConfigOutput(tool, 'kwh', wh / 1000, 4);
+      primaryCopy = `${format(wh, 2)} Wh`;
+      interpretation = `This battery stores about ${format(wh, 2)} watt-hours.`;
+    } else if (type === 'amp-power-consumption') {
+      watts = current * voltage * pf;
+      const kwh = watts * hours / 1000;
+      setConfigOutput(tool, 'watts', watts, 2);
+      setConfigOutput(tool, 'kwh', kwh, 4);
+      setConfigOutput(tool, 'totalCost', kwh * cost, 2);
+      primaryCopy = `${format(kwh, 4)} kWh`;
+      interpretation = `${format(hours, 2)} hours of use consumes about ${format(kwh, 4)} kWh.`;
+    } else if (type === 'ev-amps-to-watts') {
+      watts = current * voltage;
+      setConfigOutput(tool, 'watts', watts, 2);
+      setConfigOutput(tool, 'kwh', hours > 0 ? watts * hours / 1000 : 0, 4);
+      primaryCopy = `${format(watts, 2)} W`;
+      interpretation = hours > 0
+        ? `Charging for ${format(hours, 2)} hours uses about ${format(watts * hours / 1000, 4)} kWh.`
+        : `The charger delivers ${format(watts, 2)} watts.`;
+    } else if (type === 'motor-amps-to-watts') {
+      watts = current * voltage * factor;
+      setConfigOutput(tool, 'watts', watts, 2);
+      setConfigOutput(tool, 'outWatts', watts * efficiency, 2);
+      primaryCopy = `${format(watts, 2)} W input`;
+      interpretation = `Estimated output is ${format(watts * efficiency, 2)} watts at ${format(efficiency * 100, 0)}% efficiency.`;
+    } else if (type === 'appliance-hours-to-watts') {
+      watts = current * voltage * pf;
+      setConfigOutput(tool, 'watts', watts, 2);
+      setConfigOutput(tool, 'kwh', hours > 0 ? watts * hours / 1000 : 0, 4);
+      primaryCopy = `${format(watts, 2)} W`;
+      interpretation = hours > 0
+        ? `Daily energy is about ${format(watts * hours / 1000, 4)} kWh.`
+        : `Running power is about ${format(watts, 2)} watts.`;
+    } else if (type === 'voltage-drop') {
+      const length = Math.max(0, configValue(tool, 'wireLength', 0));
+      const material = String(configValue(tool, 'wireMaterial', 'copper'));
+      const wireSize = configValue(tool, 'wireSize', 12);
+      const vdrop = voltageDropValue(current, length, phase, material, wireSize);
+      setConfigOutput(tool, 'vdrop', vdrop, 3);
+      setConfigOutput(tool, 'vdropPercent', voltage > 0 ? vdrop / voltage * 100 : 0, 2);
+      setConfigOutput(tool, 'endVoltage', voltage - vdrop, 2);
+      primaryCopy = `${format(vdrop, 3)} V drop`;
+      interpretation = `Estimated end voltage is ${format(voltage - vdrop, 2)}V.`;
+    } else if (type === 'wire-gauge') {
+      const length = Math.max(0, configValue(tool, 'wireLength', 0));
+      const material = String(configValue(tool, 'wireMaterial', 'copper'));
+      const allowed = Math.max(0.1, configValue(tool, 'allowableDrop', 3));
+      const selected = AWG_TABLE.find((row) => {
+        const vdrop = voltageDropValue(current, length, phase, material, row.value);
+        return row.ampacity >= current && voltage > 0 && (vdrop / voltage * 100) <= allowed;
+      }) || AWG_TABLE[AWG_TABLE.length - 1];
+      const vdrop = voltageDropValue(current, length, phase, material, selected.value);
+      setConfigOutput(tool, 'awg', selected.awg, 0);
+      setConfigOutput(tool, 'vdrop', vdrop, 3);
+      primaryCopy = `${selected.awg} AWG`;
+      interpretation = `Estimated drop is ${format(vdrop, 3)}V with ${selected.awg} AWG.`;
+    } else {
+      watts = current * voltage * factor;
+      setConfigOutput(tool, 'watts', watts, 2);
+      setConfigOutput(tool, 'kilowatts', watts / 1000, 4);
+      primaryCopy = `${format(watts, 2)} W`;
+      interpretation = `At ${format(voltage, 2)}V and ${format(current, 2)}A, the load uses ${format(watts, 2)} watts.`;
+    }
+
+    const helper = tool.querySelector('#calc-result-helper');
+    if (helper) helper.textContent = interpretation || tool.dataset.resultInterpretation || helper.textContent;
+    tool.dataset.lastResult = primaryCopy;
+    tool.dataset.lastInput = `Type: ${type}; phase=${phase}; voltage=${format(voltage, 2)}V; PF=${format(pf, 2)}`;
+  }
+
+  function resetConfigCalculator(tool) {
+    tool.querySelectorAll('[id^="input-"]').forEach((field) => {
+      if (field.tagName === 'SELECT') {
+        const selected = field.querySelector('option[selected]');
+        field.value = selected ? selected.value : field.options[0]?.value;
+      } else {
+        field.value = field.getAttribute('value') || '';
+      }
+    });
+    const type = toolField(tool, 'lx-type');
+    if (type) type.value = tool.dataset.calcMode || 'ac1';
+    updateConfigCalculator(tool);
+  }
+
+  function initConfigCalculator(tool) {
+    tool.querySelectorAll('.calc-mode-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const type = toolField(tool, 'lx-type');
+        if (type && btn.dataset.calcPhase) type.value = btn.dataset.calcPhase;
+        updateConfigCalculator(tool);
+      });
+    });
+    tool.querySelectorAll('input, select').forEach((control) => {
+      control.addEventListener('input', () => updateConfigCalculator(tool));
+      control.addEventListener('change', () => updateConfigCalculator(tool));
+    });
+    tool.querySelectorAll('[class*="reset"]').forEach((button) => {
+      button.addEventListener('click', () => resetConfigCalculator(tool));
+    });
+    tool.querySelectorAll('.lx-action-copy').forEach((button) => {
+      button.addEventListener('click', () => copyResult(tool));
+    });
+    updateConfigCalculator(tool);
+  }
+
   /* ----------------------------------------------------------------
      COPY & EXPORT
      ---------------------------------------------------------------- */
@@ -576,6 +871,10 @@
     $$('.lx-tool').forEach((tool) => {
       if (tool.dataset.ready === 'true') return;
       tool.dataset.ready = 'true';
+      if (tool.dataset.calcType || tool.dataset.calculatorConfig || tool.dataset.toolId) {
+        initConfigCalculator(tool);
+        return;
+      }
       setMode(tool, getMode(tool));
       /* Home-calc-tab buttons (legacy + new dual-class) */
       $$('.home-calc-tab', tool).forEach((tab) => {
