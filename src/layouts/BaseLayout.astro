@@ -34,10 +34,11 @@ const {
   noindex = false
 } = Astro.props;
 
+const siteUrl = 'https://www.ampstowatt.com';
 const faqQuestions = getFaqQuestions(tool);
 
-const canonical = new URL(canonicalPath, 'https://ampstowatt.com').toString();
-const image = new URL('/og-image.jpg', 'https://ampstowatt.com').toString();
+const canonical = new URL(canonicalPath, siteUrl).toString();
+const image = new URL('/og-image.jpg', siteUrl).toString();
 const datePublished = '2024-06-15';
 const dateModified = '2026-06-12';
 const referenceSources = [
@@ -55,26 +56,26 @@ const schema = {
   '@graph': [
     {
       '@type': 'WebSite',
-      '@id': 'https://ampstowatt.com/#website',
+      '@id': `${siteUrl}/#website`,
       name: 'Amps To Watts Calculator',
-      url: 'https://ampstowatt.com/',
-      publisher: { '@id': 'https://ampstowatt.com/#organization' }
+      url: `${siteUrl}/`,
+      publisher: { '@id': `${siteUrl}/#organization` }
     },
     {
       '@type': 'Organization',
-      '@id': 'https://ampstowatt.com/#organization',
+      '@id': `${siteUrl}/#organization`,
       name: 'Amps To Watts Calculator',
-      url: 'https://ampstowatt.com/',
+      url: `${siteUrl}/`,
       description: 'Free premium electrical calculators for current, voltage, watts, kW, VA, battery energy, wire sizing, and voltage drop. Educational resource for electrical planning.',
       foundingDate: '2024',
       logo: {
         '@type': 'ImageObject',
-        url: new URL('/favicon.svg', 'https://ampstowatt.com').toString()
+        url: new URL('/favicon.svg', siteUrl).toString()
       },
       contactPoint: {
         '@type': 'ContactPoint',
         contactType: 'customer support',
-        url: 'https://ampstowatt.com/contact-us/'
+        url: `${siteUrl}/contact-us/`
       }
     },
     {
@@ -83,14 +84,14 @@ const schema = {
       url: canonical,
       name: title,
       description,
-      isPartOf: { '@id': 'https://ampstowatt.com/#website' },
-      author: { '@id': 'https://ampstowatt.com/#organization' },
-      publisher: { '@id': 'https://ampstowatt.com/#organization' },
+      isPartOf: { '@id': `${siteUrl}/#website` },
+      author: { '@id': `${siteUrl}/#organization` },
+      publisher: { '@id': `${siteUrl}/#organization` },
       about: { '@id': `${canonical}#application` },
       inLanguage: 'en-US',
       datePublished,
       dateModified,
-      reviewedBy: { '@id': 'https://ampstowatt.com/#organization' },
+      reviewedBy: { '@id': `${siteUrl}/#organization` },
       citation: isHome ? referenceSources : undefined,
       primaryImageOfPage: { '@id': `${canonical}#primaryimage` },
       speakable: {
@@ -109,7 +110,7 @@ const schema = {
       '@type': 'BreadcrumbList',
       '@id': `${canonical}#breadcrumb`,
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://ampstowatt.com/' },
+        { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
         { '@type': 'ListItem', position: 2, name: pageTitle, item: canonical }
       ]
     }] : []),
@@ -130,7 +131,7 @@ const schema = {
         'Conversion table and breaker-safety planning notes'
       ],
       isAccessibleForFree: true,
-      publisher: { '@id': 'https://ampstowatt.com/#organization' }
+      publisher: { '@id': `${siteUrl}/#organization` }
     },
     ...(faqQuestions.length > 0 ? [{
       '@type': 'FAQPage',
@@ -189,8 +190,8 @@ const schema = {
       '@id': `${canonical}#article`,
       headline: title,
       description,
-      author: { '@id': 'https://ampstowatt.com/#organization' },
-      publisher: { '@id': 'https://ampstowatt.com/#organization' },
+      author: { '@id': `${siteUrl}/#organization` },
+      publisher: { '@id': `${siteUrl}/#organization` },
       datePublished,
       dateModified,
       mainEntityOfPage: { '@id': `${canonical}#webpage` },

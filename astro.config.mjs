@@ -51,7 +51,7 @@ export default defineConfig({
     '/other-voltages/': '/',
     '/voltage-amps-watts-calculator/': '/'
   },
-  site: 'https://ampstowatt.com',
+  site: 'https://www.ampstowatt.com',
   output: 'static',
   prefetch: true,
   integrations: [
