@@ -19,6 +19,8 @@ type Props = {
   kicker?: string;
   h1Title?: string;
   noindex?: boolean;
+  pageClass?: string;
+  showFaq?: boolean;
 };
 
 const { 
@@ -31,7 +33,9 @@ const {
   showCalculator = false,
   kicker = 'Premium electrical calculator suite',
   h1Title = title.replace(' | Amps To Watts Calculator', '').replace(' — Convert Amps to Watts Instantly', ''),
-  noindex = false
+  noindex = false,
+  pageClass = '',
+  showFaq = true
 } = Astro.props;
 
 const siteUrl = 'https://www.ampstowatt.com';
@@ -248,7 +252,7 @@ const schema = {
       isAccessibleForFree: true,
       publisher: { '@id': `${siteUrl}/#organization` }
     },
-    ...(faqQuestions.length > 0 ? [{
+    ...(showFaq && faqQuestions.length > 0 ? [{
       '@type': 'FAQPage',
       '@id': `${canonical}#faq`,
       mainEntity: faqQuestions.map((item: FaqItem) => ({
@@ -360,18 +364,16 @@ const schema = {
     <meta name="twitter:image" content={image} />
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   </head>
-  <body>
+  <body class={pageClass}>
     <!-- Scroll progress bar -->
     <div class="scroll-progress" id="scroll-progress"></div>
     <a class="skip-link" href="#main-content">Skip to content</a>
 
     <!-- ===== HEADER ===== -->
     <header class="site-header">
-      <a class="brand" href="/">
-        <span class="brand-mark">AW</span>
-        <span>
-          <strong>Amps To Watts</strong>
-          <small data-i18n="brand.small">Premium electrical calculators</small>
+      <a class="brand" href="/" aria-label="AmpsToWatt.com home">
+        <span class="brand-logo-text" aria-hidden="true">
+          <span class="brand-logo-dark">AmpsTo</span><span class="brand-logo-accent">Watt</span><span class="brand-logo-dot">.com</span>
         </span>
       </a>
       <button class="nav-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -484,11 +486,13 @@ const schema = {
     </main>
 
     <!-- ===== FAQ (Always at the bottom) ===== -->
-    <div class={legacyMode ? 'legacy-shell' : ''}>
-      <div class="legacy-content legacy-content--flush">
-        <PremiumFAQ tool={tool} />
+    {showFaq && (
+      <div class={legacyMode ? 'legacy-shell' : ''}>
+        <div class="legacy-content legacy-content--flush">
+          <PremiumFAQ tool={tool} />
+        </div>
       </div>
-    </div>
+    )}
 
     <!-- ===== FOOTER ===== -->
     <div class="footer-wrapper">

@@ -225,6 +225,11 @@
     const pf = toolField(tool, 'lx-pf-container');
     if (vtype) vtype.classList.toggle('is-hidden', type !== 'ac3');
     if (pf) pf.classList.toggle('is-hidden', type === 'dc');
+    $$('.home-calc-tab', tool).forEach((tab) => {
+      const active = tab.dataset.homePhase === type;
+      tab.classList.toggle('is-active', active);
+      tab.setAttribute('aria-selected', String(active));
+    });
   }
 
   function validateInput(field, min = 0, max = Infinity) {
@@ -533,6 +538,28 @@
       if (tool.dataset.ready === 'true') return;
       tool.dataset.ready = 'true';
       setMode(tool, getMode(tool));
+      $$('.home-calc-tab', tool).forEach((tab) => {
+        tab.addEventListener('click', () => {
+          const type = toolField(tool, 'lx-type');
+          if (type && tab.dataset.homePhase) {
+            type.value = tab.dataset.homePhase;
+            updateCalculator(tool);
+          }
+        });
+        tab.addEventListener('keydown', (event) => {
+          if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+          const tabs = $$('.home-calc-tab', tool);
+          const current = tabs.indexOf(tab);
+          let next = current;
+          if (event.key === 'ArrowLeft') next = current <= 0 ? tabs.length - 1 : current - 1;
+          if (event.key === 'ArrowRight') next = current >= tabs.length - 1 ? 0 : current + 1;
+          if (event.key === 'Home') next = 0;
+          if (event.key === 'End') next = tabs.length - 1;
+          event.preventDefault();
+          tabs[next]?.focus();
+          tabs[next]?.click();
+        });
+      });
       $$('input, select, button', tool).forEach((control) => {
         control.addEventListener('input', () => {
           updateCalculator(tool);
