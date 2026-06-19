@@ -1,0 +1,59 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const title = "Solar Panel Wiring: Complete Amps and Watts Guide | Ampstowatt";
+const description = "Understand the difference between series and parallel wiring, and how it affects the voltage and amperage of your solar array.";
+const h1Title = "Solar Panel Wiring: Complete Amps and Watts Guide";
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath="/blog/understanding-solar-panel-wiring/"
+  h1Title={h1Title}
+  kicker="Solar Guide"
+>
+  <section class="card article-content">
+    <h1>{h1Title}</h1>
+    <p>When designing a solar power system, how you wire your panels together—in series or in parallel—dramatically changes the electrical characteristics of the array. Understanding how amps, volts, and watts behave in these configurations is essential for sizing your charge controller and wiring safely.</p>
+
+    <h2>The Golden Rule of Watts</h2>
+    <p>Regardless of how you wire your panels, the total power (watts) remains the same. The basic formula applies universally:</p>
+    <div style="background: var(--bg-card); padding: 1rem; border-radius: 8px; font-family: monospace; text-align: center; font-size: 1.2rem; border: 1px solid var(--border); margin: 1rem 0;">
+      Watts = Amps × Volts
+    </div>
+    <p>If you have four 100-watt panels, your total array size is 400 watts, whether they are in series, parallel, or a combination of both.</p>
+
+    <h2>Wiring in Series: Voltage Adds Up, Amps Stay the Same</h2>
+    <p>Wiring panels in series is like connecting batteries end-to-end (positive terminal to negative terminal). In a series circuit, the voltage of each panel is added together, but the amperage remains the same as a single panel.</p>
+    <ul>
+      <li><strong>Example:</strong> Four panels (100W, 20V, 5A each) wired in series.</li>
+      <li><strong>Resulting Array:</strong> 80V (20V + 20V + 20V + 20V) and 5A.</li>
+      <li><strong>Total Power:</strong> 80V × 5A = 400 Watts.</li>
+    </ul>
+    <h3>Pros & Cons of Series</h3>
+    <p>Higher voltage means you can use thinner, less expensive wire for longer runs with less voltage drop. However, if one panel in a series string is shaded, the output of the entire string drops significantly.</p>
+
+    <h2>Wiring in Parallel: Amps Add Up, Voltage Stays the Same</h2>
+    <p>Wiring panels in parallel involves connecting all the positive terminals together and all the negative terminals together. In a parallel circuit, the amperage of each panel is added together, but the voltage remains the same as a single panel.</p>
+    <ul>
+      <li><strong>Example:</strong> Four panels (100W, 20V, 5A each) wired in parallel.</li>
+      <li><strong>Resulting Array:</strong> 20V and 20A (5A + 5A + 5A + 5A).</li>
+      <li><strong>Total Power:</strong> 20V × 20A = 400 Watts.</li>
+    </ul>
+    <h3>Pros & Cons of Parallel</h3>
+    <p>Parallel arrays handle partial shading much better because the shaded panel doesn't drag down the unshaded ones. However, the high amperage requires much thicker, more expensive copper wire and larger fuses.</p>
+
+    <h2>Sizing Your Charge Controller</h2>
+    <p>When selecting an MPPT (Maximum Power Point Tracking) charge controller, you must ensure it can handle both the maximum voltage of a series string and the maximum amperage to the battery.</p>
+    <p>To calculate the battery-side charging amps, use the array's total wattage and your battery bank's voltage:</p>
+    <div style="background: var(--bg-card); padding: 1rem; border-radius: 8px; font-family: monospace; text-align: center; font-size: 1.2rem; border: 1px solid var(--border); margin: 1rem 0;">
+      Charge Amps = Total Solar Watts ÷ Battery Volts
+    </div>
+    <p>For a 400W array charging a 12V battery, the controller must output roughly 33.3 amps (400W ÷ 12V = 33.3A). You would choose a 40A controller.</p>
+
+    <div style="background: rgba(245, 158, 11, 0.1); border-left: 4px solid var(--brand-orange); padding: 1rem; margin: 2rem 0;">
+      <strong>Ready to design?</strong> Use our dedicated <a href="/solar-watts-to-amps-calculator/">Solar Panel Amps to Watts Calculator</a> to calculate array output, or the <a href="/wire-gauge-calculator/">Wire Gauge Calculator</a> to safely size your cables based on your chosen wiring configuration.
+    </div>
+  </section>
+</BaseLayout>

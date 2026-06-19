@@ -1,0 +1,42 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const title = "Electrical Blog & Guides | Ampstowatt";
+const description = "In-depth guides on circuit breaker safety, solar panel wiring, EV charging, and electrical conversions.";
+const h1Title = "Electrical Guides & Articles";
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath="/blog/"
+  h1Title={h1Title}
+  kicker="Educational Resources"
+>
+  <section class="card">
+    <h1>{h1Title}</h1>
+    <p>Read our in-depth guides on electrical safety, solar power, and home circuitry.</p>
+    
+    <div class="blog-grid" style="display: grid; gap: 1.5rem; margin-top: 2rem;">
+      <article style="padding: 1.5rem; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-card);">
+        <h2 style="margin-top: 0;"><a href="/blog/circuit-breaker-safety-guide/" style="text-decoration: none;">Circuit Breaker Safety Guide: Sizing and the 80% Rule</a></h2>
+        <p>Learn how to safely size your circuit breakers and why you can only use 80% of a breaker's capacity for continuous loads.</p>
+      </article>
+
+      <article style="padding: 1.5rem; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-card);">
+        <h2 style="margin-top: 0;"><a href="/blog/understanding-solar-panel-wiring/" style="text-decoration: none;">Solar Panel Wiring: Complete Amps and Watts Guide</a></h2>
+        <p>Understand the difference between series and parallel wiring, and how it affects the voltage and amperage of your solar array.</p>
+      </article>
+
+      <article style="padding: 1.5rem; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-card);">
+        <h2 style="margin-top: 0;"><a href="/blog/ev-charging-at-home-electrical-guide/" style="text-decoration: none;">EV Charging at Home: Full Electrical Planning Guide</a></h2>
+        <p>Planning to install a Level 2 EV charger? Find out exactly what wire gauge and breaker size you need for 240V charging.</p>
+      </article>
+
+      <article style="padding: 1.5rem; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-card);">
+        <h2 style="margin-top: 0;"><a href="/blog/amps-to-watts-conversion-chart-pdf/" style="text-decoration: none;">Printable Amps to Watts Conversion Chart (PDF Guide)</a></h2>
+        <p>Get a quick reference cheat sheet for converting amps to watts at 12V, 120V, and 240V.</p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

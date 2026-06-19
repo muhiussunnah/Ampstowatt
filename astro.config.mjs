@@ -59,7 +59,7 @@ export default defineConfig({
       filter: (page) => !aliasPaths.has(new URL(page).pathname),
       serialize: (item) => ({
         ...item,
-        lastmod: new Date().toISOString().split('T')[0]
+        lastmod: '2026-06-12'
       })
     }),
     {

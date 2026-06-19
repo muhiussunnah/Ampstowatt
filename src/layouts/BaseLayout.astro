@@ -243,7 +243,7 @@ const schema = {
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={image} />
-    <script type="application/ld+json" nonce="aw-jsonld" set:html={JSON.stringify(schema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   </head>
   <body>
     <!-- Scroll progress bar -->
@@ -307,6 +307,7 @@ const schema = {
           </div>
         </details>
 
+        <a href="/blog/">Blog</a>
         <a href="/faq/">FAQ</a>
       </nav>
     </header>
@@ -379,6 +380,7 @@ const schema = {
         <div>
           <p class="footer-col-title" data-i18n="footer.resources">Resources</p>
           <nav aria-label="Resource links">
+            <a href="/blog/">Blog & Guides</a>
             <a href="/about-us/">About</a>
             <a href="/privacy-policy/">Privacy</a>
             <a href="/terms-conditions/">Terms</a>
