@@ -17,8 +17,14 @@ const slug = Astro.params.slug ?? '';
 const tool = getToolBySlug(slug);
 const page = getPageBySlug(slug);
 const legacy = getLegacyPage(slug) ?? (slug === 'amps-to-watts-calculator' ? getLegacyPage('') : getLegacyPage(tool?.slug ?? ''));
-const title = legacy?.title ?? tool?.title ?? page?.title ?? 'Amps To Watts Calculator';
-const description = legacy?.description ?? tool?.description ?? page?.description ?? 'Premium amps to watts calculator and electrical conversion tools.';
+const legacyTitle = legacy?.title?.trim();
+const legacyDescription = legacy?.description?.trim();
+const title = legacyTitle && legacyTitle !== 'Amps To Watts Calculator'
+  ? legacyTitle
+  : tool?.title ?? page?.title ?? legacyTitle ?? 'Amps To Watts Calculator';
+const description = legacyDescription && legacyDescription !== 'Premium amps to watts calculator and electrical conversion tools.'
+  ? legacyDescription
+  : tool?.description ?? page?.description ?? legacyDescription ?? 'Premium amps to watts calculator and electrical conversion tools.';
 const canonicalSlug = tool?.slug ?? page?.slug ?? slug;
 
 if (!tool && !page && !legacy) {
@@ -91,6 +97,8 @@ const legacyBody = legacy?.body
 const canonicalLegacyBody = legacyBody
   ? Object.entries(canonicalHrefReplacements).reduce((body, [from, to]) => body.replaceAll(from, to), legacyBody)
   : undefined;
+const legacyBodyHasH1 = canonicalLegacyBody ? /<h1[\s>]/i.test(canonicalLegacyBody) : false;
+const pageH1 = legacy?.h1Title ?? tool?.h1Title ?? (page as any)?.h1Title ?? page?.title ?? tool?.title ?? title;
 ---
 
 <BaseLayout
@@ -102,13 +110,18 @@ const canonicalLegacyBody = legacyBody
   tool={tool}
   showCalculator={isToolPage}
   kicker={kicker}
-  h1Title={legacy?.h1Title ?? tool?.h1Title ?? (page as any)?.h1Title ?? page?.title ?? tool?.title ?? title}
+  h1Title={pageH1}
   noindex={noindex}
 >
   {legacy ? (
     <>
       {tool && <PremiumContentShowcase tool={tool} title={title} description={description} />}
       {tool && <ToolPremiumGuide tool={tool} />}
+      {!tool && !legacyBodyHasH1 && (
+        <section class="card">
+          <h1>{pageH1}</h1>
+        </section>
+      )}
       <div set:html={canonicalLegacyBody} />
       <SemanticContextLinks slug={slug} />
     </>
