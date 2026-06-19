@@ -4,7 +4,7 @@ import { tools } from '@/data/tools';
 import type { Tool } from '@/data/tools';
 import PremiumFAQ from '@/components/PremiumFAQ.astro';
 import AmpsToWattsCalculator from '@/components/AmpsToWattsCalculator.astro';
-import HomepageLanguageSwitcher from '@/components/HomepageLanguageSwitcher.astro';
+
 import { getFaqQuestions } from '@/lib/faq';
 import type { FaqItem } from '@/lib/faq';
 
@@ -346,7 +346,7 @@ const schema = {
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="sitemap" href="/sitemap.xml" />
     <meta name="format-detection" content="telephone=no" />
-    <meta name="theme-color" content="#05070d" />
+    <meta name="theme-color" content="#f5f9ff" />
     <meta name="google-site-verification" content="J08lQRurbjNvR9mj7ufDcG3f7ErT-jhPPuOLeGX5WOE" />
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -364,7 +364,7 @@ const schema = {
     <meta name="twitter:image" content={image} />
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   </head>
-  <body class={pageClass}>
+  <body>
     <!-- Scroll progress bar -->
     <div class="scroll-progress" id="scroll-progress"></div>
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -497,42 +497,60 @@ const schema = {
     <!-- ===== FOOTER ===== -->
     <div class="footer-wrapper">
       <footer class="site-footer">
-        {isHome && <HomepageLanguageSwitcher placement="footer" />}
         <div>
-          <a class="footer-brand" href="/">Amps To Watts Calculator</a>
+          <a class="footer-brand" href="/">AmpsToWatt.com</a>
           <p>Premium electrical calculators for current, voltage, watts, kW, VA, battery energy, wire sizing, and voltage drop. Educational use only; verify safety-critical work with a licensed professional.</p>
         </div>
         <div>
-          <p class="footer-col-title" data-i18n="footer.theory">Theory & Principles</p>
-          <nav aria-label="Electrical theory">
-            <a href="/ac-amps-to-watts-calculator/">AC Power Dynamics</a>
-            <a href="/dc-amps-to-watts-calculator/">DC Systems</a>
-            <a href="/3-phase-amps-to-watts-calculator/">Three-Phase Mechanics</a>
-            <a href="/power-factor/">Power Factor Guide</a>
-            <a href="/kva-to-watts-calculator/">Apparent Power (kVA)</a>
+          <p class="footer-col-title">Main Calculators</p>
+          <nav aria-label="Main calculators">
+            <a href="/ac-amps-to-watts-calculator/">AC Amps to Watts</a>
+            <a href="/dc-amps-to-watts-calculator/">DC Amps to Watts</a>
+            <a href="/single-phase-amps-to-watts/">Single Phase</a>
+            <a href="/3-phase-amps-to-watts-calculator/">3 Phase</a>
+            <a href="/watts-to-amps-calculator/">Watts to Amps</a>
+            <a href="/amps-to-kw-calculator/">Amps to kW</a>
           </nav>
         </div>
         <div>
-          <p class="footer-col-title" data-i18n="footer.standards">Circuit Standards</p>
-          <nav aria-label="Circuit standards">
-            <a href="/12v-amps-to-watts/">Low Voltage (12V)</a>
-            <a href="/120v-amps-to-watts/">US Mains (120V)</a>
-            <a href="/240v-amps-to-watts/">US Split-Phase (240V)</a>
-            <a href="/230v-amps-to-watts/">UK/EU Mains (230V)</a>
+          <p class="footer-col-title">Voltage Calculators</p>
+          <nav aria-label="Voltage calculators">
+            <a href="/12v-amps-to-watts/">12V Calculator</a>
+            <a href="/24v-amps-to-watts/">24V Calculator</a>
+            <a href="/120v-amps-to-watts/">120V Calculator</a>
+            <a href="/220v-amps-to-watts/">220V Calculator</a>
+            <a href="/240v-amps-to-watts/">240V Calculator</a>
+            <a href="/480v-amps-to-watts-calculator/">480V Calculator</a>
           </nav>
         </div>
         <div>
-          <p class="footer-col-title" data-i18n="footer.resources">Resources</p>
-          <nav aria-label="Resource links">
-            <a href="/blog/">Blog & Guides</a>
-            <a href="/about-us/">About</a>
-            <a href="/privacy-policy/">Privacy</a>
-            <a href="/terms-conditions/">Terms</a>
-            <a href="/disclaimer/">Disclaimer</a>
-            <a href="/site-map/">Site map</a>
+          <p class="footer-col-title">Appliance Calculators</p>
+          <nav aria-label="Appliance calculators">
+            <a href="/ev-charger-amps-to-watts/">EV Charger</a>
+            <a href="/air-conditioner-amps-to-watts/">Air Conditioner</a>
+            <a href="/solar-watts-to-amps-calculator/">Solar Panel</a>
+            <a href="/generator-amps-to-watts/">Generator</a>
+            <a href="/refrigerator-amps-to-watts/">Refrigerator</a>
+            <a href="/motor-amps-to-watts/">Motor</a>
           </nav>
         </div>
-        <p class="copyright">Copyright 2026 Amps To Watts Calculator. All rights reserved. Built with precision for electrical professionals.</p>
+        <div>
+          <p class="footer-col-title">Electrical Guides</p>
+          <nav aria-label="Electrical guides">
+            <a href="/what-are-amps/">What Are Amps?</a>
+            <a href="/what-are-watts/">What Are Watts?</a>
+            <a href="/ohms-law-explained/">Ohm's Law</a>
+            <a href="/power-factor/">Power Factor</a>
+            <a href="/wire-gauge-calculator/">Wire Gauge</a>
+            <a href="/blog/">Blog & Articles</a>
+          </nav>
+        </div>
+        <div class="copyright">
+          <span>© 2026 AmpsToWatt.com. All rights reserved.</span>
+          <span>
+            <a href="/about-us/">About</a> · <a href="/privacy-policy/">Privacy</a> · <a href="/terms-conditions/">Terms</a> · <a href="/disclaimer/">Disclaimer</a> · <a href="/contact-us/">Contact</a> · <a href="/site-map/">Sitemap</a>
+          </span>
+        </div>
       </footer>
     </div>
 
