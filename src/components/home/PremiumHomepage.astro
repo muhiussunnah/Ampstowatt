@@ -233,7 +233,7 @@ const hubGroups = [
     </div>
 
     <article
-      class="home-calculator lx-tool"
+      class="home-calculator lx-tool premium-calculator"
       id="amps-to-watts-tool"
       data-kind="amps-to-watts"
       data-mode="amps-to-watts"
@@ -244,98 +244,149 @@ const hubGroups = [
       data-default-unit="a"
       aria-labelledby="home-calculator-title"
     >
-      <h2 id="home-calculator-title">1. Enter Your Values</h2>
-      <div class="home-calc-tabs" role="tablist" aria-label="Electrical system type">
-        <button type="button" class="home-calc-tab is-active" role="tab" aria-selected="true" data-home-phase="dc">
-          <span aria-hidden="true">=</span> DC
-        </button>
-        <button type="button" class="home-calc-tab" role="tab" aria-selected="false" data-home-phase="ac1">
-          <span aria-hidden="true">~</span> Single-Phase AC
-        </button>
-        <button type="button" class="home-calc-tab" role="tab" aria-selected="false" data-home-phase="ac3">
-          <span aria-hidden="true">3~</span> Three-Phase AC
-        </button>
-      </div>
-
-      <select id="lx-type" class="home-calc-phase-select" aria-label="System type">
-        <option value="dc" selected>DC</option>
-        <option value="ac1">Single-Phase AC</option>
-        <option value="ac3">Three-Phase AC</option>
-      </select>
-
-      <div class="home-calc-grid">
-        <div class="lx-field">
-          <label id="lbl-power" for="lx-power">Current (A)</label>
-          <div class="home-input-shell">
-            <input type="number" id="lx-power" min="0" step="any" placeholder="Enter current..." aria-describedby="lx-power-help lx-power-error" />
-            <label class="sr-only" for="lx-power-unit">Current unit</label>
-            <select id="lx-power-unit" aria-label="Current unit">
-              <option value="a">A</option>
-              <option value="ma">mA</option>
-            </select>
-          </div>
-          <small class="field-help" id="lx-power-help">Enter a zero or positive decimal value.</small>
-          <small class="field-error" id="lx-power-error" aria-live="polite"></small>
-        </div>
-
-        <div class="lx-field" id="lx-pf-container">
-          <label for="lx-pf-input">Power Factor (PF)</label>
-          <input class="sr-only" type="range" id="lx-pf-slider" min="0.01" max="1" step="0.01" value="1" aria-label="Power factor slider" />
-          <input type="number" id="lx-pf-input" min="0.01" max="1" step="0.01" value="1.00" aria-describedby="lx-pf-help lx-pf-input-error" />
-          <small class="field-help" id="lx-pf-help">Typically 0.80 - 1.00</small>
-          <small class="field-error" id="lx-pf-input-error" aria-live="polite"></small>
-        </div>
-
-        <div class="lx-field">
-          <label for="lx-volts">Voltage (V)</label>
-          <div class="home-input-shell">
-            <input type="number" id="lx-volts" min="0" step="any" value="120" placeholder="Enter voltage..." aria-describedby="lx-volts-help lx-volts-error" />
-            <span>V</span>
-          </div>
-          <small class="field-help" id="lx-volts-help">Use the circuit voltage.</small>
-          <small class="field-error" id="lx-volts-error" aria-live="polite"></small>
-        </div>
-
-        <div class="lx-field">
-          <label for="home-frequency">Frequency (Hz)</label>
-          <input type="number" id="home-frequency" min="0" step="1" value="60" />
-          <small class="field-help">Standard: 50 or 60 Hz</small>
-        </div>
-      </div>
-
-      <div class="lx-field is-hidden" id="lx-vtype-container">
-        <label>Voltage Type</label>
-        <div class="lx-toggle-group">
-          <input type="hidden" id="lx-vtype" value="vll" />
-          <button type="button" class="lx-btn active" id="btn-vll">Line-to-Line</button>
-          <button type="button" class="lx-btn" id="btn-vln">Line-to-Neutral</button>
-        </div>
-      </div>
-
-      <input type="hidden" id="lx-dec" value="2" />
-      <input type="hidden" id="res-kw" readonly />
-      <input type="hidden" id="res-watts" readonly />
-      <span class="sr-only" id="lbl-res1">Power (kW)</span>
-      <span class="sr-only" id="lbl-res2">Power (W)</span>
-      <span class="sr-only" id="lbl-unit1">kW</span>
-      <span class="sr-only" id="lbl-unit2">W</span>
-
-      <div class="home-result-box" aria-live="polite" aria-atomic="true">
+      <!-- Calculator Header -->
+      <div class="calc-header">
         <div>
-          <span>2. Power Output</span>
-          <strong id="lx-mirror-val">0 W</strong>
-          <small class="lx-mode-text">Power (Watts)</small>
+          <h2 class="calc-title" id="home-calculator-title">Amps to Watts Calculator</h2>
+          <p class="calc-subtitle">Enter current, voltage, and power factor to calculate watts instantly.</p>
         </div>
-        <span class="home-result-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M13 2 5 14h6l-1 8 9-13h-6l0-7Z" /></svg>
-        </span>
-        <p>Enter values above to see the calculated power in watts.</p>
+        <span class="calc-badge">⚡ Live Result</span>
       </div>
 
-      <div class="lx-actions sr-only">
-        <button type="button" class="lx-mode-btn" id="lx-mode-btn" aria-pressed="false">Switch to Watts to Amps</button>
-        <button type="button" class="lx-btn-reset">Reset</button>
-      </div>
+      <!-- Step 1: Current Type -->
+      <section class="calc-section">
+        <div class="calc-section-title">1. Choose Current Type</div>
+        <div class="calc-mode-grid" role="tablist" aria-label="Electrical system type">
+          <button type="button" class="calc-mode-btn home-calc-tab is-active" role="tab" aria-selected="true" data-home-phase="dc" data-calc-phase="dc">
+            <span class="calc-mode-icon" aria-hidden="true">=</span>
+            <span class="calc-mode-label">DC</span>
+            <span class="calc-mode-desc">Batteries &amp; solar</span>
+          </button>
+          <button type="button" class="calc-mode-btn home-calc-tab" role="tab" aria-selected="false" data-home-phase="ac1" data-calc-phase="ac1">
+            <span class="calc-mode-icon" aria-hidden="true">~</span>
+            <span class="calc-mode-label">Single-Phase AC</span>
+            <span class="calc-mode-desc">Homes &amp; outlets</span>
+          </button>
+          <button type="button" class="calc-mode-btn home-calc-tab" role="tab" aria-selected="false" data-home-phase="ac3" data-calc-phase="ac3">
+            <span class="calc-mode-icon" aria-hidden="true">3~</span>
+            <span class="calc-mode-label">Three-Phase AC</span>
+            <span class="calc-mode-desc">Industrial systems</span>
+          </button>
+        </div>
+
+        <select id="lx-type" class="sr-only" aria-label="System type">
+          <option value="dc" selected>DC</option>
+          <option value="ac1">Single-Phase AC</option>
+          <option value="ac3">Three-Phase AC</option>
+        </select>
+      </section>
+
+      <!-- Step 2: Input Fields -->
+      <section class="calc-section">
+        <div class="calc-section-title">2. Enter Electrical Values</div>
+        <div class="calc-input-grid">
+          <label class="calc-field">
+            <span class="calc-label-row">
+              <span class="calc-label" id="lbl-power">Current (Amps)</span>
+            </span>
+            <span class="calc-input-wrap">
+              <input class="calc-input" type="number" id="lx-power" min="0" step="any" placeholder="Example: 10" aria-describedby="lx-power-help lx-power-error" />
+              <span class="calc-unit-wrap">
+                <label class="sr-only" for="lx-power-unit">Current unit</label>
+                <select id="lx-power-unit" class="calc-unit-select" aria-label="Current unit">
+                  <option value="a">A</option>
+                  <option value="ma">mA</option>
+                </select>
+              </span>
+            </span>
+            <span class="calc-helper" id="lx-power-help">Enter the electrical current in amperes.</span>
+            <span class="calc-error" id="lx-power-error" aria-live="polite"></span>
+          </label>
+
+          <label class="calc-field">
+            <span class="calc-label-row">
+              <span class="calc-label">Voltage (Volts)</span>
+            </span>
+            <span class="calc-input-wrap">
+              <input class="calc-input" type="number" id="lx-volts" min="0" step="any" value="120" placeholder="Example: 120" aria-describedby="lx-volts-help lx-volts-error" />
+              <span class="calc-unit">V</span>
+            </span>
+            <span class="calc-helper" id="lx-volts-help">Enter the circuit voltage.</span>
+            <span class="calc-error" id="lx-volts-error" aria-live="polite"></span>
+          </label>
+
+          <label class="calc-field" id="lx-pf-container">
+            <span class="calc-label-row">
+              <span class="calc-label">Power Factor (PF)</span>
+            </span>
+            <span class="calc-input-wrap">
+              <input class="calc-input" type="number" id="lx-pf-input" min="0.01" max="1" step="0.01" value="1.00" aria-describedby="lx-pf-help lx-pf-input-error" />
+            </span>
+            <input type="range" id="lx-pf-slider" class="sr-only" min="0.01" max="1" step="0.01" value="1" aria-label="Power factor slider" />
+            <span class="calc-helper" id="lx-pf-help">Use 1.0 for DC/resistive loads. Motors often use 0.8–0.95.</span>
+            <span class="calc-error" id="lx-pf-input-error" aria-live="polite"></span>
+          </label>
+
+          <label class="calc-field">
+            <span class="calc-label-row">
+              <span class="calc-label">Frequency (Hz)</span>
+            </span>
+            <span class="calc-input-wrap">
+              <input class="calc-input" type="number" min="0" step="1" value="60" />
+              <span class="calc-unit">Hz</span>
+            </span>
+            <span class="calc-helper">Usually 50 or 60 Hz. Informational only.</span>
+          </label>
+        </div>
+      </section>
+
+      <!-- Three-Phase Voltage Type -->
+      <section class="calc-voltage-type is-hidden" id="lx-vtype-container">
+        <div class="calc-voltage-type-title">Voltage Type</div>
+        <input type="hidden" id="lx-vtype" value="vll" />
+        <div class="calc-voltage-type-grid">
+          <button class="calc-voltage-btn is-active" type="button" id="btn-vll">Line-to-Line</button>
+          <button class="calc-voltage-btn" type="button" id="btn-vln">Line-to-Neutral</button>
+        </div>
+        <p class="calc-helper" style="margin-top:10px">Use line-to-line voltage for most three-phase calculations.</p>
+      </section>
+
+      <!-- Step 3: Result -->
+      <section class="calc-section">
+        <div class="calc-section-title">3. Calculated Result</div>
+        <div class="calc-result-panel" aria-live="polite" aria-atomic="true">
+          <div class="calc-result-main">
+            <span class="calc-result-label">Calculated Power</span>
+            <strong class="calc-result-value" id="lx-mirror-val">0 W</strong>
+            <span class="calc-result-subvalue lx-mode-text">Power (Watts)</span>
+          </div>
+          <div class="calc-formula-box">
+            <span class="calc-formula-label">Formula Used</span>
+            <span class="calc-formula-value" id="calc-formula-display">W = A × V</span>
+            <span class="calc-helper" id="calc-result-helper">Enter values to calculate power.</span>
+          </div>
+        </div>
+
+        <!-- Hidden result fields for JS engine -->
+        <input type="hidden" id="res-kw" readonly />
+        <input type="hidden" id="res-watts" readonly />
+        <span class="sr-only" id="lbl-res1">Power (kW)</span>
+        <span class="sr-only" id="lbl-res2">Power (W)</span>
+        <span class="sr-only" id="lbl-unit1">kW</span>
+        <span class="sr-only" id="lbl-unit2">W</span>
+        <input type="hidden" id="lx-dec" value="2" />
+
+        <div class="calc-action-row">
+          <div class="calc-actions">
+            <button class="calc-btn lx-btn-reset" type="button">Reset</button>
+            <button class="calc-btn calc-btn-primary lx-action-copy" type="button">Copy Result</button>
+          </div>
+          <p class="calc-note">Always verify electrical work with local code and device specifications.</p>
+        </div>
+      </section>
+
+      <!-- Mode switch (hidden, for JS engine compat) -->
+      <button type="button" class="sr-only lx-mode-btn" id="lx-mode-btn" aria-pressed="false">Switch to Watts to Amps</button>
     </article>
   </section>
 

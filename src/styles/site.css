@@ -3792,7 +3792,623 @@ input[type="range"] {
   }
 }
 
-/* ---------- 24. Reduced Motion ---------- */
+/* ==========================================================
+   25. PREMIUM CALCULATOR UI
+   Step-based professional calculator card design.
+   ========================================================== */
+
+.premium-calculator {
+  display: block !important;
+  grid-template-columns: none !important;
+  max-width: 760px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  border-radius: 28px;
+  box-shadow:
+    0 24px 70px rgba(15, 23, 42, 0.10),
+    0 8px 24px rgba(37, 99, 235, 0.06);
+  padding: 30px;
+  color: var(--color-text);
+  position: relative;
+  overflow: hidden;
+}
+
+.premium-calculator::before {
+  content: "";
+  display: block !important;
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 5px;
+  background: linear-gradient(90deg, #f97316, #2563eb, #7c3aed);
+  z-index: 2;
+}
+
+/* Calculator Header */
+.calc-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.calc-title {
+  font-size: 1.35rem;
+  font-weight: 850;
+  color: var(--color-navy);
+  line-height: 1.25;
+}
+
+.calc-subtitle {
+  color: var(--color-muted);
+  margin-top: 5px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.calc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--color-primary-soft);
+  color: var(--color-primary-dark);
+  font-size: 0.78rem;
+  font-weight: 850;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Section titles */
+.calc-section {
+  margin-bottom: 6px;
+}
+
+.calc-section-title {
+  color: var(--color-navy);
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Mode Tabs */
+.calc-mode-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.calc-mode-btn {
+  min-height: 82px;
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  background: #ffffff;
+  padding: 14px;
+  text-align: left;
+  color: var(--color-navy);
+  display: grid;
+  gap: 4px;
+  cursor: pointer;
+  transition: all 180ms ease;
+}
+
+.calc-mode-btn:hover {
+  border-color: rgba(37, 99, 235, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.calc-mode-btn.is-active,
+.calc-mode-btn[aria-selected="true"] {
+  background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
+  border-color: #f97316;
+  color: #ffffff;
+  box-shadow: 0 14px 30px rgba(249, 115, 22, 0.25);
+}
+
+.calc-mode-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: rgba(37, 99, 235, 0.08);
+  color: var(--color-primary);
+  font-weight: 900;
+  font-size: 0.82rem;
+  font-family: var(--mono);
+  margin-bottom: 2px;
+}
+
+.calc-mode-btn.is-active .calc-mode-icon {
+  background: rgba(255, 255, 255, 0.22);
+  color: #fff;
+}
+
+.calc-mode-label {
+  font-weight: 850;
+  font-size: 0.98rem;
+  line-height: 1.3;
+}
+
+.calc-mode-desc {
+  font-size: 0.78rem;
+  opacity: 0.72;
+  font-weight: 600;
+}
+
+/* Input Grid */
+.calc-input-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.calc-field {
+  display: grid;
+  gap: 8px;
+}
+
+.calc-label-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+}
+
+.calc-label {
+  font-weight: 850;
+  color: var(--color-navy);
+  font-size: 0.94rem;
+}
+
+.calc-helper {
+  color: var(--color-muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+  font-weight: 550;
+}
+
+.calc-error {
+  display: block;
+  min-height: 0.9rem;
+  color: var(--color-danger);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.calc-input-wrap {
+  position: relative;
+}
+
+.calc-input {
+  width: 100%;
+  height: 56px;
+  border: 1px solid #dbe3ef;
+  border-radius: 16px;
+  background: #ffffff;
+  color: var(--color-navy);
+  padding: 0 52px 0 16px;
+  font-size: 1.04rem;
+  font-weight: 750;
+  font-family: var(--font);
+  box-shadow: inset 0 1px 0 rgba(15, 23, 42, 0.02);
+  outline: none;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.calc-input::placeholder {
+  color: #94a3b8;
+  font-weight: 550;
+}
+
+.calc-input:focus {
+  border-color: var(--color-primary);
+  box-shadow:
+    0 0 0 4px rgba(37, 99, 235, 0.12),
+    inset 0 1px 0 rgba(15, 23, 42, 0.02);
+}
+
+.calc-input.has-error {
+  border-color: var(--color-danger);
+  background: #fffafa;
+}
+
+.calc-unit {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  min-width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 0.82rem;
+  font-weight: 850;
+  pointer-events: none;
+}
+
+.calc-unit-wrap {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.calc-unit-select {
+  min-width: 44px;
+  height: 34px;
+  border: 1px solid var(--color-border);
+  border-radius: 9px;
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 0.82rem;
+  font-weight: 850;
+  padding: 0 6px;
+  cursor: pointer;
+  outline: none;
+  font-family: var(--font);
+}
+
+.calc-unit-select:focus {
+  border-color: var(--color-primary);
+}
+
+/* Voltage Type Selector */
+.calc-voltage-type {
+  margin: 4px 0 24px;
+  padding: 16px;
+  border-radius: 18px;
+  background: #f8fbff;
+  border: 1px solid var(--color-border);
+}
+
+.calc-voltage-type-title {
+  font-weight: 850;
+  color: var(--color-navy);
+  margin-bottom: 10px;
+  font-size: 0.94rem;
+}
+
+.calc-voltage-type-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.calc-voltage-btn {
+  min-height: 52px;
+  border: 1px solid #dbe3ef;
+  border-radius: 14px;
+  background: #ffffff;
+  color: var(--color-navy);
+  font-weight: 850;
+  font-size: 0.94rem;
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.calc-voltage-btn:hover {
+  border-color: rgba(37, 99, 235, 0.3);
+}
+
+.calc-voltage-btn.is-active,
+.calc-voltage-btn.active {
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: #ffffff;
+  border-color: #2563eb;
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2);
+}
+
+/* Result Panel */
+.calc-result-panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  padding: 22px;
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at top right, rgba(37, 99, 235, 0.10), transparent 35%),
+    linear-gradient(180deg, #ffffff 0%, #f1f7ff 100%);
+  border: 1px solid #dbeafe;
+}
+
+.calc-result-main {
+  display: grid;
+  gap: 8px;
+  align-content: center;
+}
+
+.calc-result-label {
+  color: var(--color-navy);
+  font-size: 0.82rem;
+  font-weight: 850;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.calc-result-value {
+  color: var(--color-primary);
+  font-size: clamp(2.3rem, 4vw, 3.2rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  font-family: var(--font);
+  overflow-wrap: anywhere;
+}
+
+.calc-result-subvalue {
+  color: var(--color-muted);
+  font-size: 0.88rem;
+  font-weight: 750;
+}
+
+.calc-formula-box {
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 16px;
+  display: grid;
+  gap: 8px;
+  align-content: center;
+}
+
+.calc-formula-label {
+  color: var(--color-muted);
+  font-size: 0.72rem;
+  font-weight: 850;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.calc-formula-value {
+  color: var(--color-navy);
+  font-size: 1.15rem;
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 700;
+}
+
+/* Action Row */
+.calc-action-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.calc-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.calc-btn {
+  min-height: 42px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: #ffffff;
+  color: var(--color-navy);
+  font-weight: 850;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 150ms ease;
+  font-family: var(--font);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calc-btn:hover {
+  border-color: rgba(37, 99, 235, 0.3);
+  background: var(--color-primary-soft);
+}
+
+.calc-btn-primary {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #ffffff;
+}
+
+.calc-btn-primary:hover {
+  background: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+}
+
+.calc-note {
+  color: var(--color-muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Presets */
+.calc-presets {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid var(--color-border);
+}
+
+.calc-presets-title {
+  display: block;
+  color: var(--color-muted);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.calc-presets-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.calc-preset-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  min-height: 48px;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background: var(--color-surface-soft);
+  color: var(--color-navy);
+  padding: 10px 14px;
+  font-size: 0.86rem;
+  font-weight: 750;
+  cursor: pointer;
+  transition: all 150ms ease;
+  font-family: var(--font);
+}
+
+.calc-preset-btn:hover {
+  border-color: rgba(37, 99, 235, 0.3);
+  background: var(--color-primary-soft);
+  transform: translateY(-1px);
+}
+
+.calc-preset-btn strong {
+  color: var(--color-primary);
+  font-family: var(--mono);
+  font-weight: 900;
+  font-size: 0.82rem;
+}
+
+/* History */
+.premium-calculator .calc-history {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
+}
+
+.premium-calculator .calc-history-title {
+  display: block;
+  color: var(--color-muted);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.premium-calculator .calc-history-list {
+  display: grid;
+  gap: 8px;
+}
+
+.premium-calculator .calc-history-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px;
+  align-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-surface-soft);
+  color: var(--color-muted);
+  font-size: 0.78rem;
+  padding: 8px 12px;
+}
+
+.premium-calculator .hist-result {
+  color: var(--color-primary);
+  font-family: var(--mono);
+  font-weight: 900;
+}
+
+/* Override hero layout for premium-calculator within the hero */
+.premium-unified-hero .premium-calculator {
+  max-width: none;
+}
+
+/* Homepage calculator override */
+.home-calculator.premium-calculator {
+  max-width: none;
+  width: 100%;
+  border-radius: 28px;
+  padding: clamp(20px, 3vw, 30px);
+}
+
+/* ==========================================================
+   26. PREMIUM CALCULATOR RESPONSIVE
+   ========================================================== */
+
+@media (max-width: 760px) {
+  .premium-calculator {
+    padding: 22px;
+    border-radius: 22px;
+  }
+
+  .calc-header {
+    flex-direction: column;
+  }
+
+  .calc-mode-grid,
+  .calc-input-grid,
+  .calc-result-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .calc-voltage-type-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .calc-presets-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .calc-action-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .calc-actions {
+    width: 100%;
+  }
+
+  .calc-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .calc-mode-btn {
+    min-height: 68px;
+  }
+}
+
+@media (max-width: 520px) {
+  .premium-calculator {
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  .calc-presets-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .calc-result-value {
+    font-size: 2rem;
+  }
+}
+
+/* ---------- 27. Reduced Motion ---------- */
 
 @media (prefers-reduced-motion: reduce) {
   *,

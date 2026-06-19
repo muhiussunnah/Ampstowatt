@@ -225,11 +225,50 @@
     const pf = toolField(tool, 'lx-pf-container');
     if (vtype) vtype.classList.toggle('is-hidden', type !== 'ac3');
     if (pf) pf.classList.toggle('is-hidden', type === 'dc');
+    /* Update home-calc-tab buttons */
     $$('.home-calc-tab', tool).forEach((tab) => {
       const active = tab.dataset.homePhase === type;
       tab.classList.toggle('is-active', active);
       tab.setAttribute('aria-selected', String(active));
     });
+    /* Update new calc-mode-btn buttons */
+    $$('.calc-mode-btn', tool).forEach((btn) => {
+      const active = btn.dataset.calcPhase === type;
+      btn.classList.toggle('is-active', active);
+      btn.setAttribute('aria-selected', String(active));
+    });
+    /* Update formula display */
+    updateFormulaDisplay(tool, type);
+  }
+
+  function updateFormulaDisplay(tool, type) {
+    const formulaEl = tool.querySelector('#calc-formula-display');
+    const helperEl = tool.querySelector('#calc-result-helper');
+    const voltageType = toolField(tool, 'lx-vtype')?.value || 'vll';
+    const mode = tool.dataset.mode || 'amps-to-watts';
+    const isAtW = mode === 'amps-to-watts';
+    if (formulaEl) {
+      if (type === 'dc') {
+        formulaEl.textContent = isAtW ? 'W = A × V' : 'A = W ÷ V';
+      } else if (type === 'ac1') {
+        formulaEl.textContent = isAtW ? 'W = A × V × PF' : 'A = W ÷ (V × PF)';
+      } else if (type === 'ac3') {
+        if (voltageType === 'vln') {
+          formulaEl.textContent = isAtW ? 'W = 3 × A × V × PF' : 'A = W ÷ (3 × V × PF)';
+        } else {
+          formulaEl.textContent = isAtW ? 'W = √3 × A × V × PF' : 'A = W ÷ (√3 × V × PF)';
+        }
+      }
+    }
+    if (helperEl) {
+      const amps = number(toolField(tool, 'lx-power'), 0);
+      const volts = number(toolField(tool, 'lx-volts'), 0);
+      if (amps > 0 && volts > 0) {
+        helperEl.textContent = 'Result calculated with current values.';
+      } else {
+        helperEl.textContent = 'Enter values to calculate power.';
+      }
+    }
   }
 
   function validateInput(field, min = 0, max = Infinity) {
@@ -538,6 +577,7 @@
       if (tool.dataset.ready === 'true') return;
       tool.dataset.ready = 'true';
       setMode(tool, getMode(tool));
+      /* Home-calc-tab buttons (legacy + new dual-class) */
       $$('.home-calc-tab', tool).forEach((tab) => {
         tab.addEventListener('click', () => {
           const type = toolField(tool, 'lx-type');
@@ -550,6 +590,29 @@
           if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
           const tabs = $$('.home-calc-tab', tool);
           const current = tabs.indexOf(tab);
+          let next = current;
+          if (event.key === 'ArrowLeft') next = current <= 0 ? tabs.length - 1 : current - 1;
+          if (event.key === 'ArrowRight') next = current >= tabs.length - 1 ? 0 : current + 1;
+          if (event.key === 'Home') next = 0;
+          if (event.key === 'End') next = tabs.length - 1;
+          event.preventDefault();
+          tabs[next]?.focus();
+          tabs[next]?.click();
+        });
+      });
+      /* New premium calc-mode-btn tabs (inner pages) */
+      $$('.calc-mode-btn:not(.home-calc-tab)', tool).forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const type = toolField(tool, 'lx-type');
+          if (type && btn.dataset.calcPhase) {
+            type.value = btn.dataset.calcPhase;
+            updateCalculator(tool);
+          }
+        });
+        btn.addEventListener('keydown', (event) => {
+          if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+          const tabs = $$('.calc-mode-btn:not(.home-calc-tab)', tool);
+          const current = tabs.indexOf(btn);
           let next = current;
           if (event.key === 'ArrowLeft') next = current <= 0 ? tabs.length - 1 : current - 1;
           if (event.key === 'ArrowRight') next = current >= tabs.length - 1 ? 0 : current + 1;
