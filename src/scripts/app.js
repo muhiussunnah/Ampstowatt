@@ -20,12 +20,16 @@
   };
   const setSelectOptions = (select, options) => {
     if (!select) return;
+    const current = select.value;
     select.replaceChildren(...options.map(([value, label]) => {
       const option = document.createElement('option');
       option.value = value;
       option.textContent = label;
       return option;
     }));
+    if (options.some(([value]) => value === current)) {
+      select.value = current;
+    }
   };
 
   /* ----------------------------------------------------------------
@@ -105,6 +109,9 @@
       setSelectOptions(unit, isAmpsToWatts
         ? [['a', 'A'], ['ma', 'mA']]
         : [['kw', 'kW'], ['w', 'W']]);
+      if (tool.dataset.defaultMode === mode && tool.dataset.defaultUnit) {
+        unit.value = tool.dataset.defaultUnit;
+      }
     }
     if (resOneInput) {
       resOneInput.setAttribute('aria-label', isAmpsToWatts ? 'Power in kilowatts' : 'Current in amps');
@@ -116,6 +123,102 @@
     window.dispatchEvent(new CustomEvent('aw:calculator-mode-change'));
   }
 
+  function setFieldHidden(field, hidden) {
+    const wrapper = field?.closest('.lx-field');
+    if (wrapper) wrapper.classList.toggle('is-hidden', hidden);
+  }
+
+  function setFieldLabel(field, text) {
+    const label = field?.closest('.lx-field')?.querySelector('label:not(.sr-only)');
+    if (label) text ? label.textContent = text : null;
+  }
+
+  function configureToolKind(tool) {
+    const kind = tool.dataset.kind || 'amps-to-watts';
+    const type = toolField(tool, 'lx-type');
+    const volts = toolField(tool, 'lx-volts');
+    const pf = toolField(tool, 'lx-pf-container');
+    const unit = toolField(tool, 'lx-power-unit');
+    const modeBtn = toolField(tool, 'lx-mode-btn');
+    const powerLabel = toolField(tool, 'lbl-power');
+    const resOneLabel = toolField(tool, 'lbl-res1') || toolField(tool, 'res-amps-box')?.querySelector('label');
+    const resTwoLabel = toolField(tool, 'lbl-res2') || toolField(tool, 'res-ma-box')?.querySelector('label');
+    const resOneUnit = toolField(tool, 'lbl-unit1') || toolField(tool, 'res-amps-box')?.querySelector('.lx-unit-label');
+    const resTwoUnit = toolField(tool, 'lbl-unit2') || toolField(tool, 'res-ma-box')?.querySelector('.lx-unit-label');
+    const powerHelp = toolField(tool, 'lx-power-help');
+    const voltsHelp = toolField(tool, 'lx-volts-help');
+    const specialKind = ['kva-to-watts', 'volt-amps', 'amp-hours', 'power-factor', 'voltage-drop', 'wire-gauge'].includes(kind);
+
+    setFieldHidden(type, specialKind);
+    if (modeBtn) modeBtn.classList.toggle('is-hidden', specialKind);
+
+    if (kind === 'kva-to-watts') {
+      if (powerLabel) powerLabel.textContent = 'Apparent Power';
+      setSelectOptions(unit, [['kva', 'kVA'], ['va', 'VA']]);
+      setFieldHidden(volts, true);
+      if (pf) pf.classList.remove('is-hidden');
+      if (resOneLabel) resOneLabel.textContent = 'Power (kW)';
+      if (resTwoLabel) resTwoLabel.textContent = 'Power (W)';
+      if (resOneUnit) resOneUnit.textContent = 'kW';
+      if (resTwoUnit) resTwoUnit.textContent = 'W';
+      if (powerHelp) powerHelp.textContent = 'Enter apparent power from the generator, UPS, or transformer rating.';
+    } else if (kind === 'volt-amps') {
+      if (powerLabel) powerLabel.textContent = 'Current';
+      setSelectOptions(unit, [['a', 'A'], ['ma', 'mA']]);
+      setFieldHidden(volts, false);
+      setFieldLabel(volts, 'Voltage (V)');
+      if (pf) pf.classList.add('is-hidden');
+      if (resOneLabel) resOneLabel.textContent = 'Apparent Power (kVA)';
+      if (resTwoLabel) resTwoLabel.textContent = 'Apparent Power (VA)';
+      if (resOneUnit) resOneUnit.textContent = 'kVA';
+      if (resTwoUnit) resTwoUnit.textContent = 'VA';
+    } else if (kind === 'amp-hours') {
+      if (powerLabel) powerLabel.textContent = 'Capacity';
+      setSelectOptions(unit, [['ah', 'Ah']]);
+      setFieldHidden(volts, false);
+      setFieldLabel(volts, 'Voltage (V)');
+      if (pf) pf.classList.add('is-hidden');
+      if (resOneLabel) resOneLabel.textContent = 'Energy (kWh)';
+      if (resTwoLabel) resTwoLabel.textContent = 'Energy (Wh)';
+      if (resOneUnit) resOneUnit.textContent = 'kWh';
+      if (resTwoUnit) resTwoUnit.textContent = 'Wh';
+      if (powerHelp) powerHelp.textContent = 'Enter battery capacity in amp-hours.';
+    } else if (kind === 'power-factor') {
+      if (powerLabel) powerLabel.textContent = 'Real Power';
+      setSelectOptions(unit, [['w', 'W'], ['kw', 'kW']]);
+      setFieldHidden(volts, false);
+      setFieldLabel(volts, 'Apparent Power (VA)');
+      if (pf) pf.classList.add('is-hidden');
+      if (resOneLabel) resOneLabel.textContent = 'Power Factor';
+      if (resTwoLabel) resTwoLabel.textContent = 'Real Power Share';
+      if (resOneUnit) resOneUnit.textContent = 'PF';
+      if (resTwoUnit) resTwoUnit.textContent = '%';
+      if (voltsHelp) voltsHelp.textContent = 'Enter apparent power in volt-amps (VA).';
+    } else if (kind === 'voltage-drop') {
+      if (powerLabel) powerLabel.textContent = 'Current';
+      setSelectOptions(unit, [['a', 'A']]);
+      setFieldHidden(volts, false);
+      setFieldLabel(volts, 'One-way Distance (ft)');
+      if (pf) pf.classList.add('is-hidden');
+      if (resOneLabel) resOneLabel.textContent = 'Estimated Drop (V)';
+      if (resTwoLabel) resTwoLabel.textContent = 'Approx. Drop at 120V';
+      if (resOneUnit) resOneUnit.textContent = 'V';
+      if (resTwoUnit) resTwoUnit.textContent = '%';
+      if (voltsHelp) voltsHelp.textContent = 'Planning estimate uses a 12 AWG copper reference. Verify final sizing by code.';
+    } else if (kind === 'wire-gauge') {
+      if (powerLabel) powerLabel.textContent = 'Current';
+      setSelectOptions(unit, [['a', 'A']]);
+      setFieldHidden(volts, false);
+      setFieldLabel(volts, 'One-way Distance (ft)');
+      if (pf) pf.classList.add('is-hidden');
+      if (resOneLabel) resOneLabel.textContent = 'Planning Gauge';
+      if (resTwoLabel) resTwoLabel.textContent = 'Voltage Drop Check';
+      if (resOneUnit) resOneUnit.textContent = 'AWG';
+      if (resTwoUnit) resTwoUnit.textContent = 'ref';
+      if (voltsHelp) voltsHelp.textContent = 'Use this as a planning reference only; final wire size depends on code and installation conditions.';
+    }
+  }
+
   function updateVisibility(tool) {
     const type = toolField(tool, 'lx-type')?.value || 'dc';
     const vtype = toolField(tool, 'lx-vtype-container');
@@ -124,20 +227,30 @@
     if (pf) pf.classList.toggle('is-hidden', type === 'dc');
   }
 
-  function validateInput(field) {
+  function validateInput(field, min = 0, max = Infinity) {
     if (!field) return;
     const val = Number(field.value);
-    if (field.value !== '' && (!Number.isFinite(val) || val < 0)) {
+    const invalid = field.value !== '' && (!Number.isFinite(val) || val < min || val > max);
+    if (invalid) {
       field.classList.add('has-error');
+      const error = document.getElementById(`${field.id}-error`);
+      if (error) error.textContent = max < Infinity
+        ? `Enter a value from ${min} to ${max}.`
+        : `Enter a value of ${min} or greater.`;
     } else {
       field.classList.remove('has-error');
+      const error = document.getElementById(`${field.id}-error`);
+      if (error) error.textContent = '';
     }
   }
 
   function updateCalculator(tool) {
+    configureToolKind(tool);
     updateVisibility(tool);
+    configureToolKind(tool);
     const decimals = getDecimals(tool);
     const mode = tool.dataset.mode || getMode(tool);
+    const kind = tool.dataset.kind || 'amps-to-watts';
     const type = toolField(tool, 'lx-type')?.value || 'dc';
     const powerField = toolField(tool, 'lx-power');
     const voltsField = toolField(tool, 'lx-volts');
@@ -145,25 +258,73 @@
     const pfSlider = toolField(tool, 'lx-pf-slider');
     const pfInput = toolField(tool, 'lx-pf-input');
     const voltageType = toolField(tool, 'lx-vtype')?.value || 'vll';
-    const pf = type === 'dc' ? 1 : Math.max(0.01, Math.min(1, number(pfInput || pfSlider, 1)));
+    const rawPf = number(pfInput || pfSlider, 1);
+    const pf = type === 'dc' && !['kva-to-watts'].includes(kind) ? 1 : Math.max(0.01, Math.min(1, rawPf));
     const volts = Math.max(0.000001, number(voltsField, 0));
     const raw = number(powerField, 0);
     const unit = unitField?.value || (mode === 'amps-to-watts' ? 'a' : 'kw');
-    const input = unit === 'kw' ? raw * 1000 : unit === 'ma' ? raw / 1000 : raw;
+    const safeRaw = Math.max(0, raw);
+    const input = unit === 'kw' ? safeRaw * 1000 : unit === 'ma' ? safeRaw / 1000 : unit === 'va' ? safeRaw : safeRaw;
     const divisor = volts * phaseFactor(type, pf, voltageType);
 
     /* Validate inputs */
     validateInput(powerField);
     validateInput(voltsField);
+    validateInput(pfInput, 0.01, 1);
 
     let amps = 0;
     let watts = 0;
-    if (mode === 'amps-to-watts') {
+    let firstResult = '';
+    let secondResult = '';
+    let mirrorText = '';
+
+    if (kind === 'kva-to-watts') {
+      watts = (unit === 'va' ? input : safeRaw * 1000) * pf;
+      firstResult = format(watts / 1000, decimals);
+      secondResult = format(watts, decimals);
+      mirrorText = `${format(watts, decimals)} W`;
+    } else if (kind === 'volt-amps') {
+      amps = input;
+      const va = amps * volts;
+      firstResult = format(va / 1000, decimals);
+      secondResult = format(va, decimals);
+      mirrorText = `${format(va, decimals)} VA`;
+    } else if (kind === 'amp-hours') {
+      const wh = safeRaw * volts;
+      firstResult = format(wh / 1000, decimals);
+      secondResult = format(wh, decimals);
+      mirrorText = `${format(wh, decimals)} Wh`;
+    } else if (kind === 'power-factor') {
+      watts = input;
+      const apparent = volts;
+      const calculatedPf = apparent > 0 ? Math.min(1, watts / apparent) : 0;
+      firstResult = format(calculatedPf, decimals);
+      secondResult = format(calculatedPf * 100, decimals);
+      mirrorText = `${format(calculatedPf, decimals)} PF`;
+    } else if (kind === 'voltage-drop') {
+      amps = input;
+      const distance = volts;
+      const drop = (2 * distance * amps * 1.588) / 1000;
+      firstResult = format(drop, decimals);
+      secondResult = format((drop / 120) * 100, decimals);
+      mirrorText = `${format(drop, decimals)} V drop`;
+    } else if (kind === 'wire-gauge') {
+      amps = input;
+      firstResult = amps <= 15 ? '14' : amps <= 20 ? '12' : amps <= 30 ? '10' : amps <= 40 ? '8' : amps <= 55 ? '6' : amps <= 70 ? '4' : 'Eng';
+      secondResult = 'Verify';
+      mirrorText = firstResult === 'Eng' ? 'Engineer review' : `${firstResult} AWG`;
+    } else if (mode === 'amps-to-watts') {
       amps = input;
       watts = amps * divisor;
+      firstResult = format(watts / 1000, decimals);
+      secondResult = format(watts, decimals);
+      mirrorText = `${format(watts, decimals)} W`;
     } else {
       watts = input;
       amps = watts / Math.max(0.000001, divisor);
+      firstResult = format(amps, decimals);
+      secondResult = format(amps * 1000, decimals);
+      mirrorText = `${format(amps, decimals)} A`;
     }
 
     const resAmps = toolField(tool, 'res-amps');
@@ -172,14 +333,12 @@
     const resWatts = toolField(tool, 'res-watts');
     const mirror = toolField(tool, 'lx-mirror-val');
 
-    if (resAmps) resAmps.value = mode === 'amps-to-watts' ? format(watts / 1000, decimals) : format(amps, decimals);
-    if (resMa) resMa.value = mode === 'amps-to-watts' ? format(watts, decimals) : format(amps * 1000, decimals);
-    if (resKw) resKw.value = mode === 'amps-to-watts' ? format(watts / 1000, decimals) : format(amps, decimals);
-    if (resWatts) resWatts.value = mode === 'amps-to-watts' ? format(watts, decimals) : format(amps * 1000, decimals);
+    if (resAmps) resAmps.value = firstResult;
+    if (resMa) resMa.value = secondResult;
+    if (resKw) resKw.value = firstResult;
+    if (resWatts) resWatts.value = secondResult;
     if (mirror) {
-      mirror.textContent = mode === 'amps-to-watts'
-        ? `${format(watts, decimals)} W`
-        : `${format(amps, decimals)} A`;
+      mirror.textContent = mirrorText;
     }
 
     /* Store last result for copy/export */
@@ -341,7 +500,7 @@
     // New preset buttons
     $$('[data-preset-watts]').forEach((btn) => {
       btn.addEventListener('click', () => {
-        const tool = $('.lx-tool');
+        const tool = btn.closest('.lx-tool') || $('.lx-tool');
         if (!tool) return;
         const powerField = toolField(tool, 'lx-power');
         const voltsField = toolField(tool, 'lx-volts');
@@ -426,10 +585,14 @@
           const defaultMode = tool.dataset.defaultMode || 'amps-to-watts';
           const defaultVoltage = tool.dataset.defaultVoltage || '120';
           const defaultPhase = tool.dataset.defaultPhase || 'ac1';
+          const defaultInput = tool.dataset.defaultInput || '10';
+          const defaultUnit = tool.dataset.defaultUnit;
           setMode(tool, defaultMode);
-          if (power) power.value = '10';
+          if (power) power.value = defaultInput;
           if (volts) volts.value = defaultVoltage;
           if (type) type.value = defaultPhase;
+          const unit = toolField(tool, 'lx-power-unit');
+          if (unit && defaultUnit) unit.value = defaultUnit;
           if (pf) pf.value = '1';
           if (slider) slider.value = '1';
           if (voltageType) voltageType.value = 'vll';

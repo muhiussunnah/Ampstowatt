@@ -578,6 +578,23 @@ p {
   border-color: var(--danger);
 }
 
+.field-help,
+.field-error {
+  display: block;
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
+.field-help {
+  color: var(--muted);
+}
+
+.field-error {
+  min-height: 0.95rem;
+  color: var(--danger);
+  font-weight: 700;
+}
+
 .lx-input-group {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;

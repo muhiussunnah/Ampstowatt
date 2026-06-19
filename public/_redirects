@@ -1,3 +1,6 @@
+http://ampstowatt.com/* https://www.ampstowatt.com/:splat 301!
+https://ampstowatt.com/* https://www.ampstowatt.com/:splat 301!
+http://www.ampstowatt.com/* https://www.ampstowatt.com/:splat 301!
 /amps-to-watts-calculator/ / 301
 /amps-to-watts-ac-calculator/ /ac-amps-to-watts-calculator/ 301
 /ac-calculator/ /ac-amps-to-watts-calculator/ 301

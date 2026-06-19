@@ -224,7 +224,7 @@ const schema = {
       width: 1200,
       height: 630
     },
-    ...(!isHome ? [{
+    ...(!isHome && !noindex ? [{
       '@type': 'BreadcrumbList',
       '@id': `${canonical}#breadcrumb`,
       itemListElement: breadcrumbSchemaItems
@@ -446,7 +446,7 @@ const schema = {
     </header>
 
     <!-- ===== BREADCRUMB ===== -->
-    {!isHome && (
+    {!isHome && !noindex && (
       <div class="breadcrumb-bar">
         <nav aria-label="Breadcrumb">
           {breadcrumbTrail.map((item, index) => (

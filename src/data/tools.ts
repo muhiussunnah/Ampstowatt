@@ -18,6 +18,9 @@ export type Tool = {
   kind: ToolKind;
   defaultVoltage?: number;
   defaultPhase?: 'dc' | 'ac1' | 'ac3';
+  defaultMode?: 'amps-to-watts' | 'watts-to-amps';
+  defaultInput?: number;
+  defaultUnit?: 'a' | 'ma' | 'w' | 'kw' | 'kva' | 'va' | 'ah';
   eyebrow: string;
   formula: string;
   highlights: string[];
@@ -92,7 +95,7 @@ export const pages = [
   { slug: '50-amps-to-watts', title: '50 Amps to Watts — Conversion Guide | Ampstowatt', h1Title: 'How Many Watts is 50 Amps?', description: '50 amps equals 6,000W at 120V or 12,000W at 240V.' },
   { slug: '100-amps-to-watts', title: '100 Amps to Watts — Conversion Guide | Ampstowatt', h1Title: 'How Many Watts is 100 Amps?', description: '100 amps equals 12,000W at 120V or 24,000W at 240V.' },
   { slug: 'amps-vs-watts', title: "Amps vs Watts — What's the Difference? | Ampstowatt", h1Title: "Amps vs Watts: What's the Difference?", description: "Amps measure current flow; watts measure power. Learn the difference, see how they relate with Watt's Law, and find out when each unit matters." },
-  { slug: 'motor-amps-to-watts', title: 'Electric Motor Amps to Watts Calculator | Ampstowatt', h1Title: 'Electric Motor Amps to Watts Calculator', description: 'Convert electric motor amps to watts.' },
+  { slug: 'motor-amps-to-watts', title: 'Electric Motor Amps to Watts Calculator | Ampstowatt', h1Title: 'Electric Motor Amps to Watts Calculator', description: 'Convert motor amps to watts for single-phase and three-phase loads with voltage, power factor, and kW planning context.' },
   { slug: 'amps-to-watts-formula', title: 'Amps to Watts Formula — DC, AC, and 3-Phase Explained | Ampstowatt', description: 'The amps to watts formula is W = A × V for DC. For AC: W = A × V × PF. For 3-phase: W = 1.732 × A × V × PF. See worked examples for each.' },
   { slug: 'conversion-charts', title: 'Amps to Watts Conversion Chart — All Voltages | Ampstowatt', description: 'Complete amps to watts reference tables for 12V, 120V, 240V, and 480V circuits. DC, AC single-phase, and 3-phase values included.' },
   { slug: 'about-us', title: 'About Amps To Watts Calculator', description: 'Learn about the educational electrical calculator suite built for clear power planning.' },
@@ -109,7 +112,7 @@ export const pages = [
   { slug: '40-amps-to-watts', title: '40 Amps to Watts Calculator', h1Title: '40 Amps to Watts Calculator', description: 'Convert 40 amps to watts.' },
   { slug: '60-amps-to-watts', title: '60 Amps to Watts at 120V and 240V', h1Title: '60 Amps to Watts at 120V and 240V', description: 'Convert 60 amps to watts.' },
   { slug: 'kw-to-amps-calculator', title: 'kW to Amps Calculator — DC, AC Single-Phase & Three-Phase', h1Title: 'kW to Amps Calculator: Convert Kilowatts to Amperes', description: 'Convert kW to Amps.' },
-  { slug: 'electric-motor-amps-to-watts', title: 'Motor Amps to Watts Calculator — HP, kW, and Efficiency', h1Title: 'Motor Amps to Watts Calculator — HP, kW, and Efficiency', description: 'Convert electric motor amps to watts.' },
+  { slug: 'electric-motor-amps-to-watts', title: 'Motor Amps to Watts Calculator — HP, kW, and Efficiency', h1Title: 'Motor Amps to Watts Calculator — HP, kW, and Efficiency', description: 'Estimate electric motor watts, kW, horsepower, and efficiency from amperage with AC power factor guidance.' },
   { slug: 'kwh-explained', title: 'What Is a kWh? Kilowatt Hours Explained Simply', h1Title: 'What Is a kWh? Kilowatt Hours Explained Simply', description: 'What is a kWh?' },
   { slug: 'watts-law-explained', title: 'Watt\'s Law Explained — Formula, Examples, and Uses', h1Title: 'Watt\'s Law Explained — Formula, Examples, and Uses', description: 'Watt\'s Law Explained.' },
   { slug: 'power-factor-explained', title: 'What Is Power Factor? A Plain-English Guide', h1Title: 'What Is Power Factor? A Plain-English Guide', description: 'What is Power Factor?' },
