@@ -4,9 +4,28 @@ import { copyFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+const noindexPaths = new Set([
+  '/1-amp-to-watts/',
+  '/5-amps-to-watts/',
+  '/10-amps-to-watts/',
+  '/15-amps-to-watts/',
+  '/20-amps-to-watts/',
+  '/30-amps-to-watts/',
+  '/40-amps-to-watts/',
+  '/50-amps-to-watts/',
+  '/60-amps-to-watts/',
+  '/100-amps-to-watts/'
+]);
+
 const aliasPaths = new Set([
   '/amps-to-watts-calculator/',
   '/calculators/',
+  '/12v-amps-to-watts-calculator/',
+  '/120v-amps-to-watts-calculator/',
+  '/220v-amps-to-watts-calculator/',
+  '/230v-amps-to-watts-calculator/',
+  '/240v-amps-to-watts-calculator/',
+  '/single-phase-amps-to-watts-calculator/',
   '/12v-calculator/',
   '/120v-calculator/',
   '/220v-calculator/',
@@ -26,12 +45,14 @@ const aliasPaths = new Set([
 
 export default defineConfig({
     redirects: {
+    '/amps-to-watts-calculator/': '/',
     '/amps-to-watts-ac-calculator/': '/ac-amps-to-watts-calculator/',
     '/ac-calculator/': '/ac-amps-to-watts-calculator/',
     '/amps-to-watts-dc-calculator/': '/dc-amps-to-watts-calculator/',
     '/dc-calculator/': '/dc-amps-to-watts-calculator/',
     '/amps-to-watts-3-phase-calculator/': '/3-phase-amps-to-watts-calculator/',
     '/3-phase-calculator/': '/3-phase-amps-to-watts-calculator/',
+    '/single-phase-amps-to-watts-calculator/': '/single-phase-amps-to-watts/',
     '/single-phase-calculator/': '/single-phase-amps-to-watts/',
     '/amps-to-watts-120v-calculator/': '/120v-amps-to-watts/',
     '/120v-calculator/': '/120v-amps-to-watts/',
@@ -56,7 +77,10 @@ export default defineConfig({
   prefetch: true,
   integrations: [
     sitemap({
-      filter: (page) => !aliasPaths.has(new URL(page).pathname),
+      filter: (page) => {
+        const pathname = new URL(page).pathname;
+        return !aliasPaths.has(pathname) && !noindexPaths.has(pathname);
+      },
       serialize: (item) => ({
         ...item,
         lastmod: '2026-06-12'

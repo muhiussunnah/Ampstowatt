@@ -50,6 +50,124 @@ const referenceSources = [
 /* Breadcrumb */
 const isHome = canonicalPath === '/';
 const pageTitle = title.replace(' | Amps To Watts Calculator', '').replace(' - Amps To Watts Calculator', '');
+const currentSlug = canonicalPath.replace(/^\/|\/$/g, '');
+const breadcrumbPageTitle = h1Title
+  .replace(' | Amps To Watts Calculator', '')
+  .replace(' - Amps To Watts Calculator', '')
+  .replace(' | Ampstowatt', '');
+
+type BreadcrumbItem = {
+  name: string;
+  href?: string;
+};
+
+const coreConversionSlugs = new Set([
+  'amps-to-watts-formula',
+  'conversion-charts',
+  'amps-vs-watts',
+  'how-many-watts-per-amp',
+  'ac-amps-to-watts-calculator',
+  'dc-amps-to-watts-calculator',
+  'single-phase-amps-to-watts',
+  '3-phase-amps-to-watts-calculator'
+]);
+const voltageSlugs = new Set([
+  '12v-amps-to-watts',
+  '24v-amps-to-watts',
+  '120v-amps-to-watts',
+  '220v-amps-to-watts',
+  '230v-amps-to-watts',
+  '240v-amps-to-watts',
+  '480v-amps-to-watts-calculator'
+]);
+const applicationSlugs = new Set([
+  'solar-watts-to-amps-calculator',
+  'led-watts-to-amps-calculator',
+  'speaker-amp-power-calculator',
+  'air-conditioner-amps-to-watts',
+  'generator-amps-to-watts',
+  'ev-charger-amps-to-watts',
+  'motor-amps-to-watts',
+  'electric-motor-amps-to-watts',
+  'refrigerator-amps-to-watts',
+  'microwave-amps-to-watts',
+  'dryer-amps-to-watts',
+  'pool-pump-amps-to-watts'
+]);
+const reverseSlugs = new Set([
+  'watts-to-amps-calculator',
+  'watts-to-amps-12v',
+  'watts-to-amps-120v',
+  'watts-to-amps-240v',
+  'amps-to-kw-calculator',
+  'kw-to-amps-calculator',
+  'amps-to-volt-amps',
+  'kva-to-watts-calculator',
+  'megawatts-to-amps-calculator',
+  'amp-hours-to-watt-hours',
+  'amp-power-consumption-calculator',
+  'other-voltages-calculator'
+]);
+const knowledgeSlugs = new Set([
+  'what-are-amps',
+  'what-are-watts',
+  'ohms-law-explained',
+  'watts-law-explained',
+  'kwh-explained',
+  'power-factor',
+  'power-factor-explained',
+  'understanding-power-factor'
+]);
+const safetySlugs = new Set(['wire-gauge-calculator', 'voltage-drop-calculator']);
+const blogSlugs = new Set([
+  'blog',
+  'blog/amps-to-watts-conversion-chart-pdf',
+  'blog/circuit-breaker-safety-guide',
+  'blog/ev-charging-at-home-electrical-guide',
+  'blog/understanding-solar-panel-wiring'
+]);
+
+function buildBreadcrumbTrail(): BreadcrumbItem[] {
+  const trail: BreadcrumbItem[] = [{ name: 'Home', href: '/' }];
+
+  if (isHome) {
+    return trail;
+  }
+
+  if (voltageSlugs.has(currentSlug)) {
+    trail.push({ name: 'Amps to Watts', href: '/#related-calculators' });
+    trail.push({ name: 'Voltage Calculators', href: '/#topical-voltage-calculators' });
+  } else if (applicationSlugs.has(currentSlug)) {
+    trail.push({ name: 'Amps to Watts', href: '/#related-calculators' });
+    trail.push({ name: 'Application Calculators', href: '/#topical-application-calculators' });
+  } else if (coreConversionSlugs.has(currentSlug)) {
+    trail.push({ name: 'Amps to Watts', href: '/#topical-main-conversion' });
+  } else if (reverseSlugs.has(currentSlug)) {
+    trail.push({ name: 'Electrical Conversions', href: '/#topical-reverse-conversions' });
+  } else if (knowledgeSlugs.has(currentSlug)) {
+    trail.push({ name: 'Electrical Guides', href: '/#topical-guides' });
+  } else if (safetySlugs.has(currentSlug)) {
+    trail.push({ name: 'Electrical Tools', href: '/#topical-safety-tools' });
+  } else if (blogSlugs.has(currentSlug)) {
+    if (currentSlug !== 'blog') {
+      trail.push({ name: 'Blog', href: '/blog/' });
+    }
+  }
+
+  trail.push({ name: breadcrumbPageTitle });
+  return trail;
+}
+
+const breadcrumbTrail = buildBreadcrumbTrail();
+const breadcrumbSchemaItems = breadcrumbTrail.map((item, index) => {
+  const isLast = index === breadcrumbTrail.length - 1;
+  return {
+    '@type': 'ListItem',
+    position: index + 1,
+    name: item.name,
+    item: isLast ? canonical : new URL(item.href ?? '/', siteUrl).toString()
+  };
+});
 
 const schema = {
   '@context': 'https://schema.org',
@@ -109,10 +227,7 @@ const schema = {
     ...(!isHome ? [{
       '@type': 'BreadcrumbList',
       '@id': `${canonical}#breadcrumb`,
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
-        { '@type': 'ListItem', position: 2, name: pageTitle, item: canonical }
-      ]
+      itemListElement: breadcrumbSchemaItems
     }] : []),
     {
       '@type': 'WebApplication',
@@ -215,7 +330,7 @@ const schema = {
     <meta name="description" content={description} />
     {keywords && <meta name="keywords" content={keywords} />}
     {noindex ? (
-      <meta name="robots" content="noindex, nofollow" />
+      <meta name="robots" content="noindex, follow" />
     ) : (
       <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
     )}
@@ -266,49 +381,67 @@ const schema = {
         <a href="/" data-i18n="nav.home">Home</a>
         
         <details class="nav-dropdown">
-          <summary>Electrical</summary>
+          <summary>Calculators</summary>
           <div class="dropdown-menu">
-            <a href="/12v-amps-to-watts/">12V DC Battery</a>
-            <a href="/120v-amps-to-watts/">120V US Outlets</a>
-            <a href="/220v-amps-to-watts/">220V Appliances</a>
-            <a href="/240v-amps-to-watts/">240V Split-Phase</a>
-            <a href="/230v-amps-to-watts/">230V UK/EU</a>
-          </div>
-        </details>
-
-        <details class="nav-dropdown">
-          <summary>Power</summary>
-          <div class="dropdown-menu">
-            <a href="/ac-amps-to-watts-calculator/">AC Power</a>
-            <a href="/dc-amps-to-watts-calculator/">DC Power</a>
-            <a href="/3-phase-amps-to-watts-calculator/">3-Phase Industrial</a>
-            <a href="/single-phase-amps-to-watts/">Single Phase</a>
-            <a href="/power-factor/">Power Factor Guide</a>
-          </div>
-        </details>
-
-        <details class="nav-dropdown">
-          <summary>Solar</summary>
-          <div class="dropdown-menu">
-            <a href="/solar-watts-to-amps-calculator/">Solar Watts to Amps</a>
-            <a href="/led-watts-to-amps-calculator/">LED Driver Sizing</a>
-            <a href="/speaker-amp-power-calculator/">Speaker Amplifier</a>
-            <a href="/amp-hours-to-watt-hours/">Amp Hours to Wh</a>
-          </div>
-        </details>
-
-        <details class="nav-dropdown">
-          <summary>Energy</summary>
-          <div class="dropdown-menu">
+            <a href="/ac-amps-to-watts-calculator/">AC Amps to Watts</a>
+            <a href="/dc-amps-to-watts-calculator/">DC Amps to Watts</a>
+            <a href="/single-phase-amps-to-watts/">Single Phase Amps to Watts</a>
+            <a href="/3-phase-amps-to-watts-calculator/">3 Phase Amps to Watts</a>
+            <a href="/watts-to-amps-calculator/">Watts to Amps</a>
             <a href="/amps-to-kw-calculator/">Amps to kW</a>
+            <a href="/kw-to-amps-calculator/">kW to Amps</a>
             <a href="/kva-to-watts-calculator/">kVA to Watts</a>
-            <a href="/megawatts-to-amps-calculator/">Megawatts to Amps</a>
-            <a href="/amp-power-consumption-calculator/">Power Consumption</a>
+          </div>
+        </details>
+
+        <details class="nav-dropdown">
+          <summary>Voltage Calculators</summary>
+          <div class="dropdown-menu">
+            <a href="/12v-amps-to-watts/">12V Amps to Watts</a>
+            <a href="/24v-amps-to-watts/">24V Amps to Watts</a>
+            <a href="/120v-amps-to-watts/">120V Amps to Watts</a>
+            <a href="/220v-amps-to-watts/">220V Amps to Watts</a>
+            <a href="/230v-amps-to-watts/">230V Amps to Watts</a>
+            <a href="/240v-amps-to-watts/">240V Amps to Watts</a>
+            <a href="/480v-amps-to-watts-calculator/">480V Amps to Watts</a>
+          </div>
+        </details>
+
+        <details class="nav-dropdown">
+          <summary>Appliance Calculators</summary>
+          <div class="dropdown-menu">
+            <a href="/air-conditioner-amps-to-watts/">Air Conditioner</a>
+            <a href="/generator-amps-to-watts/">Generator</a>
+            <a href="/ev-charger-amps-to-watts/">EV Charger</a>
+            <a href="/motor-amps-to-watts/">Motor</a>
+            <a href="/electric-motor-amps-to-watts/">Electric Motor</a>
+            <a href="/refrigerator-amps-to-watts/">Refrigerator</a>
+            <a href="/microwave-amps-to-watts/">Microwave</a>
+            <a href="/dryer-amps-to-watts/">Dryer</a>
+            <a href="/pool-pump-amps-to-watts/">Pool Pump</a>
+            <a href="/solar-watts-to-amps-calculator/">Solar</a>
+            <a href="/led-watts-to-amps-calculator/">LED</a>
+            <a href="/speaker-amp-power-calculator/">Speaker</a>
+          </div>
+        </details>
+
+        <details class="nav-dropdown">
+          <summary>Electrical Guides</summary>
+          <div class="dropdown-menu">
+            <a href="/what-are-amps/">What Are Amps?</a>
+            <a href="/what-are-watts/">What Are Watts?</a>
+            <a href="/amps-vs-watts/">Amps vs Watts</a>
+            <a href="/ohms-law-explained/">Ohm's Law</a>
+            <a href="/watts-law-explained/">Watt's Law</a>
+            <a href="/power-factor/">Power Factor</a>
+            <a href="/kwh-explained/">kWh Explained</a>
+            <a href="/wire-gauge-calculator/">Wire Gauge</a>
+            <a href="/voltage-drop-calculator/">Voltage Drop</a>
           </div>
         </details>
 
         <a href="/blog/">Blog</a>
-        <a href="/faq/">FAQ</a>
+        <a href="/contact-us/">Contact</a>
       </nav>
     </header>
 
@@ -316,9 +449,16 @@ const schema = {
     {!isHome && (
       <div class="breadcrumb-bar">
         <nav aria-label="Breadcrumb">
-          <a href="/">Home</a>
-          <span class="breadcrumb-sep" aria-hidden="true">/</span>
-          <span class="breadcrumb-current">{pageTitle}</span>
+          {breadcrumbTrail.map((item, index) => (
+            <>
+              {index > 0 && <span class="breadcrumb-sep" aria-hidden="true">/</span>}
+              {index < breadcrumbTrail.length - 1 && item.href ? (
+                <a href={item.href}>{item.name}</a>
+              ) : (
+                <span class="breadcrumb-current">{item.name}</span>
+              )}
+            </>
+          ))}
         </nav>
       </div>
     )}

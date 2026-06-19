@@ -3,87 +3,293 @@ export interface Props {
   slug?: string;
 }
 
+type LinkItem = {
+  href: string;
+  title: string;
+  desc: string;
+  icon: string;
+};
+
 const { slug = '' } = Astro.props;
 
-// Define the semantic silos with icons
-const silos = {
-  lowVoltage: [
-    { href: "/12v-amps-to-watts-calculator/", title: "12V Amps to Watts", desc: "Low-voltage DC loads", icon: "12V" },
-    { href: "/solar-watts-to-amps-calculator/", title: "Solar Watts to Amps", desc: "PV and charge current", icon: "PV" },
-    { href: "/led-watts-to-amps-calculator/", title: "LED Watts to Amps", desc: "LED strip and driver loads", icon: "LED" },
-    { href: "/dc-amps-to-watts-calculator/", title: "DC Amps to Watts", desc: "Battery and solar DC", icon: "DC" }
+const currentPath = `/${slug}/`;
+
+const voltagePages: LinkItem[] = [
+  { href: '/12v-amps-to-watts/', title: '12V Amps to Watts', desc: 'Batteries, cars, solar systems, and LED strips', icon: '12V' },
+  { href: '/24v-amps-to-watts/', title: '24V Amps to Watts', desc: 'Trucks, inverters, and solar battery banks', icon: '24V' },
+  { href: '/120v-amps-to-watts/', title: '120V Amps to Watts', desc: 'US household outlets and small appliances', icon: '120' },
+  { href: '/220v-amps-to-watts/', title: '220V Amps to Watts', desc: 'High-power appliances and international mains', icon: '220' },
+  { href: '/230v-amps-to-watts/', title: '230V Amps to Watts', desc: 'UK, EU, Pakistan, and India mains circuits', icon: '230' },
+  { href: '/240v-amps-to-watts/', title: '240V Amps to Watts', desc: 'Dryers, EV chargers, HVAC, and water heaters', icon: '240' },
+  { href: '/480v-amps-to-watts-calculator/', title: '480V Amps to Watts', desc: 'Industrial three-phase loads and commercial motors', icon: '480' }
+];
+
+const phasePages: LinkItem[] = [
+  { href: '/ac-amps-to-watts-calculator/', title: 'AC Amps to Watts Calculator', desc: 'Convert AC current with voltage and power factor', icon: 'AC' },
+  { href: '/dc-amps-to-watts-calculator/', title: 'DC Amps to Watts Calculator', desc: 'Battery, solar, LED, and automotive DC loads', icon: 'DC' },
+  { href: '/single-phase-amps-to-watts/', title: 'Single Phase Amps to Watts', desc: 'Residential and light commercial AC circuits', icon: '1P' },
+  { href: '/3-phase-amps-to-watts-calculator/', title: '3 Phase Amps to Watts', desc: 'Balanced industrial and motor loads', icon: '3P' },
+  { href: '/amps-to-watts-formula/', title: 'Amps to Watts Formula', desc: 'DC, AC single-phase, and three-phase formulas', icon: 'FX' },
+  { href: '/watts-to-amps-calculator/', title: 'Watts to Amps Calculator', desc: 'Reverse the calculation from watts to current', icon: 'A' },
+  { href: '/conversion-charts/', title: 'Conversion Charts', desc: 'Reference tables for common voltages and currents', icon: 'TAB' }
+];
+
+const applicationPages: LinkItem[] = [
+  { href: '/air-conditioner-amps-to-watts/', title: 'Air Conditioner Amps to Watts', desc: 'Window AC, mini-split, and central HVAC loads', icon: 'AC' },
+  { href: '/generator-amps-to-watts/', title: 'Generator Amps to Watts', desc: '120V, 240V, and three-phase generator planning', icon: 'GEN' },
+  { href: '/ev-charger-amps-to-watts/', title: 'EV Charger Amps to Watts', desc: 'Level 1, Level 2, and high-power charging circuits', icon: 'EV' },
+  { href: '/motor-amps-to-watts/', title: 'Motor Amps to Watts', desc: 'Single-phase and three-phase motor power estimates', icon: 'MTR' },
+  { href: '/electric-motor-amps-to-watts/', title: 'Electric Motor Amps to Watts', desc: 'Motor horsepower, efficiency, PF, and kW context', icon: 'HP' },
+  { href: '/refrigerator-amps-to-watts/', title: 'Refrigerator Amps to Watts', desc: 'Running watts and startup surge planning', icon: 'REF' },
+  { href: '/microwave-amps-to-watts/', title: 'Microwave Amps to Watts', desc: 'Kitchen appliance current and wattage checks', icon: 'MW' },
+  { href: '/dryer-amps-to-watts/', title: 'Dryer Amps to Watts', desc: 'Electric and gas dryer circuit planning', icon: 'DRY' },
+  { href: '/pool-pump-amps-to-watts/', title: 'Pool Pump Amps to Watts', desc: 'Variable-speed and single-speed pump loads', icon: 'PMP' },
+  { href: '/solar-watts-to-amps-calculator/', title: 'Solar Watts to Amps', desc: 'Panel, controller, and battery-side current', icon: 'PV' },
+  { href: '/led-watts-to-amps-calculator/', title: 'LED Watts to Amps', desc: 'LED strips, bulbs, and driver sizing', icon: 'LED' },
+  { href: '/speaker-amp-power-calculator/', title: 'Speaker Amp Power Calculator', desc: 'Amplifier current, efficiency, and fuse planning', icon: 'SPK' }
+];
+
+const knowledgeApplyPages: LinkItem[] = [
+  { href: '/', title: 'Amps to Watts Calculator', desc: 'Main calculator hub and formula reference', icon: 'W' },
+  { href: '/ac-amps-to-watts-calculator/', title: 'AC Amps to Watts Calculator', desc: 'Apply power factor to AC current', icon: 'AC' },
+  { href: '/dc-amps-to-watts-calculator/', title: 'DC Amps to Watts Calculator', desc: 'Use the direct DC watts formula', icon: 'DC' },
+  { href: '/watts-to-amps-calculator/', title: 'Watts to Amps Calculator', desc: 'Find current from known watts and volts', icon: 'A' },
+  { href: '/amps-to-watts-formula/', title: 'Amps to Watts Formula', desc: 'Review the formulas behind the tools', icon: 'FX' },
+  { href: '/conversion-charts/', title: 'Conversion Charts', desc: 'Compare common amp, volt, and watt values', icon: 'TAB' },
+  { href: '/power-factor/', title: 'Power Factor', desc: 'Understand real power in AC circuits', icon: 'PF' }
+];
+
+const reversePages: LinkItem[] = [
+  { href: '/watts-to-amps-calculator/', title: 'Watts to Amps Calculator', desc: 'Main reverse conversion hub', icon: 'A' },
+  { href: '/watts-to-amps-12v/', title: 'Watts to Amps at 12V', desc: 'Battery and DC current from watts', icon: '12V' },
+  { href: '/watts-to-amps-120v/', title: 'Watts to Amps at 120V', desc: 'US outlet current estimates', icon: '120' },
+  { href: '/watts-to-amps-240v/', title: 'Watts to Amps at 240V', desc: 'Dryer, EV, and HVAC current estimates', icon: '240' },
+  { href: '/amps-to-kw-calculator/', title: 'Amps to kW Calculator', desc: 'Convert current into kilowatts', icon: 'kW' },
+  { href: '/kw-to-amps-calculator/', title: 'kW to Amps Calculator', desc: 'Find current from kilowatts', icon: 'A' },
+  { href: '/amps-to-volt-amps/', title: 'Amps to Volt-Amps', desc: 'Apparent power for UPS and transformer sizing', icon: 'VA' },
+  { href: '/kva-to-watts-calculator/', title: 'kVA to Watts Calculator', desc: 'Convert apparent power into real watts', icon: 'kVA' },
+  { href: '/amp-hours-to-watt-hours/', title: 'Amp Hours to Watt Hours', desc: 'Battery capacity and energy conversion', icon: 'Wh' },
+  { href: '/amp-power-consumption-calculator/', title: 'Amp Power Consumption', desc: 'Estimate watt-hours and runtime from amps', icon: 'RUN' }
+];
+
+const safetyPages: LinkItem[] = [
+  { href: '/wire-gauge-calculator/', title: 'Wire Gauge Calculator', desc: 'Choose conductor size after finding current', icon: 'AWG' },
+  { href: '/voltage-drop-calculator/', title: 'Voltage Drop Calculator', desc: 'Check voltage loss over long wire runs', icon: 'VD' },
+  { href: '/power-factor/', title: 'Power Factor', desc: 'Account for real watts in AC systems', icon: 'PF' },
+  { href: '/motor-amps-to-watts/', title: 'Motor Amps to Watts', desc: 'Motor current and load planning', icon: 'MTR' },
+  { href: '/generator-amps-to-watts/', title: 'Generator Amps to Watts', desc: 'Generator circuit and load planning', icon: 'GEN' },
+  { href: '/ev-charger-amps-to-watts/', title: 'EV Charger Amps to Watts', desc: 'High-current charging circuit context', icon: 'EV' }
+];
+
+const applicationRelevantLinks: Record<string, string[]> = {
+  'air-conditioner-amps-to-watts': [
+    '/generator-amps-to-watts/',
+    '/ev-charger-amps-to-watts/',
+    '/motor-amps-to-watts/',
+    '/electric-motor-amps-to-watts/',
+    '/refrigerator-amps-to-watts/',
+    '/dryer-amps-to-watts/',
+    '/pool-pump-amps-to-watts/',
+    '/microwave-amps-to-watts/'
   ],
-  mainsVoltage: [
-    { href: "/120v-amps-to-watts-calculator/", title: "120V Amps to Watts", desc: "North American outlets", icon: "120" },
-    { href: "/220v-amps-to-watts-calculator/", title: "220V Amps to Watts", desc: "220 volt appliances", icon: "220" },
-    { href: "/240v-amps-to-watts-calculator/", title: "240V Amps to Watts", desc: "Dryers, heaters, EV circuits", icon: "240" },
-    { href: "/single-phase-amps-to-watts-calculator/", title: "Single Phase Amps to Watts", desc: "Residential AC loads", icon: "AC" }
+  'generator-amps-to-watts': [
+    '/air-conditioner-amps-to-watts/',
+    '/ev-charger-amps-to-watts/',
+    '/motor-amps-to-watts/',
+    '/electric-motor-amps-to-watts/',
+    '/refrigerator-amps-to-watts/',
+    '/microwave-amps-to-watts/',
+    '/dryer-amps-to-watts/',
+    '/pool-pump-amps-to-watts/'
   ],
-  industrial: [
-    { href: "/3-phase-amps-to-watts-calculator/", title: "3 Phase Amps to Watts", desc: "Industrial line voltage", icon: "3P" },
-    { href: "/megawatts-to-amps-calculator/", title: "Megawatts to Amps", desc: "Large system current", icon: "MW" },
-    { href: "/kva-to-watts-calculator/", title: "kVA to Watts", desc: "Apparent to real power", icon: "kVA" },
-    { href: "/ac-amps-to-watts-calculator/", title: "AC Amps to Watts", desc: "RMS voltage and PF", icon: "AC" }
+  'ev-charger-amps-to-watts': [
+    '/dryer-amps-to-watts/',
+    '/air-conditioner-amps-to-watts/',
+    '/generator-amps-to-watts/',
+    '/motor-amps-to-watts/',
+    '/electric-motor-amps-to-watts/',
+    '/pool-pump-amps-to-watts/',
+    '/solar-watts-to-amps-calculator/'
   ],
-  audio: [
-    { href: "/speaker-amp-power-calculator/", title: "Speaker Amp Power", desc: "Audio amplifier planning", icon: "SPK" },
-    { href: "/12v-amps-to-watts-calculator/", title: "12V Amps to Watts", desc: "Car audio 12V loads", icon: "12V" },
-    { href: "/amp-power-consumption-calculator/", title: "Amp Power Consumption", desc: "Runtime and energy use", icon: "RUN" }
+  'motor-amps-to-watts': [
+    '/electric-motor-amps-to-watts/',
+    '/pool-pump-amps-to-watts/',
+    '/generator-amps-to-watts/',
+    '/air-conditioner-amps-to-watts/',
+    '/ev-charger-amps-to-watts/',
+    '/dryer-amps-to-watts/'
+  ],
+  'electric-motor-amps-to-watts': [
+    '/motor-amps-to-watts/',
+    '/pool-pump-amps-to-watts/',
+    '/generator-amps-to-watts/',
+    '/air-conditioner-amps-to-watts/',
+    '/ev-charger-amps-to-watts/',
+    '/dryer-amps-to-watts/'
+  ],
+  'refrigerator-amps-to-watts': [
+    '/microwave-amps-to-watts/',
+    '/air-conditioner-amps-to-watts/',
+    '/generator-amps-to-watts/',
+    '/dryer-amps-to-watts/',
+    '/pool-pump-amps-to-watts/',
+    '/led-watts-to-amps-calculator/'
+  ],
+  'microwave-amps-to-watts': [
+    '/refrigerator-amps-to-watts/',
+    '/dryer-amps-to-watts/',
+    '/air-conditioner-amps-to-watts/',
+    '/generator-amps-to-watts/',
+    '/led-watts-to-amps-calculator/',
+    '/pool-pump-amps-to-watts/'
+  ],
+  'dryer-amps-to-watts': [
+    '/ev-charger-amps-to-watts/',
+    '/air-conditioner-amps-to-watts/',
+    '/generator-amps-to-watts/',
+    '/refrigerator-amps-to-watts/',
+    '/microwave-amps-to-watts/',
+    '/pool-pump-amps-to-watts/'
+  ],
+  'pool-pump-amps-to-watts': [
+    '/motor-amps-to-watts/',
+    '/electric-motor-amps-to-watts/',
+    '/generator-amps-to-watts/',
+    '/air-conditioner-amps-to-watts/',
+    '/solar-watts-to-amps-calculator/',
+    '/ev-charger-amps-to-watts/'
+  ],
+  'solar-watts-to-amps-calculator': [
+    '/led-watts-to-amps-calculator/',
+    '/speaker-amp-power-calculator/',
+    '/amp-power-consumption-calculator/',
+    '/generator-amps-to-watts/',
+    '/pool-pump-amps-to-watts/',
+    '/ev-charger-amps-to-watts/'
+  ],
+  'led-watts-to-amps-calculator': [
+    '/solar-watts-to-amps-calculator/',
+    '/speaker-amp-power-calculator/',
+    '/amp-power-consumption-calculator/',
+    '/refrigerator-amps-to-watts/',
+    '/microwave-amps-to-watts/',
+    '/generator-amps-to-watts/'
+  ],
+  'speaker-amp-power-calculator': [
+    '/solar-watts-to-amps-calculator/',
+    '/led-watts-to-amps-calculator/',
+    '/amp-power-consumption-calculator/',
+    '/generator-amps-to-watts/',
+    '/12v-amps-to-watts/',
+    '/dc-amps-to-watts-calculator/'
   ]
 };
 
-// Map slugs to their primary silo
-const siloMapping: Record<string, keyof typeof silos> = {
-  '12v-amps-to-watts-calculator': 'lowVoltage',
-  'solar-watts-to-amps-calculator': 'lowVoltage',
-  'led-watts-to-amps-calculator': 'lowVoltage',
-  'dc-amps-to-watts-calculator': 'lowVoltage',
-  '120v-amps-to-watts-calculator': 'mainsVoltage',
-  '220v-amps-to-watts-calculator': 'mainsVoltage',
-  '230v-calculator': 'mainsVoltage',
-  '240v-amps-to-watts-calculator': 'mainsVoltage',
-  'amps-to-watts-120v-calculator': 'mainsVoltage',
-  'amps-to-watts-220v-calculator': 'mainsVoltage',
-  'amps-to-watts-230v-calculator': 'mainsVoltage',
-  'amps-to-watts-240v-calculator': 'mainsVoltage',
-  'single-phase-amps-to-watts-calculator': 'mainsVoltage',
-  'voltage-amps-watts-calculator': 'mainsVoltage',
-  'other-voltages-calculator': 'mainsVoltage',
-  '3-phase-amps-to-watts-calculator': 'industrial',
-  'amps-to-watts-3-phase-calculator': 'industrial',
-  'megawatts-to-amps-calculator': 'industrial',
-  'kva-to-watts-calculator': 'industrial',
-  'ac-amps-to-watts-calculator': 'industrial',
-  'amps-to-watts-ac-calculator': 'industrial',
-  'amps-to-watts-dc-calculator': 'lowVoltage',
-  'power-factor': 'industrial',
-  'amps-to-volt-amps': 'industrial',
-  'amps-to-kw-calculator': 'industrial',
-  'amp-hours-to-watt-hours': 'lowVoltage',
-  'amp-power-consumption-calculator': 'lowVoltage',
-  'voltage-drop-calculator': 'mainsVoltage',
-  'wire-gauge-calculator': 'mainsVoltage',
-  'speaker-amp-power-calculator': 'audio'
+const supplementalLinks: Record<string, LinkItem[]> = {
+  'air-conditioner-amps-to-watts': [
+    { href: '/220v-amps-to-watts/', title: '220V Amps to Watts', desc: 'Common AC and international appliance voltage', icon: '220' },
+    { href: '/230v-amps-to-watts/', title: '230V Amps to Watts', desc: 'UK, EU, Pakistan, and India household mains', icon: '230' },
+    { href: '/240v-amps-to-watts/', title: '240V Amps to Watts', desc: 'US split-phase HVAC and larger AC circuits', icon: '240' }
+  ],
+  'ev-charger-amps-to-watts': [
+    { href: '/240v-amps-to-watts/', title: '240V Amps to Watts', desc: 'Level 2 EV charging circuits', icon: '240' },
+    { href: '/480v-amps-to-watts-calculator/', title: '480V Amps to Watts', desc: 'Commercial and industrial charging systems', icon: '480' }
+  ],
+  'refrigerator-amps-to-watts': [
+    { href: '/120v-amps-to-watts/', title: '120V Amps to Watts', desc: 'North American refrigerator outlets', icon: '120' },
+    { href: '/230v-amps-to-watts/', title: '230V Amps to Watts', desc: 'UK, EU, Pakistan, and India refrigerator circuits', icon: '230' },
+    { href: '/240v-amps-to-watts/', title: '240V Amps to Watts', desc: 'Higher-voltage appliance planning', icon: '240' }
+  ],
+  'motor-amps-to-watts': [
+    { href: '/3-phase-amps-to-watts-calculator/', title: '3 Phase Amps to Watts', desc: 'Industrial and balanced motor loads', icon: '3P' },
+    { href: '/single-phase-amps-to-watts/', title: 'Single Phase Amps to Watts', desc: 'Residential and light commercial motors', icon: '1P' }
+  ],
+  'electric-motor-amps-to-watts': [
+    { href: '/3-phase-amps-to-watts-calculator/', title: '3 Phase Amps to Watts', desc: 'Industrial and balanced motor loads', icon: '3P' },
+    { href: '/single-phase-amps-to-watts/', title: 'Single Phase Amps to Watts', desc: 'Residential and light commercial motors', icon: '1P' }
+  ],
+  'solar-watts-to-amps-calculator': [
+    { href: '/12v-amps-to-watts/', title: '12V Amps to Watts', desc: 'Small battery and solar DC loads', icon: '12V' },
+    { href: '/24v-amps-to-watts/', title: '24V Amps to Watts', desc: 'Solar battery banks and inverters', icon: '24V' }
+  ],
+  'led-watts-to-amps-calculator': [
+    { href: '/12v-amps-to-watts/', title: '12V Amps to Watts', desc: 'Low-voltage LED strips', icon: '12V' },
+    { href: '/24v-amps-to-watts/', title: '24V Amps to Watts', desc: 'Longer LED strip and driver runs', icon: '24V' }
+  ]
 };
 
-// Default to mainsVoltage if unmapped
-const currentSiloKey = siloMapping[slug] || 'mainsVoltage';
-const currentSilo = silos[currentSiloKey];
+const knowledgeSlugs = new Set([
+  'amps-to-watts-formula',
+  'conversion-charts',
+  'amps-vs-watts',
+  'how-many-watts-per-amp',
+  'what-are-amps',
+  'what-are-watts',
+  'ohms-law-explained',
+  'watts-law-explained',
+  'kwh-explained',
+  'power-factor',
+  'power-factor-explained',
+  'understanding-power-factor'
+]);
+const voltageSlugs = new Set(voltagePages.map((item) => item.href.slice(1, -1)));
+const phaseSlugs = new Set(['ac-amps-to-watts-calculator', 'dc-amps-to-watts-calculator', 'single-phase-amps-to-watts', '3-phase-amps-to-watts-calculator']);
+const applicationSlugs = new Set(applicationPages.map((item) => item.href.slice(1, -1)));
+const reverseSlugs = new Set(reversePages.map((item) => item.href.slice(1, -1)));
+const safetySlugs = new Set(['wire-gauge-calculator', 'voltage-drop-calculator']);
 
-// Filter out the current page so we don't link to ourselves
-const relatedLinks = currentSilo.filter(link => link.href !== `/${slug}/`);
+const linkByHref = new Map([...voltagePages, ...phasePages, ...applicationPages, ...knowledgeApplyPages, ...reversePages, ...safetyPages].map((item) => [item.href, item]));
 
-const titles = {
-  lowVoltage: "Related Low Voltage & DC Tools",
-  mainsVoltage: "Related Mains Voltage & AC Tools",
-  industrial: "Related Industrial & 3-Phase Tools",
-  audio: "Related Audio & Amplification Tools"
-};
-const sectionTitle = titles[currentSiloKey];
+let sectionTitle = 'Related Amps to Watts Calculators';
+let lead = 'Need the general formula, conversion table, and breaker-safety context? Use the main calculator hub first, then return to this specialized page for the exact voltage, circuit type, or equipment.';
+let relatedLinks: LinkItem[] = phasePages;
+let supportingLinks: LinkItem[] = [];
+
+if (voltageSlugs.has(slug)) {
+  sectionTitle = 'Related Voltage Calculators';
+  lead = 'Compare this voltage with the other common DC, household, mains, and industrial voltage calculators.';
+  relatedLinks = voltagePages;
+  supportingLinks = phasePages.filter((item) => ['/', '/ac-amps-to-watts-calculator/', '/dc-amps-to-watts-calculator/', '/single-phase-amps-to-watts/', '/3-phase-amps-to-watts-calculator/', '/amps-to-watts-formula/', '/watts-to-amps-calculator/'].includes(item.href));
+} else if (phaseSlugs.has(slug)) {
+  sectionTitle = 'Related Amps to Watts Calculators';
+  lead = 'Move between AC, DC, phase-specific, formula, chart, and reverse conversion pages without using redirected URLs.';
+  relatedLinks = phasePages;
+} else if (applicationSlugs.has(slug)) {
+  sectionTitle = 'Related Appliance & Equipment Calculators';
+  lead = 'Use these equipment pages to compare realistic household, motor, charging, solar, lighting, and generator loads.';
+  const selected = applicationRelevantLinks[slug] ?? applicationPages.map((item) => item.href);
+  relatedLinks = selected.map((href) => linkByHref.get(href)).filter(Boolean) as LinkItem[];
+  supportingLinks = [
+    { href: '/', title: 'Amps to Watts Calculator', desc: 'Main amps to watts hub', icon: 'W' },
+    { href: '/ac-amps-to-watts-calculator/', title: 'AC Amps to Watts Calculator', desc: 'AC loads with power factor', icon: 'AC' },
+    { href: '/dc-amps-to-watts-calculator/', title: 'DC Amps to Watts Calculator', desc: 'DC battery and solar loads', icon: 'DC' },
+    { href: '/watts-to-amps-calculator/', title: 'Watts to Amps Calculator', desc: 'Reverse conversion for equipment labels', icon: 'A' },
+    { href: '/power-factor/', title: 'Power Factor', desc: 'Real watts for motors and compressors', icon: 'PF' },
+    { href: '/voltage-drop-calculator/', title: 'Voltage Drop Calculator', desc: 'Check long wire runs', icon: 'VD' },
+    { href: '/wire-gauge-calculator/', title: 'Wire Gauge Calculator', desc: 'Size conductors after current planning', icon: 'AWG' },
+    ...(supplementalLinks[slug] ?? [])
+  ];
+} else if (knowledgeSlugs.has(slug)) {
+  sectionTitle = 'Apply This Knowledge';
+  lead = 'Use these calculator pages to apply the concept to real current, voltage, watts, and power-factor problems.';
+  relatedLinks = knowledgeApplyPages;
+} else if (reverseSlugs.has(slug)) {
+  sectionTitle = 'Related Electrical Conversions';
+  lead = 'Continue through the reverse and related conversion tools that support amps, watts, kW, VA, kVA, and battery energy planning.';
+  relatedLinks = reversePages;
+  supportingLinks = voltagePages.filter((item) => ['/12v-amps-to-watts/', '/120v-amps-to-watts/', '/240v-amps-to-watts/'].includes(item.href));
+} else if (safetySlugs.has(slug)) {
+  sectionTitle = 'Wire, Safety & Power Quality Tools';
+  lead = 'After calculating watts and amps, use these pages to check conductor sizing, voltage loss, power factor, and high-current equipment planning.';
+  relatedLinks = safetyPages;
+}
+
+const dedupedLinks = [...relatedLinks, ...supportingLinks]
+  .filter((item, index, list) => item.href !== currentPath && list.findIndex((candidate) => candidate.href === item.href) === index);
 ---
 
-{relatedLinks.length > 0 && (
-  <section class="content-section semantic-link-map" aria-label="Contextual electrical calculators">
+{dedupedLinks.length > 0 && (
+  <section class="content-section semantic-link-map" aria-label={sectionTitle}>
     <div class="section-divider">
       <div class="icon-circle" aria-hidden="true">Hub</div>
       <h2>{sectionTitle}</h2>
@@ -93,10 +299,10 @@ const sectionTitle = titles[currentSiloKey];
       <section class="semantic-link-cluster semantic-link-cluster--plain">
         <div class="semantic-hub-callout">
           <strong>Start with the main conversion tool</strong>
-          <p>Need the general formula, conversion table, and breaker-safety context? Use the <a href="/">Amps to Watts Calculator</a> as the main guide, then return to this specialized page for the exact voltage or circuit type.</p>
+          <p>{lead} <a href="/">Amps to Watts Calculator</a></p>
         </div>
-        <nav class="semantic-link-list" aria-label="Related tools">
-          {relatedLinks.map(link => (
+        <nav class="semantic-link-list" aria-label={sectionTitle}>
+          {dedupedLinks.map((link) => (
             <a href={link.href}>
               <span class="semantic-link-title">
                 <span class="semantic-link-badge">{link.icon}</span>

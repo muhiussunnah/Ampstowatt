@@ -52,6 +52,13 @@ export const tools: Tool[] = [
 ];
 
 export const aliases: Record<string, string> = {
+  'amps-to-watts-calculator': '',
+  '12v-amps-to-watts-calculator': '12v-amps-to-watts',
+  '120v-amps-to-watts-calculator': '120v-amps-to-watts',
+  '220v-amps-to-watts-calculator': '220v-amps-to-watts',
+  '230v-amps-to-watts-calculator': '230v-amps-to-watts',
+  '240v-amps-to-watts-calculator': '240v-amps-to-watts',
+  'single-phase-amps-to-watts-calculator': 'single-phase-amps-to-watts',
   '230v-calculator': '230v-amps-to-watts',
   'voltage-amps-watts-calculator': 'watts-to-amps-calculator',
   '12v-calculator': '12v-amps-to-watts',
@@ -120,9 +127,15 @@ export const pages = [
 export const educationalSlugs = new Set([
   'amps-to-watts-formula',
   'conversion-charts',
+  'amps-vs-watts',
+  'how-many-watts-per-amp',
   'what-are-amps',
   'what-are-watts',
   'ohms-law-explained',
+  'watts-law-explained',
+  'kwh-explained',
+  'power-factor',
+  'power-factor-explained',
   'understanding-power-factor',
 ]);
 

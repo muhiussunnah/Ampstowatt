@@ -6,15 +6,6 @@ import { tools } from '@/data/tools';
 
 const featuredTools = tools.slice(0, 6);
 
-const toolLabels: Record<string, string> = {
-  '12v-amps-to-watts-calculator': '12V',
-  '120v-amps-to-watts-calculator': '120V',
-  '220v-amps-to-watts-calculator': '220V',
-  '230v-calculator': '230V',
-  '240v-amps-to-watts-calculator': '240V',
-  'ac-amps-to-watts-calculator': 'AC',
-};
-
 const conversionRows = [
   { amps: '1 A', watts12: '12 W', watts120: '120 W', watts240: '240 W' },
   { amps: '2 A', watts12: '24 W', watts120: '240 W', watts240: '480 W' },
@@ -486,80 +477,160 @@ const applianceRows = [
     </article>
   </section>
 
-  <!-- ===== RELATED CALCULATORS DIRECTORY ===== -->
+  <!-- ===== TOPICAL SILO DIRECTORY ===== -->
   <section class="content-section" id="related-calculators" aria-labelledby="related-calculators-heading">
     <div class="section-divider">
       <div class="icon-circle" aria-hidden="true">TOOLS</div>
-      <h2 id="related-calculators-heading">Specialized Calculators Directory</h2>
+      <h2 id="related-calculators-heading">Amps to Watts Calculator Hub</h2>
       <div class="line" aria-hidden="true"></div>
     </div>
 
-  <section class="premium-trust-section" aria-label="Why choose Amps To Watts Calculator">
-    <div class="premium-trust-item">
-      <span class="premium-trust-number">{tools.length}</span>
-      <span class="premium-trust-label" data-i18n="trust.calculators">Calculators</span>
-      <span class="premium-trust-desc" data-i18n="trust.calculatorsDesc">Covering every common electrical conversion</span>
-    </div>
-    <div class="premium-trust-item">
-      <span class="premium-trust-number">AC/DC</span>
-      <span class="premium-trust-label" data-i18n="trust.phase">Phase Modes</span>
-      <span class="premium-trust-desc" data-i18n="trust.phaseDesc">DC, single-phase, and three-phase support</span>
-    </div>
-    <div class="premium-trust-item">
-      <span class="premium-trust-number">Free</span>
-      <span class="premium-trust-label" data-i18n="trust.free">No Signup</span>
-      <span class="premium-trust-desc" data-i18n="trust.freeDesc">Every tool is free with no account required</span>
-    </div>
-    <div class="premium-trust-item">
-      <span class="premium-trust-number">Fast</span>
-      <span class="premium-trust-label" data-i18n="trust.fast">Live Results</span>
-      <span class="premium-trust-desc" data-i18n="trust.fastDesc">Instant calculations without page reloads</span>
-    </div>
-  </section>
-
-  <div class="premium-directory-grid premium-directory-grid--spaced">
-    <section class="premium-directory-group" id="voltage-circuits" aria-labelledby="hub-voltage">
-      <div class="group-header">
-        <div class="group-icon">V</div>
-        <h3 id="hub-voltage" class="group-title" data-i18n="dir.voltage">Voltage-Specific Calculators</h3>
+    <section class="premium-trust-section" aria-label="Why choose Amps To Watts Calculator">
+      <div class="premium-trust-item">
+        <span class="premium-trust-number">{tools.length}</span>
+        <span class="premium-trust-label" data-i18n="trust.calculators">Calculators</span>
+        <span class="premium-trust-desc" data-i18n="trust.calculatorsDesc">Covering every common electrical conversion</span>
       </div>
-      <div class="group-links">
-        <a href="/12v-amps-to-watts/">12V DC Battery & Automotive</a>
-        <a href="/120v-amps-to-watts/">120V US Household Outlets</a>
-        <a href="/220v-amps-to-watts/">220V International Appliances</a>
-        <a href="/240v-amps-to-watts/">240V US Split-Phase & Dryers</a>
-        <a href="/230v-amps-to-watts/">230V UK/EU Mains Circuits</a>
+      <div class="premium-trust-item">
+        <span class="premium-trust-number">AC/DC</span>
+        <span class="premium-trust-label" data-i18n="trust.phase">Phase Modes</span>
+        <span class="premium-trust-desc" data-i18n="trust.phaseDesc">DC, single-phase, and three-phase support</span>
+      </div>
+      <div class="premium-trust-item">
+        <span class="premium-trust-number">Free</span>
+        <span class="premium-trust-label" data-i18n="trust.free">No Signup</span>
+        <span class="premium-trust-desc" data-i18n="trust.freeDesc">Every tool is free with no account required</span>
+      </div>
+      <div class="premium-trust-item">
+        <span class="premium-trust-number">Fast</span>
+        <span class="premium-trust-label" data-i18n="trust.fast">Live Results</span>
+        <span class="premium-trust-desc" data-i18n="trust.fastDesc">Instant calculations without page reloads</span>
       </div>
     </section>
 
-    <section class="premium-directory-group" id="ac-dc-power" aria-labelledby="hub-acdc">
-      <div class="group-header">
-        <div class="group-icon">AC</div>
-        <h3 id="hub-acdc" class="group-title" data-i18n="dir.acdc">AC/DC Power Calculators</h3>
-      </div>
-      <div class="group-links">
-        <a href="/ac-amps-to-watts-calculator/">AC Power with Power Factor</a>
-        <a href="/dc-amps-to-watts-calculator/">DC Battery & Solar Systems</a>
-        <a href="/3-phase-amps-to-watts-calculator/">3-Phase Industrial Power</a>
-        <a href="/single-phase-amps-to-watts/">Single Phase AC Circuits</a>
-        <a href="/power-factor/">Power Factor Calculator & Guide</a>
-      </div>
-    </section>
+    <div class="premium-directory-grid premium-directory-grid--spaced">
+      <section class="premium-directory-group" id="topical-main-conversion" aria-labelledby="hub-main-conversion">
+        <div class="group-header">
+          <div class="group-icon">W</div>
+          <h3 id="hub-main-conversion" class="group-title">Main Amps to Watts Calculators</h3>
+        </div>
+        <div class="group-links">
+          <a href="/ac-amps-to-watts-calculator/">AC Amps to Watts Calculator</a>
+          <a href="/dc-amps-to-watts-calculator/">DC Amps to Watts Calculator</a>
+          <a href="/single-phase-amps-to-watts/">Single Phase Amps to Watts</a>
+          <a href="/3-phase-amps-to-watts-calculator/">3 Phase Amps to Watts</a>
+          <a href="/amps-to-watts-formula/">Amps to Watts Formula</a>
+          <a href="/conversion-charts/">Conversion Charts</a>
+        </div>
+      </section>
 
-    <section class="premium-directory-group" id="component-calculators" aria-labelledby="hub-components">
-      <div class="group-header">
-        <div class="group-icon">PF</div>
-        <h3 id="hub-components" class="group-title" data-i18n="dir.components">Specialized Electrical Calculators</h3>
-      </div>
-      <div class="group-links">
-        <a href="/solar-watts-to-amps-calculator/">Solar Panel Watts to Amps</a>
-        <a href="/led-watts-to-amps-calculator/">LED Driver & Lighting Current</a>
-        <a href="/speaker-amp-power-calculator/">Speaker Amplifier Power Draw</a>
-        <a href="/kva-to-watts-calculator/">kVA to Watts (Apparent Power)</a>
-        <a href="/megawatts-to-amps-calculator/">Megawatt to Amps Conversion</a>
-      </div>
-    </section>
-  </div>
+      <section class="premium-directory-group" id="topical-phase-calculators" aria-labelledby="hub-phase">
+        <div class="group-header">
+          <div class="group-icon">AC</div>
+          <h3 id="hub-phase" class="group-title">AC / DC / Phase Calculators</h3>
+        </div>
+        <div class="group-links">
+          <a href="/ac-amps-to-watts-calculator/">Convert AC Amps to Watts</a>
+          <a href="/dc-amps-to-watts-calculator/">Convert DC Amps to Watts</a>
+          <a href="/single-phase-amps-to-watts/">Single Phase Current to Watts</a>
+          <a href="/3-phase-amps-to-watts-calculator/">Three Phase Current to Watts</a>
+          <a href="/power-factor/">Power Factor Calculator</a>
+          <a href="/voltage-drop-calculator/">Voltage Drop Calculator</a>
+        </div>
+      </section>
+
+      <section class="premium-directory-group" id="topical-voltage-calculators" aria-labelledby="hub-voltage">
+        <div class="group-header">
+          <div class="group-icon">V</div>
+          <h3 id="hub-voltage" class="group-title" data-i18n="dir.voltage">Voltage-Specific Calculators</h3>
+        </div>
+        <div class="group-links">
+          <a href="/12v-amps-to-watts/">12V Amps to Watts</a>
+          <a href="/24v-amps-to-watts/">24V Amps to Watts</a>
+          <a href="/120v-amps-to-watts/">120V Amps to Watts</a>
+          <a href="/220v-amps-to-watts/">220V Amps to Watts</a>
+          <a href="/230v-amps-to-watts/">230V Amps to Watts</a>
+          <a href="/240v-amps-to-watts/">240V Amps to Watts</a>
+          <a href="/480v-amps-to-watts-calculator/">480V Amps to Watts</a>
+        </div>
+      </section>
+
+      <section class="premium-directory-group" id="topical-application-calculators" aria-labelledby="hub-applications">
+        <div class="group-header">
+          <div class="group-icon">APP</div>
+          <h3 id="hub-applications" class="group-title">Appliance & Equipment Calculators</h3>
+        </div>
+        <div class="group-links">
+          <a href="/air-conditioner-amps-to-watts/">Air Conditioner Amps to Watts</a>
+          <a href="/generator-amps-to-watts/">Generator Amps to Watts</a>
+          <a href="/ev-charger-amps-to-watts/">EV Charger Amps to Watts</a>
+          <a href="/motor-amps-to-watts/">Motor Amps to Watts</a>
+          <a href="/electric-motor-amps-to-watts/">Electric Motor Amps to Watts</a>
+          <a href="/refrigerator-amps-to-watts/">Refrigerator Amps to Watts</a>
+          <a href="/microwave-amps-to-watts/">Microwave Amps to Watts</a>
+          <a href="/dryer-amps-to-watts/">Dryer Amps to Watts</a>
+          <a href="/pool-pump-amps-to-watts/">Pool Pump Amps to Watts</a>
+          <a href="/solar-watts-to-amps-calculator/">Solar Watts to Amps</a>
+          <a href="/led-watts-to-amps-calculator/">LED Watts to Amps</a>
+          <a href="/speaker-amp-power-calculator/">Speaker Amp Power Calculator</a>
+        </div>
+      </section>
+
+      <section class="premium-directory-group" id="topical-reverse-conversions" aria-labelledby="hub-reverse">
+        <div class="group-header">
+          <div class="group-icon">A</div>
+          <h3 id="hub-reverse" class="group-title">Reverse & Related Conversions</h3>
+        </div>
+        <div class="group-links">
+          <a href="/watts-to-amps-calculator/">Watts to Amps Calculator</a>
+          <a href="/watts-to-amps-12v/">Watts to Amps at 12V</a>
+          <a href="/watts-to-amps-120v/">Watts to Amps at 120V</a>
+          <a href="/watts-to-amps-240v/">Watts to Amps at 240V</a>
+          <a href="/amps-to-kw-calculator/">Amps to kW Calculator</a>
+          <a href="/kw-to-amps-calculator/">kW to Amps Calculator</a>
+          <a href="/amps-to-volt-amps/">Amps to Volt-Amps</a>
+          <a href="/kva-to-watts-calculator/">kVA to Watts Calculator</a>
+          <a href="/megawatts-to-amps-calculator/">Megawatts to Amps Calculator</a>
+          <a href="/amp-hours-to-watt-hours/">Amp Hours to Watt Hours</a>
+          <a href="/amp-power-consumption-calculator/">Amp Power Consumption Calculator</a>
+          <a href="/other-voltages-calculator/">Other Voltages Calculator</a>
+        </div>
+      </section>
+
+      <section class="premium-directory-group" id="topical-guides" aria-labelledby="hub-guides">
+        <div class="group-header">
+          <div class="group-icon">G</div>
+          <h3 id="hub-guides" class="group-title">Electrical Learning Guides</h3>
+        </div>
+        <div class="group-links">
+          <a href="/what-are-amps/">What Are Amps?</a>
+          <a href="/what-are-watts/">What Are Watts?</a>
+          <a href="/amps-vs-watts/">Amps vs Watts</a>
+          <a href="/how-many-watts-per-amp/">How Many Watts Per Amp?</a>
+          <a href="/ohms-law-explained/">Ohm's Law Explained</a>
+          <a href="/watts-law-explained/">Watt's Law Explained</a>
+          <a href="/kwh-explained/">kWh Explained</a>
+          <a href="/power-factor/">Power Factor</a>
+          <a href="/power-factor-explained/">Power Factor Explained</a>
+          <a href="/understanding-power-factor/">Understanding Power Factor</a>
+        </div>
+      </section>
+
+      <section class="premium-directory-group" id="topical-safety-tools" aria-labelledby="hub-safety">
+        <div class="group-header">
+          <div class="group-icon">SAFE</div>
+          <h3 id="hub-safety" class="group-title">Wire, Safety & Power Quality Tools</h3>
+        </div>
+        <div class="group-links">
+          <a href="/wire-gauge-calculator/">Wire Gauge Calculator</a>
+          <a href="/voltage-drop-calculator/">Voltage Drop Calculator</a>
+          <a href="/power-factor/">Power Factor Calculator</a>
+          <a href="/generator-amps-to-watts/">Generator Load Planning</a>
+          <a href="/ev-charger-amps-to-watts/">EV Charger Circuit Planning</a>
+          <a href="/motor-amps-to-watts/">Motor Load Planning</a>
+        </div>
+      </section>
+    </div>
   </section>
 
 </BaseLayout>
