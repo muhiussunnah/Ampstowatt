@@ -54,14 +54,24 @@ function homeFaq(): FaqItem[] {
       icon: "W",
     },
     {
-      q: "What is the amps to watts formula?",
-      a: "There are three formulas depending on the circuit type. DC: Watts = Amps × Volts. AC single-phase: Watts = Amps × Volts × Power Factor. AC three-phase (line-to-line): Watts = 1.732 × Amps × Volts × Power Factor. The DC formula also works for pure resistive AC loads where power factor is 1.00.",
+      q: "What is the formula for amps to watts?",
+      a: "There are three formulas depending on the circuit type. DC: Watts = Amps × Volts. AC single-phase: Watts = Amps × Volts × Power Factor. AC three-phase (line-to-line): Watts = 1.732 × Amps × Volts × Power Factor. For three-phase line-to-neutral: Watts = 3 × Amps × Volts × Power Factor.",
       icon: "AC",
     },
     {
-      q: "How many watts is 1 amp?",
+      q: "How many watts are in 1 amp?",
       a: "1 amp equals a different number of watts depending on the voltage. At 12V, 1 amp = 12 watts. At 120V, 1 amp = 120 watts. At 240V, 1 amp = 240 watts. This assumes power factor of 1.00. For AC motor loads with lower power factor, the real watts will be lower.",
       icon: "1A",
+    },
+    {
+      q: "Do I need voltage to convert amps to watts?",
+      a: "Yes — you cannot convert amps to watts without knowing the voltage. Amps measure current flow, and watts measure power. The relationship is Watts = Amps × Volts. Without voltage, there is no way to determine how much power the current represents. A 10-amp load could be 120 watts (at 12V) or 2,400 watts (at 240V).",
+      icon: "V",
+    },
+    {
+      q: "Why does AC amps to watts need power factor?",
+      a: "Power factor (PF) measures how efficiently a device uses current. Resistive loads like heaters use all the current for real work (PF = 1.0). Motors and compressors draw extra current due to inductance, so their power factor is lower (0.70–0.95). Without accounting for PF, you would overestimate watts by 10–40% for these loads.",
+      icon: "PF",
     },
     {
       q: "What is the difference between amps and watts?",
@@ -69,27 +79,28 @@ function homeFaq(): FaqItem[] {
       icon: "VS",
     },
     {
-      q: "Can I use amps to watts for breaker sizing?",
-      a: "You can use the result for load planning, but not for final breaker sizing. The NEC requires that continuous loads (3+ hours) stay at or below 80% of the breaker rating. A 20A breaker on 120V handles 2,400W maximum, but only 1,920W for continuous loads. Final sizing must account for wire gauge, ambient temperature, conduit fill, and local code.",
+      q: "How do I convert three-phase amps to watts?",
+      a: "For three-phase with line-to-line voltage: Watts = √3 × Amps × Volts × Power Factor (√3 ≈ 1.732). For line-to-neutral voltage: Watts = 3 × Amps × Volts × PF. Example: 10A at 480V with PF 0.90 using line-to-line voltage = 1.732 × 10 × 480 × 0.90 = 7,478 watts.",
+      icon: "3P",
+    },
+    {
+      q: "Is watts the same as watt-hours?",
+      a: "No. Watts (W) measure instantaneous power — how fast energy is being used right now. Watt-hours (Wh) measure total energy consumed over time. A 100-watt light bulb running for 3 hours uses 300 watt-hours (0.3 kWh). Your electricity bill charges per kilowatt-hour, not per watt.",
+      icon: "Wh",
+    },
+    {
+      q: "Can I use this calculator for appliances?",
+      a: "Yes. Enter the amperage from the appliance nameplate, the outlet voltage (120V or 240V in the US), and power factor if listed. For resistive appliances (heaters, toasters, hair dryers), use PF = 1.0. For motor-driven appliances (refrigerators, AC units, washing machines), use the nameplate PF or estimate 0.85.",
+      icon: "APP",
+    },
+    {
+      q: "Can I use this calculator for breaker or wire sizing?",
+      a: "You can use the result for load planning, but not for final breaker or wire sizing. The NEC requires that continuous loads (3+ hours) stay at or below 80% of the breaker rating. Final sizing must account for wire gauge, ambient temperature, conduit fill, voltage drop, and local code. Always consult a licensed electrician for safety-critical work.",
       icon: "SA",
-    },
-    {
-      q: "Why does power factor matter in amps to watts conversion?",
-      a: "Power factor (PF) measures how efficiently a device uses current. Resistive loads like heaters use all the current for real work (PF = 1.0). Motors and compressors draw extra current due to inductance, so their power factor is lower (0.70–0.95). Without accounting for PF, you would overestimate watts by 10–40% for these loads.",
-      icon: "PF",
-    },
-    {
-      q: "How do I convert watts back to amps?",
-      a: "Divide watts by volts: Amps = Watts ÷ Volts. For AC with power factor: Amps = Watts ÷ (Volts × PF). For example, a 1,500W heater on 120V draws 1,500 ÷ 120 = 12.5 amps. This is useful for checking if an appliance will trip a breaker.",
-      icon: "⇄",
-    },
-    {
-      q: "Is the amps to watts formula different for 120V and 240V?",
-      a: "The formula is the same (Watts = Amps × Volts × PF), but the voltage value changes. At 240V, the same amperage produces twice the wattage as 120V. This is why high-power appliances like dryers and EV chargers use 240V circuits — they get more power without increasing wire size.",
-      icon: "V",
     },
   ];
 }
+
 
 function dcFaq(tool: Tool): FaqItem[] {
   const v = tool.defaultVoltage ?? 12;

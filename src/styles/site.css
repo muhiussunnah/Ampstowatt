@@ -3382,6 +3382,222 @@ input[type="range"] {
   transform: translateY(-2px);
 }
 
+/* Homepage content sections */
+.home-content-body {
+  max-width: var(--measure);
+  margin: 0 auto;
+}
+
+.home-content-body p {
+  color: var(--color-text);
+  font-size: 1.02rem;
+  line-height: 1.78;
+  margin-top: 1rem;
+}
+
+.home-content-body p:first-child {
+  margin-top: 0;
+}
+
+.home-content-body a {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.home-content-body a:hover {
+  color: var(--color-accent);
+}
+
+/* Field guide (How to Use) */
+.home-field-guide {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.home-field-guide > div {
+  display: grid;
+  grid-template-columns: 11rem minmax(0, 1fr);
+  gap: 0.5rem;
+  align-items: baseline;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--color-border-soft);
+  border-radius: 12px;
+  background: var(--color-surface-soft);
+}
+
+.home-field-guide strong {
+  color: var(--color-navy);
+  font-size: 0.88rem;
+  font-weight: 900;
+}
+
+.home-field-guide span {
+  color: var(--color-soft);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+/* 4-column formula grid */
+.home-formulas .home-formula-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* Formula explanation text */
+.home-formula-explanation {
+  margin-top: 1.35rem;
+  padding-top: 1.35rem;
+  border-top: 1px solid var(--color-border-soft);
+}
+
+.home-formula-note {
+  margin-top: 0.85rem;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-surface-soft);
+  font-size: 0.92rem !important;
+  color: var(--color-muted) !important;
+}
+
+.home-formula-note strong {
+  color: var(--color-navy);
+}
+
+/* Green tone for 4th formula card */
+.home-tone-green {
+  border-color: rgba(5, 150, 105, 0.28);
+}
+
+.home-tone-green .home-formula-top span {
+  background: var(--color-success);
+}
+
+/* Examples grid */
+.home-examples-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.home-example-card {
+  display: grid;
+  gap: 0.75rem;
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: var(--shadow-sm);
+  padding: 1.35rem;
+}
+
+.home-example-label {
+  display: inline-block;
+  width: fit-content;
+  border-radius: 999px;
+  background: var(--color-primary-soft);
+  color: var(--color-primary-dark);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.32rem 0.62rem;
+}
+
+.home-tone-orange .home-example-label {
+  background: var(--color-accent-soft);
+  color: var(--color-accent-dark);
+}
+
+.home-tone-purple .home-example-label {
+  background: var(--color-purple-soft);
+  color: var(--color-purple);
+}
+
+.home-tone-green .home-example-label {
+  background: var(--color-success-soft);
+  color: var(--color-success);
+}
+
+.home-example-card .home-math {
+  justify-self: start;
+  font-size: clamp(1.1rem, 1.5vw, 1.35rem);
+}
+
+.home-example-card p:not(.home-math) {
+  color: var(--color-muted);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+/* Entity grid (Amps vs Watts vs Volts) */
+.home-entity-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.home-entity-item {
+  padding: 1rem;
+  border: 1px solid var(--color-border-soft);
+  border-radius: 14px;
+  background: var(--color-surface-soft);
+}
+
+.home-entity-item strong {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: var(--color-navy);
+  font-size: 0.95rem;
+  font-weight: 900;
+}
+
+.home-entity-item p {
+  color: var(--color-soft);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Safety note */
+.home-safety-note {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+  border: 1px solid rgba(5, 150, 105, 0.25);
+  border-radius: 18px;
+  background: rgba(209, 250, 229, 0.25);
+  padding: 1.35rem;
+}
+
+.home-safety-note h3 {
+  color: var(--color-navy);
+  font-size: 1rem;
+  margin-bottom: 0.35rem;
+}
+
+.home-safety-note p {
+  color: var(--color-soft);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.home-safety-note .home-icon {
+  background: var(--color-success-soft);
+  color: var(--color-success);
+}
+
+/* Conversion table (simpler 3-column) */
+.home-conversion-table {
+  min-width: 320px;
+}
+
+.home-conversion-table td strong {
+  color: var(--color-primary);
+  font-weight: 900;
+}
+
 /* ==========================================================
    22. BLOG STYLES
    ========================================================== */
