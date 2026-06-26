@@ -273,14 +273,15 @@ const hubGroups = [
   <!-- ===== 1. HERO SECTION ===== -->
   <section class="home-hero" aria-labelledby="home-title">
     <div class="home-hero__content">
-      <p class="home-badge">FAST • ACCURATE • TRUSTED</p>
+      <p class="home-badge">DC • AC • THREE-PHASE</p>
       <h1 id="home-title">Amps to Watts Calculator</h1>
       <p class="home-hero__lead">
         Use this amps to watts calculator to convert electrical current in amps
-        into power in watts using voltage and, for AC circuits, power factor. It
-        supports DC, single-phase AC, and three-phase AC calculations so you can
-        estimate appliance loads, battery power, generator capacity, EV charging
-        power, and electrical circuit demand.
+        into real power in watts. Enter the current, voltage, and power factor
+        when needed, then choose DC, single-phase AC, or three-phase AC to get
+        the correct watts and kilowatts result. Helpful for appliance wattage,
+        battery voltage checks, generator load planning, EV charger circuits,
+        and motor load estimates.
       </p>
       <div class="home-trust-list" aria-label="Calculator benefits">
         <div>
@@ -326,6 +327,16 @@ const hubGroups = [
           <small>Helpful for batteries, generators, motors, and chargers</small>
         </div>
       </div>
+    </div>
+
+    <div class="home-quick-answer" id="quick-answer">
+      <h2>Quick Answer</h2>
+      <p>To convert amps to watts, multiply amps by volts.</p>
+      <p class="home-math">Watts = Amps × Volts</p>
+      <p>For AC loads with power factor:</p>
+      <p class="home-math">Watts = Amps × Volts × Power Factor</p>
+      <p>For three-phase line-to-line power:</p>
+      <p class="home-math">Watts = 1.732 × Amps × Volts × Power Factor</p>
     </div>
 
     <div class="home-calculator-wrapper">
@@ -808,8 +819,8 @@ const hubGroups = [
         >
       </span>
       <div>
-        <h2>Built for Accuracy. Designed for Electricians.</h2>
-        <p>Trusted by professionals, engineers, and DIYers worldwide.</p>
+        <h2>Built for Accuracy. Designed for Everyone.</h2>
+        <p>Built for homeowners, students, technicians, electricians, and anyone who needs fast electrical power estimates.</p>
       </div>
       <a href="/site-map/">Explore All Calculators -&gt;</a>
     </div>

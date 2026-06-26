@@ -2875,6 +2875,42 @@ input[type="range"] {
   box-shadow: 0 14px 30px rgba(37, 99, 235, 0.26);
 }
 
+/* Quick Answer block */
+.home-quick-answer {
+  position: relative;
+  border: 1px solid rgba(37, 99, 235, 0.18);
+  border-left: 4px solid #2563eb;
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.04), rgba(79, 70, 229, 0.03));
+  padding: clamp(1rem, 2vw, 1.3rem) clamp(1.1rem, 2.5vw, 1.5rem);
+  margin: 1.2rem 0 0.5rem;
+}
+
+.home-quick-answer h2 {
+  margin: 0 0 0.5rem;
+  color: #2563eb;
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  font-weight: 850;
+  letter-spacing: -0.01em;
+}
+
+.home-quick-answer p {
+  margin: 0 0 0.35rem;
+  color: var(--color-navy);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.home-quick-answer p:last-child {
+  margin-bottom: 0;
+}
+
+.home-quick-answer .home-math {
+  font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+  margin: 0.3rem 0 0.55rem;
+  justify-self: start;
+}
+
 /* Homepage sections */
 .home-section {
   position: relative;
