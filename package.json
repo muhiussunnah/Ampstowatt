@@ -1,17 +1,8 @@
 {
-  "name": "ampstowatt-astro",
+  "name": "ampstowatt-static-site",
   "version": "1.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
-    "dev": "astro dev",
-    "build": "node scripts/use-uploaded-dist.cjs",
-    "build:astro": "astro build",
-    "preview": "astro preview"
-  },
-  "dependencies": {
-    "@astrojs/sitemap": "^3.7.3",
-    "@fontsource-variable/manrope": "^5.2.8",
-    "astro": "6.4.4"
+    "build": "node scripts/use-uploaded-dist.cjs"
   }
 }
