@@ -6,7 +6,7 @@ const dist = path.join(root, 'dist');
 const requiredFiles = [
   'index.html',
   '_astro/BaseLayout.C5i8PAsk.css',
-  'crystal-premium.css',
+  'crystal-premium.v20260626.css',
   '_astro/BaseLayout.astro_astro_type_script_index_0_lang.DXJDJ2NP.js',
   '_astro/page.vzY--OHv.js',
   'sitemap.xml',

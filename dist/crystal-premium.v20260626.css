@@ -34,6 +34,19 @@ body.lux-site::selection {
   color: var(--crystal-ink);
 }
 
+.crawl-noscript {
+  display: block;
+  max-width: 900px;
+  margin: 12px auto;
+  padding: 10px 14px;
+  border: 1px solid rgba(14, 165, 233, 0.24);
+  border-radius: 8px;
+  background: #ffffff;
+  color: #334155;
+  font-size: 0.92rem;
+  box-shadow: 0 8px 20px rgba(12, 74, 110, 0.08);
+}
+
 .site-header {
   min-height: 68px !important;
   border-bottom: 1px solid rgba(14, 165, 233, 0.18) !important;
