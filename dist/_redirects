@@ -27,3 +27,4 @@ http://www.ampstowatt.com/* https://www.ampstowatt.com/:splat 301!
 /faq/ /#faq 301
 /other-voltages/ / 301
 /voltage-amps-watts-calculator/ / 301
+/calculators/ / 301
