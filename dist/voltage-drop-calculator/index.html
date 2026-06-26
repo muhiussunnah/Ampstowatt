@@ -1,0 +1,476 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Voltage Drop Calculator — Wire Length &amp; Gauge | Ampstowatt</title><meta name="description" content="Calculate voltage drop for any wire run. Enter current, distance, and conductor size to check compliance with 3% and 5% limits."><meta name="keywords" content="voltage drop calculator, how much voltage drop calculator, how to calculate voltage drop calculator, percentage voltage drop calculator, voltage drop formula, voltage drop calculation example, voltage drop calculator dc, voltage drop calculator ac, voltage drop calculator 12v, voltage drop calculator 24v, voltage drop calculator 48v, voltage drop calculator 120v, voltage drop calculator 230v, voltage drop calculator 240v, voltage drop calculator 3 phase, voltage drop calculator solar, voltage drop calculator automotive, voltage drop calculator led, voltage drop calculator wire size, voltage drop calculator cable size, voltage drop calculator nec, voltage drop calculator iec, voltage drop calculator bs7671"><meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"><meta name="author" content="AmpsTo⚡Watt.com"><meta name="generator" content="Astro v6.4.4"><link rel="canonical" href="https://www.ampstowatt.com/voltage-drop-calculator/"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico"><link rel="manifest" href="/site.webmanifest"><link rel="sitemap" href="/sitemap.xml"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f5f9ff"><meta name="google-site-verification" content="J08lQRurbjNvR9mj7ufDcG3f7ErT-jhPPuOLeGX5WOE"><!-- Open Graph --><meta property="og:type" content="website"><meta property="og:title" content="Voltage Drop Calculator — Wire Length &amp; Gauge | Ampstowatt"><meta property="og:description" content="Calculate voltage drop for any wire run. Enter current, distance, and conductor size to check compliance with 3% and 5% limits."><meta property="og:url" content="https://www.ampstowatt.com/voltage-drop-calculator/"><meta property="og:site_name" content="AmpsTo⚡Watt.com"><meta property="og:image" content="https://www.ampstowatt.com/og-image.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:locale" content="en_US"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Voltage Drop Calculator — Wire Length &amp; Gauge | Ampstowatt"><meta name="twitter:description" content="Calculate voltage drop for any wire run. Enter current, distance, and conductor size to check compliance with 3% and 5% limits."><meta name="twitter:image" content="https://www.ampstowatt.com/og-image.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://www.ampstowatt.com/#website","name":"AmpsTo⚡Watt.com","url":"https://www.ampstowatt.com/","publisher":{"@id":"https://www.ampstowatt.com/#organization"}},{"@type":"Organization","@id":"https://www.ampstowatt.com/#organization","name":"AmpsTo⚡Watt.com","url":"https://www.ampstowatt.com/","description":"Free premium electrical calculators for current, voltage, watts, kW, VA, battery energy, wire sizing, and voltage drop. Educational resource for electrical planning.","foundingDate":"2024","logo":{"@type":"ImageObject","url":"https://www.ampstowatt.com/favicon.svg"},"contactPoint":{"@type":"ContactPoint","contactType":"customer support","url":"https://www.ampstowatt.com/contact-us/"}},{"@type":"WebPage","@id":"https://www.ampstowatt.com/voltage-drop-calculator/#webpage","url":"https://www.ampstowatt.com/voltage-drop-calculator/","name":"Voltage Drop Calculator — Wire Length & Gauge | Ampstowatt","description":"Calculate voltage drop for any wire run. Enter current, distance, and conductor size to check compliance with 3% and 5% limits.","isPartOf":{"@id":"https://www.ampstowatt.com/#website"},"author":{"@id":"https://www.ampstowatt.com/#organization"},"publisher":{"@id":"https://www.ampstowatt.com/#organization"},"about":{"@id":"https://www.ampstowatt.com/voltage-drop-calculator/#application"},"inLanguage":"en-US","datePublished":"2024-06-15","dateModified":"2026-06-12","reviewedBy":{"@id":"https://www.ampstowatt.com/#organization"},"primaryImageOfPage":{"@id":"https://www.ampstowatt.com/voltage-drop-calculator/#primaryimage"},"speakable":{"@type":"SpeakableSpecification","cssSelector":[".content-lead",".home-formula-card strong","#quick-answer"]}},{"@type":"ImageObject","@id":"https://www.ampstowatt.com/voltage-drop-calculator/#primaryimage","url":"https://www.ampstowatt.com/og-image.jpg","width":1200,"height":630},{"@type":"BreadcrumbList","@id":"https://www.ampstowatt.com/voltage-drop-calculator/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.ampstowatt.com/"},{"@type":"ListItem","position":2,"name":"Electrical Tools","item":"https://www.ampstowatt.com/#topical-safety-tools"},{"@type":"ListItem","position":3,"name":"Voltage Drop Calculator","item":"https://www.ampstowatt.com/voltage-drop-calculator/"}]},{"@type":"WebApplication","@id":"https://www.ampstowatt.com/voltage-drop-calculator/#application","name":"Voltage Drop Calculator — Wire Length & Gauge | Ampstowatt","url":"https://www.ampstowatt.com/voltage-drop-calculator/","applicationCategory":"UtilitiesApplication","applicationSubCategory":"Calculator","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Calculate voltage drop for any wire run. Enter current, distance, and conductor size to check compliance with 3% and 5% limits.","featureList":["Amps to watts conversion","DC, single-phase AC, and three-phase AC formulas","Power factor support","Conversion table and breaker-safety planning notes"],"isAccessibleForFree":true,"publisher":{"@id":"https://www.ampstowatt.com/#organization"}},{"@type":"FAQPage","@id":"https://www.ampstowatt.com/voltage-drop-calculator/#faq","mainEntity":[{"@type":"Question","name":"What is acceptable voltage drop?","acceptedAnswer":{"@type":"Answer","text":"The NEC recommends a maximum of 3% voltage drop for branch circuits and 5% total (feeder + branch combined) per informational note to NEC 210.19. For sensitive electronics and LED lighting, aim for 2% or less. Low-voltage DC systems (12V, 24V) are especially sensitive — even 0.5V drop is significant."}},{"@type":"Question","name":"How do I calculate voltage drop for a wire run?","acceptedAnswer":{"@type":"Answer","text":"Voltage drop = (2 × K × I × D) ÷ CM, where K is the resistivity constant (10.75 for copper, 17.7 for aluminum), I is current in amps, D is one-way distance in feet, and CM is the circular mil area of the conductor. The calculator automates this for standard AWG sizes."}},{"@type":"Question","name":"Does voltage drop differ for DC and AC circuits?","acceptedAnswer":{"@type":"Answer","text":"The basic resistance-based voltage drop formula is the same. However, AC circuits can have additional impedance from inductance in conduit or cable geometry, especially at higher frequencies or in large conductors. For standard residential and commercial wiring, the DC formula is accurate enough for planning."}},{"@type":"Question","name":"Why is voltage drop worse at low voltage?","acceptedAnswer":{"@type":"Answer","text":"A 1V drop on a 12V circuit is an 8.3% loss, but on a 120V circuit it is only 0.8%. The same wire, same current, same distance produces the same absolute voltage drop, but the percentage impact is 10× worse at 12V. This is why low-voltage DC installations require significantly larger wire."}},{"@type":"Question","name":"How does wire length affect voltage drop?","acceptedAnswer":{"@type":"Answer","text":"Voltage drop increases linearly with distance. Doubling the wire length doubles the drop. The formula uses one-way distance and multiplies by 2 to account for the return conductor. For DC circuits, this is literal. For AC, the return is through the neutral or other phase."}},{"@type":"Question","name":"Copper vs aluminum — how does material affect voltage drop?","acceptedAnswer":{"@type":"Answer","text":"Aluminum has about 1.6× the resistivity of copper, so it drops more voltage for the same gauge. To match copper performance, use aluminum wire two AWG sizes larger (e.g., 2 AWG aluminum instead of 4 AWG copper). Aluminum is cheaper per foot but requires larger conduit and specific connectors rated for aluminum."}}]},{"@type":"TechArticle","@id":"https://www.ampstowatt.com/voltage-drop-calculator/#article","headline":"Voltage Drop Calculator — Wire Length & Gauge | Ampstowatt","description":"Calculate voltage drop for any wire run. Enter current, distance, and conductor size to check compliance with 3% and 5% limits.","author":{"@id":"https://www.ampstowatt.com/#organization"},"publisher":{"@id":"https://www.ampstowatt.com/#organization"},"datePublished":"2024-06-15","dateModified":"2026-06-12","mainEntityOfPage":{"@id":"https://www.ampstowatt.com/voltage-drop-calculator/#webpage"},"inLanguage":"en-US","about":{"@type":"Thing","name":"Voltage Drop","description":"Calculate voltage drop for any wire run. Enter current, distance, and conductor size to check compliance with 3% and 5% limits."}}]}</script><link rel="stylesheet" href="/_astro/BaseLayout.DpCeEbX5.css"><script type="module" src="/_astro/page.vzY--OHv.js"></script></head> <body> <!-- Scroll progress bar --> <div class="scroll-progress" id="scroll-progress"></div> <a class="skip-link" href="#main-content">Skip to content</a> <!-- ===== HEADER ===== --> <header class="site-header"> <div class="header-inner"> <a class="site-logo brand" href="/" aria-label="AmpsTo⚡Watt.com home"> <span>AmpsTo</span><span class="site-logo__bolt">⚡</span><span class="site-logo__watt">Watt</span><span class="site-logo__dot">.com</span> </a> <nav id="site-nav" class="main-nav site-nav" aria-label="Primary navigation"> <a href="/" data-i18n="nav.home">Home</a> <details class="nav-item nav-dropdown"> <summary>Calculators</summary> <div class="dropdown-menu"> <a href="/ac-amps-to-watts-calculator/">AC Amps to Watts</a> <a href="/dc-amps-to-watts-calculator/">DC Amps to Watts</a> <a href="/single-phase-amps-to-watts/">Single Phase Amps to Watts</a> <a href="/3-phase-amps-to-watts-calculator/">3 Phase Amps to Watts</a> <a href="/watts-to-amps-calculator/">Watts to Amps</a> <a href="/amps-to-kw-calculator/">Amps to kW</a> <a href="/kw-to-amps-calculator/">kW to Amps</a> <a href="/kva-to-watts-calculator/">kVA to Watts</a> </div> </details> <details class="nav-item nav-dropdown"> <summary>Voltage Calculators</summary> <div class="dropdown-menu"> <a href="/12v-amps-to-watts/">12V Amps to Watts</a> <a href="/24v-amps-to-watts/">24V Amps to Watts</a> <a href="/120v-amps-to-watts/">120V Amps to Watts</a> <a href="/220v-amps-to-watts/">220V Amps to Watts</a> <a href="/230v-amps-to-watts/">230V Amps to Watts</a> <a href="/240v-amps-to-watts/">240V Amps to Watts</a> <a href="/480v-amps-to-watts-calculator/">480V Amps to Watts</a> </div> </details> <details class="nav-item nav-dropdown"> <summary>Appliance Calculators</summary> <div class="dropdown-menu"> <a href="/air-conditioner-amps-to-watts/">Air Conditioner</a> <a href="/generator-amps-to-watts/">Generator</a> <a href="/ev-charger-amps-to-watts/">EV Charger</a> <a href="/motor-amps-to-watts/">Motor</a> <a href="/electric-motor-amps-to-watts/">Electric Motor</a> <a href="/refrigerator-amps-to-watts/">Refrigerator</a> <a href="/microwave-amps-to-watts/">Microwave</a> <a href="/dryer-amps-to-watts/">Dryer</a> <a href="/pool-pump-amps-to-watts/">Pool Pump</a> <a href="/solar-watts-to-amps-calculator/">Solar</a> <a href="/led-watts-to-amps-calculator/">LED</a> <a href="/speaker-amp-power-calculator/">Speaker</a> </div> </details> <details class="nav-item nav-dropdown"> <summary>Electrical Guides</summary> <div class="dropdown-menu"> <a href="/what-are-amps/">What Are Amps?</a> <a href="/what-are-watts/">What Are Watts?</a> <a href="/amps-vs-watts/">Amps vs Watts</a> <a href="/ohms-law-explained/">Ohm's Law</a> <a href="/watts-law-explained/">Watt's Law</a> <a href="/power-factor/">Power Factor</a> <a href="/kwh-explained/">kWh Explained</a> <a href="/wire-gauge-calculator/">Wire Gauge</a> <a href="/voltage-drop-calculator/">Voltage Drop</a> </div> </details> <a href="/blog/">Blog</a> <a href="/contact-us/">Contact</a> </nav> <button class="mobile-menu-button" type="button" data-mobile-menu-toggle data-target="#mobile-nav" aria-controls="mobile-nav" aria-expanded="false" aria-label="Toggle navigation"> <span></span><span></span><span></span> </button> </div> <nav id="mobile-nav" class="mobile-nav" data-mobile-menu aria-label="Mobile navigation"> <a href="/">Home</a> <strong>Calculators</strong> <a href="/ac-amps-to-watts-calculator/">AC Amps to Watts</a> <a href="/dc-amps-to-watts-calculator/">DC Amps to Watts</a> <a href="/single-phase-amps-to-watts/">Single Phase Amps to Watts</a> <a href="/3-phase-amps-to-watts-calculator/">3 Phase Amps to Watts</a> <a href="/watts-to-amps-calculator/">Watts to Amps</a> <a href="/amps-to-kw-calculator/">Amps to kW</a> <strong>Voltage</strong> <a href="/12v-amps-to-watts/">12V Amps to Watts</a> <a href="/120v-amps-to-watts/">120V Amps to Watts</a> <a href="/240v-amps-to-watts/">240V Amps to Watts</a> <a href="/480v-amps-to-watts-calculator/">480V Amps to Watts</a> <strong>Appliances</strong> <a href="/air-conditioner-amps-to-watts/">Air Conditioner</a> <a href="/ev-charger-amps-to-watts/">EV Charger</a> <a href="/solar-watts-to-amps-calculator/">Solar</a> <a href="/generator-amps-to-watts/">Generator</a> <strong>Resources</strong> <a href="/wire-gauge-calculator/">Wire Gauge</a> <a href="/voltage-drop-calculator/">Voltage Drop</a> <a href="/blog/">Blog</a> <a href="/contact-us/">Contact</a> </nav> </header> <!-- ===== BREADCRUMB ===== --> <div class="breadcrumb-bar"> <nav aria-label="Breadcrumb"> <a href="/">Home</a><span class="breadcrumb-sep" aria-hidden="true">
+/
+</span><a href="/#topical-safety-tools">Electrical Tools</a><span class="breadcrumb-sep" aria-hidden="true">
+/
+</span><span class="breadcrumb-current">Voltage Drop Calculator</span> </nav> </div> <!-- ===== MAIN ===== --> <main id="main-content" class="legacy-shell"> <div class="legacy-content"> <!-- H1 and Tool Section (Immediately above fold) --> <section class="premium-unified-hero"> <div class="premium-hero-copy"> <p class="premium-kicker"> Wire planning </p> <h1>Voltage Drop Calculator</h1> <div class="premium-formula-pill">V_drop = 2 × L × R × I / 1000</div> <p> Calculate voltage drop for any wire run. Enter current, distance, and conductor size to check compliance with 3% and 5% limits. </p> </div> <div class="lx-tool premium-calculator" data-calc-id="voltage-drop" data-tool-id="voltage-drop" data-calc-type="voltage-drop" data-calculator-config="voltage-drop-calculator" data-calc-mode="ac1" data-result-interpretation="The primary result is shown in V using the formula displayed above." data-safety-note="This calculator is an educational planning estimate. Verify safety-critical work with equipment nameplate data, local electrical code, and a qualified professional." id="premium-tool"> <!-- Calculator Header --> <div class="calc-header"> <div> <h2 class="calc-title">Voltage Drop Calculator</h2> <p class="calc-subtitle">Determine the voltage drop for a wire run.</p> </div> <span class="calc-badge">Live Result</span> </div> <!-- Step 1: Current Type (Only if modes > 1) --> <section class="calc-section"> <div class="calc-section-title">1. Choose Mode</div> <div class="calc-mode-grid" role="tablist"> <button class="calc-mode-btn" type="button" role="tab" aria-selected="false" data-calc-phase="dc"> <span class="calc-mode-icon" aria-hidden="true">
+=
+</span> <span class="calc-mode-label">DC</span> <span class="calc-mode-desc">Batteries &amp; solar</span> </button> <button class="calc-mode-btn" type="button" role="tab" aria-selected="true" data-calc-phase="ac1"> <span class="calc-mode-icon" aria-hidden="true">
+~
+</span> <span class="calc-mode-label">Single-Phase AC</span> <span class="calc-mode-desc">Homes &amp; outlets</span> </button> <button class="calc-mode-btn" type="button" role="tab" aria-selected="false" data-calc-phase="ac3"> <span class="calc-mode-icon" aria-hidden="true">
+3~
+</span> <span class="calc-mode-label">Three-Phase AC</span> <span class="calc-mode-desc">Industrial systems</span> </button> </div> <select id="lx-type" class="sr-only" aria-label="System type"> <option value="dc">
+DC
+</option> <option value="ac1" selected>
+AC Single-Phase
+</option> <option value="ac3">
+AC Three-Phase
+</option> </select> </section> <!-- Step 2: Input Fields --> <section class="calc-section"> <div class="calc-section-title">2. Enter Values</div> <div class="calc-input-grid"> <label class="calc-field input-current" id="container-current"> <span class="calc-label-row"> <span class="calc-label">Current</span> </span> <span class="calc-input-wrap"> <input class="calc-input" type="number" id="input-current" value="15" step="any"> <span class="calc-unit">A</span> </span>  <span class="calc-error" id="error-current" aria-live="polite"></span> </label><label class="calc-field input-wireLength" id="container-wireLength"> <span class="calc-label-row"> <span class="calc-label">Wire Length (one way)</span> </span> <span class="calc-input-wrap"> <input class="calc-input" type="number" id="input-wireLength" value="50" step="any"> <span class="calc-unit">ft</span> </span>  <span class="calc-error" id="error-wireLength" aria-live="polite"></span> </label><label class="calc-field input-voltage" id="container-voltage"> <span class="calc-label-row"> <span class="calc-label">Voltage</span> </span> <span class="calc-input-wrap"> <input class="calc-input" type="number" id="input-voltage" value="120" step="any"> <span class="calc-unit">V</span> </span>  <span class="calc-error" id="error-voltage" aria-live="polite"></span> </label><label class="calc-field input-wireMaterial" id="container-wireMaterial"> <span class="calc-label-row"> <span class="calc-label">Wire Material</span> </span> <span class="calc-input-wrap"> <select class="calc-input" id="input-wireMaterial"> <option value="copper" selected> Copper </option><option value="aluminum"> Aluminum </option> </select>  </span>  <span class="calc-error" id="error-wireMaterial" aria-live="polite"></span> </label><label class="calc-field input-wireSize" id="container-wireSize"> <span class="calc-label-row"> <span class="calc-label">Wire Size (AWG)</span> </span> <span class="calc-input-wrap"> <select class="calc-input" id="input-wireSize"> <option value="14"> 14 AWG </option><option value="12" selected> 12 AWG </option><option value="10"> 10 AWG </option><option value="8"> 8 AWG </option><option value="6"> 6 AWG </option><option value="4"> 4 AWG </option><option value="2"> 2 AWG </option><option value="1"> 1 AWG </option><option value="0"> 1/0 AWG </option><option value="-1"> 2/0 AWG </option><option value="-2"> 3/0 AWG </option><option value="-3"> 4/0 AWG </option> </select>  </span>  <span class="calc-error" id="error-wireSize" aria-live="polite"></span> </label>  </div> </section> <!-- Step 3: Result --> <section class="calc-section"> <div class="calc-section-title">3. Calculated Result</div> <div class="calc-result-panel" aria-live="polite" aria-atomic="true"> <div class="calc-result-main">  <span class="calc-result-label">Voltage Drop</span> <span class="calc-result-value"> <span id="output-vdrop">0</span>  <span class="calc-result-unit">V</span> </span> <span class="calc-result-subvalue"> <span>  <span id="output-vdropPercent">0</span> % </span><span>  |  <span id="output-endVoltage">0</span> V </span> </span> </div> <div class="calc-formula-box"> <span class="calc-formula-label">Formula Used</span> <span class="calc-formula-value" id="calc-formula-display" data-formulas="{}"> V_drop = 2 × L × R × I / 1000 </span> <span class="calc-note" id="calc-result-helper" style="margin-top:4px">The primary result is shown in V using the formula displayed above.</span> <span class="calc-note" id="calc-example-helper" style="margin-top:4px">Calculates voltage drop based on NEC Chapter 9 Table 8.</span> </div> </div> <!-- Actions --> <div class="calc-action-row"> <div class="calc-actions"> <button type="button" class="calc-btn lx-action-copy">
+Copy Result
+</button> <button type="button" class="calc-btn lx-action-reset"> Reset </button> </div> <p class="calc-note">This calculator is an educational planning estimate. Verify safety-critical work with equipment nameplate data, local electrical code, and a qualified professional.</p> </div> </section> </div> </section> <section class="premium-content-showcase" aria-label="Voltage Drop visual summary"> <div class="content-showcase-copy"> <p class="premium-kicker">Wire and voltage drop planning</p> <h2>Conductor run visual</h2> <p>Calculate voltage drop for any wire run. Enter current, distance, and conductor size to check compliance with 3% and 5% limits.</p> <div class="content-showcase-tags" aria-label="Content highlights"> <span>AC/DC</span> <span>single-phase</span> <span>formula-first</span> <span>page-specific visual</span> </div> </div> <div class="content-showcase-visual content-showcase-visual--wire" aria-hidden="true"> <div class="showcase-system-rail"> <span>Long run check</span> <strong>% drop</strong> </div> <div class="lux-flow showcase-flow"> <span>SRC</span> <i></i> <span>AWG</span> <i></i> <span>LOAD</span> </div> <div class="lux-formula-card"> <small>working formula</small> <strong>Voltage drop = 2 x K x I x D / circular mils</strong> <em>Current, distance, material, wire size, and acceptable voltage drop.</em> </div> <div class="showcase-check-grid"> <span>Copper/Aluminum</span><span>One-way distance</span><span>Ampacity</span><span>Code review</span> </div> </div> </section><section class="content-section tool-premium-guide" aria-labelledby="voltage-drop-calculator-premium-guide"> <article class="content-card tool-guide-card"> <div class="section-divider"> <div class="icon-circle" aria-hidden="true">GUIDE</div> <h2 id="voltage-drop-calculator-premium-guide">Voltage Drop Calculator — Wire Length &amp; Gauge | Ampstowatt Guide</h2> <div class="line" aria-hidden="true"></div> </div> <section class="electric-visual-section" aria-labelledby="voltage-drop-calculator-wire-visual-heading"> <article class="electric-visual-shell"> <div class="electric-visual-copy"> <p class="premium-kicker">Conductor planning map</p> <h2 id="voltage-drop-calculator-wire-visual-heading">Current, distance, conductor material, and voltage drop</h2> <p>Wire and voltage-drop pages rank better when the content shows the physical run: source, conductor length, voltage loss, and load.</p> <div class="electric-formula-bar" aria-label="Formula used in this visual"> <span>Formula</span> <strong>Voltage drop = 2 x K x I x D / circular mils</strong> </div> </div> <figure class="electric-diagram electric-diagram--wire"> <svg viewBox="0 0 760 390" role="img" aria-labelledby="voltage-drop-calculator-wire-visual-svg-title voltage-drop-calculator-wire-visual-svg-desc"> <title id="voltage-drop-calculator-wire-visual-svg-title">
+          Voltage Drop Calculator — Wire Length &amp; Gauge | Ampstowatt technical circuit diagram
+        </title> <desc id="voltage-drop-calculator-wire-visual-svg-desc">A premium electrical diagram showing the main values and conversion
+          flow for Voltage Drop Calculator — Wire Length &amp; Gauge | Ampstowatt.</desc> <rect class="ev-board" x="18" y="18" width="724" height="354" rx="18"></rect> <path class="ev-grid-line" d="M70 70 H690 M70 125 H690 M70 180 H690 M70 235 H690 M70 290 H690 M115 48 V338 M215 48 V338 M315 48 V338 M415 48 V338 M515 48 V338 M615 48 V338"></path>      <rect class="ev-node ev-node--gold" x="54" y="92" width="124" height="90" rx="14"></rect> <rect class="ev-node ev-node--success" x="586" y="92" width="124" height="90" rx="14"></rect> <path class="ev-conductor ev-conductor--top" d="M178 118 C290 78 428 78 586 118"></path> <path class="ev-conductor" d="M178 158 C290 210 428 210 586 158"></path> <rect class="ev-node ev-node--cyan" x="306" y="226" width="158" height="68" rx="14"></rect> <path class="ev-wire" d="M385 190 V226"></path> <text class="ev-label" x="116" y="130" text-anchor="middle"> Source </text> <text class="ev-muted" x="116" y="157" text-anchor="middle"> Current </text> <text class="ev-title" x="386" y="103" text-anchor="middle"> One-way distance </text> <text class="ev-muted" x="386" y="184" text-anchor="middle"> Copper / aluminum </text> <text class="ev-label" x="648" y="140" text-anchor="middle">
+Load
+</text> <text class="ev-title" x="385" y="268" text-anchor="middle"> % voltage drop </text>      </svg> <figcaption> <strong>Voltage Drop Calculator — Wire Length &amp; Gauge | Ampstowatt</strong> <span>Conductor planning map with real formula values and planning checkpoints.</span> </figcaption> </figure> </article> </section> <div class="tool-guide-grid"> <section class="tool-guide-panel tool-guide-panel--answer"> <p class="premium-kicker">Quick answer</p> <h3>Use this calculator to estimate voltage lost across a wire run before the load.</h3> <p>Voltage drop depends on current, one-way distance, conductor material, wire size, and system voltage. A small voltage loss can matter more in 12V and 24V systems than in 120V or 240V circuits.</p> <div class="tool-guide-formula">Voltage drop = 2 x K x I x D / circular mils</div> </section> <section class="tool-guide-panel"> <h3>Inputs to check before calculating</h3> <ul> <li>Use one-way conductor distance unless the calculator specifically asks for round-trip length.</li><li>Choose copper or aluminum to match the installed conductor.</li><li>Enter the expected load current, not only breaker rating.</li><li>Compare the percentage drop with the tolerance of the equipment.</li> </ul> </section> <section class="tool-guide-panel"> <h3>Example: long wire run planning</h3> <p>Enter current, one-way distance, system voltage, conductor material, and wire size. The calculator estimates voltage lost in the run so you can compare it with a practical voltage-drop limit before choosing cable size.</p> </section> <section class="tool-guide-panel"> <h3>Best use cases</h3> <ul> <li>Copper and aluminum</li><li>Distance-aware</li><li>Percent drop result</li> <li>single-phase AC load planning with clear unit labels.</li> </ul> </section> <section class="tool-guide-panel"> <h3>Common mistake to avoid</h3> <p>Do not ignore distance on low-voltage DC circuits; long runs can lose useful power even when the amp value looks small.</p> </section> <section class="tool-guide-panel"> <h3>How to use the result</h3> <p>Use the result to compare conductor sizes, then verify ampacity, temperature, terminals, and code rules.</p> </section> </div> <div class="tool-guide-safety"> <strong>Accuracy and safety note</strong> <p>
+Calculator output is a planning estimate. Final breaker sizing, wire
+        gauge, derating, voltage-drop limits, equipment protection, and code
+        compliance should be verified with manufacturer documentation and a
+        qualified electrician or engineer.
+</p> <p>
+For the broad formula, reference table, and breaker planning context,
+        start with the <a href="/">main Amps to Watts Calculator</a>.
+</p> </div> </article> </section><div>
+    <section class="seo-technical-visual" aria-label="Voltage Drop Calculator technical formula diagram">
+      <div class="seo-visual-card">
+        <div class="seo-visual-copy">
+          <span class="seo-visual-kicker">Technical Diagram</span>
+          <h2>Voltage Drop Calculator Formula Map</h2>
+          <p><strong>Vdrop = 2 x A x R x L</strong></p>
+          <p>R = conductor resistance, L = one-way length. Use the calculator on this page to change the inputs and verify the result before sizing equipment.</p>
+        </div>
+        
+      </div>
+    </section>
+    
+
+    <section class="content-section voltage-drop-article topical-query-section" aria-label="Voltage Drop Calculator Article">
+      <div class="section-divider">
+        <div class="icon-circle" aria-hidden="true">VD</div>
+        <div class="section-heading">Voltage Drop Calculator Formula Guide</div>
+        </div>
+
+      <article class="card content-card">
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">?</div>
+          <div class="topic-copy">
+            <h2>What Is a Voltage Drop Calculator</h2>
+            <p><strong>A voltage drop calculator finds the voltage lost between a power source and a load.</strong> The calculator uses current, wire length, conductor resistance, material, circuit type, and source voltage to estimate voltage drop in volts and percentage.</p>
+            <p>Voltage drop calculators are used for residential branch circuits, extension cords, underground feeders, overhead lines, low voltage lighting, fire alarm circuits, PoE, PCB traces, automotive wiring, car audio, LED strip wiring, solar panels, medium voltage cables, HT cables, and HV cables.</p>
+            
+          </div>
+        </section>
+
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">CAL</div>
+          <div class="topic-copy">
+            <h2>How Voltage Drop Is Calculated</h2>
+            <p><strong>Voltage drop is calculated by multiplying current by conductor resistance over the circuit length.</strong> DC and single phase circuits use the outgoing and return path, so the formula uses 2 x I x R x L. A balanced 3 phase circuit uses the square root of 3 x I x R x L.</p>
+            <p>The key inputs are amps, volts, ohms per meter or per foot, one-way distance, copper or aluminum material, AWG or mmÂ² wire size, temperature, power factor, parallel conductors, and derating.</p>
+            <div class="topic-mini-card-grid" aria-label="Voltage drop inputs">
+              <span><b>I</b><small>Current</small></span><span><b>R</b><small>Resistance</small></span><span><b>L</b><small>Distance</small></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">FX</div>
+          <div class="topic-copy">
+            <h2>Voltage Drop Formula</h2>
+            <p><strong>The voltage drop formula for DC and single phase is Vdrop = 2 x I x R x L.</strong> The voltage drop formula for 3 phase is Vdrop = 1.732 x I x R x L. Voltage drop percentage is %Vdrop = (Vdrop / Vsource) x 100.</p>
+            <div class="formula-display"><strong>DC / 1 Phase: Vdrop = 2 x I x R x L</strong></div>
+            <div class="formula-display"><strong>3 Phase: Vdrop = 1.732 x I x R x L</strong></div>
+            <p>Use resistance in ohms per unit length and length in the same unit. For NEC circular mils, the common copper formula is VD = (2 x K x I x D) / CM for single phase, where K is conductor resistivity and CM is circular mil area.</p>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">WHY</div>
+          <div class="topic-copy">
+            <h2>Voltage Drop Calculation Explained</h2>
+            <p><strong>Voltage drop calculation shows how much source voltage is lost before power reaches the load.</strong> A 120V circuit with 4V drop delivers about 116V to the load. A 12V DC circuit with 1V drop delivers only 11V, which is a much larger percentage loss.</p>
+            <p>Voltage drop is not the same as amps, but amps cause voltage drop through resistance. Voltage drop is not power, but voltage drop creates power loss as heat. Power loss is Ploss = IÂ² x R.</p>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">EX</div>
+          <div class="topic-copy">
+            <h2>Voltage Drop Calculation Example</h2>
+            <p><strong>A 20A load on a 230V circuit with 30m of 10 AWG copper has about 1.20V voltage drop.</strong> Using R = 0.000999 ohms per meter, Vdrop = 2 x 20 x 0.000999 x 30 = 1.1988V. Percentage drop = 1.1988 / 230 x 100 = 0.52%.</p>
+            <p>End voltage is 230V - 1.20V = 228.8V. This voltage drop calculation example is acceptable for most design targets.</p>
+            <div class="topic-mini-card-grid" aria-label="Voltage drop example values">
+              <span><b>20A</b><small>current</small></span><span><b>30m</b><small>distance</small></span><span><b>0.52%</b><small>drop</small></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">DIST</div>
+          <div class="topic-copy">
+            <h2>How Do You Calculate Voltage Drop Over Distance</h2>
+            <p><strong>To calculate voltage drop over distance, multiply conductor resistance per meter or foot by the one-way distance and current.</strong> Use 2 x distance for DC and single phase circuits to include the outgoing and return conductor path.</p>
+            <p>Distance matters more in 12V, 24V, and 48V low voltage systems. Each lost volt is a larger percentage of the source voltage.</p>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">RUN</div>
+          <div class="topic-copy">
+            <h2>How to Calculate Voltage Drop Over a Distance</h2>
+            <p><strong>Calculate voltage drop over a distance by entering load current, source voltage, wire size, material, and one-way length into the calculator.</strong> Use AWG for North American wire and mmÂ² for IEC or BS7671 cable schedules.</p>
+            <p>A voltage drop calculator over distance helps compare copper wire, aluminum cable, armoured cable, XLPE cables, and parallel runs before installation.</p>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">LEN</div>
+          <div class="topic-copy">
+            <h2>How to Calculate Voltage Drop Without Length</h2>
+            <p><strong>You cannot calculate real voltage drop without length unless total circuit resistance is known.</strong> Use Vdrop = I x Rtotal when the measured loop resistance is available. Use an estimated length only for early planning.</p>
+            <p>For an existing circuit, measure voltage at the source and at the load under operation. The difference is the actual voltage drop.</p>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">%</div>
+          <div class="topic-copy">
+            <h2>What Percent Voltage Drop Is Acceptable</h2>
+            <p><strong>Common acceptable voltage drop targets are 3% for branch circuits and 5% for total feeder plus branch circuits.</strong> Sensitive electronics, LED strips, fire alarm circuits, PoE, and solar DC systems may need tighter limits.</p>
+            <p>Acceptable voltage drop depends on equipment voltage tolerance, local code, project specification, and system type.</p>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">3/5</div>
+          <div class="topic-copy">
+            <h2>Is Voltage Drop 3 Or 5 Percent</h2>
+            <p><strong>Voltage drop is often designed around 3% for a final circuit and 5% for the total run.</strong> The 3% value is a common branch circuit target. The 5% value is a common feeder plus branch circuit total target.</p>
+            <p>Use the lower value when the load is sensitive, the circuit is low voltage, or the project specification is strict.</p>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">IMP</div>
+          <div class="topic-copy">
+            <h2>Is Voltage Drop Important</h2>
+            <p><strong>Yes, voltage drop is important. Low load voltage reduces performance and wastes energy.</strong> Motors can run hotter, LED strips can dim, inverters can alarm, electronics can reset, and long cable runs can waste power as heat.</p>
+            <p>Voltage drop matters most on long cable runs, high current loads, low voltage systems, aluminum cable, and high temperature installations.</p>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">CODE</div>
+          <div class="topic-copy">
+            <h2>Is Voltage Drop a Code Requirement</h2>
+            <p><strong>Voltage drop is often treated as a design recommendation, but some projects and jurisdictions make voltage drop a requirement.</strong> NEC guidance is commonly used in the USA, while IEC, BS7671, CEC, AS/NZS 3000, AS/NZS 3008, PEC, DEWA, and client standards can set required limits.</p>
+            <p>Use local rules for final design. A voltage drop calculation report should list source voltage, load current, cable length, wire size, material, temperature, installation method, standard used, and final percentage.</p>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">A</div>
+          <div class="topic-copy">
+            <h2>Using Voltage Drop to Calculate Current</h2>
+            <p><strong>Voltage drop can calculate current when total resistance is known.</strong> Use I = Vdrop / Rtotal. For a DC loop with known conductor resistance and distance, Rtotal = 2 x R x L.</p>
+            <p>This method is useful for checking a measured voltage drop against expected current, but load behavior can change when voltage falls.</p>
+          </div>
+        </section>
+
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">DC</div>
+          <div class="topic-copy">
+            <h2>Voltage Drop Calculator For DC Circuits</h2>
+            <p><strong>A voltage drop calculator for DC circuits uses Vdrop = 2 x I x R x L.</strong> The 2 accounts for positive and negative conductors. Use this for voltage drop calculator DC, voltage drop calculator 12V, 24V, 48V, 24VDC, 12V DC, electronics, PCB traces, solar DC, automotive wiring, and LED strips.</p>
+            
+          </div>
+        </section>
+
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">AC</div>
+          <div class="topic-copy">
+            <h2>Voltage Drop Calculator For AC Circuits</h2>
+            <p><strong>A voltage drop calculator for AC circuits includes current, conductor impedance, distance, and power factor.</strong> For simple planning, resistance-only calculations work for many short branch circuits. For long AC cable runs, use impedance, reactance, and power factor.</p>
+            <p>Use this for voltage drop calculator AC, single phase, 120V, 230V, 240V, extension cord, branch circuits, underground cable, overhead cable, and lighting circuits.</p>
+          </div>
+        </section>
+
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">3P</div>
+          <div class="topic-copy">
+            <h2>Voltage Drop Calculator For 3 Phase System</h2>
+            <p><strong>A voltage drop calculator for 3 phase systems uses Vdrop = 1.732 x I x R x L for a balanced resistance-only estimate.</strong> Detailed 3 phase voltage drop calculation includes impedance and power factor for motors, pumps, HVAC, switchgear, and industrial feeders.</p>
+            <p>Use line current, line-to-line voltage, conductor length, cable material, and phase arrangement. For 480V systems, compare the drop against the voltage at the motor terminals.</p>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">4W</div>
+          <div class="topic-copy">
+            <h2>Voltage Drop Calculation For 3 Phase 4 Wire</h2>
+            <p><strong>Voltage drop calculation for 3 phase 4 wire systems depends on whether the load is balanced or unbalanced.</strong> Balanced 3 phase loads use the standard 1.732 formula. Unbalanced line-to-neutral loads need each phase and neutral checked.</p>
+            <p>Use this for voltage drop calculation for 3 phase cable, 3 phase 4 wire panels, mixed single phase loads, and distribution boards.</p>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">SOL</div>
+          <div class="topic-copy">
+            <h2>Voltage Drop Calculator For Solar Panels</h2>
+            <p><strong>A voltage drop calculator for solar panels sizes DC cable between panels, combiner boxes, charge controllers, and inverters.</strong> Solar cable voltage drop affects charging efficiency and energy yield.</p>
+            <p>Use voltage drop calculator solar, solar cable, for solar panels, DC solar, and low voltage DC inputs with the correct array voltage and current. Many designers target 1% to 3% drop on PV strings and battery cables.</p>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">CAR</div>
+          <div class="topic-copy">
+            <h2>Voltage Drop Calculator For Automotive Wiring</h2>
+            <p><strong>A voltage drop calculator for automotive wiring checks 12V and 24V circuits where small losses matter.</strong> Use it for car audio amplifiers, winches, lights, fans, refrigerators, and accessory wiring.</p>
+            <p>Automotive and car audio systems need short cable routes, correct fuse size, and larger copper cable when current is high.</p>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">LED</div>
+          <div class="topic-copy">
+            <h2>Voltage Drop Calculator For LED Lights</h2>
+            <p><strong>A voltage drop calculator for LED lights prevents dimming at the far end of LED strip runs.</strong> 12V LED strip voltage drop is more visible than 24V LED strip voltage drop. The 12V system has less voltage margin.</p>
+            <p>Use parallel feeds, shorter sections, thicker wire, or higher voltage LED drivers to reduce visible brightness loss.</p>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">LV</div>
+          <div class="topic-copy">
+            <h2>Voltage Drop Calculator For Low Voltage Lighting</h2>
+            <p><strong>A voltage drop calculator for low voltage lighting is used for landscape lighting, garden lighting, and outdoor transformer circuits.</strong> Long 12V landscape lighting runs need larger cable or multiple taps to keep fixtures bright.</p>
+            <p>Use voltage drop calculator low voltage, low voltage lighting, landscape lighting, and lighting circuit inputs with the real wattage of each load group.</p>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">AWG</div>
+          <div class="topic-copy">
+            <h2>Voltage Drop Calculator For Wire Size</h2>
+            <p><strong>A voltage drop calculator for wire size compares AWG or mmÂ² conductors against current and distance.</strong> Larger wire size lowers resistance, voltage drop, heating, and power loss.</p>
+            <p>Use voltage drop calculator wire size, wire gauge, for wire, for wire size, for 18 gauge wire, wire length, distance, over distance, on wire, voltage drop gauge calculator, and ground wire calculator as planning queries.</p>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">CAB</div>
+          <div class="topic-copy">
+            <h2>Voltage Drop Calculator For Cable Size</h2>
+            <p><strong>A voltage drop calculator for cable size checks cable cross-section in mmÂ² or circular mils against allowable voltage loss.</strong> Cable size selection uses ampacity first, then voltage drop, temperature, grouping, installation method, and short circuit rating.</p>
+            <p>Use this for cable, in cable, for cable, cable size, HT cables, HV cables, medium voltage, low voltage, XLPE cables, and voltage drop calculation of cable.</p>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">SWA</div>
+          <div class="topic-copy">
+            <h2>Voltage Drop Calculator For Armoured Cable</h2>
+            <p><strong>A voltage drop calculator for armoured cable uses the conductor size and material, not the armour size, for voltage drop.</strong> Steel wire armour protects the cable mechanically, but the copper or aluminum cores carry the load current.</p>
+            <p>Check armoured cable voltage drop for underground feeders, outdoor loads, pumps, sub panels, and industrial circuits.</p>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">AL</div>
+          <div class="topic-copy">
+            <h2>Voltage Drop Calculator For Aluminum Wire</h2>
+            <p><strong>A voltage drop calculator for aluminum wire gives higher drop than the same size copper wire. Aluminum has higher resistance.</strong> Aluminum cable often needs a larger size to match copper voltage drop performance.</p>
+            <p>Use aluminum cable data for service feeders, large conductors, overhead runs, and cost-sensitive installations.</p>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">Î©</div>
+          <div class="topic-copy">
+            <h2>Voltage Drop Calculator With Resistance</h2>
+            <p><strong>A voltage drop calculator with resistance uses Vdrop = I x Rtotal.</strong> Resistor voltage drop, voltage drop through resistor, voltage drop over resistor, and Ohm's Law calculations all use the same relationship.</p>
+            <p>For a cable run, Rtotal comes from conductor resistance per length multiplied by circuit length. For parallel circuits, calculate equivalent resistance before using Ohm's Law.</p>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">TEMP</div>
+          <div class="topic-copy">
+            <h2>Voltage Drop Calculator With Temperature</h2>
+            <p><strong>A voltage drop calculator with temperature adjusts conductor resistance. Hot conductors have higher resistance.</strong> Copper and aluminum resistance rises as temperature rises, so voltage drop increases under heat.</p>
+            <p>Use temperature correction for cable trays, conduit fill, rooftop runs, buried cable, high ambient locations, and derating reports.</p>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">PF</div>
+          <div class="topic-copy">
+            <h2>Voltage Drop Calculator With Power Factor</h2>
+            <p><strong>A voltage drop calculator with power factor is used for AC circuits where impedance and phase angle matter.</strong> Motors, transformers, fluorescent lamps, and induction loads can have voltage drop affected by resistance, reactance, and power factor.</p>
+            <p>For detailed AC reports, use the impedance formula with R, X, sine, cosine, and load power factor.</p>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">PAR</div>
+          <div class="topic-copy">
+            <h2>Voltage Drop Calculator With Parallel Runs</h2>
+            <p><strong>A voltage drop calculator with parallel runs divides current across parallel conductors when the conductors are equal length, equal size, and installed correctly.</strong> Parallel conductors lower equivalent resistance and reduce voltage drop.</p>
+            <p>Use this for parallel circuit, parallel conductors, multiple conductors, and multiple loads only when installation rules allow parallel cable sets.</p>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">NEC</div>
+          <div class="topic-copy">
+            <h2>Voltage Drop Calculator NEC</h2>
+            <p><strong>A voltage drop calculator NEC workflow commonly uses 3% branch circuit and 5% total voltage drop design targets.</strong> NEC Informational Notes are widely used for design even when voltage drop is not enforced like ampacity rules.</p>
+            <p>NEC voltage drop calculation can use conductor resistance tables or circular mils. A voltage drop chart NEC and voltage drop calculation formula NEC should list copper or aluminum, distance in feet, current, and circular mil area.</p>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">IEC</div>
+          <div class="topic-copy">
+            <h2>Voltage Drop Calculation According to IEC Standard</h2>
+            <p><strong>Voltage drop calculation as per IEC standard uses cable resistance, reactance, length, current, and power factor for AC circuits.</strong> IEC-style projects usually use mmÂ² cable sizes and voltage drop tables from cable manufacturers.</p>
+            <p>Use IEC methods for Malaysia, India, UAE, Qatar, South Africa, Philippines, Ireland, and projects that specify IEC cable data.</p>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">BS</div>
+          <div class="topic-copy">
+            <h2>Voltage Drop Calculation According to BS 7671</h2>
+            <p><strong>Voltage drop calculation as per BS 7671 uses millivolts per ampere per meter values from cable tables.</strong> The basic method is voltage drop = mV/A/m x current x length / 1000.</p>
+            <p>Use BS7671 for UK and related project specifications. Check final circuits, distribution circuits, ambient temperature, grouping, and installation method.</p>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">UK</div>
+          <div class="topic-copy">
+            <h2>Voltage Drop Calculator UK</h2>
+            <p><strong>A voltage drop calculator UK page should support 230V and 240V circuits, BS7671 tables, mmÂ² cable sizes, and mV/A/m values.</strong> Use it for lighting, ring circuits, radial circuits, EV circuits, sheds, and outbuildings.</p>
+            <p>Voltage drop calculator UK DC and UK 240V searches should use the project cable type and the correct design current.</p>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">USA</div>
+          <div class="topic-copy">
+            <h2>Voltage Drop Calculator USA</h2>
+            <p><strong>A voltage drop calculator USA page should support AWG, copper, aluminum, 120V, 240V, 277V, 480V, NEC guidance, and feet.</strong> Use it for residential, commercial, branch circuits, feeders, extension cords, and outdoor runs.</p>
+            <p>Brands and references users compare include Southwire, Omni, RapidTables, Engineering Toolbox, DigiKey, Schneider, Eaton, Mike Holt, and jCalc.</p>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">CA</div>
+          <div class="topic-copy">
+            <h2>Voltage Drop Calculator Canada</h2>
+            <p><strong>A voltage drop calculator Canada page should support CEC and CEC 2024 planning, copper and aluminum conductors, 120V, 240V, 347V, and 600V systems.</strong> Ontario projects may require local utility or consultant specifications.</p>
+            <p>Use Canadian project rules when voltage drop limits are written into the job documents.</p>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">AU</div>
+          <div class="topic-copy">
+            <h2>Voltage Drop Calculator Australia</h2>
+            <p><strong>A voltage drop calculator Australia page should support AS/NZS 3000 and AS/NZS 3008 cable sizing workflows.</strong> Australian designs use cable size in mmÂ², installation method, current capacity, and voltage drop limits.</p>
+            <p>Use the correct cable table for copper, aluminum, XLPE, thermoplastic insulation, underground, and aerial installations.</p>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">UAE</div>
+          <div class="topic-copy">
+            <h2>Voltage Drop Calculator UAE</h2>
+            <p><strong>A voltage drop calculator UAE page should support DEWA, ADDC, IEC, BS7671-style calculations, and project consultant requirements.</strong> UAE designs often use mmÂ² cable sizes, copper or aluminum conductors, XLPE cables, and voltage drop calculation reports.</p>
+            <p>For voltage drop calculation as per DEWA or voltage drop calculation in UAE, use the exact authority standard and approved cable data.</p>
+          </div>
+        </section>
+
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">TAB</div>
+          <div class="topic-copy">
+            <h2>Voltage Drop Chart 12V, 24V, 120V, 240V</h2>
+            <p><strong>A voltage drop chart compares the same voltage loss as a percentage of different source voltages.</strong> Low voltage systems hit the percentage limit faster than mains circuits.</p>
+            <div class="table-wrap">
+              <table class="reference-table">
+                <th scope="col"ead><tr><th scope="col">Source Voltage</th><th scope="col">3% Drop</th><th scope="col">5% Drop</th><th scope="col">Common Use</th></tr></thead>
+                <tbody>
+                  <tr><td>12V</td><td>0.36V</td><td>0.60V</td><td>Automotive, LED, solar battery</td></tr>
+                  <tr><td>24V</td><td>0.72V</td><td>1.20V</td><td>Controls, LED, DC systems</td></tr>
+                  <tr><td>120V</td><td>3.60V</td><td>6.00V</td><td>USA branch circuits</td></tr>
+                  <tr><td>240V</td><td>7.20V</td><td>12.00V</td><td>UK, EU, appliances, feeders</td></tr>
+                  <tr><td>480V</td><td>14.40V</td><td>24.00V</td><td>3 phase motors and distribution</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">XLS</div>
+          <div class="topic-copy">
+            <h2>Voltage Drop Calculator Excel Sheet</h2>
+            <p><strong>A voltage drop calculator Excel sheet should include current, voltage, phase, distance, conductor size, material, resistance, temperature, power factor, parallel runs, voltage drop, percentage drop, and pass/fail status.</strong> Spreadsheet formats are useful for voltage drop calculation reports, templates, and project review.</p>
+            <p>Users searching voltage drop calculator Excel, spreadsheet, XLS, download, table, chart, and template need a clear calculation trail that can be checked.</p>
+          </div>
+        </section>
+
+        <section class="topic-block">
+          <div class="topic-icon" aria-hidden="true">PDF</div>
+          <div class="topic-copy">
+            <h2>Voltage Drop Calculator PDF</h2>
+            <p><strong>A voltage drop calculator PDF should show the inputs, formula, cable data, result, percentage, standard, and approval notes.</strong> PDF reports are common for contractors, consultants, DEWA submissions, IEC calculations, and site documentation.</p>
+            <p>Include brand or data source notes when using manufacturer tables from Nexans, Doncaster, Schneider, Eaton, Blue Sea, QuinLED, Unbound Solar, Southwire, or DigiKey.</p>
+          </div>
+        </section>
+
+        <section class="topic-block topic-feature">
+          <div class="topic-icon" aria-hidden="true">FAQ</div>
+          <div class="topic-copy">
+            <h2>Voltage Drop Calculator FAQs</h2>
+            <p><strong>Voltage drop calculator FAQs answer the practical sizing questions users ask before choosing wire, cable, or conduit.</strong> Use the direct answers below for DC, AC, 3 phase, standards, motors, electronics, resistors, and solar panels.</p>
+          </div>
+        </section>
+
+        <section class="topic-block topic-sub"><div class="topic-icon" aria-hidden="true">Q1</div><div class="topic-copy"><h3>What is voltage drop in electrical wiring?</h3><p><strong>Voltage drop in electrical wiring is the voltage lost as current flows through conductor resistance.</strong> More current, more distance, smaller wire, and higher resistance increase voltage drop.</p></div></section>
+        <section class="topic-block topic-sub"><div class="topic-icon" aria-hidden="true">Q2</div><div class="topic-copy"><h3>How much voltage drop is allowed?</h3><p><strong>Common design limits allow 3% on a branch circuit and 5% total feeder plus branch circuit drop.</strong> Local NEC, IEC, BS7671, CEC, or project rules decide the final allowed value.</p></div></section>
+        <section class="topic-block topic-sub"><div class="topic-icon" aria-hidden="true">Q3</div><div class="topic-copy"><h3>Is 3% voltage drop acceptable?</h3><p><strong>Yes, 3% voltage drop is acceptable for many final circuits and sensitive loads.</strong> Low voltage LED, solar, and electronics circuits may need lower drop.</p></div></section>
+        <section class="topic-block topic-sub"><div class="topic-icon" aria-hidden="true">Q4</div><div class="topic-copy"><h3>Is 5% voltage drop acceptable?</h3><p><strong>Yes, 5% voltage drop is often acceptable as a total feeder plus branch circuit target.</strong> Check equipment tolerance before using 5% on motors, controls, or electronics.</p></div></section>
+        <section class="topic-block topic-sub"><div class="topic-icon" aria-hidden="true">Q5</div><div class="topic-copy"><h3>How do you calculate voltage drop?</h3><p><strong>Calculate voltage drop by multiplying current by circuit resistance.</strong> Use Vdrop = 2 x I x R x L for DC and single phase, and Vdrop = 1.732 x I x R x L for balanced 3 phase.</p></div></section>
+        <section class="topic-block topic-sub"><div class="topic-icon" aria-hidden="true">Q6</div><div class="topic-copy"><h3>How do you calculate voltage drop over distance?</h3><p><strong>Calculate voltage drop over distance by multiplying resistance per length by the cable run length and current.</strong> Use round-trip length for DC and single phase circuits.</p></div></section>
+        <section class="topic-block topic-sub"><div class="topic-icon" aria-hidden="true">Q7</div><div class="topic-copy"><h3>What causes voltage drop?</h3><p><strong>Voltage drop is caused by conductor resistance and load current.</strong> Long distance, small wire size, high temperature, aluminum conductors, and poor connections increase voltage drop.</p></div></section>
+        <section class="topic-block topic-sub"><div class="topic-icon" aria-hidden="true">Q8</div><div class="topic-copy"><h3>Does wire size affect voltage drop?</h3><p><strong>Yes, wire size affects voltage drop directly.</strong> Larger AWG or mmÂ² cable has lower resistance and lower voltage drop.</p></div></section>
+        <section class="topic-block topic-sub"><div class="topic-icon" aria-hidden="true">Q9</div><div class="topic-copy"><h3>Does temperature affect voltage drop?</h3><p><strong>Yes, temperature affects voltage drop. Conductor resistance rises when copper or aluminum gets hotter.</strong> Hot cable runs need temperature-aware calculations.</p></div></section>
+        <section class="topic-block topic-sub"><div class="topic-icon" aria-hidden="true">Q10</div><div class="topic-copy"><h3>What is the voltage drop formula?</h3><p><strong>The voltage drop formula is Vdrop = 2 x I x R x L for DC and single phase, and Vdrop = 1.732 x I x R x L for 3 phase.</strong> Percentage drop is Vdrop / Vsource x 100.</p></div></section>
+        <section class="topic-block topic-sub"><div class="topic-icon" aria-hidden="true">Q11</div><div class="topic-copy"><h3>How does voltage drop affect motors?</h3><p><strong>Voltage drop can make motors draw more current, lose torque, run hotter, and start poorly.</strong> Motor feeders should be checked at running current and starting conditions.</p></div></section>
+        <section class="topic-block topic-sub"><div class="topic-icon" aria-hidden="true">Q12</div><div class="topic-copy"><h3>What is the best wire size for low voltage?</h3><p><strong>The best wire size for low voltage is the size that keeps drop within the target percentage at the real current and distance.</strong> 12V and 24V circuits usually need larger cable than mains circuits at the same wattage.</p></div></section>
+        <section class="topic-block topic-sub"><div class="topic-icon" aria-hidden="true">Q13</div><div class="topic-copy"><h3>What is acceptable voltage drop for solar panels?</h3><p><strong>Acceptable voltage drop for solar panels is commonly 1% to 3% for efficient PV and battery cable design.</strong> The final target depends on array voltage, controller type, current, and project budget.</p></div></section>
+        <section class="topic-block topic-sub"><div class="topic-icon" aria-hidden="true">Q14</div><div class="topic-copy"><h3>How does NEC define voltage drop?</h3><p><strong>NEC uses voltage drop guidance in informational notes, often referenced as 3% branch circuit and 5% total voltage drop.</strong> NEC ampacity and overcurrent rules still control safety sizing.</p></div></section>
+        <section class="topic-block topic-sub"><div class="topic-icon" aria-hidden="true">Q15</div><div class="topic-copy"><h3>How does IEC calculate voltage drop?</h3><p><strong>IEC voltage drop calculations use current, length, conductor resistance, reactance, power factor, and cable size in mmÂ².</strong> Manufacturer cable tables are commonly used for R and X values.</p></div></section>
+        <section class="topic-block topic-sub"><div class="topic-icon" aria-hidden="true">Q16</div><div class="topic-copy"><h3>What is voltage drop in DC circuits?</h3><p><strong>Voltage drop in DC circuits is the voltage lost across the positive and negative conductors.</strong> Use Vdrop = 2 x I x R x L for a two-wire DC loop.</p></div></section>
+        <section class="topic-block topic-sub"><div class="topic-icon" aria-hidden="true">Q17</div><div class="topic-copy"><h3>What is voltage drop in AC circuits?</h3><p><strong>Voltage drop in AC circuits is voltage lost through conductor impedance while alternating current supplies the load.</strong> Resistance, reactance, power factor, and phase type affect AC drop.</p></div></section>
+        <section class="topic-block topic-sub"><div class="topic-icon" aria-hidden="true">Q18</div><div class="topic-copy"><h3>How does power factor affect voltage drop?</h3><p><strong>Power factor affects voltage drop in AC circuits. Current phase angle changes the resistance and reactance contribution.</strong> Low power factor loads often need more detailed impedance calculations.</p></div></section>
+        <section class="topic-block topic-sub"><div class="topic-icon" aria-hidden="true">Q19</div><div class="topic-copy"><h3>What is voltage drop in a resistor?</h3><p><strong>Voltage drop in a resistor is current multiplied by resistance.</strong> Ohm's Law gives V = I x R, and power loss is P = IÂ² x R.</p></div></section>
+        <section class="topic-block topic-sub"><div class="topic-icon" aria-hidden="true">Q20</div><div class="topic-copy"><h3>Can voltage drop damage electronics?</h3><p><strong>Yes, voltage drop can damage or disrupt electronics when the load voltage falls below the required operating range.</strong> Low voltage can cause resets, dimming, errors, relay chatter, overheating, or failed starts.</p></div></section>
+      </article>
+
+    
+
+    </section>
+
+    </div> <section class="content-section semantic-link-map" aria-label="Wire, Safety &amp; Power Quality Tools"><div class="section-divider"><div class="icon-circle" aria-hidden="true">
+Hub
+</div><h2>Wire, Safety &amp; Power Quality Tools</h2><div class="line" aria-hidden="true"></div></div><div class="semantic-link-map-grid semantic-link-map-grid--single"><section class="semantic-link-cluster semantic-link-cluster--plain"><div class="semantic-hub-callout"><strong>Start with the main conversion tool</strong><p>After calculating watts and amps, use these pages to check conductor sizing, voltage loss, power factor, and high-current equipment planning.<a href="/">Amps to Watts Calculator</a></p></div><nav class="semantic-link-list" aria-label="Wire, Safety &amp; Power Quality Tools"><a href="/wire-gauge-calculator/"><span class="semantic-link-title"><span class="semantic-link-badge">AWG</span><strong>Wire Gauge Calculator</strong></span><span class="semantic-link-desc">Choose conductor size after finding current</span></a><a href="/power-factor/"><span class="semantic-link-title"><span class="semantic-link-badge">PF</span><strong>Power Factor</strong></span><span class="semantic-link-desc">Account for real watts in AC systems</span></a><a href="/motor-amps-to-watts/"><span class="semantic-link-title"><span class="semantic-link-badge">MTR</span><strong>Motor Amps to Watts</strong></span><span class="semantic-link-desc">Motor current and load planning</span></a><a href="/generator-amps-to-watts/"><span class="semantic-link-title"><span class="semantic-link-badge">GEN</span><strong>Generator Amps to Watts</strong></span><span class="semantic-link-desc">Generator circuit and load planning</span></a><a href="/ev-charger-amps-to-watts/"><span class="semantic-link-title"><span class="semantic-link-badge">EV</span><strong>EV Charger Amps to Watts</strong></span><span class="semantic-link-desc">High-current charging circuit context</span></a></nav></section></div></section> </div> </main> <!-- ===== FAQ (Always at the bottom) ===== --> <div class="legacy-shell"> <div class="legacy-content legacy-content--flush"> <section class="premium-faq-section" id="faq" aria-label="Voltage Drop FAQ"> <div class="premium-faq-heading"> <p class="premium-kicker">
+FAQ
+</p> <h2>Voltage Drop FAQ</h2> <p>Fast answers before you use the calculator or compare formulas.</p> </div> <div class="premium-faq-list"> <details open> <summary> <span class="faq-summary-inner"> <span class="faq-badge">%</span> What is acceptable voltage drop? </span> </summary> <p>The NEC recommends a maximum of 3% voltage drop for branch circuits and 5% total (feeder + branch combined) per informational note to NEC 210.19. For sensitive electronics and LED lighting, aim for 2% or less. Low-voltage DC systems (12V, 24V) are especially sensitive — even 0.5V drop is significant.</p> </details><details> <summary> <span class="faq-summary-inner"> <span class="faq-badge">CALC</span> How do I calculate voltage drop for a wire run? </span> </summary> <p>Voltage drop = (2 × K × I × D) ÷ CM, where K is the resistivity constant (10.75 for copper, 17.7 for aluminum), I is current in amps, D is one-way distance in feet, and CM is the circular mil area of the conductor. The calculator automates this for standard AWG sizes.</p> </details><details> <summary> <span class="faq-summary-inner"> <span class="faq-badge">AC</span> Does voltage drop differ for DC and AC circuits? </span> </summary> <p>The basic resistance-based voltage drop formula is the same. However, AC circuits can have additional impedance from inductance in conduit or cable geometry, especially at higher frequencies or in large conductors. For standard residential and commercial wiring, the DC formula is accurate enough for planning.</p> </details><details> <summary> <span class="faq-summary-inner"> <span class="faq-badge">12V</span> Why is voltage drop worse at low voltage? </span> </summary> <p>A 1V drop on a 12V circuit is an 8.3% loss, but on a 120V circuit it is only 0.8%. The same wire, same current, same distance produces the same absolute voltage drop, but the percentage impact is 10× worse at 12V. This is why low-voltage DC installations require significantly larger wire.</p> </details><details> <summary> <span class="faq-summary-inner"> <span class="faq-badge">DIST</span> How does wire length affect voltage drop? </span> </summary> <p>Voltage drop increases linearly with distance. Doubling the wire length doubles the drop. The formula uses one-way distance and multiplies by 2 to account for the return conductor. For DC circuits, this is literal. For AC, the return is through the neutral or other phase.</p> </details><details> <summary> <span class="faq-summary-inner"> <span class="faq-badge">CU</span> Copper vs aluminum — how does material affect voltage drop? </span> </summary> <p>Aluminum has about 1.6× the resistivity of copper, so it drops more voltage for the same gauge. To match copper performance, use aluminum wire two AWG sizes larger (e.g., 2 AWG aluminum instead of 4 AWG copper). Aluminum is cheaper per foot but requires larger conduit and specific connectors rated for aluminum.</p> </details> </div> </section> </div> </div> <!-- ===== FOOTER ===== --> <div class="footer-wrapper"> <footer class="site-footer"> <div class="footer-inner"> <div class="footer-grid"> <div class="footer-brand-panel"> <a class="footer-logo footer-brand" href="/">AmpsTo⚡Watt.com</a> <p class="footer-disclaimer">
+Premium electrical calculators for current, voltage, watts, kW,
+                VA, battery energy, wire sizing, and voltage drop. Educational
+                use only; verify safety-critical work with a licensed
+                professional.
+</p> </div> <div> <p class="footer-title footer-col-title">Main Calculators</p> <nav class="footer-links" aria-label="Main calculators"> <a href="/ac-amps-to-watts-calculator/">AC Amps to Watts</a> <a href="/dc-amps-to-watts-calculator/">DC Amps to Watts</a> <a href="/single-phase-amps-to-watts/">Single Phase</a> <a href="/3-phase-amps-to-watts-calculator/">3 Phase</a> <a href="/watts-to-amps-calculator/">Watts to Amps</a> <a href="/amps-to-kw-calculator/">Amps to kW</a> </nav> </div> <div> <p class="footer-title footer-col-title">Voltage Calculators</p> <nav class="footer-links" aria-label="Voltage calculators"> <a href="/12v-amps-to-watts/">12V Calculator</a> <a href="/24v-amps-to-watts/">24V Calculator</a> <a href="/120v-amps-to-watts/">120V Calculator</a> <a href="/220v-amps-to-watts/">220V Calculator</a> <a href="/240v-amps-to-watts/">240V Calculator</a> <a href="/480v-amps-to-watts-calculator/">480V Calculator</a> </nav> </div> <div> <p class="footer-title footer-col-title">Appliances</p> <nav class="footer-links" aria-label="Appliance calculators"> <a href="/ev-charger-amps-to-watts/">EV Charger</a> <a href="/air-conditioner-amps-to-watts/">Air Conditioner</a> <a href="/solar-watts-to-amps-calculator/">Solar Panel</a> <a href="/generator-amps-to-watts/">Generator</a> <a href="/refrigerator-amps-to-watts/">Refrigerator</a> <a href="/motor-amps-to-watts/">Motor</a> </nav> </div> <div> <p class="footer-title footer-col-title">Electrical Guides</p> <nav class="footer-links" aria-label="Electrical guides"> <a href="/what-are-amps/">What Are Amps?</a> <a href="/what-are-watts/">What Are Watts?</a> <a href="/ohms-law-explained/">Ohm's Law</a> <a href="/power-factor/">Power Factor</a> <a href="/wire-gauge-calculator/">Wire Gauge</a> <a href="/blog/">Blog & Articles</a> </nav> </div> </div> <div class="footer-bottom copyright"> <span>© 2026 AmpsTo⚡Watt.com. All rights reserved.</span> <span> <a href="/about-us/">About</a> · <a href="/privacy-policy/">Privacy</a> · <a href="/terms-conditions/">Terms</a> · <a href="/disclaimer/">Disclaimer</a> · <a href="/contact-us/">Contact</a> · <a href="/site-map/">Sitemap</a> </span> </div> </div> </footer> </div> <!-- Back to top --> <button class="back-to-top" type="button" aria-label="Back to top" title="Back to top">Top</button> <script type="module" src="/_astro/BaseLayout.astro_astro_type_script_index_0_lang.Bpe80LGN.js"></script> </body> </html>
