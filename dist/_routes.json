@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "include": [
+    "/*"
+  ],
+  "exclude": [
+    "/_astro/*",
+    "/crystal-premium.v20260626.css",
+    "/favicon.ico",
+    "/favicon.svg",
+    "/og-image.jpg",
+    "/site.webmanifest"
+  ]
+}

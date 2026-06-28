@@ -5,30 +5,49 @@
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+  CDN-Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+  Cloudflare-CDN-Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
+  CDN-Cache-Control: public, max-age=31536000, immutable
+  Cloudflare-CDN-Cache-Control: public, max-age=31536000, immutable
 
 /crystal-premium.v20260626.css
   Cache-Control: public, max-age=31536000, immutable
+  CDN-Cache-Control: public, max-age=31536000, immutable
+  Cloudflare-CDN-Cache-Control: public, max-age=31536000, immutable
 
 /og-image.jpg
   Cache-Control: public, max-age=604800
+  CDN-Cache-Control: public, max-age=604800
+  Cloudflare-CDN-Cache-Control: public, max-age=604800
 
 /favicon.ico
   Cache-Control: public, max-age=604800
+  CDN-Cache-Control: public, max-age=604800
+  Cloudflare-CDN-Cache-Control: public, max-age=604800
 
 /favicon.svg
   Cache-Control: public, max-age=604800
+  CDN-Cache-Control: public, max-age=604800
+  Cloudflare-CDN-Cache-Control: public, max-age=604800
 
 /sitemap.xml
   Content-Type: application/xml; charset=utf-8
   Cache-Control: public, max-age=3600
+  CDN-Cache-Control: public, max-age=3600
+  Cloudflare-CDN-Cache-Control: public, max-age=3600
 
 /sitemap-0.xml
   Content-Type: application/xml; charset=utf-8
   Cache-Control: public, max-age=3600
+  CDN-Cache-Control: public, max-age=3600
+  Cloudflare-CDN-Cache-Control: public, max-age=3600
 
 /robots.txt
   Content-Type: text/plain; charset=utf-8
   Cache-Control: public, max-age=3600
+  CDN-Cache-Control: public, max-age=3600
+  Cloudflare-CDN-Cache-Control: public, max-age=3600
