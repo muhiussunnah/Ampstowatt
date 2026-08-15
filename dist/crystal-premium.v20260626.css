@@ -387,3 +387,323 @@ h1 {
     font-size: 1.12rem !important;
   }
 }
+
+/* Whole-site responsive hardening for generated pages. */
+html,
+body {
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+}
+
+body.lux-site * {
+  min-width: 0;
+}
+
+.soft-calc__sr-header {
+  position: absolute !important;
+  inset: 0 auto auto 0 !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+}
+
+.soft-calc__sr-header .calc-badge {
+  display: none !important;
+}
+
+.legacy-content,
+.premium-unified-hero,
+.lux-page-top,
+.premium-hero-copy,
+.premium-content-showcase,
+.content-card,
+.article-card,
+.home-section-card,
+.premium-faq-section,
+.footer-inner {
+  max-width: 100% !important;
+}
+
+.legacy-content p,
+.legacy-content li,
+.legacy-content dd,
+.legacy-content blockquote,
+.footer-links a,
+.footer-disclaimer,
+.breadcrumb-current {
+  overflow-wrap: anywhere;
+}
+
+.table-wrap,
+.home-table-wrap {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-inline: contain;
+}
+
+.table-wrap table,
+.home-table-wrap table,
+.premium-table {
+  width: 100%;
+  min-width: 560px;
+}
+
+.site-header {
+  width: 100% !important;
+}
+
+.header-inner {
+  width: min(var(--container), calc(100vw - 32px));
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.site-logo {
+  min-width: 0;
+  max-width: calc(100vw - 96px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mobile-menu-button {
+  flex: 0 0 auto;
+}
+
+.mobile-nav {
+  max-width: calc(100vw - 24px) !important;
+  max-height: calc(100dvh - 84px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.soft-calc__input,
+.soft-calc .calc-input {
+  padding-right: 4.35rem !important;
+}
+
+.soft-calc__trust,
+.soft-calc__cost-pill,
+.soft-calc__formula-value,
+.formula-display,
+.formula-chip,
+.premium-formula-pill,
+.lux-formula-pill,
+.home-math {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 1080px) {
+  .premium-unified-hero,
+  .premium-content-showcase {
+    grid-template-columns: 1fr !important;
+  }
+
+  .content-showcase-visual {
+    border-left: 0 !important;
+    border-top: 1px solid rgba(37, 99, 235, 0.12);
+  }
+
+  .premium-feature-strip {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 760px) {
+  :root {
+    --content: min(1180px, calc(100vw - 24px));
+  }
+
+  .legacy-content {
+    padding-top: 1rem !important;
+  }
+
+  .breadcrumb-bar nav {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .premium-feature-strip,
+  .premium-directory-grid,
+  .premium-trust-section,
+  .explainer-grid,
+  .topic-mini-card-grid,
+  .semantic-link-map-grid,
+  .authority-grid,
+  .home-examples-grid,
+  .home-hub-grid,
+  .footer-grid,
+  .lx-grid,
+  .premium-results-grid,
+  .preset-panel,
+  .showcase-check-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .premium-hero-copy,
+  .lux-title-strip,
+  .home-hero__title-strip {
+    text-align: center !important;
+  }
+
+  .home-hero h1,
+  .lux-title-strip h1,
+  h1 {
+    max-width: 100% !important;
+    font-size: clamp(2rem, 9vw, 3rem) !important;
+    line-height: 1.08 !important;
+  }
+
+  .home-hero__subtitle,
+  .lux-page-lead,
+  .premium-hero-copy > p:last-child,
+  .home-hero__lead {
+    font-size: 1rem !important;
+    line-height: 1.55 !important;
+  }
+
+  .soft-calc__shell {
+    border-radius: 14px !important;
+  }
+
+  .soft-calc__projection-row,
+  .result-panel-rule,
+  .showcase-system-rail,
+  .home-cta-band,
+  .home-safety-note {
+    grid-template-columns: 1fr !important;
+  }
+
+  .soft-calc__projection-row,
+  .home-cta-band,
+  .home-safety-note {
+    align-items: flex-start !important;
+  }
+
+  .soft-calc__projection-cost,
+  .showcase-system-rail strong {
+    text-align: left !important;
+    white-space: normal !important;
+  }
+
+  .lux-flow {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  .lux-flow i {
+    display: none !important;
+  }
+
+  .footer-bottom {
+    display: grid !important;
+    gap: 0.75rem;
+    text-align: left;
+  }
+}
+
+@media (max-width: 560px) {
+  .header-inner {
+    width: calc(100vw - 24px);
+  }
+
+  .site-logo {
+    font-size: clamp(1.2rem, 6vw, 1.55rem) !important;
+  }
+
+  .site-logo__dot {
+    font-size: 0.78em;
+  }
+
+  .mobile-nav {
+    inset-inline: 12px !important;
+  }
+
+  .mobile-nav a,
+  .mobile-nav strong,
+  .footer-links a,
+  .soft-calc__btn,
+  .calc-btn,
+  .lx-btn,
+  .preset-btn {
+    min-height: 44px;
+  }
+
+  .premium-formula-pill,
+  .lux-formula-pill,
+  .formula-chip,
+  .formula-display {
+    width: fit-content;
+    justify-content: center;
+    white-space: normal;
+  }
+
+  .soft-calc__trust {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .soft-calc__mode-bar {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    width: 100% !important;
+  }
+
+  .soft-calc__mode-pill {
+    padding-inline: 8px !important;
+  }
+
+  .soft-calc__input,
+  .soft-calc .calc-input {
+    padding-right: 4rem !important;
+  }
+
+  .soft-calc__actions .calc-actions,
+  .lx-actions {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  .premium-faq-list summary,
+  .faq-summary-inner {
+    align-items: flex-start !important;
+    white-space: normal !important;
+  }
+
+  .table-wrap table,
+  .home-table-wrap table,
+  .premium-table {
+    min-width: 520px;
+  }
+}
+
+@media (max-width: 360px) {
+  :root {
+    --content: min(1180px, calc(100vw - 20px));
+  }
+
+  .site-logo__dot {
+    display: none;
+  }
+
+  .soft-calc {
+    padding: 0.85rem !important;
+  }
+}
