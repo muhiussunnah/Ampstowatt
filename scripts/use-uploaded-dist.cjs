@@ -24,7 +24,7 @@ if (missing.length > 0) {
 }
 
 fs.writeFileSync(path.join(dist, '.nojekyll'), '');
-fs.writeFileSync(path.join(dist, 'CNAME'), 'www.ampstowatt.com');
+fs.writeFileSync(path.join(dist, 'CNAME'), 'ampstowatt.com');
 
 console.log('Using uploaded dist folder as the production website.');
 console.log('Astro source was not rebuilt, so uploaded files remain unchanged.');

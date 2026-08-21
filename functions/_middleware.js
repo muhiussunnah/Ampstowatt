@@ -1,9 +1,9 @@
 export async function onRequest(context) {
   const url = new URL(context.request.url);
 
-  // Redirect main pages.dev subdomain to www.ampstowatt.com
-  if (url.hostname === 'ampstowatt.pages.dev') {
-    url.hostname = 'www.ampstowatt.com';
+  // Redirect the Pages production subdomain to the canonical apex domain
+  if (url.hostname === 'ampstowatt-site.pages.dev') {
+    url.hostname = 'ampstowatt.com';
     return Response.redirect(url.toString(), 301);
   }
 
