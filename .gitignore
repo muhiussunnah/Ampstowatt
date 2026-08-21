@@ -1,6 +1,7 @@
 node_modules
 .astro
 .env
+.wrangler
 dist/*.rar
 astro-dev.log
 astro-dev.err.log

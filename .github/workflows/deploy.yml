@@ -1,0 +1,37 @@
+name: Deploy to Cloudflare Pages
+
+# Auto-deploys the prebuilt dist/ to the Cloudflare Pages project "ampstowatt-site"
+# on every push to main. This is additive: it does not touch any other Cloudflare
+# account or Vercel integration connected to this repo — they keep deploying too.
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    name: Deploy to Cloudflare Pages (ampstowatt-site)
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Validate uploaded dist
+        run: npm run build
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: 42dc3f0dcb22977c0869988a38974b21
+          command: pages deploy dist --project-name=ampstowatt-site --branch=main
