@@ -1,16 +1,14 @@
 /**
- * adify-ads.cjs — static-site port of the "Adify" ad system.
+ * adify-ads.cjs — sitewide Adsterra ad injection (INLINE).
  *
- * Each Adsterra unit is served from its own tiny HTML file under /ads/ and
- * embedded through an isolated, sandboxed, lazy <iframe>. Because every ad
- * lives in its own document:
- *   - the global `atOptions` of multiple Adsterra tags never clash,
- *   - the sandbox (no allow-top-navigation) means an ad can never redirect
- *     the site, while a real click still opens the advertiser in a new tab,
- *   - lazy-loading keeps page speed / Core Web Vitals healthy,
- *   - the fixed width/height box avoids layout shift.
+ * NOTE: Adsterra's ad servers refuse to fill inside a nested <iframe>
+ * (anti-fraud: they check window.top). An earlier isolated-iframe version
+ * therefore rendered only empty boxes. The units are placed INLINE instead,
+ * as plain (non-async) script pairs in document order — each invoke.js reads
+ * its own `atOptions` before the next one is set, so there is no clash and
+ * every unit fills.
  *
- * Placements (single-column site, matches the Adify "optimal" seed):
+ * Placements (single-column site):
  *   728x90  header leaderboard   — desktop only, after </header>
  *   300x250 in-content rectangle — all devices, before the first content block
  *   468x60  end-of-content       — desktop only, before </main>
@@ -31,33 +29,12 @@ const UNITS = {
   mobile:      { key: 'bbd43505fc1f1f3bb11ff80c2af2c863', w: 320, h: 50 },
 };
 
-// ── 1. Write one isolated ad document per unit under dist/ads/ ──────────────
-function adDoc(u) {
-  return `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><style>html,body{margin:0;padding:0;background:transparent;overflow:hidden}body{display:flex;align-items:center;justify-content:center;width:100%;height:100%}</style></head><body>
-<script type="text/javascript">
-	atOptions = {
-		'key' : '${u.key}',
-		'format' : 'iframe',
-		'height' : ${u.h},
-		'width' : ${u.w},
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="${AD_HOST}/${u.key}/invoke.js"></script>
-</body></html>`;
-}
-
-function writeAdFiles() {
-  const adsDir = path.join(distDir, 'ads');
-  fs.mkdirSync(adsDir, { recursive: true });
-  for (const u of Object.values(UNITS)) {
-    fs.writeFileSync(path.join(adsDir, `${u.w}x${u.h}.html`), adDoc(u));
-  }
-}
-
-// ── 2. Building blocks for the page injections ─────────────────────────────
-function frame(u, lazy) {
-  return `<iframe title="Advertisement" src="/ads/${u.w}x${u.h}" width="${u.w}" height="${u.h}" scrolling="no" loading="${lazy ? 'lazy' : 'eager'}" referrerpolicy="no-referrer-when-downgrade" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" style="border:0;display:block;max-width:100%;overflow:hidden"></iframe>`;
+// Inline Adsterra snippet (verbatim), wrapped in a size-reserved box (no CLS).
+function slot(u) {
+  return `<div class="adify-ad" style="width:${u.w}px;height:${u.h}px;max-width:100%;margin:0 auto;overflow:hidden">` +
+    `<script type="text/javascript">atOptions = {'key' : '${u.key}','format' : 'iframe','height' : ${u.h},'width' : ${u.w},'params' : {}};</script>` +
+    `<script type="text/javascript" src="${AD_HOST}/${u.key}/invoke.js"></script>` +
+    `</div>`;
 }
 const LABEL = '<div class="adify-label">Advertisement</div>';
 
@@ -65,13 +42,11 @@ const CSS = `<style id="adify-css">.adify-zone{display:flex;flex-direction:colum
 
 const STICKY_JS = `<script id="adify-js">(function(){function h(){var s=document.querySelector('.adify-sticky');if(s)s.style.display='none';}try{if(sessionStorage.getItem('adify:sticky:dismissed')==='1')h();}catch(e){}var b=document.querySelector('.adify-sticky-close');if(b)b.addEventListener('click',function(){h();try{sessionStorage.setItem('adify:sticky:dismissed','1');}catch(e){}});})();</script>`;
 
-const zoneTop = `<div class="adify-zone adify-desktop-only">${LABEL}${frame(UNITS.leaderboard, true)}</div>`;
-const zoneMid = `<div class="adify-zone">${LABEL}${frame(UNITS.rectangle, true)}</div>`;
-const zoneEnd = `<div class="adify-zone adify-desktop-only"><div class="adify-cluster"><div>${LABEL}${frame(UNITS.banner, true)}</div><div>${LABEL}${frame(UNITS.halfpage, true)}</div></div></div>`;
-const zoneSticky = `<div class="adify-sticky"><div class="adify-sticky-inner"><button class="adify-sticky-close" aria-label="Close ad" type="button">&times;</button>${frame(UNITS.mobile, false)}</div></div>`;
+const zoneTop = `<div class="adify-zone adify-desktop-only">${LABEL}${slot(UNITS.leaderboard)}</div>`;
+const zoneMid = `<div class="adify-zone">${LABEL}${slot(UNITS.rectangle)}</div>`;
+const zoneEnd = `<div class="adify-zone adify-desktop-only"><div class="adify-cluster"><div>${LABEL}${slot(UNITS.banner)}</div><div>${LABEL}${slot(UNITS.halfpage)}</div></div></div>`;
+const zoneSticky = `<div class="adify-sticky"><div class="adify-sticky-inner"><button class="adify-sticky-close" aria-label="Close ad" type="button">&times;</button>${slot(UNITS.mobile)}</div></div>`;
 
-// In-content anchor: inject the rectangle right before the first real content
-// block (i.e. after the hero / calculator), whichever appears first.
 const MID_ANCHORS = [
   '<section class="home-section',
   '<section class="premium-content-showcase',
@@ -89,7 +64,29 @@ function firstAnchorIndex(html) {
   return best;
 }
 
-// ── 3. Inject into every real content page ─────────────────────────────────
+// Remove any previous adify injection (iframe OR inline) so this is re-runnable.
+function stripAdify(html) {
+  html = html.replace(/<style id="adify-css">[\s\S]*?<\/style>/g, '');
+  html = html.replace(/<script id="adify-js">[\s\S]*?<\/script>/g, '');
+  const startRe = /<div class="adify-(?:zone|sticky)[^"]*"[^>]*>/;
+  let guard = 0;
+  while (guard++ < 50) {
+    const m = startRe.exec(html);
+    if (!m) break;
+    const start = m.index;
+    const scan = /<div\b|<\/div>/g;
+    scan.lastIndex = start;
+    let depth = 0, end = -1, mm;
+    while ((mm = scan.exec(html)) !== null) {
+      if (mm[0] === '</div>') { depth--; if (depth === 0) { end = mm.index + 6; break; } }
+      else depth++;
+    }
+    if (end === -1) break;
+    html = html.slice(0, start) + html.slice(end);
+  }
+  return html;
+}
+
 function walk(dir) {
   const out = [];
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -100,33 +97,28 @@ function walk(dir) {
   return out;
 }
 
-writeAdFiles();
+// Clean up leftovers from the old iframe approach.
+fs.rmSync(path.join(distDir, 'ads'), { recursive: true, force: true });
+fs.rmSync(path.join(distDir, 'adtest.html'), { force: true });
 
-let injected = 0, skipped = 0, notContent = 0;
+let injected = 0, notContent = 0;
 for (const file of walk(distDir)) {
   let html = fs.readFileSync(file, 'utf8');
-  if (html.includes('id="adify-css"')) { skipped++; continue; }
-  if (!html.includes('</header>') || !html.includes('</main>')) { notContent++; continue; }
+  const hadHeader = html.includes('</header>') && html.includes('</main>');
+  html = stripAdify(html);
+  if (!hadHeader) { fs.writeFileSync(file, html); notContent++; continue; }
 
-  // head CSS
   html = html.replace('</head>', () => CSS + '</head>');
-  // top leaderboard after header
   html = html.replace('</header>', () => '</header>' + zoneTop);
-  // in-content rectangle before first content block (fallback: with end zone)
   const idx = firstAnchorIndex(html);
   let endBlock = zoneEnd;
-  if (idx !== -1) {
-    html = html.slice(0, idx) + zoneMid + html.slice(idx);
-  } else {
-    endBlock = zoneMid + zoneEnd;
-  }
-  // end-of-content cluster before </main>
+  if (idx !== -1) html = html.slice(0, idx) + zoneMid + html.slice(idx);
+  else endBlock = zoneMid + zoneEnd;
   html = html.replace('</main>', () => endBlock + '</main>');
-  // mobile sticky + dismiss script before </body>
   html = html.replace('</body>', () => zoneSticky + STICKY_JS + '</body>');
 
   fs.writeFileSync(file, html);
   injected++;
 }
 
-console.log(`Adify: injected ${injected} pages, skipped(already) ${skipped}, non-content ${notContent}`);
+console.log(`Adify inline: injected ${injected} pages, cleaned ${notContent} others`);
