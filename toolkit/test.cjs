@@ -2,6 +2,8 @@
 // Validates every tool: calculator math (via test cases), spec integrity, and word count.
 const { renderPage, wc, strip, contentWords } = require('./lib/render.cjs');
 const tools = require('./tools/index.cjs');
+const seo = require('./seo.cjs');
+for (const spec of tools) { const o = seo[spec.slug]; if (o) { if (o.title) spec.title = o.title; if (o.metaDesc) spec.metaDesc = o.metaDesc; } }
 
 let failures = 0;
 let passes = 0;
@@ -36,6 +38,10 @@ for (const spec of tools) {
       }
     }
   }
+
+  // 3b. SERP tag limits: title <= 60 chars, meta description 140-160 chars
+  if (spec.title.length > 60) { console.error(`✗ ${label}: title ${spec.title.length} chars (>60): ${spec.title}`); failures++; } else { passes++; }
+  if (spec.metaDesc.length < 140 || spec.metaDesc.length > 160) { console.error(`✗ ${label}: meta desc ${spec.metaDesc.length} chars (want 140-160)`); failures++; } else { passes++; }
 
   // 4. word count >= 2000 (rendered on-page content incl. tables)
   const words = contentWords(spec);

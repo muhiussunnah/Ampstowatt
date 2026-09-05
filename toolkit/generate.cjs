@@ -4,6 +4,13 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { renderPage, contentWords } = require('./lib/render.cjs');
 const tools = require('./tools/index.cjs');
+const seo = require('./seo.cjs');
+
+// Apply CTR-optimized title/meta-description overrides (keeps SERP tags consistent).
+for (const spec of tools) {
+  const o = seo[spec.slug];
+  if (o) { if (o.title) spec.title = o.title; if (o.metaDesc) spec.metaDesc = o.metaDesc; }
+}
 
 const root = path.resolve(__dirname, '..');
 const dist = path.join(root, 'dist');
